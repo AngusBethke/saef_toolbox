@@ -1,6 +1,6 @@
 class CfgPatches
 {
-	class SAEF_TOOLBOX_ADMIN
+	class SAEF_TOOLBOX_ACEMEDICAL
 	{
 		version=2;
 		units[]={};
@@ -16,19 +16,22 @@ class CfgPatches
 
 class CfgFunctions
 {
-	class PreventFullHeal
+	class RS
 	{
-		file = "saef_acemedical\Functions";
-		class PFH_ApplyDamage {};
-		class PFH_Init 
+		class PreventFullHeal
 		{
-			postInit = 1;
-		};
-		class PFH_Prevent {};
-		class PFH_ServerDamageDistribution {};
-		class PFH_ServerInit 
-		{
-			postInit = 1;
+			file = "saef_acemedical\Functions";
+			class PFH_ApplyDamage {};
+			class PFH_Init 
+			{
+				postInit = 1;
+			};
+			class PFH_Prevent {};
+			class PFH_ServerDamageDistribution {};
+			class PFH_ServerInit 
+			{
+				postInit = 1;
+			};
 		};
 	};
 };
