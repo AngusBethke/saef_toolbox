@@ -70,7 +70,7 @@ if (_spawnPos isEqualTo []) then
 	// Derive the SpawnPos
 	{
 		_pos = [_x select 0, _x select 1, _x select 2];
-		if (([_pos, 1000] call RS_fnc_GetClosestPlayer) isEqualTo [0,0,0]) exitWith
+		if (([_pos, 1000] call RS_PLYR_fnc_GetClosestPlayer) isEqualTo [0,0,0]) exitWith
 		{
 			_spawnPos = _pos;
 			_azi = _x select 3;

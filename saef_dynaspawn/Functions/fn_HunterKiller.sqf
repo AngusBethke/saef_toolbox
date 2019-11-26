@@ -157,7 +157,7 @@ if (_limitReached) then
 	waitUntil {
 		sleep 10;
 		_count = _count + 1;
-		(([0,0,0] isEqualTo ([getPos (leader _groupHunt), 1000] call RS_fnc_GetClosestPlayer)) OR (_count == 10))
+		(([0,0,0] isEqualTo ([getPos (leader _groupHunt), 1000] call RS_PLYR_fnc_GetClosestPlayer)) OR (_count == 10))
 	};
 	
 	// Delete the group
