@@ -30,7 +30,6 @@ class CfgFunctions
 			class MessageFetcher {};
 			class MessageHandler {};
 			class ParameterErrorMessage {};
-			class Readme {};
 		};
 	};
 };
