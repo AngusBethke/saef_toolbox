@@ -12,7 +12,8 @@ _compatGasMasks =
 	["G_AirPurifyingRespirator_02_black_F", "RscCBRN_APR_02"],
 	["G_AirPurifyingRespirator_02_olive_F", "RscCBRN_APR_02"],
 	["G_AirPurifyingRespirator_02_sand_F", "RscCBRN_APR_02"],
-	["G_AirPurifyingRespirator_01_F", "RscCBRN_APR"]
+	["G_AirPurifyingRespirator_01_F", "RscCBRN_APR"],
+	["G_AirPurifyingRespirator_01_nofilter_F", "RscCBRN_APR"]
 ];
 
 // SP Debug
