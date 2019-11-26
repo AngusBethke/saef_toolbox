@@ -21,6 +21,8 @@ class CfgFunctions
 		class Radiation
 		{
 			file = "saef_radiation\Functions";
+			class ChemicalDetector {};
+			class ChemicalDetectorHandler {};
 			class DeferredInit {};
 			class GasMaskEventHandler 
 			{

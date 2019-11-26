@@ -1,7 +1,7 @@
 /*
 	fn_GasMaskHandler.sqf
 	Description: Handles hiding and showing of the gasmask
-	[_unit] spawn RS_Rift_fnc_GasMaskHandler;
+	[_unit] spawn RS_Radiation_fnc_GasMaskHandler;
 */
 
 private
