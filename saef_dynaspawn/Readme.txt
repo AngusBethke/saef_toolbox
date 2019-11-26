@@ -33,15 +33,32 @@ This Function grabs variables from the declaration
 		
 What Each Variable Does:
 ------------------------
-Variable 1		-- Pass a position, can be an Array or a marker										|	Format: [x, y, z] or "mark1" - Array or Marker Name
-Variable 2		-- Type string should be here														|	Format: "PAT", "DEF", "CA", "HK", "NON" or "GAR" - String
-Variable 3		-- Units should be here																|	Format: "Vehicle Classname" or ["Unit_Classname_1", "Unit_Classname_2"] - Classname or Array of Classnames
-Variable 4		-- Side of the Units you are spawning.												|	Format: WEST, EAST, or INDEPENDENT - Side
-Variable 5		-- Define the Area in Which the AI Patrol, Defend, Hunt for Players, or Garrison	|	Format: 50 (Max 4000) - Integer
-Variable 6		-- Define the Second Position that is used if 'Type' is set to "CA", or "GAR"		|	Format: [x, y, z] or "mark2" - Array or Marker Name
-Variable 7		-- Boolean Value, Removes Weapon Attachments from spawned unit's weapons.			|	Format: true, false - Boolean
-Variable 8		-- Parachute Insertion array [vehicle, spawn position, direction]					|	Format: ["vehicle", [0,0,0], 0] - Array (Optional and you may supply an empty array)
-Variable 9		-- Group may be created outside of dyna spawn and passed in							|	Format: Group object (an A3 group).
+Variable 1		-- Pass a position, can be an Array or a marker										
+	Format: [x, y, z] or "mark1" - Array or Marker Name
+	
+Variable 2		-- Type string should be here														
+	Format: "PAT", "DEF", "CA", "HK", "NON" or "GAR" - String
+	
+Variable 3		-- Units should be here																
+	Format: "Vehicle Classname" or ["Unit_Classname_1", "Unit_Classname_2"] - Classname or Array of Classnames
+	
+Variable 4		-- Side of the Units you are spawning.												
+	Format: WEST, EAST, or INDEPENDENT - Side
+	
+Variable 5		-- Define the Area in Which the AI Patrol, Defend, Hunt for Players, or Garrison	
+	Format: 50 (Max 4000) - Integer
+	
+Variable 6		-- Define the Second Position that is used if 'Type' is set to "CA", or "GAR"		
+	Format: [x, y, z] or "mark2" - Array or Marker Name
+	
+Variable 7		-- Boolean Value, Removes Weapon Attachments from spawned unit's weapons.			
+	Format: true, false - Boolean
+	
+Variable 8		-- Parachute Insertion array [vehicle, spawn position, direction]					
+	Format: ["vehicle", [0,0,0], 0] - Array (Optional and you may supply an empty array)
+	
+Variable 9		-- Group may be created outside of dyna spawn and passed in							
+	Format: Group object (an A3 group).
 
 Additional Variable Information:
 --------------------------------
