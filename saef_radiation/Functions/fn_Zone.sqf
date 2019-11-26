@@ -31,6 +31,5 @@ if (!(_radMarkerList isEqualTo [])) then
 	[_radMarkerList, _size, _unit, "RS_RadiationZone_Run_RadiationHandler"] spawn RS_Radiation_fnc_Handler;
 	
 	// The Chemical Detector
-	[] call RS_Radiation_fnc_ChemicalDetector;
-	[_radMarkerList, _size, _unit, "RS_RadiationZone_Run_RadiationHandler"] spawn RS_Radiation_fnc_ChemicalDetectorHandler;
+	[_radMarkerList, _size, _unit, "RS_RadiationZone_Run_RadiationHandler"] spawn RS_Radiation_fnc_ChemicalDetector;
 };
