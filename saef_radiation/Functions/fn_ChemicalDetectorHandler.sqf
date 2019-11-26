@@ -23,7 +23,13 @@ while { (_unit getVariable [_variable, false]) && (alive _unit) } do
 	// Get our closest marker
 	_marker = "";
 	{
-		if ((_unit distance (markerPos _x)) < (_unit distance (markerPos _marker))) then
+		_distance = 99999;
+		if (_marker != "") then
+		{
+			_distance = (_unit distance (markerPos _marker));
+		};
+
+		if ((_unit distance (markerPos _x)) < _distance) then
 		{
 			_marker = _x;
 		};
