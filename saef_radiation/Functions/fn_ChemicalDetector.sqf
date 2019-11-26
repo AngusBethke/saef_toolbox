@@ -38,7 +38,7 @@ while { (_unit getVariable [_variable, false]) && (alive _unit) } do
 	// Set the position for radiation checks
 	_pos = markerPos _marker;
 	
-	if (("Item_ChemicalDetector_01_watch_F" in (assignedItems _unit)) && visibleWatch) then
+	if (("ChemicalDetector_01_watch_F" in (assignedItems _unit)) && visibleWatch) then
 	{
 		// Display screen overlay
 		("RS_ChemicalDetector" call BIS_fnc_rscLayer) cutRsc ["RscWeaponChemicalDetector", "PLAIN", 1, false];
