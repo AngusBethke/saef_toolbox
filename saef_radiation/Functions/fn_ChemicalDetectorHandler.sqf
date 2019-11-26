@@ -19,7 +19,7 @@ _unit = _this select 2;
 _variable = _this select 3;
 
 while { (_unit getVariable [_variable, false]) && (alive _unit) } do
-	
+{
 	// Get our closest marker
 	_marker = "";
 	{
