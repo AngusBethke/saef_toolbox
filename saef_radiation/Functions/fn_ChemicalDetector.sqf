@@ -38,7 +38,7 @@ while { (_unit getVariable [_variable, false]) && (alive _unit) } do
 	// Set the position for radiation checks
 	_pos = markerPos _marker;
 	
-	if (("Item_ChemicalDetector_01_watch_F" in (assignedItems _unit)) && visibleWatch) then
+	if (("ChemicalDetector_01_watch_F" in (assignedItems _unit)) && visibleWatch) then
 	{
 		// Display screen overlay
 		("RS_ChemicalDetector" call BIS_fnc_rscLayer) cutRsc ["RscWeaponChemicalDetector", "PLAIN", 1, false];
@@ -49,14 +49,21 @@ while { (_unit getVariable [_variable, false]) && (alive _unit) } do
 		
 		if ((_unit distance _pos) <= _size) then
 		{
-			// Adjust the threat level on the detector
-			_dFactor = 1;
-			if ((_unit distance _pos) != 0) then
+			while {((_unit distance _pos) <= _size)} do
 			{
-				_dFactor = (1 - (_unit distance _pos) / _size);
+				// Adjust the threat level on the detector
+				_dFactor = 1;
+				if ((_unit distance _pos) != 0) then
+				{
+					_dFactor = (1 - (_unit distance _pos) / _size);
+				};
+				
+				_obj ctrlAnimateModel ["Threat_Level_Source", _dFactor, true];
+				
+				sleep 1;
 			};
 			
-			_obj ctrlAnimateModel ["Threat_Level_Source", _dFactor, true];
+			_obj ctrlAnimateModel ["Threat_Level_Source", 0, true];
 		}
 		else
 		{
