@@ -4,6 +4,8 @@
 	Author: Angus Bethke (a.k.a. Rabid Squirrel)
 */
 
+if (!isServer) exitWith {};
+
 // Set up the Variables
 missionNamespace setVariable ["ST_TrackUIDs", [], true];
 missionNamespace setVariable ["ST_TotalPlayerCount", 0, true];

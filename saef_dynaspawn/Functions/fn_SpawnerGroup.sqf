@@ -51,15 +51,12 @@ if (_unitType == "INF") then
 	};
 
 	/* Spawn the Group */
-	_group = [_spawnPos, _facSide, _faction,[],[],[],[],[],0] call BIS_fnc_spawnGroup;
+	//_group = [_spawnPos, _facSide, _faction,[],[],[],[],[],0] call BIS_fnc_spawnGroup;
 	
-	/* 
-	// Note: spawning them individually seems to cause performance issues (holds up processing)
 	{
 		_group createUnit [_x, _spawnPos, [], 0, "NONE"];
 		sleep 0.1;
 	} forEach _faction;
-	*/
 
 	/* Will remove all weapon attachments from the spawned group */
 	if (_remWeapAttach) then

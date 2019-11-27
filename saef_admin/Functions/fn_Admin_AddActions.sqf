@@ -6,15 +6,10 @@
 // Admin Utilities Parent
 _action = ["AdminUtils","Admin Utilities","saef_admin\Images\rs_logo.paa", {} ,
 	{
-		_adminUtilEnabled = (missionNamespace getVariable "AdminUtil_Enabled");
-		
-		if (isNil "_adminUtilEnabled") then
-		{
-			_adminUtilEnabled = false;
-		};
+		_adminUtilEnabled = (missionNamespace getVariable ["AdminUtil_Enabled", false]);
 		
 		// Condition - Admin Utilities are enabled and Player is an Admin
-		(_adminUtilEnabled && (player getVariable "RS_IsAdmin"))
+		(_adminUtilEnabled && (player getVariable ["RS_IsAdmin", false]))
 	}
 ] call ace_interact_menu_fnc_createAction;
 
@@ -27,12 +22,7 @@ _adminUtilsParent = ["ACE_SelfActions", "AdminUtils"];
 _action = ["enable_respawn", "Enable Respawn", "",
 	{
 		// Execution Code Block
-		_respawnDisabled = (missionNamespace getVariable "respawn_disabled");
-		
-		if (isNil "_respawnDisabled") then
-		{
-			_respawnDisabled = false;
-		};
+		_respawnDisabled = (missionNamespace getVariable ["respawn_disabled", false]);
 		
 		if (_respawnDisabled) then
 		{
@@ -45,12 +35,7 @@ _action = ["enable_respawn", "Enable Respawn", "",
 	}, 
 	{
 		// Condition Code Block
-		_respawnDisabled = (missionNamespace getVariable "respawn_disabled");
-		
-		if (isNil "_respawnDisabled") then
-		{
-			_respawnDisabled = false;
-		};
+		_respawnDisabled = (missionNamespace getVariable ["respawn_disabled", false]);
 		
 		// Condition
 		_respawnDisabled
@@ -66,12 +51,7 @@ _action = ["enable_respawn", "Enable Respawn", "",
 _action = ["disable_respawn", "Disable Respawn", "",
 	{
 		// Execution Code Block
-		_respawnDisabled = (missionNamespace getVariable "respawn_disabled");
-		
-		if (isNil "_respawnDisabled") then
-		{
-			_respawnDisabled = false;
-		};
+		_respawnDisabled = (missionNamespace getVariable ["respawn_disabled", false]);
 		
 		if !(_respawnDisabled) then
 		{
@@ -84,12 +64,7 @@ _action = ["disable_respawn", "Disable Respawn", "",
 	}, 
 	{
 		// Condition Code Block
-		_respawnDisabled = (missionNamespace getVariable "respawn_disabled");
-		
-		if (isNil "_respawnDisabled") then
-		{
-			_respawnDisabled = false;
-		};
+		_respawnDisabled = (missionNamespace getVariable ["respawn_disabled", false]);
 		
 		// Condition
 		!(_respawnDisabled)
@@ -109,12 +84,7 @@ _action = ["debug_respawn", "Debug Respawn Position", "",
 	}, 
 	{
 		// Condition Code Block
-		_markerExists = (missionNamespace getVariable "Admin_RespawnMarkerExists");
-		
-		if (isNil "_markerExists") then
-		{
-			_markerExists = false;
-		};
+		_markerExists = (missionNamespace getVariable ["Admin_RespawnMarkerExists", false]);
 		
 		// Condition
 		!(_markerExists)
@@ -130,11 +100,7 @@ _action = ["debug_respawn", "Debug Respawn Position", "",
 _action = ["AdminUtils_Mission","Mission Utilities","", {} ,
 	{
 		// Condition Code Block
-		_numFuncs = (missionNamespace getVariable "RS_Admin_MissionFunctionsCount");
-		if (isNil "_numFuncs") then
-		{
-			_numFuncs = 0;
-		};
+		_numFuncs = (missionNamespace getVariable ["RS_Admin_MissionFunctionsCount", 0]);
 		
 		// Condition
 		(_numFuncs > 0)
