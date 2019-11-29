@@ -125,7 +125,7 @@ while {missionNamespace getVariable ["FN_Voices_Run", false]} do
 		I've added this to the while loop so that the pool of players gets updated with each attempted run,
 		to include players that have joined in progress and exclude players that have disconnected from the server.
 	*/
-	_allHCs = entities "HC1";   
+	_allHCs = entities "HeadlessClient_F";   
 	_allHPs = allPlayers - _allHCs;
 
 	/* Select Random Voice Clip */
