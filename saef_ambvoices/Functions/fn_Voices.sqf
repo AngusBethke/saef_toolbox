@@ -14,7 +14,7 @@
 
 if !(isServer) exitWith {};
 
-/* Some Variable Declerations */
+/* Some Variable Declarations */
 _faction = _this select 0;
 _time = _this select 1;
 _voicesArray = [];
@@ -26,7 +26,7 @@ _faction = toLower(_faction);
 /* Fix time (Smallest amount of time between each voice play) */
 if (_time < 30) then
 {
-	diag_log format ["[fn_voices.sqf] || WARNING !! Time Provided (%1) is too short, changing it to 30 seconds !!", _time];
+	diag_log format ["[SAEF_AB_fnc_Voices] [WARNING] Time Provided (%1) is too short, changing it to 30 seconds", _time];
 	_time = 30;
 };
 
@@ -112,9 +112,8 @@ switch (_faction) do
 /* Will Exit the Script if this condition is met, in the case that an incorrect faction is entered */
 if (_default) exitWith
 {
-	diag_log format ["[fn_Voices.sqf] || ERROR !! Faction Provided (%1) does not Exist !!", _faction];
+	diag_log format ["[SAEF_AB_fnc_Voices] [ERROR] Faction Provided (%1) does not Exist", _faction];
 };
-
 
 /* Changed from a For Loop to While to make it Last as long as we need, also provided a control to terminate the script if necessary */
 missionNamespace setVariable ["FN_Voices_Run", true, true];
@@ -129,11 +128,7 @@ while {missionNamespace getVariable ["FN_Voices_Run", false]} do
 	_allHPs = allPlayers - _allHCs;
 
 	/* Select Random Voice Clip */
-	_randomvoice = selectRandom _voicesArray;
-	
-	/* Some String modifications to get the sound to play */
-	_soundPath = [(str missionConfigFile), 0, -15] call BIS_fnc_trimString;
-	_soundToPlay = _soundPath + _randomvoice;
+	_soundToPlay = selectRandom _voicesArray;
 
 	/* Play the Sound */
 	_sourceObject = selectRandom _allHPs;
