@@ -20,6 +20,7 @@ private
 	"_debug",
 	"_cAWP",
 	"_group",
+	"_newGroup",
 	"_veh",
 	"_vehicle",
 	"_vehCrew",
@@ -51,12 +52,18 @@ if (_unitType == "INF") then
 	};
 
 	/* Spawn the Group */
-	//_group = [_spawnPos, _facSide, _faction,[],[],[],[],[],0] call BIS_fnc_spawnGroup;
+	_newGroup = [_spawnPos, _facSide, _faction,[],[],[],[],[],0] call BIS_fnc_spawnGroup;
 	
+	{
+		_x joinSilent _group;
+	} forEach units _newGroup;
+	
+	/* // This seems to hold server processing when run
 	{
 		_group createUnit [_x, _spawnPos, [], 0, "NONE"];
 		sleep 0.1;
 	} forEach _faction;
+	*/
 
 	/* Will remove all weapon attachments from the spawned group */
 	if (_remWeapAttach) then
