@@ -53,6 +53,9 @@ if (_unitType == "INF") then
 
 	/* Spawn the Group */
 	_newGroup = [_spawnPos, _facSide, _faction,[],[],[],[],[],0] call BIS_fnc_spawnGroup;
+	_newGroup deleteGroupWhenEmpty true;
+	
+	// Join all the units to our given group
 	(units _newGroup) joinSilent _group;
 	
 	/* // This seems to hold server processing when run
