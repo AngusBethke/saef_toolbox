@@ -17,13 +17,13 @@ _object = _this select 0;
 _control = _this select 1;
 _type = _this select 2;
 
-_script = "{ ['INSIDE', _x] spawn RS_Rift_fnc_RiftSwitch } forEach thisList;";
+_script = "['INSIDE', player] spawn RS_Rift_fnc_RiftSwitch;";
 if (_control > 0) then
 {
-	_script = "{ ['OUTSIDE', _x] spawn RS_Rift_fnc_RiftSwitch } forEach thisList;";
+	_script = "['OUTSIDE', player] spawn RS_Rift_fnc_RiftSwitch;";
 };
 
-_trg = createTrigger ["EmptyDetector", (getPos _object)];
+_trg = createTrigger ["EmptyDetector", (getPos _object), false];
 
 if (toUpper(_type)  == "REC") then
 {
