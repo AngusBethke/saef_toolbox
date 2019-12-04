@@ -21,14 +21,12 @@ if (isNil "_variable") then
 	_variable = "RS_Rift_RunInteractionPointSounds";
 };
 
-_soundPath = [(str missionConfigFile), 0, -15] call BIS_fnc_trimString;
-_sound = "Toolbox\TheRift\Sounds\emp_rift.ogg";
-
-_songLength = 8;
+_sound = "saef_therift\Sounds\emp_rift.ogg";
+_soundLength = 8;
 
 while { missionNamespace getVariable [_variable, true] } do
 {
-	playSound3D [(_soundPath + _sound), _object, false, getPosASL _object, 4, 1, 100];
+	playSound3D [_sound, _object, false, getPosASL _object, 4, 1, 100];
 	
-	sleep _songLength;
+	sleep _soundLength;
 };
