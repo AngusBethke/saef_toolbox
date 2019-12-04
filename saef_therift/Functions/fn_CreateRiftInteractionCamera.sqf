@@ -17,7 +17,7 @@ _objects = _this select 1;
 _focusObject = _this select 2;
 _cameraNum = missionNamespace getVariable ["RS_Rift_CameraIterations", 0];
 missionNamespace setVariable ["RS_Rift_CameraIterations", (_cameraNum + 1), true];
-_cameraName = format ["rendertarget%1", _cameraNum];
+_cameraName = format ["rendertarget%1_rift", _cameraNum];
 
 // Create the Camera
 _cam = "camera" camCreate [(getpos _object) select 0, (getpos _object) select 1, ((getpos _object) select 2) + 1];
