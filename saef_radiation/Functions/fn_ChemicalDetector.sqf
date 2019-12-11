@@ -7,6 +7,7 @@
 private
 [
 	 "_pos"
+	,"_defaultSize"
 	,"_size"
 	,"_unit"
 	,"_variable"
@@ -14,7 +15,7 @@ private
 ];
 
 _markerList = _this select 0;
-_size = _this select 1;
+_defaultSize = _this select 1;
 _unit = _this select 2;
 _variable = _this select 3;
 
@@ -37,6 +38,14 @@ while { (_unit getVariable [_variable, false]) && (alive _unit) } do
 
 	// Set the position for radiation checks
 	_pos = markerPos _marker;
+	_mArr = _x splitString "_";
+	
+	// If our marker has 4 elements, then we parse the third one to the determine our zone's size
+	_size = _defaultSize;
+	if ((count _mArr) == 4) then
+	{
+		_size = parseText(_mArr select 2);
+	};
 	
 	if (("ChemicalDetector_01_watch_F" in (assignedItems _unit)) && visibleWatch && ((_unit distance _pos) <= _size)) then
 	{
@@ -88,5 +97,5 @@ if (_unit != player) then
 if (_unit getVariable [_variable, false]) then
 {
 	diag_log format ["[RS] [ChemicalDetector] [INFO] Chemical Detector Handler restarting for variable: %1", _variable];
-	[_markerList, _size, _unit, _variable] spawn RS_Radiation_fnc_ChemicalDetectorHandler;
+	[_markerList, _defaultSize, _unit, _variable] spawn RS_Radiation_fnc_ChemicalDetectorHandler;
 };

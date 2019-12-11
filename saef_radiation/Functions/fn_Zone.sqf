@@ -10,6 +10,7 @@ private
 [
 	 "_size"
 	,"_unit"
+	,"_radMarkerList"
 ];
 
 // Get our markers
@@ -25,7 +26,7 @@ if (!(_radMarkerList isEqualTo [])) then
 	_unit setVariable ["RS_RadiationZone_Run_RadiationMarkerHandler", true, true];
 
 	// Setup the Marker Handler
-	[_unit, _radMarkerList] spawn RS_Radiation_fnc_MarkerHandler;
+	[_unit, _radMarkerList, _size] spawn RS_Radiation_fnc_MarkerHandler;
 
 	// Setup the Radiation Handler
 	[_radMarkerList, _size, _unit, "RS_RadiationZone_Run_RadiationHandler"] spawn RS_Radiation_fnc_Handler;

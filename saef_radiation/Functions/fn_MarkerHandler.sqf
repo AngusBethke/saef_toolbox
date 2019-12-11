@@ -1,7 +1,7 @@
 /*
 	fn_MarkerHandler.sqf
 	Description: Handles the showing/hiding of radiation zone markers
-	[_unit, _markerList] call RS_Radiation_fnc_MarkerHandler;
+	[_unit, _markerList, _size] call RS_Radiation_fnc_MarkerHandler;
 */
 
 
@@ -16,14 +16,21 @@ private
 
 _unit = _this select 0;
 _radMarkerList = _this select 1;
-_size = 500;
+_size = _this select 2;
 _markerList = [];
 
 {
 	_mPos = markerPos _x;
+	_mArr = _x splitString "_";
+	
+	_useSize = _size;
+	if ((count _mArr) == 4) then
+	{
+		_useSize = parseText(_mArr select 2);
+	};
 	
 	// Derive Some Variables From External Functions
-	_gridInfo = [_size, _mPos] call RS_Radiation_fnc_GetGridInfo;
+	_gridInfo = [_useSize, _mPos] call RS_Radiation_fnc_GetGridInfo;
 	_posGrid = (_gridInfo select 0);
 	_gridSize = (_gridInfo select 1);
 
@@ -73,8 +80,16 @@ while {_unit getVariable ["RS_RadiationZone_Run_RadiationMarkerHandler", false]}
 				{
 					// Derive some information about the marker
 					_mArr = _marker splitString "-";
-					_mMarker = format["%1_%2_%3", (_mArr select 0), (_mArr select 1), (_mArr select 2)];
-					_perc = (1 - (((markerPos _mMarker) distance2D (markerPos _marker)) / _size));
+					_mArr = _mArr - [(_mArr select ((count _mArr) - 1))];
+					_mMarker = _mArr joinString "_";
+					
+					_useSize = _size;
+					if ((count _mArr) == 4) then
+					{
+						_useSize = parseText(_mArr select 2);
+					};
+					
+					_perc = (1 - (((markerPos _mMarker) distance2D (markerPos _marker)) / _useSize));
 					
 					// Show the marker
 					_marker setMarkerAlphaLocal _perc;
