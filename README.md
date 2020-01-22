@@ -6,7 +6,7 @@ Opt-out: This means that it runs by default and needs to be turned off by the mi
 Opt-in: These functions will need to be called by the mission maker in order to be used.
 
 ## saef_acemedical
-Type: Opt-out\
+Type: Disabled\
 This adds the “Prevent Full Heal” functionality, which essentially stops the player from being able to heal themselves to full health unless they’re a medic. They can be patched by other people. The aim here is to make medics more useful and to discourage “lone-wolf” gameplay.
 
 ## saef_admin
