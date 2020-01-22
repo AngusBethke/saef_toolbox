@@ -24,13 +24,13 @@ class CfgFunctions
 			class PFH_ApplyDamage {};
 			class PFH_Init 
 			{
-				postInit = 1;
+				//postInit = 1;
 			};
 			class PFH_Prevent {};
 			class PFH_ServerDamageDistribution {};
 			class PFH_ServerInit 
 			{
-				postInit = 1;
+				//postInit = 1;
 			};
 		};
 	};
