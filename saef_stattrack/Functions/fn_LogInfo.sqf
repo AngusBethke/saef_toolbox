@@ -12,12 +12,13 @@ if (!isNil{_this select 0}) then
 };
 
 // Format the Text with all the Information from StatTrack
-_info = format ["[StatTrack Log] Total Player Count: %1 || Total Player Casualties: %2 || Total Enemies Killed: %3 || Friendly Fire Incidents: %4 || Mission Attendees: %5", 
+_info = format ["[StatTrack Log] Total Player Count: %1 || Total Player Casualties: %2 || Total Enemies Killed: %3 || Friendly Fire Incidents: %4 || Mission Attendees: %5 || Civilian Casualties (by Player): %6", 
 					(missionNamespace getVariable "ST_TotalPlayerCount"),
 					(missionNamespace getVariable "ST_Casualties"),
 					(missionNamespace getVariable "ST_KillCount"),
 					(missionNamespace getVariable "ST_FriendlyFire"),
-					(missionNamespace getVariable "ST_MissionAttendees")];
+					(missionNamespace getVariable "ST_MissionAttendees"),
+					(missionNamespace getVariable "ST_CivKillCount")];
 
 // Log StatTrack info to the .rpt
 diag_log _info;

@@ -13,6 +13,7 @@ missionNamespace setVariable ["ST_MissionAttendees", [], true];
 missionNamespace setVariable ["ST_Casualties", 0, true];
 missionNamespace setVariable ["ST_KillCount", 0, true];
 missionNamespace setVariable ["ST_FriendlyFire", 0, true];
+missionNamespace setVariable ["ST_CivKillCount", 0, true];
 missionNamespace setVariable ["ST_AllowLogging", true, true];
 missionNamespace setVariable ["ST_LogNow", false, true];
 missionNamespace setVariable ["ST_PlayerFriendSides", [CIVILIAN], true];

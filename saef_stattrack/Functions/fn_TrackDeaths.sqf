@@ -20,17 +20,8 @@ _deathHandlerId = addMissionEventHandler ["EntityKilled",
 		["OnDeath"] call RS_ST_fnc_LogInfo;
 	};
 	
-	// Get Global Var for who players are "friends" with
-	_friendSides = missionNamespace getVariable "ST_PlayerFriendSides";
-	_notFriend = true;
-	
-	// Determine whether the AI is friendly to the player
-	/*{
-		if (side (group _killed)) == _x) then
-		{
-			_notFriend = false;
-		};
-	} forEach _friendSides;*/
+	// Check if this unit is a civilian
+	_civilian = (([getNumber (configfile >> "CfgVehicles" >> typeOf _killed >> "side")] call BIS_fnc_sideType) == CIVILIAN);
 	
 	// Fix for ACE - Still buggy, counter arbitrarily stops at 7
 	_killer = if (isNull _killer) then 
@@ -43,11 +34,19 @@ _deathHandlerId = addMissionEventHandler ["EntityKilled",
 			};
 	
 	// If the AI isn't friendly, and was killed by a player track the kill
-	if (_notFriend && ((isPlayer _killer) && (!isPlayer _killed))) then
+	if (!(_civilian) && ((isPlayer _killer) && (!isPlayer _killed))) then
 	{
 		_killCount = missionNamespace getVariable "ST_KillCount";
 		_killCount = _killCount + 1;
 		missionNamespace setVariable ["ST_KillCount", _killCount, true];
+	};
+	
+	// If the AI is civilian, and was killed by a player track the kill
+	if (_civilian && ((isPlayer _killer) && (!isPlayer _killed))) then
+	{
+		_civKillCount = missionNamespace getVariable "ST_CivKillCount";
+		_civKillCount = _civKillCount + 1;
+		missionNamespace setVariable ["ST_CivKillCount", _civKillCount, true];
 	};
 	
 	// If a player was killed by another player, track the kill
