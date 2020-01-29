@@ -22,6 +22,7 @@ class CfgFunctions
 		{
 			file = "saef_headless\Functions";
 			class ExecScriptHandler {};
+			class TransferOwnershipToHeadless {};
 		};
 	};
 };

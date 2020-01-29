@@ -1,0 +1,36 @@
+/*
+	Name:			fn_TransferOwnershipToHeadless.sqf
+	Description:	Transfers ownership of given objects to the Headless client if the Headless client is present
+	How to Call:	
+		_arrayOfObjects call RS_fnc_TransferOwnershipToHeadless;
+	Example:
+		[unit_1] call RS_fnc_TransferOwnershipToHeadless;
+*/
+
+_objects = _this;
+
+// Test if the Headless Client is present
+_headlessPresent = false;
+if (!isNil "HC1") then
+{
+	_headlessPresent = isPlayer HC1;
+};
+
+// If the headless client is present, transfer the given object to the headless
+if (_headlessPresent) then
+{
+	_clientID = owner HC1;
+	
+	{
+		_object = _x;
+		if ((groupOwner (group _object)) != _clientID) then
+		{
+			_transfered = (group _object) setGroupOwner _clientID;
+			
+			if !(_transfered) then
+			{
+				diag_log format ["[RS] [TransferOwnershipToHeadless] [ERROR] Failed to transfer object %1 to the Headless client", _object];
+			};
+		};
+	} forEach _objects;
+};
