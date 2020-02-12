@@ -5,17 +5,29 @@
 	Author: Angus Bethke (a.k.a. Rabid Squirrel)
 */
 
-missionNamespace setVariable ["ServerDiagnostics", true, true];
+missionNamespace setVariable ["PerformanceDiagnostics", true, true];
 
 _time = _this select 0;
 
 /* Runs the Diagnostics */
-while {missionNamespace getVariable "ServerDiagnostics"} do
+while {missionNamespace getVariable ["PerformanceDiagnostics", false]} do
 {
-	/* Resets AI Count and Player Count */
+	/* Resets Count Variables */
 	_aiCount = 0;
 	_playerCount = 0;
 	_localCount = 0;
+	_fpsTtl = 0;
+	
+	/* Averages the FPS over the wait period */
+	_i = 0;
+	while {_i < _time} do
+	{
+		_fpsTtl = _fpsTtl + diag_fps;
+		_i = _i + 1;
+		sleep 1;
+	};
+	
+	_avgFPS = _fpsTtl / _time;
 	
 	/* Counts Players and AI */
 	{
@@ -35,7 +47,5 @@ while {missionNamespace getVariable "ServerDiagnostics"} do
 	} forEach allUnits;
 	
 	/* Creates Log */
-	diag_log format ["[Server Diagnostics] || Currently Active Players: %1 || Current AI Amount: %2 || Local AI Amount: %3 || Current FPS: %4", _playerCount, _aiCount, _localCount, diag_fps];
-	
-	sleep _time;
+	diag_log format ["[Performance Diagnostics] || Currently Active Players: %1 || Current AI Amount: %2 || Current Local AI Amount: %3 || Average FPS: %4", _playerCount, _aiCount, _localCount, _avgFPS];
 };
