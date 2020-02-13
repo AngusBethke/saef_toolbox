@@ -6,15 +6,16 @@
 	
 	How to Call:
 		[
-			EAST,	// The side of those you want to detect you
+			[EAST],	// The side(s) of those you want to detect you
 			true,	// Whether or not the environment influences detection (optional)
 			30,		// The standing radius of detection (optional)
 			10,		// The crouching radius of detection (optional)
 			2,		// The proning radius of detection (optional)
 		] spawn SAEF_Detection_fnc_Handler;
 		
-	Example:
-		[EAST] spawn SAEF_Detection_fnc_Handler;
+	Examples:
+		[[EAST], true] spawn SAEF_Detection_fnc_Handler;
+		[[EAST, INDEPENDENT], false] spawn SAEF_Detection_fnc_Handler;
 */
 
 private
@@ -121,7 +122,7 @@ while {player getVariable ["SAEF_Detection_Run", false]} do
 			};
 		};
 		
-		_nearUnits = (nearestObjects [player, ["Man"], _radius]) select {side _x == _detSide};
+		_nearUnits = (nearestObjects [player, ["Man"], _radius]) select {(side _x) in _detSide};
 		if (count _nearUnits > 0) then
 		{
 			player setCaptive false;
