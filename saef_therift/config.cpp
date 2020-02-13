@@ -34,7 +34,6 @@ class CfgFunctions
 			};
 			class ObjectHideHandler {};
 			class PostProcessEffectsHandler {}; 
-			class Readme {};
 			class RiftControlObject {};
 			class RiftDamageHandler {};
 			class RiftForcefulExit {};
@@ -47,4 +46,9 @@ class CfgFunctions
 class CfgSounds
 {
 	#include "Sounds\_Sounds.hpp"
+};
+
+class CfgMusic
+{
+	#include "Sounds\_Music.hpp"
 };
