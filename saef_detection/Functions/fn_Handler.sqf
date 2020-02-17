@@ -80,7 +80,7 @@ while {player getVariable ["SAEF_Detection_Run", false]} do
 			};
 			
 			// Between 02:00 and 04:00, as well as between 20:00 and 22:00
-			if (((_hour > 2) && (_hour <= 4)) || ((_hour >= 20) && (_hour < 22)) then
+			if (((_hour > 2) && (_hour <= 4)) || ((_hour >= 20) && (_hour < 22))) then
 			{
 				_hourFac = 4 * 0.75;
 			};
@@ -108,17 +108,17 @@ while {player getVariable ["SAEF_Detection_Run", false]} do
 			};
 			case "CROUCH":
 			{
-				_radius = (_crouchVar + ceil(random(ceil(_crouchVar / 2))))) * _envFac;		// Max-Default: 75 (With Environmental Factor)
+				_radius = (_crouchVar + ceil(random(ceil(_crouchVar / 2)))) * _envFac;		// Max-Default: 75 (With Environmental Factor)
 			};
 			case "PRONE":
 			{
-				_radius = (_proneVar + ceil(random(ceil(_proneVar / 2))))) * _envFac;		// Max-Default: 20 (With Environmental Factor)
+				_radius = (_proneVar + ceil(random(ceil(_proneVar / 2)))) * _envFac;		// Max-Default: 20 (With Environmental Factor)
 			};
 			
 			// Note: if the stance is undetermined, I'm going to use the crouch value
 			default 
 			{
-				_radius = (_crouchVar + ceil(random(ceil(_crouchVar / 2))))) * _envFac;
+				_radius = (_crouchVar + ceil(random(ceil(_crouchVar / 2)))) * _envFac;
 			};
 		};
 		

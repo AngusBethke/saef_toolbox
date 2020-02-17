@@ -22,11 +22,11 @@ _adminUtilsParent = ["ACE_SelfActions", "AdminUtils"];
 _action = ["enable_respawn", "Enable Respawn", "",
 	{
 		// Execution Code Block
-		_respawnDisabled = (missionNamespace getVariable ["respawn_disabled", false]);
+		_respawnDisabled = !(missionNamespace getVariable ["RespawnEnabled", false]);
 		
 		if (_respawnDisabled) then
 		{
-			missionNamespace setVariable ["respawn_disabled", false, true];
+			missionNamespace setVariable ["RespawnEnabled", true, true];
 		}
 		else
 		{
@@ -35,7 +35,7 @@ _action = ["enable_respawn", "Enable Respawn", "",
 	}, 
 	{
 		// Condition Code Block
-		_respawnDisabled = (missionNamespace getVariable ["respawn_disabled", false]);
+		_respawnDisabled = !(missionNamespace getVariable ["RespawnEnabled", false]);
 		
 		// Condition
 		_respawnDisabled
@@ -51,11 +51,11 @@ _action = ["enable_respawn", "Enable Respawn", "",
 _action = ["disable_respawn", "Disable Respawn", "",
 	{
 		// Execution Code Block
-		_respawnDisabled = (missionNamespace getVariable ["respawn_disabled", false]);
+		_respawnDisabled = !(missionNamespace getVariable ["RespawnEnabled", false]);
 		
 		if !(_respawnDisabled) then
 		{
-			missionNamespace setVariable ["respawn_disabled", true, true];
+			missionNamespace setVariable ["RespawnEnabled", false, true];
 		}
 		else
 		{
@@ -64,7 +64,7 @@ _action = ["disable_respawn", "Disable Respawn", "",
 	}, 
 	{
 		// Condition Code Block
-		_respawnDisabled = (missionNamespace getVariable ["respawn_disabled", false]);
+		_respawnDisabled = !(missionNamespace getVariable ["RespawnEnabled", false]);
 		
 		// Condition
 		!(_respawnDisabled)

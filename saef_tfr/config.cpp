@@ -20,7 +20,7 @@ class CfgFunctions
 	{
 		class TFR
 		{
-			file = "Toolbox\TFR";
+			file = "saef_tfr\Functions";
 			class JamTfrRadios {};
 		};
 	};

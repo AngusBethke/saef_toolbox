@@ -32,6 +32,7 @@ class CfgFunctions
 			{
 				postInit = 1;
 			};
+			class Admin_MissionMakerHelper {};
 			class Admin_RunScriptOnServer {};
 		};
 	};
