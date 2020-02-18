@@ -11,7 +11,7 @@ player addEventHandler ["killed",
 // Parent Action
 _action = ["SAEF_RespawnHint","Respawn Hints","saef_admin\Images\rs_logo.paa", {}, {true}] call ace_interact_menu_fnc_createAction;
 [player, 1, ["ACE_SelfActions"], _action, true] call ace_interact_menu_fnc_addActionToObject;
-_respawnUtilsParent = ["ACE_SelfActions", "AdminUtils"];
+_respawnUtilsParent = ["ACE_SelfActions", "SAEF_RespawnHint"];
 
 // Enable Respawn Hints
 _action = ["SAEF_RespawnHint_Enable", "Enable", "",

@@ -76,7 +76,7 @@ _customMarkers = missionNamespace getVariable ["RS_Admin_CustomMarkerExistenceTe
 
 if (_errorStr != _evalErrorStr) then
 {
-	hint _errorStr;
+	hint parseText _errorStr;
 };
 
 /*

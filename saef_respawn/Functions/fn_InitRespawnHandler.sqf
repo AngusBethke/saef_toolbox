@@ -41,7 +41,7 @@ player setVariable ["RespawnHandlerHint", true, true];
 // Fix for if Player Joins while Respawns are currently disabled
 if (!(missionNamespace getVariable ["RespawnEnabled", true])) then 
 {
-	if (!isNil{missionNamespace getVariable "ST_AllowLogging"}) then
+	if (missionNamespace getVariable ["ST_AllowLogging", false]) then
 	{
 		_casCount = missionNamespace getVariable "ST_Casualties";
 		_casCount = _casCount - 1;

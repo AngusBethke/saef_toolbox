@@ -22,9 +22,9 @@ _adminUtilsParent = ["ACE_SelfActions", "AdminUtils"];
 _action = ["enable_respawn", "Enable Respawn", "",
 	{
 		// Execution Code Block
-		_respawnDisabled = !(missionNamespace getVariable ["RespawnEnabled", false]);
+		_respawnEnabled = (missionNamespace getVariable ["RespawnEnabled", true]);
 		
-		if (_respawnDisabled) then
+		if !(_respawnEnabled) then
 		{
 			missionNamespace setVariable ["RespawnEnabled", true, true];
 		}
@@ -35,7 +35,7 @@ _action = ["enable_respawn", "Enable Respawn", "",
 	}, 
 	{
 		// Condition Code Block
-		_respawnDisabled = !(missionNamespace getVariable ["RespawnEnabled", false]);
+		_respawnDisabled = !(missionNamespace getVariable ["RespawnEnabled", true]);
 		
 		// Condition
 		_respawnDisabled
@@ -51,7 +51,7 @@ _action = ["enable_respawn", "Enable Respawn", "",
 _action = ["disable_respawn", "Disable Respawn", "",
 	{
 		// Execution Code Block
-		_respawnDisabled = !(missionNamespace getVariable ["RespawnEnabled", false]);
+		_respawnDisabled = !(missionNamespace getVariable ["RespawnEnabled", true]);
 		
 		if !(_respawnDisabled) then
 		{
@@ -64,10 +64,10 @@ _action = ["disable_respawn", "Disable Respawn", "",
 	}, 
 	{
 		// Condition Code Block
-		_respawnDisabled = !(missionNamespace getVariable ["RespawnEnabled", false]);
+		_respawnEnabled = (missionNamespace getVariable ["RespawnEnabled", true]);
 		
 		// Condition
-		!(_respawnDisabled)
+		_respawnEnabled
 	}
 ] call ace_interact_menu_fnc_createAction;
  
