@@ -26,30 +26,8 @@ if !(hasInterface) exitWith
 	missionNamespace setVariable ["RespawnEnabled", true, true];
 };
 
-private
-[
-	"_casCount"
-];
-
-// Initialise Event Handlers
-player setVariable ["RespawnHandlerHint", true, true];
-[] call RS_fnc_PlayerEventHandlers;
-
-// Start Hints
-[] spawn RS_fnc_RespawnHints;
-
-// Fix for if Player Joins while Respawns are currently disabled
-if (!(missionNamespace getVariable ["RespawnEnabled", true])) then 
-{
-	if (missionNamespace getVariable ["ST_AllowLogging", false]) then
-	{
-		_casCount = missionNamespace getVariable "ST_Casualties";
-		_casCount = _casCount - 1;
-		missionNamespace setVariable ["ST_Casualties", _casCount, true];
-	};
-	
-	player setDamage 1;
-};
+// Delayed Functions
+[] spawn RS_fnc_RespawnDelayedStart;
 
 /*
 	END

@@ -30,6 +30,7 @@ class CfgFunctions
 			class PlayerEventHandlers {};
 			class PlayerOnKilled {};
 			class RespawnHints {};
+			class RespawnDelayedStart {};
 			class SpectatorHint {};
 		};
 	};
