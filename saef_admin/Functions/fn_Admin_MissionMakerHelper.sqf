@@ -55,6 +55,7 @@ if (!_defResFound) then
 	_markerError = false;
 	{
 		_errorStr = _errorStr + "<br/>The respawn marker '" + _x + "' is missing from your mission.";
+		diag_log format ["[RS] [ADMIN] [Mission Maker Helper] [WARNING] The respawn marker '%1' is missing from your mission.", _x];
 		_markerError = true;
 	} forEach _missingResMarkers;
 	
@@ -64,6 +65,13 @@ if (!_defResFound) then
 	};
 };
 
+// Test if the Headless Client is present
+if (isNil "HC1") then
+{
+	_errorStr = _errorStr + "<br/>The headless client module [HC1] is missing from your mission.<br/>";
+	diag_log format ["[RS] [ADMIN] [Mission Maker Helper] [WARNING] The headless client module [HC1] is missing from your mission."];
+};
+
 // Test for Custom Marker Presence
 _customMarkers = missionNamespace getVariable ["RS_Admin_CustomMarkerExistenceTest", []];
 
@@ -71,6 +79,7 @@ _customMarkers = missionNamespace getVariable ["RS_Admin_CustomMarkerExistenceTe
 	if (!(_x in _allMapMarkers)) then
 	{
 		_errorStr = _errorStr + "<br/>The custom marker '" + _x + "', that should be present, is missing!";
+		diag_log format ["[RS] [ADMIN] [Mission Maker Helper] [WARNING] The custom marker '%1', that should be present, is missing!", _x];
 	};
 } forEach _customMarkers;
 
