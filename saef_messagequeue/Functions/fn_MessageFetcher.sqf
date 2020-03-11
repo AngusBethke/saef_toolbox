@@ -18,6 +18,7 @@ _logName = "RS Message Fetcher";
 
 _listener = _this select 0;
 _messages = [];
+_allPlayers = (allPlayers - entities "HeadlessClient_F");
 
 // Fetch message for listener on the server
 _serverMessage = missionNamespace getVariable [_listener, []];
@@ -60,7 +61,7 @@ if (!(_serverMessage isEqualTo [])) then
 				// Dequeue the message
 				_x setVariable [_listener, nil, true];
 			};
-		} forEach allPlayers;
+		} forEach _allPlayers;
 	}
 	else
 	{
@@ -117,7 +118,7 @@ else
 				_x setVariable [_listener, nil, true];
 			};
 		};
-	} forEach allPlayers;
+	} forEach _allPlayers;
 };
 
 if (_logLevel >= 4) then 

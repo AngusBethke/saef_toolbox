@@ -21,6 +21,7 @@ _listener = _this select 0;
 _message = _this select 1;
 _params = _this select 2;
 _environment = _this select 3;
+_allPlayers = (allPlayers - entities "HeadlessClient_F");
 
 if (_logLevel >= 4) then 
 {
@@ -46,16 +47,16 @@ switch toUpper(_environment) do
 		{
 			_player = _x;
 			_variable = (format ["%1_Order", _listener]);
-			_playerOrder = _x getVariable [_variable, -1];
+			_playerOrder = _player getVariable [_variable, -1];
 
 			if (_playerOrder != -1) then
 			{
 				_messageOrder = _messageOrder + [[_player, _playerOrder]];
 				
 				// Dequeue the message
-				_x setVariable [_variable, nil, true];
+				_player setVariable [_variable, nil, true];
 			};
-		} forEach allPlayers;
+		} forEach _allPlayers;
 		
 		[_listener, _messageOrder, _params] spawn _message;
 	};
