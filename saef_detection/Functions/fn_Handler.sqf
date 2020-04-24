@@ -18,7 +18,7 @@
 		[[EAST, INDEPENDENT], false] spawn SAEF_Detection_fnc_Handler;
 */
 
-private
+params
 [
 	"_detSide"
 	,"_envIflc"
@@ -26,12 +26,6 @@ private
 	,"_crouchVar"
 	,"_proneVar"
 ];
-
-_detSide = _this select 0;
-_envIflc = _this select 1;
-_standVar = _this select 2;
-_crouchVar = _this select 3;
-_proneVar = _this select 4;
 
 // Defaults section
 if (isNil "_envIflc") then
@@ -57,7 +51,7 @@ if (isNil "_proneVar") then
 // Player variable inisialisation
 player setVariable ["SAEF_Burst_Over", true, true];
 player setVariable ["SAEF_Detection_Run", true, true];
-player setVariable ["SAEF_Detection_Debug", true, true];
+player setVariable ["SAEF_Detection_Debug", false, true];
 player setVariable ["SAEF_Player_Detected", false, true];
 
 while {player getVariable ["SAEF_Detection_Run", false]} do 
@@ -70,7 +64,7 @@ while {player getVariable ["SAEF_Detection_Run", false]} do
 		
 		if (_envIflc) then
 		{
-			_hour = floor _daytime;
+			_hour = floor daytime;
 			_hourFac = 0;
 			
 			// Between 22:00 and 02:00
