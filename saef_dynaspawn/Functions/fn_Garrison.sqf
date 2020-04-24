@@ -139,6 +139,31 @@ if (_debug select 0) then
 	diag_log format ["%1 [INFO] Positions to Garrison: %2", (_debug select 1), _posArr];
 };
 
+_groupUnits = units _grp;
+_useStatics = true;
+
+if (_useStatics) then
+{
+	// Get in any nearby vehicles
+	_vehicles = _pos nearEntities[["Car", "Tank", "Turret"], _rad];
+	{
+		_vehicle = _x;
+		_gunnerPositions = fullCrew [_x, "gunner", true];
+		
+		{
+			_object = _x select 0;
+			if (isNull _object) then
+			{
+				(_groupUnits select 0) moveInGunner _vehicle;
+				(_groupUnits select 0) action ["getInGunner", _vehicle];
+				_groupUnits = _groupUnits - [(_groupUnits select 0)];
+			};
+	
+			sleep 0.1;
+		} forEach _gunnerPositions;
+	} forEach _vehicles;
+};
+
 /* Assign units to their Building Positions */
 _j = 0;
 {
@@ -153,7 +178,7 @@ _j = 0;
 	_j = _j + 1;
 	
 	sleep 0.1;
-} forEach units _grp;
+} forEach _groupUnits;
 
 /* Return: True */
 true
