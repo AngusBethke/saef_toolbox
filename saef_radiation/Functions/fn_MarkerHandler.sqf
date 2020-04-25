@@ -4,63 +4,58 @@
 	[_unit, _markerList, _size] call RS_Radiation_fnc_MarkerHandler;
 */
 
+params
+[
+	"_unit"
+	,"_radMarkerList"
+	,"_size"
+];
 
 private
 [
-	 "_unit"
-	,"_radMarkerList"
-	,"_size"
-	,"_markerList"
-	,"_control"
+	 "_markerList"
 ];
 
-_unit = _this select 0;
-_radMarkerList = _this select 1;
-_size = _this select 2;
 _markerList = [];
 
 {
-	_mPos = markerPos _x;
+	_pos = markerPos _x;
 	_mArr = _x splitString "_";
 	
 	_useSize = _size;
 	if ((count _mArr) == 4) then
 	{
-		_useSize = parseText(_mArr select 2);
+		_useSize = parseNumber (_mArr select 2);
 	};
 	
-	// Derive Some Variables From External Functions
-	_gridInfo = [_useSize, _mPos] call RS_Radiation_fnc_GetGridInfo;
-	_posGrid = (_gridInfo select 0);
-	_gridSize = (_gridInfo select 1);
-
-	for "_i" from 0 to (_gridSize - 1) do
-	{
-		for "_j" from 0 to (_gridSize - 1) do
-		{
-			// Get the Position and Marker Name
-			_pos = ((_posGrid select _i) select _j);
-			_sanMarkName = ((_x splitString "_") joinString "-");
-			_markerName = format ["%1-RadiationMarker_%2_%3", _sanMarkName, (_pos select 0), (_pos select 1)];
-			
-			// Spawn the Marker with Parameters
-			_marker = createMarkerLocal [_markerName, _pos];
-			_markerName setMarkerAlphaLocal 0;
-			_markerName setMarkerShapeLocal "RECTANGLE";
-			_markerName setMarkerSizeLocal [75, 75];
-			_markerName setMarkerColorLocal "colorOPFOR";
-			_markerName setMarkerDirLocal random(360);
-			
-			// Add Marker to List of Markers to Clean Up
-			_markerList pushBack _markerName;
+	// Get the Position and Marker Name
+	_sanMarkName = ((_x splitString "_") joinString "-");
+	_markerName = format ["%1-RadiationMarker_%2", _sanMarkName, _forEachIndex];
 	
-			sleep 0.025;
-		};
-	};
+	// Spawn the Marker with Parameters
+	_marker = createMarkerLocal [_markerName, _pos];
+	_markerName setMarkerAlphaLocal 0;
+	_markerName setMarkerShapeLocal "ELLIPSE";
+	_markerName setMarkerSizeLocal [_useSize, _useSize];
+	_markerName setMarkerColorLocal "colorOPFOR";
+	_markerName setMarkerDirLocal random(360);
+	_markerName setMarkerBrushLocal "Cubism";
+	
+	// Add Marker to List of Markers to Clean Up
+	_markerList pushBack _markerName;
 } forEach _radMarkerList;
 
 // Add the controller for the markers
 [] call RS_Radiation_fnc_MarkerAceAction;
+
+// Log load to server
+_message = format ["[RS] [MarkerHandler] [INFO] Handler started with parameters: %1", [_unit, "RS_RadiationZone_Run_RadiationMarkerHandler"]];
+diag_log _message;
+
+if (!isServer) then
+{
+	_message remoteExecCall ["diag_log", 2, false]; 
+};
 
 // Loop Controller for the Markers
 _control = !(_unit getVariable ["RS_RadiationZone_ShowMarkers", false]);
@@ -86,13 +81,11 @@ while {_unit getVariable ["RS_RadiationZone_Run_RadiationMarkerHandler", false]}
 					_useSize = _size;
 					if ((count _mArr) == 4) then
 					{
-						_useSize = parseText(_mArr select 2);
+						_useSize = parseNumber (_mArr select 2);
 					};
 					
-					_perc = (1 - (((markerPos _mMarker) distance2D (markerPos _marker)) / _useSize));
-					
 					// Show the marker
-					_marker setMarkerAlphaLocal _perc;
+					_marker setMarkerAlphaLocal 0.25;
 				};
 			} forEach _markerList;
 		}

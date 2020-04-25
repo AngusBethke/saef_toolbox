@@ -4,15 +4,17 @@
 	[_unit] spawn RS_Radiation_fnc_GasMaskHandler;
 */
 
+params
+[
+	"_unit"
+];
+
 private
 [
-	 "_unit"
-	,"_maskBase"
+	 "_maskBase"
 	,"_maskLayer"
 	,"_maskFound"
 ];
-
-_unit = _this select 0;
 
 _maskBase = missionNamespace getVariable ["RS_Radiation_CompatibleGasMasks", []];
 _maskLayer = "";

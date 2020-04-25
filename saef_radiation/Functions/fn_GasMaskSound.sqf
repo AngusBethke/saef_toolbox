@@ -4,17 +4,20 @@
 	[_unit] spawn RS_Rift_fnc_GasMaskSound;
 */
 
+params
+[
+	"_unit"
+];
+
 private
 [
-	 "_unit"
-	,"_sounds"
+	 "_sounds"
 	,"_multiplier"
 ];
 
 // Gain access to ACE variables
 #include "\z\ace\addons\advanced_fatigue\script_component.hpp"
 
-_unit = _this select 0;
 _sounds = 
 [
 	"gm_breath_1"

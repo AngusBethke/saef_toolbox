@@ -27,7 +27,7 @@ if (!(_radMarkerList isEqualTo [])) then
 
 	// Setup the Marker Handler
 	[_unit, _radMarkerList, _size] spawn RS_Radiation_fnc_MarkerHandler;
-
+	
 	// Setup the Radiation Handler
 	[_radMarkerList, _size, _unit, "RS_RadiationZone_Run_RadiationHandler"] spawn RS_Radiation_fnc_Handler;
 	

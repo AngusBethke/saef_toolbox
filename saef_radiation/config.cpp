@@ -29,6 +29,7 @@ class CfgFunctions
 			};
 			class GasMaskHandler {};
 			class GasMaskSound {};
+			class GetClosestMarker {};
 			class GetGridInfo {};
 			class Init 
 			{
@@ -51,4 +52,14 @@ class CfgSounds
 class RscTitles
 {
 	#include "Images\_RscTitles.hpp"
+};
+
+class CfgMarkerBrushes
+{
+	class CUBISM {
+		name="Cubism";
+		texture="saef_radiation\Markers\Brushes\cubism.paa";
+		drawBorder=0;
+		scope=0;
+	};
 };

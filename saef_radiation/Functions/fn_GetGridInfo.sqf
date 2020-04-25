@@ -5,10 +5,14 @@
 	Returns: <Array> Position Grid, <int> Grid Size
 */
 
-private
+params
 [
 	"_size",
-	"_pos",
+	"_pos"
+];
+
+private
+[
 	"_posGrid",
 	"_iMod",
 	"_sizePrev",
@@ -20,8 +24,6 @@ private
 	"_gHasBuildings"
 ];
 
-_size = _this select 0;
-_pos = _this select 1;
 _posGrid = [];
 
 // Set size of an area in increments of 100m
