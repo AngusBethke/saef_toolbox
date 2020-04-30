@@ -8,12 +8,10 @@ private
 [
 	"_markerList"
 	,"_rftMarkerList"
-	,"_size"
 ];
 
 _markerList = [];
 _rftMarkerList = [];
-_size = 500;
 
 {
 	if (["rift_zone", _x] call BIS_fnc_inString) then
@@ -24,35 +22,22 @@ _size = 500;
 
 {
 	_mPos = markerPos _x;
-	
-	// Derive Some Variables From External Functions
-	_gridInfo = [(_size / 2), _mPos] call RS_Radiation_fnc_GetGridInfo;
-	_posGrid = (_gridInfo select 0);
-	_gridSize = (_gridInfo select 1);
+	_pos = [(((_mPos select 0) - random(100)) + 100), (((_mPos select 1) - random(100)) + 100)];
 
-	for "_i" from 0 to (_gridSize - 1) do
-	{
-		for "_j" from 0 to (_gridSize - 1) do
-		{
-			// Get the Position and Marker Name
-			_pos = ((_posGrid select _i) select _j);
-			_markerName = format ["%1_RiftMarker_%2_%3", _x, (_pos select 0), (_pos select 1)];
-			_perc = (1 - ((_mPos distance2D _pos) / _size));
-			
-			// Spawn the Marker with Parameters
-			_marker = createMarker [_markerName, _pos];
-			_markerName setMarkerShape "RECTANGLE";
-			_markerName setMarkerSize [75, 75];
-			_markerName setMarkerColor "colorCivilian";
-			_markerName setMarkerAlpha _perc;
-			_markerName setMarkerDir random(360);
-			
-			// Add Marker to List of Markers to Clean Up
-			_markerList pushBack _markerName;
+	// Get the Position and Marker Name
+	_sanMarkName = ((_x splitString "_") joinString "-");
+	_markerName = format ["%1_RiftMarker_%2", _x, _forEachIndex];
 	
-			sleep 0.025;
-		};
-	};
+	// Spawn the Marker with Parameters
+	_marker = createMarker [_markerName, _pos];
+	_markerName setMarkerShape "ELLIPSE";
+	_markerName setMarkerSize [250, 250];
+	_markerName setMarkerColor "colorCivilian";
+	_markerName setMarkerAlpha 0.25;
+	_markerName setMarkerDir random(360);
+	
+	// Add Marker to List of Markers to Clean Up
+	_markerList pushBack _markerName;
 } forEach _rftMarkerList;
 
 // Hang tight until it's time to delete all the markers

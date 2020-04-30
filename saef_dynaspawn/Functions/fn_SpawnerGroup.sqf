@@ -51,19 +51,24 @@ if (_unitType == "INF") then
 		_usePara = false;
 	};
 
-	/* Spawn the Group */
+	/*
+	// Spawn the Group
 	_newGroup = [_spawnPos, _facSide, _faction,[],[],[],[],[],0] call BIS_fnc_spawnGroup;
 	_newGroup deleteGroupWhenEmpty true;
 	
 	// Join all the units to our given group
 	(units _newGroup) joinSilent _group;
-	
-	/* // This seems to hold server processing when run
-	{
-		_group createUnit [_x, _spawnPos, [], 0, "NONE"];
-		sleep 0.1;
-	} forEach _faction;
 	*/
+	
+	// This seems to hold server processing when run
+	{
+		_unit = _group createUnit [_x, _spawnPos, [], 0, "NONE"];
+		
+		waitUntil {
+			sleep 0.1;
+			!(isNull _unit)
+		};
+	} forEach _faction;
 
 	/* Will remove all weapon attachments from the spawned group */
 	if (_remWeapAttach) then
@@ -82,7 +87,7 @@ if (_unitType == "VEH") then
 	
 	waitUntil {
 		sleep 1;
-		(scriptDone _script)
+		((scriptDone _script) || (isNull _script))
 	};
 	
 	_vehicle = vehicle (leader _group);

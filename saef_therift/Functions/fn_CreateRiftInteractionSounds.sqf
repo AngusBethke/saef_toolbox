@@ -21,7 +21,7 @@ if (isNil "_variable") then
 	_variable = "RS_Rift_RunInteractionPointSounds";
 };
 
-_sound = "saef_therift\Sounds\emp_rift.ogg";
+_sound = "saef_therift\Sounds\emp\emp_rift.ogg";
 _soundLength = 8;
 
 while { missionNamespace getVariable [_variable, true] } do

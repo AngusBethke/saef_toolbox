@@ -145,7 +145,7 @@ _useStatics = true;
 if (_useStatics) then
 {
 	// Get in any nearby vehicles
-	_vehicles = _pos nearEntities[["Car", "Tank", "Turret"], _rad];
+	_vehicles = _pos nearEntities[["Car", "Tank", "StaticWeapon"], _rad];
 	{
 		_vehicle = _x;
 		_gunnerPositions = fullCrew [_x, "gunner", true];

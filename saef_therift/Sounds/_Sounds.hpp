@@ -22,6 +22,13 @@ class emp_rift
 	titles[] = {0,""};
 };
 
+class emp_rift_soft
+{
+	name = "EMP_Rift_Soft_S";
+	sound[] = {"saef_therift\Sounds\emp\emp_rift.wss", 1, 0.25};
+	titles[] = {0,""};
+};
+
 class emp_rift_ogg
 {
 	name = "EMP_Rift_ogg_S";

@@ -27,7 +27,10 @@ class CfgFunctions
 			class CreateRiftInteractionTrigger{};
 			class CreateRiftParticleEffect {};
 			class DeleteRiftParticleEffects {};
+			class FindRiftInteractionPoint {};
+			class FindRiftInteractionPointAceAction {};
 			class FlickerObject {};
+			class GetNearestRiftInteractionPoint {};
 			class Init 
 			{
 				postInit = 1;

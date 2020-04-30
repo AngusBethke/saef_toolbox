@@ -26,7 +26,7 @@ _unit setVariable ["RS_Rift_CurrentRiftState", "TRANSITION", true];
 
 // Cut player vision
 titleCut ["","WHITE OUT", 2];
-playSound "EMP_Phase_S";
+playSound "emp_phase";
 _unit allowDamage false;
 sleep 2;
 

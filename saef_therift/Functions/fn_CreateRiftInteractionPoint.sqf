@@ -16,24 +16,25 @@ switch toUpper(_type) do
 	{
 		_objects = 
 		[
+			["Land_Cargo20_military_green_F",[9.13346,48.7063],90],
+			["Tarp_01_Large_Black_F",[5.59661,1.02981],0],
+			["DeconShower_02_F",[9.77582,0.538026],0],
 			["Land_PortableLight_02_double_olive_F",[2.41632,267.035],-213],
 			["Land_PortableLight_02_double_olive_F",[2.49026,86.4026],-151],
 			["Land_PortableGenerator_01_F",[3.83065,94.5914],-328],
 			["Land_PortableWeatherStation_01_olive_F",[5.27852,230.254],-213],
+			["DeconShower_02_F",[1.85625,1.6581],-360],
 			["RoadCone_F",[5.72612,284.136],0],
 			["RoadCone_F",[7.84888,306.653],0],
 			["RoadCone_F",[9.42387,318.041],0],
 			["RoadCone_F",[11.7499,330.674],0],
 			["Land_TripodScreen_01_dual_v1_F",[2.82084,257.402],-143],
-			["B_T_LSV_01_unarmed_F",[7.43256,119.243],-154],
+			//["B_T_LSV_01_unarmed_F",[7.43256,119.243],-154],
 			["Land_TripodScreen_01_large_F",[2.79214,95.902],-201],
-			["DeconShower_02_F",[9.77582,0.538026],0],
-			["DeconShower_02_F",[1.85625,1.6581],-360],
 			["RoadBarrier_F",[9.97546,327.363],-103],
 			["RoadBarrier_F",[6.23903,298.679],-79],
-			["RoadBarrier_small_F",[8.15459,315.247],-88],
-			["Tarp_01_Large_Black_F",[5.59661,1.02981],0],
-			["B_T_Truck_01_box_F",[9.13346,48.7063],0]
+			["RoadBarrier_small_F",[8.15459,315.247],-88]
+			//["B_T_Truck_01_box_F",[9.13346,48.7063],0]
 		];
 		
 		_camera = objNull;
@@ -93,9 +94,17 @@ switch toUpper(_type) do
 				_obj setFuel 0;
 			};
 			
+			if (canSuspend) then
+			{
+				sleep 1;
+			};
+			
 		} forEach _objects;
 		
 		[[_camera, _camObjects, _focCamera], RS_Rift_fnc_CreateRiftInteractionCamera] remoteExecCall ["call", 0, true];
+		
+		// Make it so that this cannot be created twice
+		_startObject setVariable ["RS_Rift_InteractionPointObject_Created", true, true];
 	};
 	case "UCTRL":
 	{
@@ -133,6 +142,9 @@ switch toUpper(_type) do
 				[_obj] spawn RS_Rift_fnc_CreateRiftInteractionSounds;
 			};
 		} forEach _objects;
+		
+		// Make it so that this cannot be created twice
+		_startObject setVariable ["RS_Rift_InteractionPointObject_Created", true, true];
 	};
 	default
 	{

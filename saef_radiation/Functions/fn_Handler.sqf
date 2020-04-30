@@ -50,7 +50,7 @@ while { (_unit getVariable [_variable, false]) && (alive _unit) } do
 		_pos = markerPos _marker;
 		
 		// Debug
-		hint format ["Distance %1m away from marker: %2 and zone size is: %3", (_unit distance _pos), _marker, _size];
+		//hint format ["Distance %1m away from marker: %2 and zone size is: %3", (_unit distance _pos), _marker, _size];
 		
 		// Reset Radiation Damage
 		{

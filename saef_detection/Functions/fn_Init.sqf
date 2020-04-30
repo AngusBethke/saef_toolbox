@@ -11,6 +11,7 @@
 			30,		// The standing radius of detection (optional)
 			10,		// The crouching radius of detection (optional)
 			2,		// The proning radius of detection (optional)
+			{true}	// Code that can be used to interrupt processing
 		] call SAEF_Detection_fnc_Init;
 		
 	Examples:
@@ -23,7 +24,7 @@ if !(hasInterface) exitWith {};
 if (!(player getVariable ["SAEF_Detection_Initialised", false])) then
 {
 	player setVariable ["SAEF_Detection_Initialised", true, true];
-	[] call SAEF_Detection_fnc_EventHandler;
+	_this call SAEF_Detection_fnc_EventHandler;
 };
 
 _this spawn SAEF_Detection_fnc_Handler;

@@ -30,19 +30,38 @@ _markerList = [];
 	
 	// Get the Position and Marker Name
 	_sanMarkName = ((_x splitString "_") joinString "-");
-	_markerName = format ["%1-RadiationMarker_%2", _sanMarkName, _forEachIndex];
-	
-	// Spawn the Marker with Parameters
-	_marker = createMarkerLocal [_markerName, _pos];
-	_markerName setMarkerAlphaLocal 0;
-	_markerName setMarkerShapeLocal "ELLIPSE";
-	_markerName setMarkerSizeLocal [_useSize, _useSize];
-	_markerName setMarkerColorLocal "colorOPFOR";
-	_markerName setMarkerDirLocal random(360);
-	_markerName setMarkerBrushLocal "Cubism";
-	
-	// Add Marker to List of Markers to Clean Up
-	_markerList pushBack _markerName;
+	for "_i" from 1 to 3 do
+	{
+		_markerName = format ["%1-RadiationMarker_%2_%3", _sanMarkName, _forEachIndex, _i];
+		
+		// Spawn the Marker with Parameters
+		_marker = createMarkerLocal [_markerName, _pos];
+		_markerName setMarkerAlphaLocal 0;
+		_markerName setMarkerShapeLocal "ELLIPSE";
+		_markerName setMarkerSizeLocal [ceil(_useSize * (_i / 3)), ceil(_useSize * (_i / 3))];
+		
+		switch _i do
+		{
+			case 1:
+			{
+				_markerName setMarkerColorLocal "colorOPFOR";
+			};
+			case 2:
+			{
+				_markerName setMarkerColorLocal "ColorOrange";
+			};
+			default 
+			{
+				_markerName setMarkerColorLocal "ColorYellow";
+			};
+		};
+		
+		_markerName setMarkerDirLocal random(360);
+		_markerName setMarkerBrushLocal "Cubism";
+		
+		// Add Marker to List of Markers to Clean Up
+		_markerList pushBack _markerName;
+	};
 } forEach _radMarkerList;
 
 // Add the controller for the markers
