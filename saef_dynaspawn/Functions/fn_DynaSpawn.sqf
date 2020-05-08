@@ -24,7 +24,8 @@ private
 	"_grpValid",
 	"_grValid",
 	"_unitType",
-	"_group"
+	"_group",
+	"_script"
 ];
 
 /* Grab Variables from the Declaration */
@@ -149,7 +150,7 @@ if (canSuspend) then
 {
 	waitUntil {
 		sleep 1;
-		(scriptDone _script)
+		((scriptDone _script) || (isNull _script))
 	};
 };
 

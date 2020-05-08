@@ -25,7 +25,8 @@ private
 	"_vehicle",
 	"_vehCrew",
 	"_azi",
-	"_paraSpawn"
+	"_paraSpawn",
+	"_script"
 ];
 	
 _spawnPos = _this select 0;
@@ -50,16 +51,15 @@ if (_unitType == "INF") then
 		diag_log format ["%1 [WARNING] Parachute Insertion may not be used with waypoint type %2!", (_debug select 1), _type];
 		_usePara = false;
 	};
-
-	/*
+	
 	// Spawn the Group
 	_newGroup = [_spawnPos, _facSide, _faction,[],[],[],[],[],0] call BIS_fnc_spawnGroup;
 	_newGroup deleteGroupWhenEmpty true;
 	
 	// Join all the units to our given group
 	(units _newGroup) joinSilent _group;
-	*/
 	
+	/*
 	// This seems to hold server processing when run
 	{
 		_unit = _group createUnit [_x, _spawnPos, [], 0, "NONE"];
@@ -69,6 +69,7 @@ if (_unitType == "INF") then
 			!(isNull _unit)
 		};
 	} forEach _faction;
+	*/
 
 	/* Will remove all weapon attachments from the spawned group */
 	if (_remWeapAttach) then
