@@ -25,4 +25,13 @@ class CfgFunctions
 			class PersistentPerformanceCheck {};
 		};
 	};
+	
+	class RS
+	{
+		class Helpers
+		{
+			file = "saef_diagnostics\Functions";
+			class LoggingHelper {};
+		};
+	};
 };

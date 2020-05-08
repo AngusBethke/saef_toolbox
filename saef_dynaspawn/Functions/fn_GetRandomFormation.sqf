@@ -1,8 +1,8 @@
 /*	
-	Function: fn_GetRandomFormation.sqf
+	fn_GetRandomFormation.sqf
 	Author: Angus Bethke
-	Description: Returns a random formation from all available formations
-	Last Modified: 15-11-2019		
+	Description: 
+		Returns a random formation from all available formations
 */
 
 private

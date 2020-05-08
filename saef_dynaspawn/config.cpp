@@ -22,13 +22,10 @@ class CfgFunctions
 		{
 			file = "saef_dynaspawn\Functions";
 			class DynaSpawn {};
+			class DynaSpawnValidation {};
 			class Garrison {};
 			class GetRandomFormation {};
 			class HunterKiller {};
-			class InitDS 
-			{
-				preInit = 1;
-			};
 			class ParaInsertion {};
 			class PositionValidation {};
 			class SpawnerGroup {};

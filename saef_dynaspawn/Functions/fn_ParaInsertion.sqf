@@ -1,31 +1,27 @@
 /*	
-	Function: fn_ParaInsertion.sqf
+	fn_ParaInsertion.sqf
 	Author: Angus Bethke
-	Version: Beta 0.95
 	Required Mod(s): ACE
-	Description: This is a function built for deploying AI via Parachute Insertion
-	Last Modified: 05-03-2019					
+	Description: 
+		This is a function built for deploying AI via Parachute Insertion
 */
 
-_vehicle = _this select 0;
-_spawnPos = _this select 1;
-_azi = _this select 2;
-_insertionPos = _this select 3;
-_group = _this select 4;
-_facSide = _this select 5;
+params
+[
+	"_vehicle",
+	"_spawnPos",
+	"_azi",
+	"_insertionPos",
+	"_group",
+	"_facSide"
+];
 
-/* Set to true for Debug */
-_debug = missionNamespace getVariable "RS_DS_Debug";
-diag_log format ["%1 [INFO] Parchute Insertion Started", (_debug select 1)];
-
-if ((_debug select 0)) then
-{
-	diag_log format ["%1 [ParaInsertion] Parameters: %2", (_debug select 1), _this];
-};
+["DynaSpawn", 3, (format ["[ParaInsertion] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 
 if (!(_vehicle isKindOf "Air")) exitWith
 {
-	diag_log format ["%1 [ERROR] Parchute Insertion Cancelled, Vehicle %2 is not an Aerial Vehicle!", (_debug select 1), _vehicle];
+	["DynaSpawn", 1, (format ["[ParaInsertion] Cancelled, Vehicle %1 is not an Aerial Vehicle!", _vehicle])] call RS_fnc_LoggingHelper;
+	["DynaSpawn", 3, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 };
 
 // Generate our spawn position
@@ -77,17 +73,14 @@ if (_spawnPos isEqualTo []) then
 		};
 	} forEach _spawnPosArr;
 	
-	// Debug
-	if ((_debug select 0)) then
-	{
-		diag_log format ["%1 [ParaInsertion] Position: %2, Direction: %3", (_debug select 1), _spawnPos, _azi];
-	};
+	["DynaSpawn", 4, (format ["[ParaInsertion] Position: %1, Direction: %2", _spawnPos, _azi])] call RS_fnc_LoggingHelper;
 };
 
 // On the slim chance it can't find a safe space to spawn the Helo, exit with an Error
 if (_spawnPos isEqualTo []) exitWith
 {
-	diag_log format ["%1 [ERROR] Parchute Insertion Cancelled, no safe spawn position found!", (_debug select 1)];
+	["DynaSpawn", 1, (format ["[ParaInsertion] Cancelled, no safe spawn position found!"])] call RS_fnc_LoggingHelper;
+	["DynaSpawn", 3, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 };
 
 // Create the Vehicle
@@ -120,7 +113,8 @@ _units = count (units _group);
 
 if (_seats < _units) exitWith
 {
-	diag_log format ["%1 [ERROR] Parchute Insertion Cancelled. Number of Available Seats [%2] is less than the group Size [%3]!", (_debug select 1), _seats, _units];
+	["DynaSpawn", 1, (format ["[ParaInsertion] Cancelled. Number of Available Seats [%1] is less than the group Size [%2]!", _seats, _units])] call RS_fnc_LoggingHelper;
+	["DynaSpawn", 3, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 };
 
 // Move the Group into the Helo
@@ -138,7 +132,8 @@ waitUntil {
 // If the vehicle is destroyed, exit out of the function
 if (({alive _x} count units _vGroup) == 0) exitWith 
 {
-	diag_log format ["%1 [INFO] Parchute Insertion Cancelled, Vehicle Destroyed!", (_debug select 1)];
+	["DynaSpawn", 2, (format ["[ParaInsertion] Cancelled, Vehicle Destroyed!"])] call RS_fnc_LoggingHelper;
+	["DynaSpawn", 3, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 };
 
 // Deploy the Paratroopers
@@ -166,7 +161,8 @@ waitUntil {
 // If the vehicle is destroyed, exit out of the function
 if (({alive _x} count units _vGroup) == 0) exitWith 
 {
-	diag_log format ["%1 [INFO] Parchute Insertion Cancelled, Vehicle Destroyed!", (_debug select 1)];
+	["DynaSpawn", 2, (format ["[ParaInsertion] Cancelled, Vehicle Destroyed!"])] call RS_fnc_LoggingHelper;
+	["DynaSpawn", 3, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 };
 
 // Cleanup the Vehicle
@@ -175,6 +171,8 @@ if (({alive _x} count units _vGroup) == 0) exitWith
 } forEach crew _veh;
 
 deleteVehicle _veh;
+
+["DynaSpawn", 3, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 
 /*
 	END

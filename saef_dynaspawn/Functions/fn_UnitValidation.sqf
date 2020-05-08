@@ -1,19 +1,22 @@
 /*
-	Function: fn_UnitValidation.sqf
+	fn_UnitValidation.sqf
 	Author: Angus Bethke
-	Description: Determines whether the variable passed is a Valid Group or Vehicle
-	Last Modified: 04-11-2019
+	Description: 
+		Determines whether the variable passed is a Valid Group or Vehicle
 */
+
+params
+[
+	"_var"
+];
 
 //Private Variables	
 private
 [
-	"_var",
 	"_type",
 	"_valid"
 ];
 
-_var = _this select 0;
 _type = "";
 _valid = false;
 

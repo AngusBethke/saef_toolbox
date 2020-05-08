@@ -1,10 +1,17 @@
-/*	
-	Function: fn_HunterKiller.sqf
+/*
+	fn_HunterKiller.sqf
 	Author: Angus Bethke
-	Required Functions: fn_DynaSpawn, fn_GetClosestPlayer
-	Description: Uses a passed group and area of operation to create waypoints for AI that continously hunt the nearest player to them.
-	Last Modified: 05-03-2019 		
+	Description: 
+		Uses a passed group and area of operation to create waypoints for AI that continously hunt the nearest player to them.
 */
+
+params
+[
+	"_groupHunt",
+	"_areaOfOperation",
+	"_usePara",
+	"_secondPos"
+];
 
 private
 [
@@ -17,18 +24,10 @@ private
 	"_closestPlayerPos"
 ];
 
-/*	Declarations	*/
-_groupHunt = _this select 0;
-_areaOfOperation = _this select 1;
-_usePara = _this select 2;
-_secondPos = _this select 3;
-_enemySide = side _groupHunt;
-_debug = missionNamespace getVariable "RS_DS_Debug";
+["DynaSpawn", 3, (format ["[HunterKiller] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 
-if ((_debug select 0)) then
-{
-	diag_log format ["%1 [HunterKiller] Parameters: %2", (_debug select 1), _this];
-};
+// Declarations
+_enemySide = side _groupHunt;
 
 {
 	_x enableStamina false;
@@ -46,7 +45,8 @@ if (_usePara) then
 // If the HunterKiller team died during insertion, exit the function
 if (({alive _x} count units _groupHunt) == 0) exitWith
 {
-	diag_log format ["%1 [INFO] Hunter Killer Group %2, Dead on Insertion, Exiting!", (_debug select 1), _groupHunt];
+	["DynaSpawn", 1, (format ["[HunterKiller] Group [%1] dead on Insertion, Exiting...", _groupHunt)] call RS_fnc_LoggingHelper;
+	["DynaSpawn", 3, (format ["[HunterKiller] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 };
 
 // Break-Out Variables
@@ -82,10 +82,13 @@ for "_i" from 0 to ((count _huntPlayerArray) - 1) do
 // If there are no players within the given AO, delete the hunter killers
 if (_closestPlayerPos isEqualTo (getPos (leader _groupHunt))) exitWith
 {
-	diag_log format ["%1 [WARNING] Hunter Killer Found no Close Player, deleting group %2", (_debug select 1), _groupHunt];
+	["DynaSpawn", 1, (format ["[HunterKiller] Found no Close Player, deleting group %1", _groupHunt])] call RS_fnc_LoggingHelper;
+	
 	{
 		deleteVehicle _x;
 	} forEach units _groupHunt;
+
+	["DynaSpawn", 3, (format ["[HunterKiller] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 };
 
 // This is the threshold for allowing the player to escape the Hunter Killers
@@ -132,10 +135,7 @@ while {({alive _x} count units _groupHunt) > 0} do
 		_count = _count + 1;
 	};
 	
-	if ((_debug select 0)) then
-	{
-		diag_log format ["%1 Hunter Killer Closest Player: %2", (_debug select 1), _closestPlayerPos];
-	};
+	["DynaSpawn", 3, (format ["[HunterKiller] Closest Player: %2", _closestPlayerPos])] call RS_fnc_LoggingHelper;
 	
 	_groupHunt move _closestPlayerPos;
 	
@@ -161,10 +161,15 @@ if (_limitReached) then
 	};
 	
 	// Delete the group
-	diag_log format ["%1 [INFO] Hunter Killer Found no Close Player within timed limit, deleting group %2", (_debug select 1), _groupHunt];
+	["DynaSpawn", 2, (format ["[HunterKiller] Found no Close Player within timed limit, deleting group %1", _groupHunt])] call RS_fnc_LoggingHelper;
+	
 	{
 		deleteVehicle _x;
 	} forEach units _groupHunt;
 };
 
-//Returns: Nothing
+["DynaSpawn", 3, (format ["[HunterKiller] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+
+/*
+	END
+*/
