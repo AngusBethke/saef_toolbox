@@ -5,7 +5,8 @@
 		[
 			_params, 	// Parameters for your function/script <array, string>
 			_script,	// The script/function that you would like to execute <string, function definition>
-			_exec		// Optional: Third parameter if you would like to override the default "spawn" with "call" or similar
+			_exec,		// Optional: Third parameter if you would like to override the default "spawn" with "call" or similar
+			_target		// Optional: The exact client you want to target (useful if you have multiple headless client objects)
 		] call RS_fnc_ExecScriptHandler;
 	Examples:
 	[[], "Scripts\MissionSpawners\Spawn_Handler_Main.sqf"] call RS_fnc_ExecScriptHandler;
@@ -13,23 +14,26 @@
 	[[_secondPos, _group, _area], "DS_fnc_Garrison", "call"] call RS_fnc_ExecScriptHandler;
 */
 
-private
+params
 [
-	 "_params"
-	,"_script"
-	,"_exec"
-	,"_headlessPresent"
+	"_params",
+	"_script",
+	[
+		"_exec",
+		"spawn"
+	],
+	[
+		"_target", 
+		"HC1"
+	]
 ];
 
-_params = _this select 0;
-_script = _this select 1;
-_exec = _this select 2;
-
-// Test our optional third parameter
-if (isNil "_exec") then
-{
-	_exec = "spawn";
-};
+private
+[
+	"_isScript",
+	"_headlessPresent",
+	"_headlessObject"
+];
 
 // Test if this is of type script
 _isScript = false;
@@ -39,36 +43,37 @@ if ([".sqf", _script] call BIS_fnc_inString) then
 	_exec = "execVM";
 };
 
-// Test if the Headless Client is present
+// Test if the target is present
 _headlessPresent = false;
-if (!isNil "HC1") then
+if (!isNil _target) then
 {
-	_headlessPresent = isPlayer HC1;
+	_headlessObject = (call compile _target);
+	_headlessPresent = isPlayer _headlessObject;
 };
 
-// If the headless is present, execute the script on the headless, else on the server
+// If the target is present, execute the script on the target, else on the server
 if (_headlessPresent) then
 {
-	diag_log format ["[RS] [ExecScriptHandler] [INFO] Headless found, executing script/function on the Headless Client: %1 %2 %3", _params, _exec, _script];
+	["RS_fnc_ExecScriptHandler", 3, (format ["Target [%1] found, executing script/function on [%1]: %2 %3 %4", _target, _params, _exec, _script]), true] call RS_fnc_LoggingHelper;
 	if (_isScript) then
 	{
-		[_params, _script] remoteExec [_exec, HC1, false];
+		[_params, _script] remoteExec [_exec, _headlessObject, false];
 	}
 	else
 	{
 		if (toUpper(_exec) == "CALL") then
 		{
-			_params remoteExecCall [_script, HC1, false];
+			_params remoteExecCall [_script, _headlessObject, false];
 		}
 		else
 		{
-			_params remoteExec [_script, HC1, false];
+			_params remoteExec [_script, _headlessObject, false];
 		};
 	};
 }
 else
 {
-	diag_log format ["[RS] [ExecScriptHandler] [INFO] No Headless found, executing script/function on the Server: %1 %2 %3", _params, _exec, _script];
+	["RS_fnc_ExecScriptHandler", 3, (format ["Target [%1] not found, executing script/function on the Server: %2 %3 %4", _target, _params, _exec, _script]), true] call RS_fnc_LoggingHelper;
 	if (_isScript) then
 	{
 		[_params, _script] remoteExec [_exec, 2, false];
