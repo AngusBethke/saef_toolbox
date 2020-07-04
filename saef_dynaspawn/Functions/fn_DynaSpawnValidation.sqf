@@ -26,7 +26,7 @@ private
 	"_unitType"
 ];
 
-["DynaSpawn", 3, (format ["[Validation] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+["DynaSpawn", 4, (format ["[Validation] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 
 // Uppercase Type
 _type = toUpper(_type);
@@ -96,7 +96,7 @@ if (_areaOfOperation < 1 OR _areaOfOperation > 4000) then
 	_areaOfOperation = 50;
 };
 
-["DynaSpawn", 3, (format ["[Validation] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+["DynaSpawn", 4, (format ["[Validation] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 
 // Return valid and our variables
 [true, [_spawnPos, _azi, _type, _secondPos, _faction, _unitType, _facSide, _areaOfOperation]]

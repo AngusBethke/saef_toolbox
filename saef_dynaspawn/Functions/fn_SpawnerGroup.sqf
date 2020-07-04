@@ -32,7 +32,7 @@ private
 	"_script"
 ];
 
-["DynaSpawn", 3, (format ["[SpawnerGroup] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+["DynaSpawn", 4, (format ["[SpawnerGroup] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 
 /* Run the Spawners */
 if (_unitType == "INF") then
@@ -161,8 +161,11 @@ if (_usePara) then
 	_paraSpawn spawn RS_DS_fnc_ParaInsertion;
 };
 
+// Let us know group has been spawned
+["DynaSpawn", 3, (format ["[SpawnerGroup] Spawn Complete for Group: %1", _group])] call RS_fnc_LoggingHelper;
+
 // If type is NON the unit will be given no waypoints, allowing the user to have full control over them for custom scripts, waypoints etc.
-["DynaSpawn", 3, (format ["[SpawnerGroup] <OUT> | Group: %1, Parameters: %2", _group, _this])] call RS_fnc_LoggingHelper;
+["DynaSpawn", 4, (format ["[SpawnerGroup] <OUT> | Group: %1, Parameters: %2", _group, _this])] call RS_fnc_LoggingHelper;
 
 /*
 	END

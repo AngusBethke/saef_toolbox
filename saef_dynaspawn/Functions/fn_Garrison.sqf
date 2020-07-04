@@ -25,7 +25,7 @@ private
 	"_tmpPos"
 ];
 
-["DynaSpawn", 3, (format ["[Garrison] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+["DynaSpawn", 4, (format ["[Garrison] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 
 _countGrp = (count (units _grp));
 _itt = 1;
@@ -139,7 +139,7 @@ for "_i" from 0 to (_countBld - 1) do
 	};
 };
 
-["DynaSpawn", 3, (format ["Positions to Garrison: %1", _posArr])] call RS_fnc_LoggingHelper;
+["DynaSpawn", 4, (format ["Positions to Garrison: %1", _posArr])] call RS_fnc_LoggingHelper;
 
 _groupUnits = units _grp;
 _useStatics = true;
@@ -175,7 +175,7 @@ _j = 0;
 	_j = _j + 1;
 } forEach _groupUnits;
 
-["DynaSpawn", 3, (format ["[Garrison] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+["DynaSpawn", 4, (format ["[Garrison] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 
 // Returns true
 true

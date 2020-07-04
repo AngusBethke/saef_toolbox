@@ -24,7 +24,7 @@ private
 	"_closestPlayerPos"
 ];
 
-["DynaSpawn", 3, (format ["[HunterKiller] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+["DynaSpawn", 4, (format ["[HunterKiller] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 
 // Declarations
 _enemySide = side _groupHunt;
@@ -45,8 +45,8 @@ if (_usePara) then
 // If the HunterKiller team died during insertion, exit the function
 if (({alive _x} count units _groupHunt) == 0) exitWith
 {
-	["DynaSpawn", 1, (format ["[HunterKiller] Group [%1] dead on Insertion, Exiting...", _groupHunt)] call RS_fnc_LoggingHelper;
-	["DynaSpawn", 3, (format ["[HunterKiller] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+	["DynaSpawn", 1, (format ["[HunterKiller] Group [%1] dead on Insertion, Exiting...", _groupHunt])] call RS_fnc_LoggingHelper;
+	["DynaSpawn", 4, (format ["[HunterKiller] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 };
 
 // Break-Out Variables
@@ -88,7 +88,7 @@ if (_closestPlayerPos isEqualTo (getPos (leader _groupHunt))) exitWith
 		deleteVehicle _x;
 	} forEach units _groupHunt;
 
-	["DynaSpawn", 3, (format ["[HunterKiller] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+	["DynaSpawn", 4, (format ["[HunterKiller] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 };
 
 // This is the threshold for allowing the player to escape the Hunter Killers
@@ -135,7 +135,7 @@ while {({alive _x} count units _groupHunt) > 0} do
 		_count = _count + 1;
 	};
 	
-	["DynaSpawn", 3, (format ["[HunterKiller] Closest Player: %2", _closestPlayerPos])] call RS_fnc_LoggingHelper;
+	["DynaSpawn", 4, (format ["[HunterKiller] Closest Player: %2", _closestPlayerPos])] call RS_fnc_LoggingHelper;
 	
 	_groupHunt move _closestPlayerPos;
 	
@@ -168,7 +168,7 @@ if (_limitReached) then
 	} forEach units _groupHunt;
 };
 
-["DynaSpawn", 3, (format ["[HunterKiller] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+["DynaSpawn", 4, (format ["[HunterKiller] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 
 /*
 	END

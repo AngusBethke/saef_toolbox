@@ -9,20 +9,20 @@
 // Input parameters
 params
 [
-	["_spawnPos", [], ["", []], [2, 3]],			// Passed Spawn Position, can be a Marker or a Position Array
+	["_spawnPos", "", ["", []], [2, 3]],			// Passed Spawn Position, can be a Marker or a Position Array
 	["_type", "", [""]],                			// Type should be, Format: "PAT", "DEF", "CA", "HK", "NON" or "GAR"
-	["_faction", "", [""]],             			// Faction should be a Custom Unit Array or Group Name, or Vehicle
+	["_faction", "", ["", []]],             		// Faction should be a Custom Unit Array or Group Name, or Vehicle
 	["_facSide", EAST, [EAST]],             		// Side of the Units you are spawning, Format: WEST, EAST, or INDEPENDENT
 	["_areaOfOperation", 50, [0]],     				// Define the Area in which the AI Defend or Garrison. Integer (Max) 4000, (Min) 5
-	["_secondPos", [], ["", []], [2, 3]],           // Passed Secondary Position (Used by Counter Attack or Garrison), can be a Marker or a Position Array
+	["_secondPos", "", ["", []], [2, 3]],           // Passed Secondary Position (Used by Counter Attack or Garrison), can be a Marker or a Position Array
 	["_remWeapAttach", false, [false]],       		// Boolean Value Removes WeaponAttachments from spawned unit's weapons, Format: true or false
-	["_paraSpawn", [], [[]], 3],           			// Array used for para spawns	
+	["_paraSpawn", [], [[]]],           			// Array used for para spawns	
 	["_group", grpNull, [grpNull]],                	// (Optional) You can pass the group in for better function performance
 	["_giveHandle", false, [false]]					// (Optional) Request that the spawner script handle be passed back - will not have any effect in a "scheduled" environment
 ];
 
 // Log incoming
-["DynaSpawn", 3, (format ["<IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+["DynaSpawn", 4, (format ["<IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 
 // Private Variables
 private 
@@ -51,7 +51,7 @@ _vArray = (_validationOutcome select 1);
 // If validation fails, exit out
 if (!_valid) exitWith
 {
-	["DynaSpawn", 3, (format ["<OUT> | Parameters: %2", _this])] call RS_fnc_LoggingHelper;
+	["DynaSpawn", 4, (format ["<OUT> | Parameters: %2", _this])] call RS_fnc_LoggingHelper;
 	
 	// Return null group for failure
 	grpNull
@@ -97,7 +97,7 @@ if (canSuspend) then
 	};
 };
 
-["DynaSpawn", 3, (format ["<OUT> | Group: %1, Parameters: %2", _group, _this])] call RS_fnc_LoggingHelper;
+["DynaSpawn", 4, (format ["<OUT> | Group: %1, Parameters: %2", _group, _this])] call RS_fnc_LoggingHelper;
 
 if (!canSuspend && _giveHandle) exitWith 
 {

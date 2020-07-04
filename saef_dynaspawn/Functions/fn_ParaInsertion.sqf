@@ -16,12 +16,12 @@ params
 	"_facSide"
 ];
 
-["DynaSpawn", 3, (format ["[ParaInsertion] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+["DynaSpawn", 4, (format ["[ParaInsertion] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 
 if (!(_vehicle isKindOf "Air")) exitWith
 {
 	["DynaSpawn", 1, (format ["[ParaInsertion] Cancelled, Vehicle %1 is not an Aerial Vehicle!", _vehicle])] call RS_fnc_LoggingHelper;
-	["DynaSpawn", 3, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+	["DynaSpawn", 4, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 };
 
 // Generate our spawn position
@@ -80,7 +80,7 @@ if (_spawnPos isEqualTo []) then
 if (_spawnPos isEqualTo []) exitWith
 {
 	["DynaSpawn", 1, (format ["[ParaInsertion] Cancelled, no safe spawn position found!"])] call RS_fnc_LoggingHelper;
-	["DynaSpawn", 3, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+	["DynaSpawn", 4, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 };
 
 // Create the Vehicle
@@ -114,7 +114,7 @@ _units = count (units _group);
 if (_seats < _units) exitWith
 {
 	["DynaSpawn", 1, (format ["[ParaInsertion] Cancelled. Number of Available Seats [%1] is less than the group Size [%2]!", _seats, _units])] call RS_fnc_LoggingHelper;
-	["DynaSpawn", 3, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+	["DynaSpawn", 4, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 };
 
 // Move the Group into the Helo
@@ -133,7 +133,7 @@ waitUntil {
 if (({alive _x} count units _vGroup) == 0) exitWith 
 {
 	["DynaSpawn", 2, (format ["[ParaInsertion] Cancelled, Vehicle Destroyed!"])] call RS_fnc_LoggingHelper;
-	["DynaSpawn", 3, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+	["DynaSpawn", 4, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 };
 
 // Deploy the Paratroopers
@@ -162,7 +162,7 @@ waitUntil {
 if (({alive _x} count units _vGroup) == 0) exitWith 
 {
 	["DynaSpawn", 2, (format ["[ParaInsertion] Cancelled, Vehicle Destroyed!"])] call RS_fnc_LoggingHelper;
-	["DynaSpawn", 3, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+	["DynaSpawn", 4, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 };
 
 // Cleanup the Vehicle
@@ -172,7 +172,7 @@ if (({alive _x} count units _vGroup) == 0) exitWith
 
 deleteVehicle _veh;
 
-["DynaSpawn", 3, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+["DynaSpawn", 4, (format ["[ParaInsertion] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 
 /*
 	END
