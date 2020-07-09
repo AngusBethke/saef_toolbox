@@ -26,19 +26,22 @@ switch toUpper(_type) do
 	case "TOJSTAND": 
 	{
 		_plane = vehicle _unit;
-		[_plane, _unit] spawn LIB_cargoSwitchtoJumpMasterStatement;
+		["RS_INV_fnc_Client_RemoteParaPlane", 3, (format ["Moving _unit [%1] to Jump Master Position in _plane [%2]", _unit, _plane]), true] call RS_fnc_LoggingHelper;
+		[_plane, _unit] call RS_INV_fnc_Client_JumpMoveToJumpMaster;
 	};
 	
 	case "TOSTAND": 
 	{
 		_plane = vehicle _unit;
-		[_plane, _unit] spawn LIB_cargoStandUpStatement;
+		["RS_INV_fnc_Client_RemoteParaPlane", 3, (format ["Moving _unit [%1] to Standing Position in _plane [%2]", _unit, _plane]), true] call RS_fnc_LoggingHelper;
+		[_plane, _unit] call RS_INV_fnc_Client_JumpMoveToStand;
 	};
 	
 	case "TODOOR": 
 	{
 		_plane = vehicle _unit;
-		[_plane, _unit] spawn LIB_cargoMoveToDoorStatement;
+		["RS_INV_fnc_Client_RemoteParaPlane", 3, (format ["Moving _unit [%1] to the Door in _plane [%2]", _unit, _plane]), true] call RS_fnc_LoggingHelper;
+		[_plane, _unit] call RS_INV_fnc_Client_JumpMoveToDoor;
 		
 		sleep 4;
 		

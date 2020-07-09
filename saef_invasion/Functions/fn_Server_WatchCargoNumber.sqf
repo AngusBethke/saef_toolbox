@@ -10,7 +10,7 @@
 		] spawn RS_INV_fnc_Server_WatchCargoNumber;
 		
 	Called by:
-		fn_Server_SpawnC47.sqf
+		fn_Server_SpawnPlane.sqf
 */
 
 params

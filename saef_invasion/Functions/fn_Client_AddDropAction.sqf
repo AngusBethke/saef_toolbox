@@ -15,6 +15,17 @@ params
 	"_object"
 ];
 
+private
+[
+	"_position"
+];
+
+_position = [0,0,0];
+if (_object isKindOf "Vysilacka") then
+{
+	_position = [0,0,-1];
+};
+
 // Creates the action to board the aircraft
 _action = ["RS_INV_BoardAircraft", "Board Aircraft", "",
 {
@@ -34,12 +45,12 @@ _action = ["RS_INV_BoardAircraft", "Board Aircraft", "",
 	params ["_target", "_player", "_params"];
 	
 	// Condition
-	!(missionNamespace getVariable [_functionLockVariable, false])
+	!(missionNamespace getVariable ["RS_INV_MountPlayers_Function_Locked", false])
 },
-{},[],[0,0,0], 5] call ace_interact_menu_fnc_createAction;
+{}, [], _position, 5] call ace_interact_menu_fnc_createAction;
 
 // Map the Action to an Object
-[_object, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToObject;
+[_object, 0, [], _action] call ace_interact_menu_fnc_addActionToObject;
 
 /*
 	END

@@ -16,7 +16,7 @@ class CfgPatches
 
 class CfgFunctions
 {
-	class RS
+	class RS_INV
 	{
 		class Invasion
 		{
@@ -24,6 +24,9 @@ class CfgFunctions
 			class Client_AddDropAction {};
 			class Client_Flak {};
 			class Client_Invasion {};
+			class Client_JumpMoveToDoor {};
+			class Client_JumpMoveToJumpMaster {};
+			class Client_JumpMoveToStand {};
 			class Client_MisDropItems {};
 			class Client_MountPlayer {};
 			class Client_MoveIn {};

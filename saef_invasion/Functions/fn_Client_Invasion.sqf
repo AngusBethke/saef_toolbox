@@ -1,5 +1,5 @@
 /* 
-	fn_Client_Invasion.sqf.sqf
+	fn_Client_Invasion.sqf
 	
 	Description: 
 		Handles the clientside portion of the invasion process
@@ -25,7 +25,7 @@ waitUntil {
 sleep 2.5;
 
 // Move the player into the plane
-["plane", player] call RS_INV_fnc_Client_MoveIn;
+["plane", player] spawn RS_INV_fnc_Client_MoveIn;
 
 /*
 	END

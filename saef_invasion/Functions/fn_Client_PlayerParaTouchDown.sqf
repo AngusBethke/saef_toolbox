@@ -41,7 +41,7 @@ waitUntil {
 
 if (_unit == player) then
 {
-	showHUD true;
+	showHUD (_unit getVariable ["RS_INV_Hud", shownHUD]);
 };
 
 deleteVehicle _para;

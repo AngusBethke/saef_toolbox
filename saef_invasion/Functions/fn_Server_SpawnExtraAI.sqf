@@ -10,7 +10,7 @@
 		] call RS_INV_fnc_Server_SpawnExtraAI;
 		
 	Called by:
-		fn_Server_SpawnC47.sqf
+		fn_Server_SpawnPlane.sqf
 */
 
 params
@@ -34,10 +34,13 @@ if (_unitArr isEqualTo []) exitWith
 };
 
 // Cull the extra AI to make space for the players in the aircraft
+_units = [];
 for "_i" from 0 to (12 - (missionNamespace getVariable ["RS_INV_PlaneSeatCount", 4])) do
 {
-	_units = _units + [_unitArr select _i];
+	_units = _units + [(selectRandom _unitArr)];
 };
+
+["RS_INV_fnc_SpawnExtraAI", 4, (format ["Units [%1] that will be spawned for the extra AI", _units]), true] call RS_fnc_LoggingHelper;
 
 // Get the spawn position for the friendly units
 _friendlySpawn = missionNamespace getVariable ["RS_INV_DefaultFriendlyAI_Spawn", ""];
@@ -49,8 +52,11 @@ if (_friendlySpawn isEqualTo "") exitWith
 // Spawn the group and move them into the plane
 _group = [(markerPos _friendlySpawn), (missionNamespace getVariable ["RS_FriendlySide", INDEPENDENT]), _units, [], [], [], [], [], 0] call BIS_fnc_spawnGroup;
 
+["RS_INV_fnc_SpawnExtraAI", 3, (format ["Group [%1] created moving them to plane [%2]", _group, _plane]), true] call RS_fnc_LoggingHelper;
+
 // Move all the units to the provided plane
 {
+	["RS_INV_fnc_SpawnExtraAI", 4, (format ["Moving unit [%1] to plane [%2]", _x, _plane]), true] call RS_fnc_LoggingHelper;
 	_x moveInCargo _plane;
 } forEach (units _group);
 

@@ -82,8 +82,10 @@ if (_isActive) then
 	sleep 2.5;
 	
 	// Assign the player to this plane then move them into it
-	player setVariable ["RS_INV_AssignedPlane", _plane, true];
-	["plane", player] call RS_INV_fnc_Client_MoveIn;
+	_freeCargoPositions = _plane emptyPositions "cargo";
+	_index = (15 - _freeCargoPositions);
+	player setVariable ["RS_INV_AssignedPlane", [_plane, _index], true];
+	["plane", player] spawn RS_INV_fnc_Client_MoveIn;
 }
 else
 {

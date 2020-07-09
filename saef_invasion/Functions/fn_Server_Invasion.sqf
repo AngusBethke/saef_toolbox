@@ -34,7 +34,7 @@ if (_positions isEqualTo []) exitWith
 };
 
 // Set the player's assigned plane and slot
-for "_i" from 0 to _countPlanes do
+for "_i" from 0 to (_countPlanes - 1) do
 {
 	// If we've emptied the array then we need to populate it again
 	if (_positions isEqualTo []) then
@@ -49,18 +49,21 @@ for "_i" from 0 to _countPlanes do
 	
 	_plane = _position call RS_INV_fnc_Server_SpawnPlane;
 	
-	for "_j" from 0 to _countSeats do
+	for "_j" from 0 to (_countSeats - 1) do
 	{
 		if (!(_allPlayers isEqualTo [])) then
 		{
 			// Get the player and remove them from the array
 			_player = selectRandom _allPlayers;
 			_allPlayers = _allPlayers - [_player];
+			_index = (12 - _countSeats) + _j;
 			
 			// Assign the player a seat and a plane
-			_player setVariable ["RS_INV_AssignedPlane", [(_plane, _j], true];
-		}:
+			_player setVariable ["RS_INV_AssignedPlane", [_plane, _index], true];
+		};
 	};
+	
+	sleep 1;
 };
 
 // Mark the Invasion Started for the Client Script Portion to pick it up

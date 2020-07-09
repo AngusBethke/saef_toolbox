@@ -12,7 +12,7 @@
 		
 	Called by:
 		fn_Server_AmbientAirDrop.sqf
-		fn_Server_SpawnC47.sqf
+		fn_Server_SpawnPlane.sqf
 */
 
 params
@@ -42,7 +42,14 @@ waitUntil {
 	}
 	else
 	{
-		deleteVehicle _x;
+		if (local _x) then
+		{
+			deleteVehicle _x;
+		}
+		else
+		{
+			[_x] remoteExec ["deleteVehicle", (owner _x), false];
+		};
 	};
 } forEach crew _plane;
 
