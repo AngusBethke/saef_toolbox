@@ -80,8 +80,8 @@ if (_newPlane) then
 	missionNamespace setVariable ["RS_INV_ActivePlane", [true, _vehicle], true];
 	
 	// Execute some stuff for the plane
-	//[[_vehicle], "RS_INV_fnc_Server_SpawnExtraAI", "call"] call RS_fnc_ExecScriptHandler;
-	[_vehicle] call RS_INV_fnc_Server_SpawnExtraAI;
+	[[_vehicle], "RS_INV_fnc_Server_SpawnExtraAI", "call"] call RS_fnc_ExecScriptHandler;
+	//[_vehicle] call RS_INV_fnc_Server_SpawnExtraAI;
 	[_vehicle] spawn RS_INV_fnc_Server_WatchCargoNumber;
 	[_vehicle, _drpPos] spawn RS_INV_fnc_Server_PlayerAirDrop;
 	[_vehicle, _endPos] spawn RS_INV_fnc_Server_PlaneCleanup;
