@@ -9,7 +9,7 @@ missionNamespace setVariable ["RS_RunCheckAdmin", true, true];
 
 while {missionNamespace getVariable "RS_RunCheckAdmin"} do
 {
-	if ((serverCommandAvailable "#logout") || (isServer)) then
+	if ((serverCommandAvailable "#logout") || (isServer) || (player getVariable ["RS_AdminOverride", false])) then
 	{
 		player setVariable ["RS_IsAdmin", true, true];
 	}
