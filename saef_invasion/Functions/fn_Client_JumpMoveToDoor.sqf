@@ -25,7 +25,7 @@ _doorTurret = [_plane getVariable "LIB_DoorTurretIndex"];
 _unit setVariable ["LIB_UnitTurretPlane",_doorTurret];
 [_plane,[_doorTurret,false]] remoteExec ["lockTurret",_plane];
 
-["RS_INV_fnc_Client_JumpMoveToDoor", 3, (format ["Moving _unit [%1] to turret index (door) [%2] in _plane [%3]", _unit, _doorTurret, _plane]), true] call RS_fnc_LoggingHelper;
+["RS_INV_fnc_Client_JumpMoveToDoor", 3, (format ["Moving _unit [%1] to turret index (door) [%2] in _plane [%3]", _unit, _doorTurret, _plane])] call RS_fnc_LoggingHelper;
 //_unit moveInTurret [_plane,_doorTurret];
 _unit action ["moveToTurret",_plane,_doorTurret];
 

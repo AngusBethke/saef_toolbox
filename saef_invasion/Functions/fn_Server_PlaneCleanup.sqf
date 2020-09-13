@@ -21,7 +21,7 @@ params
 	"_position"
 ];
 
-["RS_INV_fnc_Server_PlaneCleanup", 3, (format ["Cleanup started for Vehicle %1", _plane]), true] call RS_fnc_LoggingHelper;
+["RS_INV_fnc_Server_PlaneCleanup", 3, (format ["Cleanup started for Vehicle %1", _plane])] call RS_fnc_LoggingHelper;
 
 // Waits until plane is near its destination
 waitUntil {
@@ -29,7 +29,7 @@ waitUntil {
 	(_plane distance2D _position) <= 300
 };
 
-["RS_INV_fnc_Server_PlaneCleanup", 3, (format ["Deleting Crew and Vehicle for %1", _plane]), true] call RS_fnc_LoggingHelper;
+["RS_INV_fnc_Server_PlaneCleanup", 3, (format ["Deleting Crew and Vehicle for %1", _plane])] call RS_fnc_LoggingHelper;
 
 /* 
 	Double Check that there are no players in the plane. 

@@ -26,21 +26,21 @@ switch toUpper(_type) do
 	case "TOJSTAND": 
 	{
 		_plane = vehicle _unit;
-		["RS_INV_fnc_Client_RemoteParaPlane", 3, (format ["Moving _unit [%1] to Jump Master Position in _plane [%2]", _unit, _plane]), true] call RS_fnc_LoggingHelper;
+		["RS_INV_fnc_Client_RemoteParaPlane", 3, (format ["Moving _unit [%1] to Jump Master Position in _plane [%2]", _unit, _plane])] call RS_fnc_LoggingHelper;
 		[_plane, _unit] call RS_INV_fnc_Client_JumpMoveToJumpMaster;
 	};
 	
 	case "TOSTAND": 
 	{
 		_plane = vehicle _unit;
-		["RS_INV_fnc_Client_RemoteParaPlane", 3, (format ["Moving _unit [%1] to Standing Position in _plane [%2]", _unit, _plane]), true] call RS_fnc_LoggingHelper;
+		["RS_INV_fnc_Client_RemoteParaPlane", 3, (format ["Moving _unit [%1] to Standing Position in _plane [%2]", _unit, _plane])] call RS_fnc_LoggingHelper;
 		[_plane, _unit] call RS_INV_fnc_Client_JumpMoveToStand;
 	};
 	
 	case "TODOOR": 
 	{
 		_plane = vehicle _unit;
-		["RS_INV_fnc_Client_RemoteParaPlane", 3, (format ["Moving _unit [%1] to the Door in _plane [%2]", _unit, _plane]), true] call RS_fnc_LoggingHelper;
+		["RS_INV_fnc_Client_RemoteParaPlane", 3, (format ["Moving _unit [%1] to the Door in _plane [%2]", _unit, _plane])] call RS_fnc_LoggingHelper;
 		[_plane, _unit] call RS_INV_fnc_Client_JumpMoveToDoor;
 		
 		sleep 4;
@@ -51,10 +51,20 @@ switch toUpper(_type) do
 		{
 			[_unit] spawn RS_INV_fnc_Client_MisDropItems;
 		};
+
+		waitUntil {
+			sleep 0.1; 
+			((getPos _unit select 2) < 1.5)
+		};
+
+		if (_unit == player) then
+		{
+			showHUD (_unit getVariable ["RS_INV_Hud", shownHUD]);
+		};
 	};
 	
 	default {
-		["RS_INV_fnc_Client_RemoteParaPlane", 1, (format ["Unrecognised _type variable [%1] for _unit [%2]", _type, _unit]), true] call RS_fnc_LoggingHelper;
+		["RS_INV_fnc_Client_RemoteParaPlane", 1, (format ["Unrecognised _type variable [%1] for _unit [%2]", _type, _unit])] call RS_fnc_LoggingHelper;
 	};
 };
 

@@ -6,7 +6,7 @@
 
 {
 	// Make sure the unit is local
-	if (local _x)
+	if (local _x) then
 	{
 		// Fetch the assigned weapon
 		_weapon = _x getVariable ["RS_Insurgency_HasWeapon", ""];

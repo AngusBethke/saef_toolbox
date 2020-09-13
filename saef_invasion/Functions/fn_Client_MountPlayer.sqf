@@ -37,7 +37,7 @@ _positions = missionNamespace getVariable ["RS_INV_PlaneSpawnPositionArray", []]
 
 if (_positions isEqualTo []) exitWith
 {
-	["RS_INV_fnc_Client_MountPlayer", 1, "No spawn positions found for plane in variable 'RS_INV_PlaneSpawnPositionArray'!", true] call RS_fnc_LoggingHelper;
+	["RS_INV_fnc_Client_MountPlayer", 1, "No spawn positions found for plane in variable 'RS_INV_PlaneSpawnPositionArray'!"] call RS_fnc_LoggingHelper;
 
 	// Function Unlock Mechanism Section
 	missionNamespace setVariable [_functionLockVariable, false, true];
@@ -49,7 +49,7 @@ if !(_isActive) then
 	// Spawn the plane if there are none
 	_position = (selectRandom _positions);
 	_position = _position + [true];
-	_position remoteExecCall ["RS_INV_fnc_Server_SpawnPlane", 0, false];
+	_position remoteExecCall ["RS_INV_fnc_Server_SpawnPlane", 2, false];
 	
 	// Wait for the plane spawn process
 	sleep 3;
@@ -63,7 +63,7 @@ if !(_isActive) then
 if (isNull _plane) exitWith
 {
 	// This should never happen, but it's a safety check
-	["RS_INV_fnc_Client_MountPlayer", 1, (format ["Player [%1] Plane NULL", player]), true] call RS_fnc_LoggingHelper;
+	["RS_INV_fnc_Client_MountPlayer", 1, (format ["Player [%1] Plane NULL", player])] call RS_fnc_LoggingHelper;
 	hint "[RS] [INVASION] [ERROR] Aircraft doesn't exist! Please attempt the drop again...";
 	
 	// Make the active plane null
@@ -90,7 +90,7 @@ if (_isActive) then
 else
 {
 	// Safety catch for if the returned plane is not active
-	["RS_INV_fnc_Client_MountPlayer", 1, (format ["Player [%1] Unable to Execute Script", player]), true] call RS_fnc_LoggingHelper;
+	["RS_INV_fnc_Client_MountPlayer", 1, (format ["Player [%1] Unable to Execute Script", player])] call RS_fnc_LoggingHelper;
 	hint "[RS] [INVASION] [ERROR] No aircraft is active! Please attempt the drop again...";
 };
 

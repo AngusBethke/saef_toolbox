@@ -28,7 +28,7 @@ private
 _spnArr = [];
 
 // Derive Spawn Points Based on Number of Buildings
-_buildings = nearestObjects [_pos, ["building"], _size];
+_buildings = nearestObjects [_pos, ["building"], _rad];
 
 {
 	if ((_x buildingPos 0) isEqualTo [0,0,0]) then
@@ -39,7 +39,7 @@ _buildings = nearestObjects [_pos, ["building"], _size];
 
 if ((count _buildings) > _cnt) then
 {
-	for "_i" from 1 to  ((count _buildings) - _maxUnitCount) do
+	for "_i" from 1 to  ((count _buildings) - _cnt) do
 	{
 		_building = SelectRandom _buildings;
 		_buildings = _buildings - [_building];

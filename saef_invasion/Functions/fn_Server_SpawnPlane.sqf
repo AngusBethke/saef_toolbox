@@ -49,6 +49,13 @@ _vehicle = _veh select 0;
 
 // Debug hot vehicle start
 _vehicle setPosATL [(_strPos select 0), (_strPos select 1), _height];
+
+// Height correction for spawning over water
+if (((getPosASL _vehicle) select 2) < _height) then
+{
+	_vehicle setPosASL [(_strPos select 0), (_strPos select 1), _height];
+};
+
 _vehicle setVelocityModelSpace [0, 30, 0];
 _vehicle engineOn true;
 
@@ -75,7 +82,7 @@ _cWP setWaypointBehaviour "CARELESS";
 
 if (_newPlane) then
 {
-	["RS_INV_fnc_Server_SpawnPlane", 3, (format ["Plane (%1) is a Player Specific Plane", _vehicle]), true] call RS_fnc_LoggingHelper;
+	["RS_INV_fnc_Server_SpawnPlane", 3, (format ["Plane (%1) is a Player Specific Plane", _vehicle])] call RS_fnc_LoggingHelper;
 	
 	missionNamespace setVariable ["RS_INV_ActivePlane", [true, _vehicle], true];
 	
@@ -85,9 +92,10 @@ if (_newPlane) then
 	[_vehicle] spawn RS_INV_fnc_Server_WatchCargoNumber;
 	[_vehicle, _drpPos] spawn RS_INV_fnc_Server_PlayerAirDrop;
 	[_vehicle, _endPos] spawn RS_INV_fnc_Server_PlaneCleanup;
+	[_vehicle, _strPos, _direction, _endPos] spawn RS_INV_fnc_Server_PlanePosDebug;
 };
 
-["RS_INV_fnc_Server_SpawnPlane", 3, (format ["Plane (%1) Created and Returned, Flying at Height %2", _vehicle, _height]), true] call RS_fnc_LoggingHelper;
+["RS_INV_fnc_Server_SpawnPlane", 3, (format ["Plane (%1) Created and Returned, Flying at Height %2", _vehicle, _height])] call RS_fnc_LoggingHelper;
 
 // Return the Vehicle
 _vehicle

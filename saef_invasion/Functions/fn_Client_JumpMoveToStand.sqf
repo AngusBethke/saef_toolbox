@@ -26,7 +26,7 @@ _unitTurretPlane = [_maxGunnerProxy - _unitCargoIndexPlane];
 _unit setVariable ["LIB_UnitTurretPlane",_unitTurretPlane];
 [_plane,[_unitTurretPlane,false]] remoteExec ["lockTurret",_plane];
 
-["RS_INV_fnc_Client_JumpMoveToStand", 3, (format ["Moving _unit [%1] to turret index (standing) [%2] in _plane [%3]", _unit, _unitTurretPlane, _plane]), true] call RS_fnc_LoggingHelper;
+["RS_INV_fnc_Client_JumpMoveToStand", 3, (format ["Moving _unit [%1] to turret index (standing) [%2] in _plane [%3]", _unit, _unitTurretPlane, _plane])] call RS_fnc_LoggingHelper;
 //_unit moveInTurret [_plane,_unitTurretPlane];
 _unit action ["moveToTurret",_plane,_unitTurretPlane];
 

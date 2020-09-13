@@ -57,12 +57,13 @@ while {(missionNamespace getVariable [_phaseVar, 1]) < 2} do
 		_plane = [_startPosition, _endPosition, "", (markerDir _strMarker), false] call RS_INV_fnc_Server_SpawnPlane;
 		[_plane, _dropPosition] spawn RS_INV_fnc_Server_AmbientAirDropPara;
 		[_plane, _endPosition] spawn RS_INV_fnc_Server_PlaneCleanup;
+		[_plane, _startPosition, (markerDir _strMarker), _endPosition] spawn RS_INV_fnc_Server_PlanePosDebug;
 		
-		["RS_INV_fnc_Server_AmbientAirDrop", 3, (format ["Invasion Function: Spawned Ambient Plane No.%1 (%2) and called [RS_INV_fnc_Server_AmbientAirDropPara] / [RS_INV_fnc_Server_PlaneCleanup]", _i, _plane]), true] call RS_fnc_LoggingHelper;
+		["RS_INV_fnc_Server_AmbientAirDrop", 3, (format ["Invasion Function: Spawned Ambient Plane No.%1 (%2) and called [RS_INV_fnc_Server_AmbientAirDropPara] / [RS_INV_fnc_Server_PlaneCleanup]", _i, _plane])] call RS_fnc_LoggingHelper;
 		
 		if (_i == _planeCount) then
 		{
-			["RS_INV_fnc_Server_AmbientAirDrop", 3, "All ambient planes spawned, waiting until they are deleted to re-initialise the script", true] call RS_fnc_LoggingHelper;
+			["RS_INV_fnc_Server_AmbientAirDrop", 3, "All ambient planes spawned, waiting until they are deleted to re-initialise the script"] call RS_fnc_LoggingHelper;
 		};
 		
 		sleep 2;

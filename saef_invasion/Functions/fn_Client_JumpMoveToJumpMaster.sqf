@@ -25,7 +25,7 @@ _jumpMasterTurret = [_plane getVariable "LIB_JumpMasterTurretIndex"];
 _unit setVariable ["LIB_UnitTurretPlane",_jumpMasterTurret];
 [_plane,[_jumpMasterTurret,false]] remoteExec ["lockTurret",_plane];
 
-["RS_INV_fnc_Client_JumpMoveToJumpMaster", 3, (format ["Moving _unit [%1] to turret index (jump master) [%2] in _plane [%3]", _unit, _jumpMasterTurret, _plane]), true] call RS_fnc_LoggingHelper;
+["RS_INV_fnc_Client_JumpMoveToJumpMaster", 3, (format ["Moving _unit [%1] to turret index (jump master) [%2] in _plane [%3]", _unit, _jumpMasterTurret, _plane])] call RS_fnc_LoggingHelper;
 //_unit moveInTurret [_plane,_jumpMasterTurret];
 _unit action ["moveToTurret",_plane,_jumpMasterTurret];
 

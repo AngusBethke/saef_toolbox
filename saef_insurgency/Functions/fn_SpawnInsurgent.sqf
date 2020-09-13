@@ -37,9 +37,17 @@ else
 
 // Group Specific Settings
 {
+	// Add gear
+	_script = [_x, true] execVM _loadout;
+	waitUntil {
+		sleep 1;
+		((scriptDone _script) || (isNull _script))
+	};
 	
-	[_x, true] execVM _loadout;
+	// Add weapons
 	[_x] call RS_INS_fnc_AddWeapons;
+	
+	// Misc
 	_x doMove ([((getPos _x) select 0) + 5, (getPos _x) select 1, (getPos _x) select 2]);
 	_x enableFatigue false;
 	_x setVariable ["RS_Insurgency_IsInsurgent", true, true];

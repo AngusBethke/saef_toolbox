@@ -32,6 +32,7 @@ class CfgFunctions
 			class Client_MoveIn {};
 			class Client_PlayerParaTouchDown {};
 			class Client_RemoteParaPlane {};
+			class Client_Reset {};
 			class Client_Screen {};
 			class Server_AAFire {};
 			class Server_AAGuns {};
@@ -41,6 +42,7 @@ class CfgFunctions
 			class Server_ParaDelete {};
 			class Server_PlaneCleanup {};
 			class Server_PlaneLights {};
+			class Server_PlanePosDebug {};
 			class Server_PlayerAirDrop {};
 			class Server_SpawnExtraAI {};
 			class Server_SpawnPlane {};

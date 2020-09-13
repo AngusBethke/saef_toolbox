@@ -30,7 +30,7 @@ _positions = missionNamespace getVariable ["RS_INV_PlaneSpawnPositionArray", []]
 // Error out if we have no spawn positions
 if (_positions isEqualTo []) exitWith
 {
-	["RS_INV_fnc_Server_Invasion", 1, "No spawn positions found for plane in variable 'RS_INV_PlaneSpawnPositionArray'!", false] call RS_fnc_LoggingHelper;
+	["RS_INV_fnc_Server_Invasion", 1, "No spawn positions found for plane in variable 'RS_INV_PlaneSpawnPositionArray'!"] call RS_fnc_LoggingHelper;
 };
 
 // Set the player's assigned plane and slot

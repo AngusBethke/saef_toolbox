@@ -23,7 +23,7 @@ params
 	["_scripts", []]
 ];
 
-["RS_INV_fnc_Client_MoveIn", 4, (format ["<IN> Parameters: %1", _this]), true] call RS_fnc_LoggingHelper;
+["RS_INV_fnc_Client_MoveIn", 4, (format ["<IN> Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 
 // Run any additional scripts
 {
@@ -36,7 +36,7 @@ switch toUpper(_type) do
 {
 	case "PLANE" : {
 		_plane = _unit getVariable "RS_INV_AssignedPlane";
-		["RS_INV_fnc_Client_MoveIn", 3, (format ["Moving _unit [%1] into _plane [%2]", _unit, _plane]), true] call RS_fnc_LoggingHelper;
+		["RS_INV_fnc_Client_MoveIn", 3, (format ["Moving _unit [%1] into _plane [%2]", _unit, _plane])] call RS_fnc_LoggingHelper;
 		
 		_control = 0;
 		while {((vehicle _unit) != (_plane select 0)) || (_control < 10)} do
@@ -65,7 +65,7 @@ switch toUpper(_type) do
 		}
 		else
 		{
-			["RS_INV_fnc_Client_MoveIn", 1, (format ["Failed to move _unit [%1] into _plane [%2]", _unit, _plane]), true] call RS_fnc_LoggingHelper;
+			["RS_INV_fnc_Client_MoveIn", 1, (format ["Failed to move _unit [%1] into _plane [%2]", _unit, _plane])] call RS_fnc_LoggingHelper;
 		};
 	};
 	
@@ -81,11 +81,11 @@ switch toUpper(_type) do
 	};
 	
 	default {
-		["RS_INV_fnc_Client_MoveIn", 1, (format ["Unrecognised _type variable [%1] for _unit [%2]", _type, _unit]), true] call RS_fnc_LoggingHelper;
+		["RS_INV_fnc_Client_MoveIn", 1, (format ["Unrecognised _type variable [%1] for _unit [%2]", _type, _unit])] call RS_fnc_LoggingHelper;
 	};
 };
 
-["RS_INV_fnc_Client_MoveIn", 4, (format ["<OUT> Parameters: %1", _this]), true] call RS_fnc_LoggingHelper;
+["RS_INV_fnc_Client_MoveIn", 4, (format ["<OUT> Parameters: %1", _this])] call RS_fnc_LoggingHelper;
 
 /* 
 	END 

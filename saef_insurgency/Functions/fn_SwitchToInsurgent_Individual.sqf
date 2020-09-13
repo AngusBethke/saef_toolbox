@@ -9,6 +9,10 @@ params
 	"_unit"
 ];
 
+// Create a group for the unit and assign them to it
+_group = createGroup [(missionNamespace getVariable ["RS_EnemySide", EAST]), true];
+[_unit] joinSilent _group;
+
 // Set the insurgent to a HunterKiller
 [_group, 4000, false, (getPos _unit)] spawn RS_DS_fnc_HunterKiller;
 
@@ -29,10 +33,6 @@ if (alive _unit) then
 	// Move the weapon to the unit's hands
 	_unit removeItemFromBackpack _weapon;
 	_unit addWeapon _weapon;
-
-	// Create a group for the unit and assign them to it
-	_group = createGroup [(missionNamespace getVariable ["RS_EnemySide", EAST]), true];
-	[_unit] joinSilent _group;
 };
 
 /*

@@ -24,16 +24,16 @@ params
 switch toUpper(_type) do
 {
 	case "RED" : {
-		["RS_INV_fnc_Server_PlaneLights", 3, (format ["Switching light to [%1] for _plane [%2]", _type, _plane]), true] call RS_fnc_LoggingHelper;
+		["RS_INV_fnc_Server_PlaneLights", 3, (format ["Switching light to [%1] for _plane [%2]", _type, _plane])] call RS_fnc_LoggingHelper;
 		[_plane] spawn LIB_fnc_turnInteriorLightStatement;
 	};
 	
 	case "GREEN" : {
-		["RS_INV_fnc_Server_PlaneLights", 3, (format ["Switching light to [%1] for _plane [%2]", _type, _plane]), true] call RS_fnc_LoggingHelper;
+		["RS_INV_fnc_Server_PlaneLights", 3, (format ["Switching light to [%1] for _plane [%2]", _type, _plane])] call RS_fnc_LoggingHelper;
 		[_plane, true] spawn LIB_fnc_changeLightStatement;
 	};
 
 	default {
-		["RS_INV_fnc_Server_PlaneLights", 1, (format ["Unrecognised _type variable [%1] for _plane [%2]", _type, _plane]), true] call RS_fnc_LoggingHelper;
+		["RS_INV_fnc_Server_PlaneLights", 1, (format ["Unrecognised _type variable [%1] for _plane [%2]", _type, _plane])] call RS_fnc_LoggingHelper;
 	};
 };
