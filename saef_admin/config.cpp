@@ -21,12 +21,15 @@ class CfgFunctions
 		class Admin
 		{
 			file = "saef_admin\Functions";
+			class Admin_3denHelper {};
 			class Admin_AddActions 
 			{
 				postInit = 1;
 			};
 			class Admin_AddMissionAction {};
 			class Admin_CheckAdmin {};
+			class Admin_CheckTrigger {};
+			class Admin_CheckTrigger_SearchString {};
 			class Admin_CreateRespawnPos {};
 			class Admin_Init
 			{
@@ -34,6 +37,17 @@ class CfgFunctions
 			};
 			class Admin_MissionMakerHelper {};
 			class Admin_RunScriptOnServer {};
+		};
+	};
+};
+
+class Cfg3DEN
+{
+	class EventHandlers
+	{
+		class RS_3DEN_EventHandlers
+		{
+			OnMissionSave = "[] call RS_fnc_Admin_3denHelper;";
 		};
 	};
 };
