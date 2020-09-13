@@ -139,6 +139,21 @@ for "_i" from 0 to (_countBld - 1) do
 	};
 };
 
+// Bug fix - do not allow Garrison outside of Map scope
+["DynaSpawn", 3, (format ["Positions to Garrison (before fix): %1", _posArr])] call RS_fnc_LoggingHelper;
+
+{
+	_tmpPos = _x;
+	if ((_tmpPos select 2) < 0) then
+	{
+		_tmpPos set [2, 0];
+	};
+	_posArr set [_forEachIndex, _tmpPos];
+} forEach _posArr;
+
+["DynaSpawn", 3, (format ["Positions to Garrison (after fix): %1", _posArr])] call RS_fnc_LoggingHelper;
+// End of Bug Fix
+
 ["DynaSpawn", 4, (format ["Positions to Garrison: %1", _posArr])] call RS_fnc_LoggingHelper;
 
 _groupUnits = units _grp;
