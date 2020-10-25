@@ -126,3 +126,104 @@ class RiftRadio_12
 	sound[]	= {"saef_therift\Sounds\riftradio\RiftRadio_12.ogg", db + 0, 1.0};
 	titles[] = {0,""};
 };
+
+// -- Demon Rant -- //
+class DemonRant_1
+{
+	name = "DemonRant_1_S";
+	sound[]	= {"saef_therift\Sounds\demon\demon_02_rant_p1.ogg", db + 0, 1.0};
+	titles[] = {0,""};
+};
+
+class DemonRant_1_Reverse
+{
+	name = "DemonRant_1_Reverse_S";
+	sound[]	= {"saef_therift\Sounds\demon\demon_02_rant_p1_reverse.ogg", db + 0, 1.0};
+	titles[] = {0,""};
+};
+
+class DemonRant_2
+{
+	name = "DemonRant_2_S";
+	sound[]	= {"saef_therift\Sounds\demon\demon_03_rant_p2.ogg", db + 0, 1.0};
+	titles[] = {0,""};
+};
+
+class DemonRant_2_Reverse
+{
+	name = "DemonRant_2_Reverse_S";
+	sound[]	= {"saef_therift\Sounds\demon\demon_03_rant_p2_reverse.ogg", db + 0, 1.0};
+	titles[] = {0,""};
+};
+
+class DemonRant_3
+{
+	name = "DemonRant_3_S";
+	sound[]	= {"saef_therift\Sounds\demon\demon_04_rant_p3.ogg", db + 0, 1.0};
+	titles[] = {0,""};
+};
+
+// -- Demon Ad -- //
+class DemonAd_1
+{
+	name = "DemonAd_1_S";
+	sound[]	= {"saef_therift\Sounds\demon\demon_05_ad_1.ogg", db + 0, 1.0};
+	titles[] = {0,""};
+};
+
+class DemonAd_1_Reverse
+{
+	name = "DemonAd_1_Reverse_S";
+	sound[]	= {"saef_therift\Sounds\demon\demon_05_ad_1_reverse.ogg", db + 0, 1.0};
+	titles[] = {0,""};
+};
+
+class DemonAd_2
+{
+	name = "DemonAd_2_S";
+	sound[]	= {"saef_therift\Sounds\demon\demon_06_ad_2.ogg", db + 0, 1.0};
+	titles[] = {0,""};
+};
+
+class DemonAd_2_Reverse
+{
+	name = "DemonAd_2_Reverse_S";
+	sound[]	= {"saef_therift\Sounds\demon\demon_06_ad_2_reverse.ogg", db + 0, 1.0};
+	titles[] = {0,""};
+};
+
+class DemonAd_3
+{
+	name = "DemonAd_3_S";
+	sound[]	= {"saef_therift\Sounds\demon\demon_07_ad_3.ogg", db + 0, 1.0};
+	titles[] = {0,""};
+};
+
+class DemonAd_3_Reverse
+{
+	name = "DemonAd_3_Reverse_S";
+	sound[]	= {"saef_therift\Sounds\demon\demon_07_ad_3_reverse.ogg", db + 0, 1.0};
+	titles[] = {0,""};
+};
+
+class DemonAd_4
+{
+	name = "DemonAd_4_S";
+	sound[]	= {"saef_therift\Sounds\demon\demon_08_ad_4.ogg", db + 0, 1.0};
+	titles[] = {0,""};
+};
+
+class DemonAd_4_Reverse
+{
+	name = "DemonAd_4_Reverse_S";
+	sound[]	= {"saef_therift\Sounds\demon\demon_08_ad_4_reverse.ogg", db + 0, 1.0};
+	titles[] = {0,""};
+};
+
+// -- Demon Game -- //
+class DemonGame_1
+{
+	name = "DemonGame_1_S";
+	sound[]	= {"saef_therift\Sounds\demon\demon_09_game.ogg", db + 0, 1.0};
+	titles[] = {0,""};
+};
