@@ -3,16 +3,23 @@
 	Description: Returns an array of allDeadMen ordered by their distance from the player
 */
 
-private
+params
 [
-	"_playerArray",
-	"_closestPlayerPos"
+	"_closestDistance"
 ];
 
-_closestDistance = _this select 0;
+private
+[
+	"_deadArray",
+	"_frontArray",
+	"_backArray",
+	"_retBackArray"
+];
+
 _deadArray = [];
 _frontArray = [];
 _backArray = [];
+_retBackArray = [];
 
 {
 	// Make sure the unit is local to the deleter
@@ -32,7 +39,7 @@ _backArray = [];
 			
 			if (_distToPlayer < _closestDistance) then
 			{
-				_backArray = _backArray + [_x];
+				_backArray = _backArray + [_distToPlayer, _x];
 			}
 			else
 			{
@@ -42,7 +49,14 @@ _backArray = [];
 	};
 } forEach allDeadMen;
 
-_deadArray = [_frontArray, _backArray];
+// Sort the back array into distance order (longer distances first)
+_backArray sort false;
+
+{
+	_retBackArray = _retBackArray + [(_x select 1)];
+} forEach _backArray;
+
+_deadArray = [_frontArray, _retBackArray];
 
 // Return: The Dead Array
 _deadArray
