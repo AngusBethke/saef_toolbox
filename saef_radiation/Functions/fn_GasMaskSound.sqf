@@ -15,8 +15,10 @@ private
 	,"_multiplier"
 ];
 
-// Gain access to ACE variables
-#include "\z\ace\addons\advanced_fatigue\script_component.hpp"
+/* 
+	Ace script component was required for the macro, but as it turns out the macro simply creates a fully qualified name,
+	so what I have done now is remove the macro reference and simply reference the fully qualified name (ace_advanced_fatigue_anFatigue) instead
+*/
 
 _sounds = 
 [
@@ -32,9 +34,9 @@ while {_unit getVariable ["RS_Radiation_Wearing_Gasmask", false]} do
 {
 	_time = _multiplier;
 	
-	if ((GVAR(anFatigue)) != 0) then
+	if (ace_advanced_fatigue_anFatigue != 0) then
 	{
-		_var = (((log (GVAR(anFatigue))) * -1) / 2) + 0.25;
+		_var = (((log (ace_advanced_fatigue_anFatigue) * -1) / 2) + 0.25;
 		
 		if (_var < 0.35) then
 		{
