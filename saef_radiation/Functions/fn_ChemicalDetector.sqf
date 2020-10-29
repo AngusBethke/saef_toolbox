@@ -96,5 +96,5 @@ if (_unit != player) then
 if (_unit getVariable [_variable, false]) then
 {
 	diag_log format ["[RS] [ChemicalDetector] [INFO] Chemical Detector Handler restarting for variable: %1", _variable];
-	[_markerList, _size, _unit, _variable] spawn RS_Radiation_fnc_ChemicalDetectorHandler;
+	[_markerList, _size, _unit, _variable] spawn RS_Radiation_fnc_ChemicalDetector;
 };
