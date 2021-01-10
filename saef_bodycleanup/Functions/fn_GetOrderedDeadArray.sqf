@@ -39,7 +39,7 @@ _retBackArray = [];
 			
 			if (_distToPlayer < _closestDistance) then
 			{
-				_backArray = _backArray + [_distToPlayer, _x];
+				_backArray pushback [_distToPlayer, _x];
 			}
 			else
 			{
@@ -53,7 +53,7 @@ _retBackArray = [];
 _backArray sort false;
 
 {
-	_retBackArray = _retBackArray + [(_x select 1)];
+	_retBackArray pushback (_x select 1);
 } forEach _backArray;
 
 _deadArray = [_frontArray, _retBackArray];

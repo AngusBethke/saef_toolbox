@@ -5,25 +5,29 @@
 	How to Stop: missionNamespace setVariable ["RS_DeadBodyCleanup", false, true];
 */
 
-private
+params
 [
-	"_debug"
+	["_bodyLimit", 60]
+	,["_checkInterval", 120]
+	,["_instCleanDist", 500]
 ];
 
-// Default Debug, and Change it is the Global Debug Variable is found
-_debug = false;
-if (!isNil{missionNamespace getVariable "RS_GlobalDebug"}) then
-{
-	_debug = missionNamespace getVariable "RS_GlobalDebug";
-};
+private
+[
+	"_logName"
+	,"_deadUnitArray"
+	,"_delNow"
+	,"_deadUnits"
+	,"_countDead"
+	,"_countInsDead"
+	,"_countAllDead"
+	,"_deleteNum"
+];
 
-missionNamespace setVariable ["RS_DeadBodyCleanup", true, true];
-_bodyLimit = _this select 0;
-_checkInterval = _this select 1;
-_instCleanDist = _this select 2;
+_logName = "DeadBodyCleanUpPersitent";
 
-/* Clean Up Dead Units */
-while {missionNamespace getVariable "RS_DeadBodyCleanup"} do
+// Clean Up Dead Units
+while {missionNamespace getVariable ["RS_DeadBodyCleanup", true]} do
 {
 	// Get our ordered dead body arrays
 	_deadUnitArray = [_instCleanDist] call RS_BC_fnc_GetOrderedDeadArray;
@@ -44,11 +48,8 @@ while {missionNamespace getVariable "RS_DeadBodyCleanup"} do
 			deleteVehicle _x;
 			_deleteNum = _deleteNum + 1;
 		} forEach _delNow;
-		
-		if (_debug) then
-		{
-			diag_log format ["[DeadBodyCleanUpPersitent] %1 dead bodies more than %2m away from players have been deleted", _deleteNum, _instCleanDist];
-		};
+
+		[_logName, 3, (format ["%1 dead bodies more than %2m away from players have been deleted", _deleteNum, _instCleanDist])] call RS_fnc_LoggingHelper;
 		
 		if (_countDead > _bodyLimit) then
 		{
@@ -63,11 +64,8 @@ while {missionNamespace getVariable "RS_DeadBodyCleanup"} do
 					deleteVehicle _this;
 				};
 			};
-			
-			if (_debug) then
-			{
-				diag_log format ["[DeadBodyCleanUpPersitent] %1 dead bodies have been deleted", _deleteNum];
-			};
+
+			[_logName, 3, (format ["%1 dead bodies have been deleted", _deleteNum])] call RS_fnc_LoggingHelper;
 		};
 	};
 	
