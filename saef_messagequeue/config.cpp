@@ -21,15 +21,10 @@ class CfgFunctions
 		class MessageQueue
 		{
 			file = "saef_messagequeue\Functions";
-			class Init 
-			{
-				postInit = 1;
-			};
-			class ListenerEdit {};
+			class MessageDequeue {};
 			class MessageExecuter {};
-			class MessageFetcher {};
+			class MessageEnqueue {};
 			class MessageHandler {};
-			class ParameterErrorMessage {};
 		};
 	};
 };

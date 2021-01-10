@@ -4,63 +4,37 @@
 	Author: Angus Bethke a.k.a. Rabid Squirrel
 */
 
-private
+params
 [
-	"_logLevel"
-	,"_logName"
-	,"_listener"
-	,"_message"
-	,"_environment"
-	,"_messageOrder"
+	"_messageId"
+	,"_params"
+	,"_script"
+	,"_queueName"
 ];
 
-_logLevel = missionNamespace getVariable ["RS_MessageHandler_LogLevel", 2];
+private
+[
+	"_logName"
+	,"_handle"
+];
+
+// We are starting the processing
 _logName = "RS Message Executer";
+[_logName, 3, (format ["Message Handler processing queue [%1] for message [%2: %3] starting...", _queueName, _messageId, _script])] call RS_fnc_LoggingHelper;
 
-_listener = _this select 0;
-_message = _this select 1;
-_params = _this select 2;
-_environment = _this select 3;
-_allPlayers = (allPlayers - entities "HeadlessClient_F");
+// Remove the message from the queue (this is so that we don't process the same message twice)
+_this call RS_MQ_fnc_MessageDequeue;
 
-if (_logLevel >= 4) then 
-{
-	diag_log format [
-		"[%1] [DEBUG] Message for [%2] is: %3", 
-		_logName,
-		_listener,
-		_this
-	];
+// Run the message
+_handle = _params execVM _script;
+
+// Wait for message completion
+waitUntil {
+	sleep 0.1;
+	((scriptDone _handle) || (isNull _handle))
 };
 
-switch toUpper(_environment) do
-{
-	case "HEADLESS":
-	{
-		// Exec all this cool stuff on the headless
-		[[_listener, _message, ""], RS_MQ_fnc_MessageExecuter] remoteExec ["spawn", HC1, false]; 
-	};
-	default
-	{
-		// Fetch message order from the players and headless client (if any)
-		_messageOrder = [];
-		{
-			_player = _x;
-			_variable = (format ["%1_Order", _listener]);
-			_playerOrder = _player getVariable [_variable, -1];
-
-			if (_playerOrder != -1) then
-			{
-				_messageOrder = _messageOrder + [[_player, _playerOrder]];
-				
-				// Dequeue the message
-				_player setVariable [_variable, nil, true];
-			};
-		} forEach _allPlayers;
-		
-		[_listener, _messageOrder, _params] spawn _message;
-	};
-};
+[_logName, 3, (format ["Message Handler processing queue [%1] for message [%2: %3] complete...", _queueName, _messageId, _script])] call RS_fnc_LoggingHelper;
 
 /*
 	END

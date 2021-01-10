@@ -1,91 +1,87 @@
 /*
 	fn_MessageHandler.sqf
-	Description: Handles message execution
-	Author: Angus Bethke a.k.a. Rabid Squirrel
+
+	Description: 
+		Handles message execution
+
+	Author: 
+		Angus Bethke a.k.a. Rabid Squirrel
+
+	How to Call:
+		[
+			_queueName,
+			_timeout (optional)
+		] spawn RS_MQ_fnc_MessageHandler;
 */
+
+params
+[
+	"_queueName",
+	["_timeout", 5]
+];
 
 private
 [
-	"_logLevel"
-	,"_logName"
-	,"_count"
-	,"_messageListeners"
+	"_logName"
+	,"_queueProcessVariable"
+	,"_pollTime"
 	,"_messages"
 ];
 
-_logLevel = missionNamespace getVariable ["RS_MessageHandler_LogLevel", 2];
 _logName = "RS Message Handler";
+_queueProcessVariable = format ["%1_MessageHandler_Run", _queueName];
 
-if (!isServer) exitWith
+[_logName, 3, (format ["Starting Message Handler for queue [%1], to stop processing toggle variable [%2] to false.", _queueName, _queueProcessVariable])] call RS_fnc_LoggingHelper;
+
+_pollTime = 1;
+while {missionNamespace getVariable [_queueProcessVariable, true]} do
 {
-	if (_logLevel >= 3) then 
+	// Fetch our Messages from the queue
+	_messages = missionNamespace getVariable [_queueName, []];
+	
+	if (!(_messages isEqualTo [])) then
 	{
-		diag_log format ["[%1] [INFO] Message Handler may only run on the server", _logName];
+		// Process our messages
+		{
+			private
+			[
+				"_messageId"
+				,"_handle"
+				,"_control"
+			];
+
+			_messageId = _x select 0;
+			_handle = _x spawn RS_MQ_fnc_MessageExecuter;
+
+			// Check for message completion
+			_control = 0;
+			waitUntil {
+				sleep 0.1;
+				_control = _control + 1;
+				((scriptDone _handle) || (isNull _handle) || (_control == (_timeout * 10)));
+			};
+
+			// If message takes longer than the specified timeout log a warning
+			if (_control == (_timeout * 10)) then
+			{
+				[_logName, 2, (format ["Message Handler processing queue [%1] for message [%2] took longer than [%3] seconds, check later logs for message completion.", _queueName, _messageId, _timeout])] call RS_fnc_LoggingHelper;
+			};
+		} forEach _messages;
+	}
+	else
+	{
+		if (_pollTime >= 30) then
+		{
+			_pollTime = 0;
+			[_logName, 3, (format ["Message Handler for queue [%1] polling for messages...", _queueName])] call RS_fnc_LoggingHelper;
+		};
 	};
+
+	_pollTime = _pollTime + 1;
+	sleep 1;
 };
 
-while {missionNamespace getVariable ["RS_MessageHandler_Run", true]} do
-{
-	// Poll for next messages
-	_count = 0;
-	while {!(missionNamespace getVariable ["RS_MessageHandler_Execute", false])} do 
-	{
-		sleep 5;
-		_count = _count + 1;
-		if ((_count == 6) && (_logLevel >= 3)) then 
-		{
-			diag_log format ["[%1] [INFO] Message Handler Polling for Message", _logName];
-			_count = 0;
-		};
-	};
-	
-	// Reset the message
-	missionNamespace setVariable ["RS_MessageHandler_Execute", nil, true];
-	
-	if (_logLevel >= 3) then 
-	{
-		diag_log format ["[%1] [INFO] Message Handler execution requested starting message processing", _logName];
-	};
-	
-	// Fetch our Message Listeners
-	_messageListeners = missionNamespace getVariable ["RS_MessageListeners", []];
-	
-	// Get our messages from the listener
-	_messages = [];
-	if (!(_messageListeners isEqualTo [])) then
-	{
-		{
-			_listener = _x;
-			_messages = _messages + ([_listener] call RS_MQ_fnc_MessageFetcher);
-		} forEach _messageListeners;
-	};
-	
-	// Process our messages
-	{
-		// Get message info
-		_listener = _x select 0;
-		_message = (_x select 1) select 0;
-		_params = (_x select 1) select 1;
-		_environment = (_x select 1) select 2;
-		
-		// Run the message
-		_handle = [_listener, _message, _params, _environment] spawn RS_MQ_fnc_MessageExecuter;
-		
-		// Check for message completion
-		_control = 0;
-		waitUntil {
-			sleep 0.1;
-			_control = _control + 1;
-			((scriptDone _handle) || (_control == 10));
-		};
-		
-		// If message takes longer than a second log a warning
-		if ((_control == 10) && (_logLevel >= 2)) then
-		{
-			diag_log format ["[%1] [WARNING] Message Handler processing for Message [%2] took longer than 1 second, check later logs for message completion.", _logName, _listener];
-		};
-	} forEach _messages;
-};
+[_logName, 3, (format ["Ending Message Handler for queue [%1]", _queueName])] call RS_fnc_LoggingHelper;
 
 /*
 	END
