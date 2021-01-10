@@ -18,11 +18,13 @@ class CfgFunctions
 {
 	class RS_PLYR
 	{
-		class BodyCleanup
+		class PlayerFunctions
 		{
 			file = "saef_player\Functions";
 			class GetClosestPlayer {};
+			class GetMarkerNearPlayer {};
 			class TellServerPlayerMods {};
+			class TogglePlayerHud {};
 		};
 	};
 };
