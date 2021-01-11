@@ -44,7 +44,12 @@ _parameters =
     ["RS_SpawnerQueue", _params, "Scripts\Spawners\HandlerMain.sqf"] call RS_MQ_fnc_MessageEnqueue;
 } forEach _parameters;
 ```
-As you can see from the code snippet, the script is not executed directly, but rather you call a delegate function to add the message to the queue. You can see that the first parameter of the function is the queue name, the second is the parameter array of your script, and the last parameter is the script you'd like to execute. 
+
+As you can see from the code snippet, the script is not executed directly, but rather you call a delegate function to add the message to the queue: 
+```
+["RS_SpawnerQueue", _params, "Scripts\Spawners\HandlerMain.sqf"] call RS_MQ_fnc_MessageEnqueue;
+```
+You can see that the first parameter of the function is the queue name, the second is the parameter array of your script, and the last parameter is the script you'd like to execute. 
 
 The locality of queue insertion is not important, as they are loaded into variables that are accessed publicly (missionNamespace variables), which means that a client could add messages to these queues with little trouble. That being said, the size of the parameter list may come into play if the message is especially big. With this in mind, I have set up the queue-ing system to self clean messages after they have been executed, so that the missionNamespace variables are not holding onto large amounts of data for too long.
 
