@@ -165,17 +165,20 @@ if (_useStatics) then
 	_vehicles = _pos nearEntities[["Car", "Tank", "StaticWeapon"], _rad];
 	{
 		_vehicle = _x;
-		_gunnerPositions = fullCrew [_x, "gunner", true];
-		
+		if (!(_vehicle getVariable ["RS_DS_ExcludeFromGarrison", false])) then
 		{
-			_object = _x select 0;
-			if (isNull _object) then
+			_gunnerPositions = fullCrew [_x, "gunner", true];
+			
 			{
-				(_groupUnits select 0) moveInGunner _vehicle;
-				(_groupUnits select 0) action ["getInGunner", _vehicle];
-				_groupUnits = _groupUnits - [(_groupUnits select 0)];
-			};
-		} forEach _gunnerPositions;
+				_object = _x select 0;
+				if (isNull _object) then
+				{
+					(_groupUnits select 0) moveInGunner _vehicle;
+					(_groupUnits select 0) action ["getInGunner", _vehicle];
+					_groupUnits = _groupUnits - [(_groupUnits select 0)];
+				};
+			} forEach _gunnerPositions;
+		};
 	} forEach _vehicles;
 };
 
