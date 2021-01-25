@@ -21,6 +21,10 @@ class CfgFunctions
 		class PlayerFunctions
 		{
 			file = "saef_player\Functions";
+			class ForcefulPardon
+			{
+				postInit = 1;
+			};
 			class GetClosestPlayer {};
 			class GetMarkerNearPlayer {};
 			class TellServerPlayerMods {};
