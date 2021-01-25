@@ -10,6 +10,7 @@ params
 	,"_params"
 	,"_script"
 	,"_queueName"
+	,"_validation"
 ];
 
 private

@@ -20,6 +20,7 @@ params
 	"_queueName"
 	,"_params"
 	,"_script"
+	,["_validation", {true}]
 ];
 
 private
@@ -41,6 +42,7 @@ _messages pushback
 	,_params				// Params for the script
 	,_script				// The script to execute
 	,_queueName				// The name of the queue that this message is being added to
+	,_validation			// Optional: The custom validation code block that can be used to ignore processing until a condition is met
 ];
 
 missionNamespace setVariable [_queueName, _messages, true];
