@@ -19,7 +19,7 @@ while {missionNamespace getVariable ["PerformanceDiagnostics_Watcher", false]} d
 	if (_fps < _threshold) then
 	{
 		/* Creates Log */
-		diag_log format ["[Performance Diagnostics] [WARNING] FPS: %1, is below the Threshold: %2", _fps, _threshold];
+		["Performance Diagnostics", 2, (format ["FPS: %1, is below the Threshold: %2", _fps, _threshold])] call RS_fnc_LoggingHelper;
 	};
 	
 	sleep _time;

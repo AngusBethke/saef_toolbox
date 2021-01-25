@@ -3,16 +3,18 @@
 	Description: Assists with logging
 	
 	Note: 	Each log level includes all the levels below it, eg: 
-			log level ERROR will only display errors.
-			log level WARNING will display errors and warnings.
-			log level INFO will display errors, warnings and info messages.
-			log level DEBUG will display errors, warnings, info and debug messages.
+			log level VERBOSE will only display verbose messages.
+			log level ERROR will display verbose and error messages.
+			log level WARNING will display verbose, error, and warning messages.
+			log level INFO will display verbose, error, warning and info messages.
+			log level DEBUG will display verbose, error, warning, info and debug messages.
 	
 	Log Levels:
 	DEBUG 		= 4
 	INFO 		= 3
 	WARNING		= 2
 	ERROR		= 1
+	VERBOSE		= 0
 	
 	How to call:
 		[
@@ -41,6 +43,10 @@ private
 // Check our level
 switch _level do
 {
+	case 0:
+	{
+		_levelTag = "VERBOSE";
+	};
 	case 1:
 	{
 		_levelTag = "ERROR";

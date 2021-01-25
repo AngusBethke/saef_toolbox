@@ -47,5 +47,5 @@ while {missionNamespace getVariable ["PerformanceDiagnostics", false]} do
 	} forEach allUnits;
 	
 	/* Creates Log */
-	diag_log format ["[Performance Diagnostics] || Currently Active Players: %1 || Current AI Amount: %2 || Current Local AI Amount: %3 || Average FPS: %4", _playerCount, _aiCount, _localCount, _avgFPS];
+	["Performance Diagnostics", 0, (format ["Currently Active Players: %1 || Current AI Amount: %2 || Current Local AI Amount: %3 || Average FPS: %4", _playerCount, _aiCount, _localCount, _avgFPS])] call RS_fnc_LoggingHelper;
 };
