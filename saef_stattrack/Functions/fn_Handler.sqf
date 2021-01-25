@@ -9,7 +9,7 @@ while {(missionNamespace getVariable "ST_AllowLogging")} do
 {
 	waitUntil {sleep 10; (missionNamespace getVariable "ST_LogNow")};
 	
-	[] execVM "Toolbox\StatTrack\logInfo.sqf";
+	[] call RS_ST_fnc_LogInfo;
 	
 	// Reset Logging Variable for Next Log Command
 	missionNamespace setVariable ["ST_LogNow", false, true];

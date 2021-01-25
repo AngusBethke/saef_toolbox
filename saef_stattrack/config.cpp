@@ -22,6 +22,7 @@ class CfgFunctions
 		{
 			file = "saef_stattrack\Functions";
 			class Handler {};
+			class Incrementer {};
 			class InitStatTrack 
 			{
 				postInit = 1;

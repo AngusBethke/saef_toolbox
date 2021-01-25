@@ -12,7 +12,7 @@ if (!isNil{_this select 0}) then
 };
 
 // Format the Text with all the Information from StatTrack
-_info = format ["[StatTrack Log] Total Player Count: %1 || Total Player Casualties: %2 || Total Enemies Killed: %3 || Friendly Fire Incidents: %4 || Mission Attendees: %5 || Civilian Casualties (by Player): %6", 
+_info = format ["Total Player Count: %1 || Total Player Casualties: %2 || Total Enemies Killed: %3 || Friendly Fire Incidents: %4 || Mission Attendees: %5 || Civilian Casualties (by Player): %6", 
 					(missionNamespace getVariable "ST_TotalPlayerCount"),
 					(missionNamespace getVariable "ST_Casualties"),
 					(missionNamespace getVariable "ST_KillCount"),
@@ -21,7 +21,7 @@ _info = format ["[StatTrack Log] Total Player Count: %1 || Total Player Casualti
 					(missionNamespace getVariable "ST_CivKillCount")];
 
 // Log StatTrack info to the .rpt
-diag_log _info;
+["StatTrack", 0, _info] call RS_fnc_LoggingHelper;
 
 _adminExists = false;
 _hint = false;

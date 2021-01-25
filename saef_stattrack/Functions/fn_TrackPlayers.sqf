@@ -36,18 +36,13 @@ _playerHandlerId = addMissionEventHandler ["PlayerConnected",
 	if (_playerNew) then
 	{
 		// Add the UID to the UID Array
-		_uidArray = _uidArray + [_uid];
-		missionNamespace setVariable ["ST_TrackUIDs", _uidArray, true];
+		["ST_TrackUIDs", _uid] call RS_ST_fnc_Incrementer;
 		
 		// Increase the Total Player Count
-		_countPlayers = missionNamespace getVariable "ST_TotalPlayerCount";
-		_countPlayers = _countPlayers + 1;
-		missionNamespace setVariable ["ST_TotalPlayerCount", _countPlayers, true];
+		["ST_TotalPlayerCount", 1, true] call RS_ST_fnc_Incrementer;
 		
 		// Add Player Name to the Array of Joined Players
-		_playerNames = missionNamespace getVariable "ST_MissionAttendees";
-		_playerNames = _playerNames + [_name];
-		missionNamespace setVariable ["ST_MissionAttendees", _playerNames, true];
+		["ST_MissionAttendees", _name] call RS_ST_fnc_Incrementer;
 	};
 }];
 
