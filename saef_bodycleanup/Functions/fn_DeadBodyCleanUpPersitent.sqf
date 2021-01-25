@@ -57,12 +57,7 @@ while {missionNamespace getVariable ["RS_DeadBodyCleanup", true]} do
 			
 			for "_i" from 0 to (_deleteNum - 1) do
 			{
-				_nul = (_deadUnits select _i) spawn 
-				{
-					hideBody _this;
-					sleep 5;
-					deleteVehicle _this;
-				};
+				deleteVehicle (_deadUnits select _i);
 			};
 
 			[_logName, 3, (format ["%1 dead bodies have been deleted", _deleteNum])] call RS_fnc_LoggingHelper;
