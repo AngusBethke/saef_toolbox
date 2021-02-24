@@ -1,8 +1,8 @@
-#SAEF Civilian Presence
-##CBA Settings
+# SAEF Civilian Presence
+## CBA Settings
 SAEF Civilian presence has been updated to use CBA settings to function. These settings influence how Civilian presence initialises and can be useful in customising Civilian Presence to your needs.
 
-###The settings 
+### The settings 
 (It is recommended you force these by default - they will be forced automatically by the export process):
 
 - Debug Mode
