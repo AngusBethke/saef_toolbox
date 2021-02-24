@@ -42,7 +42,7 @@ _action = ["rs_toggle_hud","Toggle HUD","",
 ] call ace_interact_menu_fnc_createAction;
  
 // Add the action to the Player
-[player, 1, ["ACE_SelfActions"], _action, true] call ace_interact_menu_fnc_addActionToObject;
+[player, 1, ["ACE_SelfActions", "SAEF_Tools"], _action, true] call ace_interact_menu_fnc_addActionToObject;
 
 /*
 	END

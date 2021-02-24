@@ -3,6 +3,14 @@
 	Description:	Generic function that gives ability to add additional mission functions to our Admin Utilities Ace Interaction Menu
 */
 
+params
+[
+	"_parameters",
+	"_script",
+	"_desc",
+	"_server"
+];
+
 private
 [
 	"_params",
@@ -14,11 +22,6 @@ private
 	"_missionUtilsParent",
 	"_action"
 ];
-
-_parameters = _this select 0;
-_script = _this select 1;
-_desc = _this select 2;
-_server = _this select 3;
 
 // Work out some name information
 _numFuncs = (missionNamespace getVariable "RS_Admin_MissionFunctionsCount");
@@ -33,7 +36,7 @@ _name = format ["mission_func_%1", (_numFuncs + 1)];
 missionNamespace setVariable ["RS_Admin_MissionFunctionsCount", (_numFuncs + 1), true];
 
 // Add our generic function 
-_missionUtilsParent = ["ACE_SelfActions", "AdminUtils", "AdminUtils_Mission"];
+_missionUtilsParent = ["ACE_SelfActions", "SAEF_Tools", "SAEF_AdminUtils", "SAEF_AdminUtils_Mission"];
 
 _action = [_name, _desc, "",
 	{

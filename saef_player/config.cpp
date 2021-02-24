@@ -21,14 +21,21 @@ class CfgFunctions
 		class PlayerFunctions
 		{
 			file = "saef_player\Functions";
-			class ForcefulPardon
+			class AddToolsAction
 			{
 				postInit = 1;
 			};
+			class ForcefulPardon {};
 			class GetClosestPlayer {};
 			class GetMarkerNearPlayer {};
 			class TellServerPlayerMods {};
 			class TogglePlayerHud {};
 		};
 	};
+};
+
+class Extended_PreInit_EventHandlers {
+    class SAEF_Player_PreInitEvent {
+        init = "call compile preprocessFileLineNumbers 'saef_player\Functions\XEH_preInit.sqf'";
+    };
 };
