@@ -1,14 +1,20 @@
 /*
-	fn_CP_SpawnPresenceModule.sqf
+	fn_SpawnPresenceModule.sqf
 	Description: Handles creation of the Civilian Presence Spawn Point
 	Parameters:	
 		_pos	- position
 */
 
+params
+[
+	"_pos",
+	"_group"
+];
 
-// Input Parameters
-_pos = _this select 0;
-_group = _this select 1;
+private
+[
+	"_logic"
+];
 
 // Create the Logic
 _logic = _group createUnit ["ModuleCivilianPresenceUnit_F",_pos,[],0,"NONE"]; 
@@ -16,4 +22,6 @@ _logic = _group createUnit ["ModuleCivilianPresenceUnit_F",_pos,[],0,"NONE"];
 // Return Module
 _logic
 
-// End
+/*
+	END
+*/

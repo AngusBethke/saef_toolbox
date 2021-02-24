@@ -32,6 +32,7 @@ class CfgFunctions
 		{
 			file = "saef_diagnostics\Functions";
 			class LoggingHelper {};
+			class GetGlobalVariableWithDefault {};
 		};
 	};
 };

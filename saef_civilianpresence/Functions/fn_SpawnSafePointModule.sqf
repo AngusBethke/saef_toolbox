@@ -1,7 +1,7 @@
 #include "\A3\Modules_F_Tacops\Ambient\CivilianPresence\defines.inc"
 
 /*
-	fn_CP_SpawnPresenceModule.sqf
+	fn_SpawnPresenceModule.sqf
 	Description: Handles creation of the Civilian Presence Safe Point
 	Parameters:	
 		_pos			- position
@@ -11,13 +11,20 @@
 		_useBuiilding 	- bool (possibly int enum)
 */
 
-// Input Parameters
-_pos = _this select 0;
-_group = _this select 1;
-_capacity = _this select 2;
-_isTerminal = _this select 3;
-_type = _this select 4;
-_useBuilding = _this select 5;
+params
+[
+	"_pos",
+	"_group",
+	"_capacity",
+	"_isTerminal",
+	"_type",
+	"_useBuilding"
+];
+
+private
+[
+	"_logic"
+];
 
 // Create the Logic
 _logic = _group createUnit ["ModuleCivilianPresenceSafeSpot_F",_pos,[],0,"NONE"]; 
