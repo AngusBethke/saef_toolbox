@@ -16,7 +16,7 @@ private
 
 // Initialise Event Handlers
 player setVariable ["RespawnHandlerHint", true, true];
-[] call RS_fnc_PlayerEventHandlers;
+[] call RS_fnc_RespawnPlayerInit;
 
 // Start Hints
 [] spawn RS_fnc_RespawnHints;

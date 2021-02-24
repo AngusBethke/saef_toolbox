@@ -3,7 +3,7 @@
 	Description: Lets the players know that respawn is enabled or disabled via hints
 */
 
-diag_log format ["[RS] [Respawn] [INFO] Starting up respawn hint handler ..."];
+["RS Respawn", 0, (format ["Starting up respawn hint handler ..."])] call RS_fnc_LoggingHelper;
 
 /* Main loop - Controlled by Public Variable */
 while {(missionNamespace getVariable "RespawnHandlerEnabled")} do 

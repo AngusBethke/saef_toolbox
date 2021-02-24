@@ -30,7 +30,7 @@ if ((missionNamespace getVariable ["RespawnHandlerHint", false]) && (player getV
 			hint parseText (_text + _image);
 		};
 		default {
-			diag_log format ["[Spectator_Hint.sqf] Hint type %1 not recognised", _type];
+			["RS Respawn", 2, (format ["Hint type %1 not recognised", _type])] call RS_fnc_LoggingHelper;
 		};
 	};
 };
