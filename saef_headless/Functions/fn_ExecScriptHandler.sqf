@@ -49,12 +49,28 @@ if (!isNil _target) then
 {
 	_headlessObject = (call compile _target);
 	_headlessPresent = isPlayer _headlessObject;
+}
+else
+{
+	// If the target is not present fallback to HC1 first
+	if ((_target != "HC1") && (_target != "<no-target>")) then
+	{
+		["RS_fnc_ExecScriptHandler", 2, (format ["Target [%1] not found, making target HC1", _target]), true] call RS_fnc_LoggingHelper;
+		_target = "HC1";
+
+		if (!isNil _target) then
+		{
+			_headlessObject = (call compile _target);
+			_headlessPresent = isPlayer _headlessObject;
+		};
+	};
 };
 
 // If the target is present, execute the script on the target, else on the server
 if (_headlessPresent) then
 {
 	["RS_fnc_ExecScriptHandler", 3, (format ["Target [%1] found, executing script/function on [%1]: %2 %3 %4", _target, _params, _exec, _script]), true] call RS_fnc_LoggingHelper;
+	
 	if (_isScript) then
 	{
 		[_params, _script] remoteExec [_exec, _headlessObject, false];
@@ -73,7 +89,8 @@ if (_headlessPresent) then
 }
 else
 {
-	["RS_fnc_ExecScriptHandler", 3, (format ["Target [%1] not found, executing script/function on the Server: %2 %3 %4", _target, _params, _exec, _script]), true] call RS_fnc_LoggingHelper;
+	["RS_fnc_ExecScriptHandler", 2, (format ["Target [%1] not found, executing script/function on the Server: %2 %3 %4", _target, _params, _exec, _script]), true] call RS_fnc_LoggingHelper;
+
 	if (_isScript) then
 	{
 		[_params, _script] remoteExec [_exec, 2, false];
