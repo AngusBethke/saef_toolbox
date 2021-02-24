@@ -17,9 +17,10 @@ missionNamespace setVariable ["ST_CivKillCount", 0, true];
 missionNamespace setVariable ["ST_AllowLogging", true, true];
 missionNamespace setVariable ["ST_LogNow", false, true];
 missionNamespace setVariable ["ST_PlayerFriendSides", [CIVILIAN], true];
+missionNamespace setVariable ["ST_TrackPlayers", true, true];
 
 // Launch all of the EventHandlers
-[] call RS_ST_fnc_TrackPlayers;
+[] spawn RS_ST_fnc_TrackPlayers;
 [] call RS_ST_fnc_TrackDeaths;
 [] call RS_ST_fnc_LogOnEnd;
 [] spawn RS_ST_fnc_Handler;
