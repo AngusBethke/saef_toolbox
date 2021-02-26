@@ -1,5 +1,5 @@
-#Respawn Handlers
-##Wave Respawn
+# Respawn Handlers
+## Wave Respawn
 ```
 _classSpecificPenalties =
 [
@@ -21,7 +21,7 @@ _classSpecificPenalties =
 
 Effectively the way it works is there is a base respawn time (in this case 300 seconds / 5 minutes) which is an input variable, it serves as the baseline for the amount of time you can spend in spectator (without the required amount of players for a wave respawn). There is a max time (in this case it is 1200 seconds / 20 minutes and is only relevant in the case of penalties). Hold time (in this case 30 seconds) which is how long the spawn stays open for when triggered. The player limit (in this case 5) this is how many dead players are required to circumvent the minimum respawn time. The penalty time (in this case 30 seconds) this is the penalty applied to players for dying, this stacks on top of the base respawn time and cannot be circumvented (i.e. if 5 players die, and there is a penalty time set, then they will have to wait out that penalty time before they are able to respawn). Lastly an array with class specific penalties, here you can increase the penalty factor for specific classes (i.e. if a medic dies, it will apply a multiplier to his penalty to increase the penalty time), in the example above if the medic dies his penalty time will be 45 seconds instead of just 30 seconds that gets added to the overall penalty. This means that if more people die, the wait time will be longer (if you choose to apply a penalty for death). You can set the penalty to 0 if you would like to turn that off and simply utilise the wave functionality as it stands.
 
-##Timed Respawn
+## Timed Respawn
 ```
 [
 	600,		// Optional: The time between respawn waves
@@ -31,7 +31,7 @@ Effectively the way it works is there is a base respawn time (in this case 300 s
 
 This is your standard time based respawn mechanism, it has no special mechanism, simply opens the respawn after the provided timeout.
 
-##Admin Functions 
+## Admin Functions 
 (Available via the ACE Self Interaction Menu)
 You are now able to forcefully respawn individual players from the ace admin menu, this is useful if someone gets arma'd or you want to let a late joiner in without impacting the rest of the spawning system.
 You are able to view respawn information via that menu as well, and if you are using the built in handlers (wave respawn and timed respawn), it will tell you how much time is left until the respawn will be active again.
@@ -42,8 +42,8 @@ You are able to view respawn information via that menu as well, and if you are u
 ```
 Will force respawn just you as an individual, which can be useful if you need to access Zeus or admin tools or something and you don't want to respawn everyone.
 
-#Respawn Parameters
-##Spectator Configuration
+# Respawn Parameters
+## Spectator Configuration
 ```
 _var_SAEF_Respawn_InitDelay = 10;
 _var_SAEF_Respawn_SpectatorParams = 
