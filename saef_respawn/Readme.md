@@ -5,16 +5,16 @@ _classSpecificPenalties =
 [
 	[
 		"B_medic_F",		// The class to apply the penalty to
-		0.5					// The penalty factor 1 = 100%, 0.5 = 50%, 2 = 200% etc
+		0.5			// The penalty factor 1 = 100%, 0.5 = 50%, 2 = 200% etc
 	]
 ];
 
 [
-	300,							// Optional: The minimum time for respawn
-	1200,							// Optional: The maximum time for respawn
-	30,								// Optional: The time the respawn is held open for
-	5,								// Optional: The amount of players required to force the respawn
-	30,								// Optional: The base penalty time applied to players for dying
+	300,					// Optional: The minimum time for respawn
+	1200,					// Optional: The maximum time for respawn
+	30,					// Optional: The time the respawn is held open for
+	5,					// Optional: The amount of players required to force the respawn
+	30,					// Optional: The base penalty time applied to players for dying
 	_classSpecificPenalties			// Optional: An array with penalty indicators to multiply penalties for certain classes
 ] call RS_fnc_Handler_WaveRespawn;
 ```
@@ -25,7 +25,7 @@ Effectively the way it works is there is a base respawn time (in this case 300 s
 ```
 [
 	600,		// Optional: The time between respawn waves
-	30			// Optional: The time the respawn is held open for
+	30		// Optional: The time the respawn is held open for
 ] call RS_fnc_Handler_TimedRespawn;
 ```
 
@@ -33,6 +33,7 @@ This is your standard time based respawn mechanism, it has no special mechanism,
 
 ## Admin Functions 
 (Available via the ACE Self Interaction Menu)
+
 You are now able to forcefully respawn individual players from the ace admin menu, this is useful if someone gets arma'd or you want to let a late joiner in without impacting the rest of the spawning system.
 You are able to view respawn information via that menu as well, and if you are using the built in handlers (wave respawn and timed respawn), it will tell you how much time is left until the respawn will be active again.
 
