@@ -5,7 +5,4 @@
 	Originally Developed by Bohemia Interactive
 */
 
-if (!isServer) exitWith {};
-
-_executionLocality = missionNamespace getVariable ["SAEF_CivilianPresence_ExecutionLocality", "HC1"];
-[_this, "RS_CP_fnc_Delegate_ModuleCivilianPresence", "call", _executionLocality] call RS_fnc_ExecScriptHandler;
+// Depreciated

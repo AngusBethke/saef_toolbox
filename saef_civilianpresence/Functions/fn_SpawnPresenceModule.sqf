@@ -231,24 +231,27 @@ if (_safePosObjetcs isEqualTo []) exitWith
 };
 
 // Create the Logic
-_logic = _group createUnit ["RS_CP_ModuleCivilianPresence",_pos,[],0,"NONE"]; 
+_logic = _group createUnit ["Logic",_pos,[],0,"NONE"]; // RS_CP_ModuleCivilianPresence
+_sanAreaName = (((text _location) splitString " ") joinString "");
+_logicName = (format ["logic%1", _sanAreaName]);
 
 // Set the Logic's Parameters
 _sizeLocDerived = (_sizeLoc select 0);
-_logic setVariable ["size", _size];
-_logic setVariable ["#area", [[_sizeLocDerived, _sizeLocDerived, 0], _sizeLocDerived/2, _sizeLocDerived/2, 0, false, -1]]; 
-_logic setVariable ["#debug", _debug];
-_logic setVariable ["#onCreated", _createdCode];
-_logic setVariable ["#onDeleted", _deletedCode]; 
-_logic setVariable ["#unitCount", _unitCount]; 
-_logic setVariable ["#useAgents", _useAgents]; 
-_logic setVariable ["#usePanicMode", _usePanicMode];
-_logic setVariable ["ModuleCivilianPresenceUnit_F", _spwnPosObjects]; 
-_logic setVariable ["ModuleCivilianPresenceSafeSpot_F", _safePosObjetcs];
+_logic setVariable ["size", _size, true];
+_logic setVariable ["#area", [[_sizeLocDerived, _sizeLocDerived, 0], _sizeLocDerived/2, _sizeLocDerived/2, 0, false, -1], true]; 
+_logic setVariable ["#debug", _debug, true];
+_logic setVariable ["#onCreated", _createdCode, true];
+_logic setVariable ["#onDeleted", _deletedCode, true]; 
+_logic setVariable ["#unitCount", _unitCount, true]; 
+_logic setVariable ["#useAgents", _useAgents, true]; 
+_logic setVariable ["#usePanicMode", _usePanicMode, true];
+_logic setVariable ["ModuleCivilianPresenceUnit_F", _spwnPosObjects, true]; 
+_logic setVariable ["ModuleCivilianPresenceSafeSpot_F", _safePosObjetcs, true];
+_logic setVariable ["SAEF_CivilianPresenceLogicName", _logicName, true];
 
 if (!(_unitTypes isEqualTo [])) then
 {
-	_logic setVariable ["#unitTypes", _unitTypes];
+	_logic setVariable ["#unitTypes", _unitTypes, true];
 };
 
 // Set up the triggers
@@ -268,15 +271,15 @@ if (_debug) then
 	["RS Civilian Presence", 4, (format ["Created Visual Marker: %1", _marker])] call RS_fnc_LoggingHelper;
 };
 
-_townVariable = (format ["SAEF_CivilianPresence_%1", (((text _location) splitString " ") joinString "")]);
+_townVariable = (format ["SAEF_CivilianPresence_%1", _sanAreaName]);
 missionNamespace setVariable [_townVariable, true, true];
 
-_onActStatement = "";
-_onDeactStatement = "";
+_onActStatement = format["if (!isServer) exitWith {}; [['%1', true], 'RS_CP_fnc_CoreInit', 'call', (missionNamespace getVariable ['SAEF_CivilianPresence_ExecutionLocality', 'HC1'])] call RS_fnc_ExecScriptHandler;", _logicName];
+_onDeactStatement = format["if (!isServer) exitWith {}; ['%1'] call RS_CP_fnc_CoreDeactivation;", _logicName];
 if (_debug) then
 {
-	_onActStatement = "hint '[RS Civilian Presence] [INFO] Civilian Presence Spawn Triggered'";
-	_onDeactStatement = "hint '[RS Civilian Presence] [INFO] Civilian Presence De-spawn Triggered'";
+	_onActStatement = _onActStatement + "hint '[RS Civilian Presence] [INFO] Civilian Presence Spawn Triggered';";
+	_onDeactStatement = _onDeactStatement + "hint '[RS Civilian Presence] [INFO] Civilian Presence De-spawn Triggered';";
 };
 
 _trigger setTriggerStatements [(format ["((this) && (missionNamespace getVariable ['SAEF_CivilianPresence_Enabled', false]) && (missionNamespace getVariable ['SAEF_CivilianPresence_RunOnServer', false]) && (missionNamespace getVariable ['%1', false]))", _townVariable]), _onActStatement, _onDeactStatement];

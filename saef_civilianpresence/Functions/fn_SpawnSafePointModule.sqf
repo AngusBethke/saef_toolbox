@@ -27,13 +27,14 @@ private
 ];
 
 // Create the Logic
-_logic = _group createUnit ["ModuleCivilianPresenceSafeSpot_F",_pos,[],0,"NONE"]; 
+_logic = _group createUnit ["Logic",_pos,[],0,"NONE"]; // ModuleCivilianPresenceSafeSpot_F
+_logic setVariable ["LogicType", "ModuleCivilianPresenceSafeSpot_F", true];
 
 // Set the Logic's Parameters
-_logic setVariable ["#capacity", _capacity]; 
-_logic setVariable ["#isTerminal", _isTerminal]; 
-_logic setVariable ["#type", _type]; 
-_logic setVariable ["#useBuilding", _useBuilding]; 
+_logic setVariable ["#capacity", _capacity, true]; 
+_logic setVariable ["#isTerminal", _isTerminal, true]; 
+_logic setVariable ["#type", _type, true]; 
+_logic setVariable ["#useBuilding", _useBuilding, true]; 
 
 // Return Module
 _logic

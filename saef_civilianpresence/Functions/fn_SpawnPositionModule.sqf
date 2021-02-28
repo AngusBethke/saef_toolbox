@@ -17,7 +17,8 @@ private
 ];
 
 // Create the Logic
-_logic = _group createUnit ["ModuleCivilianPresenceUnit_F",_pos,[],0,"NONE"]; 
+_logic = _group createUnit ["Logic",_pos,[],0,"NONE"]; // ModuleCivilianPresenceUnit_F
+_logic setVariable ["LogicType", "ModuleCivilianPresenceUnit_F", true];
 
 // Return Module
 _logic

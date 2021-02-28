@@ -60,10 +60,7 @@ while {(missionNamespace getVariable ["SAEF_Respawn_RunWaveRespawn", false]) && 
 			_alteredPenaltyTime = _penaltyTime * _multiplier;
 			_unit setVariable ["SAEF_Respawn_WaveRespawn_Player_PenaltyTime", _alteredPenaltyTime, true];
 
-			_unit addEventHandler ["killed", 
-			{
-				[] call RS_fnc_Handler_WaveRespawn_Player_PenaltyTime;
-			}];
+			[_unit, ["killed", { [] call RS_fnc_Handler_WaveRespawn_Player_PenaltyTime;	}]] remoteExecCall ["addEventHandler", _unit, false];
 		};
 	} forEach (allPlayers - (entities "HeadlessClient_F"));
 

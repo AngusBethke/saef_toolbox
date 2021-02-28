@@ -27,7 +27,12 @@ class CfgFunctions
 			file = "saef_civilianpresence\Functions";
 			class AddCustomLocations {};
 			class CheckAgainstTotalRunningAi {};
-			class Delegate_ModuleCivilianPresence {};
+			class CoreCreateUnit {};
+			class CoreDeactivation {};
+			class CoreDeleteUnit {};
+			class CoreGetObjects {};
+			class CoreHandleUnits {};
+			class CoreInit {};
 			class GetCompatibleFacesFromConfig {};
 			class GetWhiteListedLocations {};
 			class Handler {};
