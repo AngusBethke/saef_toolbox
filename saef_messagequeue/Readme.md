@@ -1,4 +1,4 @@
-## README: The Message Queue
+## The Message Queue
 
 ## Primary Function:
 To provide the user (in this case a scripter) with a way to manageably execute multiple scripts at the same time without stressing the client, server or headless with too many concurrent requests. This is specifically useful for executing scripts via a trigger or some other uncontrolled system where it is otherwise impossible to avoid processing more than one script at a time. While it is common knowledge that Arma's scripting engine has its own scheduling mechanism, it is very possible for the user to overload it given the frequency with which the engine processes scheduled scripts. It is the intention of this message queue to prevent concurrent processing where possible... though it may not eliminate it completely.
