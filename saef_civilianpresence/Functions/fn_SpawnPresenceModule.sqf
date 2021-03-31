@@ -31,11 +31,6 @@ private
 	,"_type"
 	,"_pos"
 	,"_supportedLocations"
-	,"_posArray"
-	,"_distArray"
-	,"_minDist"
-	,"_sizeLoc"
-	,"_size"
 	,"_group"
 	,"_buildings"
 	,"_bPosArray"
@@ -71,33 +66,14 @@ if (!(_type in _supportedLocations)) exitWith
 	["RS Civilian Presence", 3, (format ["Location %1 is of type: %2, which is not one of the supported locations: %3", (text _location), _type, _supportedLocations])] call RS_fnc_LoggingHelper;
 };
 
-_posArray = [];
-{
-	if ((type _x) in _supportedLocations) then
-	{
-		_posArray = _posArray + [position _x];
-	};
-} forEach _locations;
-
-_posArray = _posArray - [_pos];
-
-_distArray = [];
-{
-	_dist = _pos distance2D _x;
-	_distArray = _distArray + [_dist];
-} forEach _posArray;
-
-_minDist = (selectMin _distArray)/2;
-
-// Cap Location size at 4000m
-if (_minDist > 4000) then
-{
-	["RS Civilian Presence", 2, (format ["Capping size [%2] for location: %1 at 4000m", (text _location), _minDist])] call RS_fnc_LoggingHelper;
-	_minDist = 4000;
-};
-
-_sizeLoc = [_minDist, _minDist, 0]; // size _location;
-_size = ((_sizeLoc select 0) + (_sizeLoc select 1)) / 2; 
+([_pos, _locations, _supportedLocations] call RS_CP_fnc_GetPositionInfo) params
+[
+	"_posArray"
+	,"_distArray"
+	,"_minDist"
+	,"_sizeLoc"
+	,"_size"
+];
 
 if (_debug) then
 {

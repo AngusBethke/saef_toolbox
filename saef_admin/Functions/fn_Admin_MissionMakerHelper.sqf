@@ -109,6 +109,22 @@ if (!("HC1" in _systemNames)) then
 	_errorStr = _errorStr + "<br/>[SAEF Toolbox Mission Maker Helper] " + _text;
 };
 
+// Test if the Headless Client is present
+if (!("HC2" in _systemNames)) then
+{
+	_text = "The headless client module [HC2] is missing from your mission.";
+	["SAEF Toolbox Mission Maker Helper", 2, _text] call RS_fnc_LoggingHelper;
+	_errorStr = _errorStr + "<br/>[SAEF Toolbox Mission Maker Helper] " + _text;
+};
+
+// Test if the Headless Client is present
+if (!("HC3" in _systemNames)) then
+{
+	_text = "The headless client module [HC3] is missing from your mission.";
+	["SAEF Toolbox Mission Maker Helper", 2, _text] call RS_fnc_LoggingHelper;
+	_errorStr = _errorStr + "<br/>[SAEF Toolbox Mission Maker Helper] " + _text;
+};
+
 // Look for a Zeus Module
 _zeusFound = false;
 {

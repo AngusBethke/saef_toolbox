@@ -27,7 +27,7 @@ _messages = _messages - [_this];
 
 missionNamespace setVariable [_queueName, _messages, true];
 
-[_logName, 3, (format ["Message [%2: %3] removed from queue [%1]", _queueName, _messageId, _script])] call RS_fnc_LoggingHelper;
+[_logName, 4, (format ["Message [%2: %3] removed from queue [%1]", _queueName, _messageId, _script])] call RS_fnc_LoggingHelper;
 
 /*
 	END

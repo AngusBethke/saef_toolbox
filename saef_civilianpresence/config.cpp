@@ -13,6 +13,7 @@ class CfgPatches
 			"SAEF_TOOLBOX_LOCATIONS",
 			"SAEF_TOOLBOX_HEADLESS",
 			"SAEF_TOOLBOX_DIAGNOSTICS",
+			"SAEF_TOOLBOX_MESSAGEQUEUE",
 			"A3_Modules_F"
 		};
 	};
@@ -33,11 +34,18 @@ class CfgFunctions
 			class CoreGetObjects {};
 			class CoreHandleUnits {};
 			class CoreInit {};
+			class DelayedCreation {};
+			class DelegateHandler {};
 			class GetCompatibleFacesFromConfig {};
+			class GetPositionInfo {};
 			class GetWhiteListedLocations {};
 			class Handler {};
 			class Init {};
 			class ModuleCivilianPresence {};
+			class PostInit 
+			{
+				postInit = 1;
+			};
 			class SpawnPositionModule {};
 			class SpawnPresenceModule {};
 			class SpawnSafePointModule {};
@@ -53,7 +61,7 @@ class CfgVehicles
 	class RS_CP_ModuleCivilianPresence: ModuleCivilianPresence_F
 	{
 		// Standard object definitions
-		scope = 2; // Editor visibility; 2 will show it in the menu, 1 will hide it.
+		scope = 1; // Editor visibility; 2 will show it in the menu, 1 will hide it.
 		displayName = "RS Civilian Presence"; // Name displayed in the menu
 
 		// Name of function triggered once conditions are met

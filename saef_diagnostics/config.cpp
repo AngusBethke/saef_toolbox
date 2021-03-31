@@ -22,6 +22,10 @@ class CfgFunctions
 		class Diagnostics
 		{
 			file = "saef_diagnostics\Functions";
+			class Init 
+			{
+				postInit = 1;
+			};
 			class PersistentPerformanceCheck {};
 		};
 	};

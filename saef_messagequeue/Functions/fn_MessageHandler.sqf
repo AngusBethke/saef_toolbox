@@ -31,10 +31,16 @@ private
 _logName = "RS Message Handler";
 _queueProcessVariable = format ["%1_MessageHandler_Run", _queueName];
 
-[_logName, 3, (format ["Starting Message Handler for queue [%1], to stop processing toggle variable [%2] to false.", _queueName, _queueProcessVariable])] call RS_fnc_LoggingHelper;
+if (missionNamespace getVariable [_queueProcessVariable, false]) exitWith
+{
+	[_logName, 1, (format ["Message Handler already running for queue [%1], to stop processing toggle variable [%2] to false.", _queueName, _queueProcessVariable])] call RS_fnc_LoggingHelper;
+};
+
+missionNamespace setVariable [_queueProcessVariable, true, true];
+[_logName, 0, (format ["Starting Message Handler for queue [%1], to stop processing toggle variable [%2] to false.", _queueName, _queueProcessVariable])] call RS_fnc_LoggingHelper;
 
 _pollTime = 1;
-while {missionNamespace getVariable [_queueProcessVariable, true]} do
+while {missionNamespace getVariable [_queueProcessVariable, false]} do
 {
 	// Fetch our Messages from the queue
 	_messages = missionNamespace getVariable [_queueName, []];
@@ -43,28 +49,46 @@ while {missionNamespace getVariable [_queueProcessVariable, true]} do
 	{
 		// Process our messages
 		{
-			private
+			_x params 
 			[
 				"_messageId"
-				,"_handle"
-				,"_control"
+				,"_params"
+				,"_script"
+				,"_queueName"
+				,"_validation"
 			];
 
-			_messageId = _x select 0;
+			private
+			[
+				"_handle"
+			];
+			
 			_handle = _x spawn RS_MQ_fnc_MessageExecuter;
 
 			// Check for message completion
-			_control = 0;
-			waitUntil {
-				sleep 0.1;
-				_control = _control + 1;
-				((scriptDone _handle) || (isNull _handle) || (_control == (_timeout * 10)));
-			};
-
-			// If message takes longer than the specified timeout log a warning
-			if (_control == (_timeout * 10)) then
+			if (_timeout > 0) then
 			{
-				[_logName, 2, (format ["Message Handler processing queue [%1] for message [%2] took longer than [%3] seconds, check later logs for message completion.", _queueName, _messageId, _timeout])] call RS_fnc_LoggingHelper;
+				private
+				[
+					"_control"
+				];
+
+				_control = 0;
+				waitUntil {
+					sleep 0.1;
+					_control = _control + 1;
+					((scriptDone _handle) || (isNull _handle) || (_control == (_timeout * 10)));
+				};
+
+				// If message takes longer than the specified timeout log a warning
+				if (_control == (_timeout * 10)) then
+				{
+					[_logName, 2, (format ["Message Handler processing queue [%1] for message [%2] took longer than [%3] seconds, check later logs for message completion.", _queueName, _messageId, _timeout])] call RS_fnc_LoggingHelper;
+				};
+			}
+			else
+			{
+				sleep 0.1;
 			};
 		} forEach _messages;
 	}

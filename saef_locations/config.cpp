@@ -22,6 +22,7 @@ class CfgFunctions
 		{
 			file = "saef_locations\Functions";
 			class ListLocations {};
+			class InBuilding {};
 		};
 	};
 };

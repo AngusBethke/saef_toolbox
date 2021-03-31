@@ -23,7 +23,7 @@ private
 
 // We are starting the processing
 _logName = "RS Message Executer";
-[_logName, 3, (format ["Message Handler processing queue [%1] for message [%2: %3] starting...", _queueName, _messageId, _script])] call RS_fnc_LoggingHelper;
+[_logName, 4, (format ["Message Handler processing queue [%1] for message [%2: %3] starting...", _queueName, _messageId, _script])] call RS_fnc_LoggingHelper;
 
 // Evaluate our custom validation condition
 _condition = _params call _validation;
@@ -64,7 +64,7 @@ if (_condition) then
 		};
 	};
 
-	[_logName, 3, (format ["Message Handler processing queue [%1] for message [%2: %3] complete...", _queueName, _messageId, _script])] call RS_fnc_LoggingHelper;
+	[_logName, 4, (format ["Message Handler processing queue [%1] for message [%2: %3] complete...", _queueName, _messageId, _script])] call RS_fnc_LoggingHelper;
 }
 else
 {

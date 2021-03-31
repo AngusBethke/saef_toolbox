@@ -21,6 +21,10 @@ class CfgFunctions
 		class TFR
 		{
 			file = "saef_tfr\Functions";
+			class Catch_OnRadiosReceived 
+			{
+				postInit = 1;
+			};
 			class JamTfrRadios {};
 		};
 	};

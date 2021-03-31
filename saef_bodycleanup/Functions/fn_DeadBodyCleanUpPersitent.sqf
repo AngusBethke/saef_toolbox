@@ -7,7 +7,7 @@
 
 params
 [
-	["_bodyLimit", 60]
+	["_bodyLimit", 20]
 	,["_checkInterval", 120]
 	,["_instCleanDist", 500]
 ];

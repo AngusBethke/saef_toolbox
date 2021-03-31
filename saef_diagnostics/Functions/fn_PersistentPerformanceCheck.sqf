@@ -1,24 +1,54 @@
 /*
 	fn_PersistentPerformanceCheck.sqf
-	Description: A script that persitently logs server performance, it displays AI unit numbers, player numbers, and server fps.
-	How to Call: [30] spawn RS_DIAG_fnc_PersistentPerformanceCheck;
+
+	Description: 
+		A script that persitently logs server performance, it displays AI unit numbers, player numbers, and server fps.
+
+	How to Call: 
+		[
+			_time		// (Optional) Time in seconds for the persistent performance check to run
+		] spawn RS_DIAG_fnc_PersistentPerformanceCheck;
+
 	Author: Angus Bethke (a.k.a. Rabid Squirrel)
 */
 
-missionNamespace setVariable ["PerformanceDiagnostics", true, true];
+params
+[
+	["_time", 120]
+];
 
-_time = _this select 0;
-
-/* Runs the Diagnostics */
-while {missionNamespace getVariable ["PerformanceDiagnostics", false]} do
+if (isServer) then
 {
-	/* Resets Count Variables */
+	missionNamespace setVariable ["SAEF_PerformanceDiagnostics_Run", true, true];
+}
+else
+{
+	sleep 10;
+};
+
+// Runs the Diagnostics
+while {missionNamespace getVariable ["SAEF_PerformanceDiagnostics_Run", false]} do
+{
+	private
+	[
+		"_aiCount",
+		"_playerCount",
+		"_localCount",
+		"_fpsTtl"
+	];
+
+	// Resets Count Variables
 	_aiCount = 0;
 	_playerCount = 0;
 	_localCount = 0;
 	_fpsTtl = 0;
 	
-	/* Averages the FPS over the wait period */
+	// Averages the FPS over the wait period
+	private
+	[
+		"_i"
+	];
+
 	_i = 0;
 	while {_i < _time} do
 	{
@@ -26,12 +56,19 @@ while {missionNamespace getVariable ["PerformanceDiagnostics", false]} do
 		_i = _i + 1;
 		sleep 1;
 	};
+
+	private
+	[
+		"_avgFPS"
+	];
 	
 	_avgFPS = _fpsTtl / _time;
 	
-	/* Counts Players and AI */
+	// Count Players and AI
 	{
-		if ((isPlayer _x) && ((name _x) != "headlessclient")) then
+		_x params ["_unit"];
+
+		if ((isPlayer _unit) && ((name _unit) != "headlessclient")) then
 		{
 			_playerCount = _playerCount + 1;
 		}
@@ -39,13 +76,13 @@ while {missionNamespace getVariable ["PerformanceDiagnostics", false]} do
 		{
 			_aiCount = _aiCount + 1;
 			
-			if (local _x) then
+			if (local _unit) then
 			{
 				_localCount = _localCount + 1;
 			};
 		};
 	} forEach allUnits;
 	
-	/* Creates Log */
+	// Log the result
 	["Performance Diagnostics", 0, (format ["Currently Active Players: %1 || Current AI Amount: %2 || Current Local AI Amount: %3 || Average FPS: %4", _playerCount, _aiCount, _localCount, _avgFPS])] call RS_fnc_LoggingHelper;
 };

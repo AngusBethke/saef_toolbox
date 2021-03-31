@@ -35,7 +35,16 @@ if ((typeName _var) isEqualTo "STRING") then
 }
 else
 {
-	_pos = _var;
+	// Return a position and direction if we have one
+	if ((count _var) == 4) then
+	{
+		_pos = [(_var select 0), (_var select 1), (_var select 2)];
+		_azi = (_var select 3);
+	}
+	else
+	{
+		_pos = _var;
+	};
 };
 
 // Returns: Boolean, Position and Direction

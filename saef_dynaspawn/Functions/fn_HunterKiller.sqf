@@ -13,20 +13,17 @@ params
 	"_secondPos"
 ];
 
-private
-[
-	"_groupHunt",
-	"_areaOfOperation",
-	"_debug",
-	"_count",
-	"_limitReached",
-	"_huntPlayerArray",
-	"_closestPlayerPos"
-];
-
-["DynaSpawn", 4, (format ["[HunterKiller] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+if (missionNamespace getVariable ["SAEF_DynaSpawn_ExtendedLogging", false]) then
+{
+	["DynaSpawn", 4, (format ["[HunterKiller] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+};
 
 // Declarations
+private
+[
+	"_enemySide"
+];
+
 _enemySide = side _groupHunt;
 
 {
@@ -46,55 +43,94 @@ if (_usePara) then
 if (({alive _x} count units _groupHunt) == 0) exitWith
 {
 	["DynaSpawn", 1, (format ["[HunterKiller] Group [%1] dead on Insertion, Exiting...", _groupHunt])] call RS_fnc_LoggingHelper;
-	["DynaSpawn", 4, (format ["[HunterKiller] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+
+	if (missionNamespace getVariable ["SAEF_DynaSpawn_ExtendedLogging", false]) then
+	{
+		["DynaSpawn", 4, (format ["[HunterKiller] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+	};
 };
+
+private
+[
+	"_count",
+	"_limitReached",
+	"_closestPlayerPos"
+];
 
 // Break-Out Variables
 _count = 0;
 _limitReached = false;
 
 /* -- Long Range QRF Region -- */
-// Get the nearestPlayer within 4000m (our max search distance)
-_huntPlayerArray = (leader _groupHunt) nearEntities [["Man", "LandVehicle"], 4000];
-_closestPlayerPos = getPos (leader _groupHunt);
+private
+[
+	"_validCode",
+	"_deleteCode"
+];
 
-for "_i" from 0 to ((count _huntPlayerArray) - 1) do
+_validCode = 
 {
+	params
+	[
+		"_player"
+	];
+
+	private
+	[
+		"_spotted",
+		"_isUnitOrLandVehicle"
+	];
+
 	// Check if the enemy knows about this unit
-	_spotted = ((_enemySide knowsAbout (_huntPlayerArray select _i)) >= 0.1);
+	_spotted = ((_enemySide knowsAbout _player) >= 0.1);
 	
 	// If they don't know about the unit, check to see if that unit is blacklisted
 	if !(_spotted) then
 	{
 		// If they aren't blacklisted set the spotted flag to true
-		_spotted = !((_huntPlayerArray select _i) getVariable ["DS_HunterKillerBlacklisted", false]);
+		_spotted = !(_player getVariable ["DS_HunterKillerBlacklisted", false]);
 	};
-	
-	// Make Sure that the AI don't target the headless client
-	if ((isPlayer (_huntPlayerArray select _i)) 
-		&& (name (_huntPlayerArray select _i) != "headlessclient")
-		&& (_spotted)) exitWith
-	{
-		_closestPlayerPos = getPos (_huntPlayerArray select _i);
-	};
+
+	// They are on foot or in a land vehicle
+	_isUnitOrLandVehicle = ((typeOf (vehicle _player)) isKindOf ["LandVehicle", configFile >> "CfgVehicles"])
+		|| ((typeOf (vehicle _player)) isKindOf ["Man", configFile >> "CfgVehicles"]);
+
+	// Return whether or not they've been spotted and whether or not they're in the right vehicle type
+	(_spotted && _isUnitOrLandVehicle)
 };
 
+_deleteCode =
+{
+	_x params ["_unit"];
+
+	if ((vehicle _unit) != _unit) then
+	{
+		deleteVehicle (vehicle _unit);
+	};
+
+	deleteVehicle _unit;
+};
+
+// Get the nearestPlayer within 4000m (our max search distance)
+_closestPlayerPos = [(getPos (leader _groupHunt)), 4000, _validCode] call RS_PLYR_fnc_GetClosestPlayer;
+
 // If there are no players within the given AO, delete the hunter killers
-if (_closestPlayerPos isEqualTo (getPos (leader _groupHunt))) exitWith
+if (_closestPlayerPos isEqualTo [0,0,0]) exitWith
 {
 	["DynaSpawn", 1, (format ["[HunterKiller] Found no Close Player, deleting group %1", _groupHunt])] call RS_fnc_LoggingHelper;
 	
-	{
-		deleteVehicle _x;
-	} forEach units _groupHunt;
+	_deleteCode forEach (units _groupHunt);
 
-	["DynaSpawn", 4, (format ["[HunterKiller] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+	if (missionNamespace getVariable ["SAEF_DynaSpawn_ExtendedLogging", false]) then
+	{
+		["DynaSpawn", 4, (format ["[HunterKiller] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+	};
 };
 
 // This is the threshold for allowing the player to escape the Hunter Killers
 if (_areaOfOperation <= 1000) then
 {
-	// Wait until the AI has reach the first found player position
+	// Wait until the AI has reached the first found player position
 	waitUntil {
 		sleep 5;
 		(((leader _groupHunt) distance2D _closestPlayerPos) < (_areaOfOperation - 50))
@@ -105,40 +141,34 @@ if (_areaOfOperation <= 1000) then
 /*	While "Hunter" Group is alive, Move to the Closest Player	*/
 while {({alive _x} count units _groupHunt) > 0} do
 {
-	_huntPlayerArray = (leader _groupHunt) nearEntities [["Man", "LandVehicle"], _areaOfOperation];
-	_closestPlayerPos = getPos (leader _groupHunt);
+	_groupHunt setVariable ["RS_DS_HunterKiller_Active", true, true];
+	_closestPlayerPos = [(getPos (leader _groupHunt)), _areaOfOperation, _validCode] call RS_PLYR_fnc_GetClosestPlayer;
 	
-	for "_i" from 0 to ((count _huntPlayerArray) - 1) do
+	if (missionNamespace getVariable ["SAEF_DynaSpawn_ExtendedLogging", false]) then
 	{
-		// Check if the enemy knows about this unit
-		_spotted = ((_enemySide knowsAbout (_huntPlayerArray select _i)) >= 0.1);
-		
-		// If they don't know about the unit, check to see if that unit is blacklisted
-		if !(_spotted) then
-		{
-			// If they aren't blacklisted set the spotted flag to true
-			_spotted = !((_huntPlayerArray select _i) getVariable ["DS_HunterKillerBlacklisted", false]);
-		};
-	
-		// Make Sure that the AI don't target the headless client
-		if ((isPlayer (_huntPlayerArray select _i)) 
-			&& (name (_huntPlayerArray select _i) != "headlessclient")
-			&& (_spotted)) exitWith
-		{
-			_closestPlayerPos = getPos (_huntPlayerArray select _i);
-		};
+		["DynaSpawn", 4, (format ["[HunterKiller] Closest Player: %2", _closestPlayerPos])] call RS_fnc_LoggingHelper;
 	};
-	
+
 	// If no player position was found, increment the count
-	if (_closestPlayerPos isEqualTo (getPos (leader _groupHunt))) then
+	if (_closestPlayerPos isEqualTo [0,0,0]) then
 	{
 		_count = _count + 1;
+	}
+	else
+	{
+		// Modify the position slightly if the player is in a building and the hunters are infantry
+		if ((typeOf (vehicle (leader _groupHunt))) isKindOf ["Man", configFile >> "CfgVehicles"]) then
+		{
+			_closestPlayerPos = [_closestPlayerPos] call RS_DS_fnc_GetClosePositionInBuilding;
+		};
+
+		// Tell the group to move
+		_groupHunt move _closestPlayerPos;
+
+		// Reset the count
+		_count = 0;
 	};
-	
-	["DynaSpawn", 4, (format ["[HunterKiller] Closest Player: %2", _closestPlayerPos])] call RS_fnc_LoggingHelper;
-	
-	_groupHunt move _closestPlayerPos;
-	
+
 	// Reset
 	sleep 30;
 	
@@ -157,18 +187,19 @@ if (_limitReached) then
 	waitUntil {
 		sleep 10;
 		_count = _count + 1;
-		(([0,0,0] isEqualTo ([getPos (leader _groupHunt), 1000] call RS_PLYR_fnc_GetClosestPlayer)) OR (_count == 10))
+		(([0,0,0] isEqualTo ([getPos (leader _groupHunt), 1000] call RS_PLYR_fnc_GetClosestPlayer)) || (_count == 10))
 	};
 	
 	// Delete the group
 	["DynaSpawn", 2, (format ["[HunterKiller] Found no Close Player within timed limit, deleting group %1", _groupHunt])] call RS_fnc_LoggingHelper;
 	
-	{
-		deleteVehicle _x;
-	} forEach units _groupHunt;
+	_deleteCode forEach units _groupHunt;
 };
 
-["DynaSpawn", 4, (format ["[HunterKiller] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+if (missionNamespace getVariable ["SAEF_DynaSpawn_ExtendedLogging", false]) then
+{
+	["DynaSpawn", 4, (format ["[HunterKiller] <OUT> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+};
 
 /*
 	END

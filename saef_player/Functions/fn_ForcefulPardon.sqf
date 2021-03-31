@@ -11,8 +11,49 @@ if (!hasInterface) exitWith {};
 
 if (_var_SAEF_Player_ForcefulPardon) then
 {
-	["SAEF Player", 0, "Forceful Pardon Enabled"] call RS_fnc_LoggingHelper;
-	player addEventHandler ["HandleRating", {0}];
+	[] spawn
+	{
+		player setVariable ["SAEF_Player_ForcefulPardon_Run", true, true];
+
+		["SAEF Player", 0, (format ["Forceful Pardon Enabled, set variable [SAEF_Player_ForcefulPardon_Run] on player [%1] to false to disable.", player])] call RS_fnc_LoggingHelper;
+
+		private
+		[
+			"_playerValidationCode"
+		];
+
+		_playerValidationCode = 
+		{
+			params
+			[
+				"_player"
+			];
+
+			((vehicle _player) != _player)
+		};
+
+		while { (player getVariable ["SAEF_Player_ForcefulPardon_Run", false]) } do
+		{
+			private
+			[
+				"_closeBy"
+			];
+
+			// If there is a friendly vehicle close by
+			_closeBy = !(([(getPos player), 15, _playerValidationCode] call RS_PLYR_fnc_GetClosestPlayer) isEqualTo [0,0,0]);
+
+			if (_closeBy) then
+			{
+				if ((rating player) < 0) then
+				{
+					// Reset player rating to 0
+					player addRating ((rating player) * -1);
+				};
+			};
+
+			sleep 5;
+		};
+	};
 }
 else
 {

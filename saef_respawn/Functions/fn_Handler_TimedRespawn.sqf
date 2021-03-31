@@ -8,7 +8,7 @@
 		[
 			_waitTime,		// Optional: The time between respawn waves
 			_holdTime		// Optional: The time the respawn is held open for
-		] call RS_fnc_Handler_TimedRespawn;
+		] spawn RS_fnc_Handler_TimedRespawn;
 */
 
 params

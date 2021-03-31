@@ -21,6 +21,12 @@ class CfgFunctions
 		class MessageQueue
 		{
 			file = "saef_messagequeue\Functions";
+			class CreateQueue {};
+			class DistributedHandler {};
+			class Init 
+			{
+				postInit = 1;
+			};
 			class MessageDequeue {};
 			class MessageExecuter {};
 			class MessageEnqueue {};

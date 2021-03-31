@@ -21,15 +21,27 @@ class CfgFunctions
 		class DynaSpawn
 		{
 			file = "saef_dynaspawn\Functions";
+			class AddGroupToZeus {};
+			class DynamicGarrison {};
+			class DynamicGarrisonHandler {};
 			class DynaSpawn {};
 			class DynaSpawnValidation {};
 			class Garrison {};
+			class GetClosePositionInBuilding {};
+			class GetGarrisonPositions {};
 			class GetRandomFormation {};
 			class HunterKiller {};
 			class ParaInsertion {};
 			class PositionValidation {};
 			class SpawnerGroup {};
+			class TaskPatrol {};
 			class UnitValidation {};
 		};
 	};
+};
+
+class Extended_PreInit_EventHandlers {
+    class SAEF_DynaSpawn_PreInitEvent {
+        init = "call compile preprocessFileLineNumbers 'saef_dynaspawn\Functions\XEH_preInit.sqf'";
+    };
 };

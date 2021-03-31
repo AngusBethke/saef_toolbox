@@ -15,7 +15,7 @@
 			_playerThresholdForRespawn,		// Optional: The amount of players required to force the respawn
 			_penaltyTime,					// Optional: The base penalty time applied to players for dying
 			_classSpecificPenalties			// Optional: An array with penalty indicators to multiply penalties for certain classes
-		] call RS_fnc_Handler_WaveRespawn;
+		] spawn RS_fnc_Handler_WaveRespawn;
 
 	Class Specific Penalties:
 		_classSpecificPenalties =

@@ -32,7 +32,10 @@ private
 	"_script"
 ];
 
-["DynaSpawn", 4, (format ["[SpawnerGroup] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+if (missionNamespace getVariable ["SAEF_DynaSpawn_ExtendedLogging", false]) then
+{
+	["DynaSpawn", 4, (format ["[SpawnerGroup] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
+};
 
 /* Run the Spawners */
 if (_unitType == "INF") then
@@ -42,23 +45,39 @@ if (_unitType == "INF") then
 		["DynaSpawn", 2, (format ["[SpawnerGroup] Parachute Insertion may not be used with waypoint type %1!", _type])] call RS_fnc_LoggingHelper;
 		_usePara = false;
 	};
-	
-	/*
-		// Spawn the Group
-		_newGroup = [_spawnPos, _facSide, _faction,[],[],[],[],[],0] call BIS_fnc_spawnGroup;
-		_newGroup deleteGroupWhenEmpty true;
-		
-		// Join all the units to our given group
-		(units _newGroup) joinSilent _group;
-	*/
+
+	private
+	[
+		"_posArr"
+	];
+	_posArr = [_secondPos, _area, (count _faction)] call RS_DS_fnc_GetGarrisonPositions;
 	
 	// Spawn the Group
 	{
-		_unit = _group createUnit [_x, _spawnPos, [], 0, "NONE"];
+		private
+		[
+			"_tempSpawnPos"
+		];
+		_tempSpawnPos = _spawnPos;
+
+		// If we have garrison positions available we're just gonna spawn them right there, less overhead
+		if (!(_posArr isEqualTo [])) then
+		{
+			_tempSpawnPos = (_posArr select _forEachIndex);
+		};
+
+		_unit = _group createUnit [_x, _tempSpawnPos, [], 0, "NONE"];
 		
 		waitUntil {
 			sleep 0.1;
 			!(isNull _unit)
+		};
+
+		if (_type == "GAR") then
+		{
+			_unit setUnitPos (selectRandom ["UP", "MIDDLE"]);
+			_unit disableAI "PATH";
+			_unit setDir (random(360));
 		};
 	} forEach _faction;
 
@@ -99,7 +118,7 @@ if (_unitType == "VEH") then
 if (_type == "PAT") then
 {
 	// Creates Waypoint for Patrolling a Position
-	[_group, _spawnPos, _area, 8] spawn CBA_fnc_taskPatrol;
+	[_group, _spawnPos, _area] call RS_DS_fnc_TaskPatrol;
 	_group setSpeedMode "LIMITED";
 	_group setBehaviour "SAFE";
 	_group setFormation ([] call RS_DS_fnc_GetRandomFormation);
@@ -138,15 +157,7 @@ if (_type == "GAR") then
 	if (_unitType != "VEH") then
 	{
 		// Garrisons the group at the supplied secondPos
-		_garSuccess = [_secondPos, _group, _area] call RS_DS_fnc_Garrison;
-		
-		// Garrison Failure will result in unit cleanup
-		if (!_garSuccess) then
-		{
-			{
-				deleteVehicle _x;
-			} forEach units _grp;
-		};
+		[_secondPos, _area, _group] call RS_DS_fnc_Garrison;
 	}
 	else
 	{
@@ -161,11 +172,14 @@ if (_usePara) then
 	_paraSpawn spawn RS_DS_fnc_ParaInsertion;
 };
 
+// Add units to Zeus
+if (missionNamespace getVariable ["SAEF_DynaSpawn_AddToZeus", false]) then
+{
+	[_group] remoteExec ["RS_DS_fnc_AddGroupToZeus", 2, false];
+};
+
 // Let us know group has been spawned
 ["DynaSpawn", 3, (format ["[SpawnerGroup] Spawn Complete for Group: %1", _group])] call RS_fnc_LoggingHelper;
-
-// If type is NON the unit will be given no waypoints, allowing the user to have full control over them for custom scripts, waypoints etc.
-["DynaSpawn", 4, (format ["[SpawnerGroup] <OUT> | Group: %1, Parameters: %2", _group, _this])] call RS_fnc_LoggingHelper;
 
 /*
 	END
