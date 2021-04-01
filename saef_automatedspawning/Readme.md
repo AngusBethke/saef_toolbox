@@ -178,7 +178,7 @@ _var_SAEF_AreaSpawner_Large_Params =
 [
 	 12		// Base AI Count
 	,60		// Base Area Size
-	,175	// Base Activation Range
+	,175		// Base Activation Range
 ];
 missionNamespace setVariable ["SAEF_AreaSpawner_Large_Params", _var_SAEF_AreaSpawner_Large_Params, true];
 
@@ -192,7 +192,7 @@ _var_SAEF_AreaSpawner_Medium_Params =
 [
 	 6		// Base AI Count
 	,50		// Base Area Size
-	,175	// Base Activation Range
+	,175		// Base Activation Range
 ];
 missionNamespace setVariable ["SAEF_AreaSpawner_Medium_Params", _var_SAEF_AreaSpawner_Medium_Params, true];
 
@@ -206,7 +206,7 @@ _var_SAEF_AreaSpawner_Small_Params =
 [
 	 4		// Base AI Count
 	,40		// Base Area Size
-	,175	// Base Activation Range
+	,175		// Base Activation Range
 ];
 missionNamespace setVariable ["SAEF_AreaSpawner_Small_Params", _var_SAEF_AreaSpawner_Small_Params, true];
 
