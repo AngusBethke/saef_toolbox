@@ -32,17 +32,18 @@ private
 _areaTags = 
 [
 	[
-		"rus_area",           // The tag for the area
-		"Russian Forces",     // Descriptive name for the tag (used by the Zeus modules)
-		"rus_area_config"     // The config variable pointer for this tag
-    ,[									  // The overrides array
-      [
-        "rus_area_sml_3"					    // Marker that is being overwritten
-        ,"rus_area_sml_3_config"			// The config pointer for this marker override
-      ]
-    ]
+		"rus_area",		// The tag for the area
+		"Russian Forces",	// Descriptive name for the tag (used by the Zeus modules)
+		"rus_area_config"	// The config variable pointer for this tag
+		,[			// The overrides array
+			[
+				"rus_area_sml_3"		// Marker that is being overwritten
+				,"rus_area_sml_3_config"	// The config pointer for this marker override
+			]
+		]
 	]
 ];
+
 missionNamespace setVariable ["SAEF_AreaMarkerTags", _areaTags, true];
 
 // Russian Forces Area Config 
