@@ -15,6 +15,14 @@ In order to utilise this function set the user must take two steps:
 ```
 
 It is now also possible to create a distributed queue that automatically farms out processing to the headless clients, by default it evaluates the AI count on each headless client and utilises that as it's mechanism for distribution, but it can be customised to use a different set of functions for rebalancing. If you leave the setup as default, make sure that the first parameter of your message is the AI count that you would like to spawn (as this is what will be used for the rebalance). **Note:** A distributed queue must be created from the server.
+- **Basic Usage**
+```
+[
+    "RS_SpawnerQueue",      // Unique Queue Name
+    ,"ALL_HEADLESS"         // This is the target you need to specifiy for distributed queue creation
+] call RS_MQ_fnc_CreateQueue;
+```
+- **Advanced Usage**
 ```
 [
     "RS_SpawnerQueue",      // Unique Queue Name
