@@ -21,7 +21,12 @@ This function enables logging for many of the saef toolbox toolsets. Note: Each 
 ```
 // Example
 
-
+[
+	"Test Logging"			// The leading tag of the message
+	,0				// The level we are logging at
+	,"Hello World"			// The message to log
+	,true				// (Optional) Do we want to log this on the server as well?
+] call RS_fnc_LoggingHelper;
 ```
 
 ### Persistent Performance Check
