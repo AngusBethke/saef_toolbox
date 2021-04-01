@@ -5,16 +5,27 @@ To provide the user (in this case a scripter) with a way to manageably execute m
 
 ## Usage:
 In order to utilise this function set the user must take two steps:
-1. A message handler must be initialised with a unique queue name on the specific client you'd like to process the queue for. There is currently no validation around this, so it is up to the implementer to make sure they do not accidentaly create more than one handler with the same queue name, as this could result in "stolen messages" if one queue processes before the other.
+1. A message handler must be created, and there is now a function provided for doing so:
+```
+[
+    "RS_ObjectiveQueue",    // Unique Queue Name
+    ,"HC1"				    // (Optional) Target to run the queue on
+    ,true		            // (Optional) Whether or not to fallback to the server if target is not found
+] call RS_MQ_fnc_CreateQueue;
+```
 
-As an example, if you would like the Headless client to handle a queue specifically for spawn processing, you could initialise it like this (must be executed from server locality "initServer.sqf" or similar):
+It is now also possible to create a distributed queue that automatically farms out processing to the headless clients, by default it evaluates the AI count on each headless client and utilises that as it's mechanism for distribution, but it can be customised to use a different set of functions for rebalancing. If you leave the setup as default, make sure that the first parameter of your message is the AI count that you would like to spawn (as this is what will be used for the rebalance). **Note:** A distributed queue must be created from the server.
 ```
-[["RS_SpawnerQueue"], "RS_MQ_fnc_MessageHandler", "spawn"] spawn RS_fnc_ExecScriptHandler;
-```
-
-Similarly, if you would like only the server to handle a queue specifically for objective processing, you could initialise it like this (must be executed from server locality "initServer.sqf" or similar):
-```
-["RS_ObjectiveQueue"] spawn RS_MQ_fnc_MessageHandler;
+[
+    "RS_SpawnerQueue",      // Unique Queue Name
+    ,"ALL_HEADLESS"         // This is the target you need to specifiy for distributed queue creation
+    ,false		            // (Optional) This parameter is ignored by the distributed queue creation (but must still be supplied if you use the below parameter, can be false or true)
+    ,[                      // (Optional) This is array of functions for rebalancing
+        "SAEF_AS_fnc_EvaluationParameter",      // Function that should return an index (number) to the position of the unit count in your array (receives params ["_function"], which is the string name of the function that will be executed by the handler)
+        "SAEF_AS_fnc_EvaluateAiCount",          // Function that evaluates the condition on each headless client (receives params ["_target"], which is the string name of the target that we will attempt to execute the message on), this should return an integer used for balancing
+        "SAEF_AS_fnc_UpdateAiCount"             // Function that updates the condition while the message is being executed so that no duplication takes place (receives params ["_target", "_updateCount"], which is the string name of the target and the count reference by the index determined above)
+    ]
+] call RS_MQ_fnc_CreateQueue;
 ```
 
 2. Once the message handler has been initialised, you can then add your messages to the queue and have them be processed. Note: You don't need to initialise the handler first, you can safely add messages to a queue without the handler running, and them simply engage the handler once all your messages are present.
