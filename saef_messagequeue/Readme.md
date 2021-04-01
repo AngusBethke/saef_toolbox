@@ -9,8 +9,8 @@ In order to utilise this function set the user must take two steps:
 ```
 [
     "RS_ObjectiveQueue",    // Unique Queue Name
-    ,"HC1"				    // (Optional) Target to run the queue on
-    ,true		            // (Optional) Whether or not to fallback to the server if target is not found
+    ,"HC1"                  // (Optional) Target to run the queue on
+    ,true                   // (Optional) Whether or not to fallback to the server if target is not found
 ] call RS_MQ_fnc_CreateQueue;
 ```
 
@@ -19,7 +19,7 @@ It is now also possible to create a distributed queue that automatically farms o
 [
     "RS_SpawnerQueue",      // Unique Queue Name
     ,"ALL_HEADLESS"         // This is the target you need to specifiy for distributed queue creation
-    ,false		            // (Optional) This parameter is ignored by the distributed queue creation (but must still be supplied if you use the below parameter, can be false or true)
+    ,false                  // (Optional) This parameter is ignored by the distributed queue creation (but must still be supplied if you use the below parameter, can be false or true)
     ,[                      // (Optional) This is array of functions for rebalancing
         "SAEF_AS_fnc_EvaluationParameter",      // Function that should return an index (number) to the position of the unit count in your array (receives params ["_function"], which is the string name of the function that will be executed by the handler)
         "SAEF_AS_fnc_EvaluateAiCount",          // Function that evaluates the condition on each headless client (receives params ["_target"], which is the string name of the target that we will attempt to execute the message on), this should return an integer used for balancing
