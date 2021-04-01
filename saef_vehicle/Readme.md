@@ -1,5 +1,5 @@
 # SAEF Vehicle Toolset
-Provides useful functions for interacting with vehicles
+Provides useful functions for interacting with vehicles. **Note:** this has a module component, if you would like to see how that works take a look at [this tutorial](https://youtu.be/CSM4_Rmvo2w) video.
 
 ## Functions
 ### Rearm and Repair
