@@ -1,4 +1,6 @@
 # Respawn Handlers
+Provides some useful respawn handlers in function form. **Note** - these handlers now have a module component (SAEF > Respawn and SAEF > Respawn (Penalty)) that can be used instead of function setup.
+
 ## Wave Respawn
 ```
 _classSpecificPenalties =
