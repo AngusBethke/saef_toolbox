@@ -1,15 +1,15 @@
 # SAEF Loadouts Toolset
-Adds a set of helper functions that are useful for creating loadouts
+Adds a set of helper functions that are useful for creating loadouts, for practical usage see [this tutorial](https://youtu.be/EkO5hO07iVk) video.
 
 ## Functions
-1. Remove Existing Items - this removes the existing items from a unit
+1. **Remove Existing Items** - this removes the existing items from a unit
 ```
 [
 	_unit				// The unit we're applying the loadout to
 ] call RS_LD_fnc_RemoveExistingItems;
 ```
 
-2. Add Gear Item - this adds a gear item with optional randomisation pool usage
+2. **Add Gear Item** - this adds a gear item with optional randomisation pool usage
 ```
 /*
 	Types of Gear Items:
@@ -28,7 +28,7 @@ Adds a set of helper functions that are useful for creating loadouts
 ] call RS_LD_fnc_AddGearItem;
 ```
 
-3. Standard Items - this adds the standard items we use to your uniform
+3. **Standard Items** - this adds the standard items we use to your uniform
 ```
 [
 	_unit,				// The unit we're applying the loadout to
@@ -40,14 +40,14 @@ Adds a set of helper functions that are useful for creating loadouts
 ] call RS_LD_fnc_StandardItems;
 ```
 
-4. Medical (Infantry) - this adds the standard medical items to an infantryman
+4. **Medical (Infantry)** - this adds the standard medical items to an infantryman
 ```
 [
 	_unit				// The unit we're applying the loadout to
 ] call RS_LD_fnc_MedicalInfantry;
 ```
 
-5. Medical (Medic) - this adds the standard medical items to a medic
+5. **Medical (Medic)** - this adds the standard medical items to a medic
 ```
 [
 	_unit,				// The unit we're applying the loadout to
@@ -55,7 +55,7 @@ Adds a set of helper functions that are useful for creating loadouts
 ] call RS_LD_fnc_MedicalMedic;
 ```
 
-6. Try Add Items - tries to add the specified number of items to the given inventory container, but reduces the number if necessary (logs appropriate messages when doing so)
+6. **Try Add Items** - tries to add the specified number of items to the given inventory container, but reduces the number if necessary (logs appropriate messages when doing so)
 ```
 /*
 	Types of Containers:
@@ -74,7 +74,7 @@ Adds a set of helper functions that are useful for creating loadouts
 ] call RS_LD_fnc_TryAddItems;
 ```
 
-7. Add Balanced Items - takes the given items and tries to add them evenly into the inventory based on the given cap
+7. **Add Balanced Items** - takes the given items and tries to add them evenly into the inventory based on the given cap
 ```
 [
 	_unit,				// The unit to apply the gear item to
