@@ -153,7 +153,7 @@ missionNamespace setVariable ["rus_area_paravehicles", _var_rus_area_paravehicle
 
 // ----- End of Exported SAEF Spawn Area Configuration Information ----- //
 ```
-**AFTER** the configuration is complete, this function will need to be run to engage the handler for all pre-place markers:
+**AFTER** the configuration is complete, this function will need to be run to engage the handler for all pre-placed markers:
 ```
 [] spawn SAEF_AS_fnc_Handler;
 ```
