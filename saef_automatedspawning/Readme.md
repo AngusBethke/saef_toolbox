@@ -153,6 +153,10 @@ missionNamespace setVariable ["rus_area_paravehicles", _var_rus_area_paravehicle
 
 // ----- End of Exported SAEF Spawn Area Configuration Information ----- //
 ```
+**AFTER** the configuration is complete, this function will need to be run to engage the handler for all pre-place markers:
+```
+[] spawn SAEF_AS_fnc_Handler;
+```
 
 ### Optional Configuration
 This optional configuration allows you to override the base parameters for the automated spawn system, this is more of a "super user" tool, but can be used if you need to alter certain parameters like the base activation range if you're operating in a dense urban environment.
