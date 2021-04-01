@@ -1,5 +1,10 @@
 # DynaSpawn
 
+## CBA Settings
+1. Add Units to Zeus (SAEF_DynaSpawn_AddToZeus) - whether or not to add spawned units to Zeus
+2. Enable Dynamic Garrison (SAEF_DynaSpawn_DynamicGarrison) - whether or not to enable a unit level function that allows the AI to "un-garrison" when players are very close.
+3. Enable Extended Logging (SAEF_DynaSpawn_ExtendedLogging) - enables extended logging, useful for debugging.
+
 ## Usage
 - Creates an Infantry Patrol of 2 Soldiers at "Marker1" to Patrol a 50 Meter Perimeter around "Marker1", SIDE: West
 ```
