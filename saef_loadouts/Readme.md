@@ -12,19 +12,19 @@ Adds a set of helper functions that are useful for creating loadouts
 2. Add Gear Item - this adds a gear item with optional randomisation pool usage
 ```
 /*
-  Types of Gear Items:
-    Uniform
-    Vest
-    Backpack
-    Goggles
-    Headgear
+	Types of Gear Items:
+	- Uniform
+	- Vest
+	- Backpack
+	- Goggles
+	- Headgear
 */
 
 [
-	_unit,							// The unit to apply the gear item to
-	"Uniform",						// The type of gear item
+	_unit,				// The unit to apply the gear item to
+	"Uniform",			// The type of gear item
 	"U_B_CTRG_Soldier_2_Arid_F",	// The classname of the item
-	"Uniform"						// (Optional) The tag used to add to and source gear from the randomisation pool
+	"Uniform"			// (Optional) The tag used to add to and source gear from the randomisation pool
 ] call RS_LD_fnc_AddGearItem;
 ```
 
@@ -57,21 +57,32 @@ Adds a set of helper functions that are useful for creating loadouts
 
 6. Try Add Items - tries to add the specified number of items to the given inventory container, but reduces the number if necessary (logs appropriate messages when doing so)
 ```
+/*
+	Types of Containers:
+	- Uniform
+	- Vest
+	- Backpack
+*/
+
 [
-  _unit, 
-  "Backpack", 
-  [
-    "ACE_packingBandage", 
-    20
-  ]
+	  _unit,			// The unit to apply the gear item to 
+	  "Backpack", 			// The type of container to add the gear items to
+	  [
+		    "ACE_packingBandage", 	// The item to add
+		    20				// The number of items
+	  ]
 ] call RS_LD_fnc_TryAddItems;
 ```
+
 7. Add Balanced Items - takes the given items and tries to add them evenly into the inventory based on the given cap
 ```
 [
-  _unit,					// The unit to apply the gear item to
-  "Vest",					// The type of container to add the gear items to
-  ["30Rnd_65x39_caseless_black_mag", "30Rnd_65x39_caseless_black_mag_Tracer"],					// The items to add
-  8,					// The max amount that can be added
+	_unit,				// The unit to apply the gear item to
+	"Vest",				// The type of container to add the gear items to
+	[				// The items to add
+	  	"30Rnd_65x39_caseless_black_mag", 
+		"30Rnd_65x39_caseless_black_mag_Tracer"
+	],
+	8				// The max amount that can be added
 ] call RS_LD_fnc_AddBalancedItems;
 ```
