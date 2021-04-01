@@ -6,8 +6,8 @@ This toolset provides a few functions useful in interacting with buildings and l
 ```
 private
 [
-  "_position",
-  "_inBuildingInfo"
+	"_position",
+	"_inBuildingInfo"
 ];
 
 _position = (getPos player);
@@ -24,7 +24,7 @@ _inBuildingInfo params
 ```
 private
 [
-  "_locations"
+	"_locations"
 ];
 
 _locations = [] call RS_LC_fnc_ListLocations;
