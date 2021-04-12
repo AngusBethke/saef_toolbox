@@ -6,7 +6,7 @@ This function allows you to add actions to the ace admin action tree for use in 
 
 [
 	[],                                         // Array: These are the script parameters
-	"Scripts\Mission\EndMission.sqf",           // String: This is the pretty name of the action
+	"Scripts\Mission\EndMission.sqf",           // String: This is script to execute
 	"End Mission",                              // String: This is the pretty name of the action
 	true                                        // Boolean: Whether or not to execute this script on the server
 ] call RS_fnc_Admin_AddMissionAction;
