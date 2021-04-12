@@ -6,7 +6,7 @@
 
 _playerHandlerId = addMissionEventHandler ["PlayerConnected",
 {
-	//Get Basic Parameters
+	// Get Basic Parameters
 	params ["_id", "_uid", "_name", "_jip", "_owner"];
 	
 	// Get UIDs
@@ -27,8 +27,8 @@ _playerHandlerId = addMissionEventHandler ["PlayerConnected",
 		_playerNew = false;
 	};
 	
-	//Make sure the connected client isn't the headless clientOwner
-	if (_name == "headlessclient") then
+	// Make sure the connected client isn't the headless client
+	if (["headlessclient", _name] call BIS_fnc_InString) then
 	{
 		_playerNew = false;
 	};
@@ -85,7 +85,7 @@ while {missionNamespace getVariable ["ST_TrackPlayers", false]} do
 			["ST_TotalPlayerCount", 1, true] call RS_ST_fnc_Incrementer;
 		};
 		
-	} forEach (allPlayers - entities "HeadlessClient_F");
+	} forEach (allPlayers - (entities "HeadlessClient_F"));
 
 	private
 	[

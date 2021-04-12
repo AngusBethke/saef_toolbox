@@ -48,7 +48,7 @@ if (_hint) then
 				_adminExists = true;
 			};
 		};
-	} forEach allPlayers;
+	} forEach (allPlayers - (entities "HeadlessClient_F"));
 
 	if (_adminExists) then
 	{
