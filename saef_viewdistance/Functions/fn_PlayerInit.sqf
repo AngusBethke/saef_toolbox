@@ -8,6 +8,9 @@
 		[] call SAEF_VD_fnc_PlayerInit;
 */
 
+// Only player clients should be executing this stuff
+if (!hasInterface) exitWith {};
+
 // Setup the view distance for the player
 ["PLAYER"] call SAEF_VD_fnc_ViewDistance;
 
