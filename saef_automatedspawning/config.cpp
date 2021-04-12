@@ -37,10 +37,13 @@ class CfgFunctions
 		{
 			file = "saef_automatedspawning\Functions";
 			class Area {};
+			class ConfigCore3DENValidation {};
+			class ConfigCoreValidation {};
 			class CuratorHint {};
 			class EvaluateAiCount {};
 			class EvaluationParameter {};
 			class ExportConfig {};
+			class GetSynchronizedObjects {};
 			class Handler {};
 			class HunterKiller {};
 			class Init 
@@ -59,6 +62,17 @@ class CfgFunctions
 			class UpdateAiCount_Remote {};
 			class UpdateAiCount {};
 			class Variable {};
+		};
+	};
+};
+
+class Cfg3DEN
+{
+	class EventHandlers
+	{
+		class SAEF_AS_3DEN_EventHandlers
+		{
+			OnMissionSave = "[] call SAEF_AS_fnc_ConfigCore3DENValidation;";
 		};
 	};
 };

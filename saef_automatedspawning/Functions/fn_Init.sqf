@@ -88,38 +88,46 @@ if (!isServer) exitWith {};
 			// Execute the function for our module
 			private
 			[
-				"_function",
-				"_code",
-				"_objects",
-				"_activated"
+				"_function"
 			];
 
 			_function = getText (configFile >> "CfgVehicles" >> _moduleClassName >> "function");
 
 			if (!isNil "_function") then
 			{
-				_code = (call compile _function);
-
-				// If any triggers are synced to this module, and they haven't yet been activated, then we need to flag activated as false.
-				_objects = synchronizedObjects _module;
-
-				_activated = true;
+				if (_function != "") then
 				{
-					_x params ["_object"];
+					private
+					[
+						"_code",
+						"_objects",
+						"_activated"
+					];
 
-					if (_object isKindOf "EmptyDetector") then
+					_code = (call compile _function);
+
+					// If any triggers are synced to this module, and they haven't yet been activated, then we need to flag activated as false.
+					_objects = synchronizedObjects _module;
+
+					_activated = true;
 					{
-						if (!(triggerActivated _object)) then
-						{
-							_activated = false;
-						};
-					};
-				} forEach _objects;
+						_x params ["_object"];
 
-				// Run the function
-				if (_activated) then
-				{
-					[_module, [], _activated] spawn _code;
+						if (_object isKindOf "EmptyDetector") then
+						{
+							if (!(triggerActivated _object)) then
+							{
+								_activated = false;
+							};
+						};
+					} forEach _objects;
+
+					// Run the function
+					if (_activated) then
+					{
+						["SAEF Automated Spawning Init", 3, (format ["Executing Function [%1] for Module [%2]", _function, _moduleClassName])] call RS_fnc_LoggingHelper;
+						[_module, [], _activated] spawn _code;
+					};
 				};
 			};
 		} forEach (entities _moduleClassName);

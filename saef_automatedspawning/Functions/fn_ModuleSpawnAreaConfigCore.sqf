@@ -96,212 +96,17 @@ if (_activated) then
 		_infoArray pushBack [1, (format ["Cannot create configuration that has already been defined!"])];
 	};
 
-	// Check Logic Objects that are nearby or sync'd
-	private
-	[
-		"_syncedObjects"
-	];
-
-	_syncedObjects = (synchronizedObjects _logic);
-
-	if (_syncedObjects isEqualTo []) exitWith
-	{
-		_infoArray pushBack [1, (format ["Cannot create configuration with no synchronised entities!"])];
-	};
-
-	// Fetch information from sync'd objects
-	private
-	[
-		"_failed"
-		,"_configArray"
-	];
-	
-	_failed = false;
-	_configArray = [];
-
-	{
-		_x params ["_syncedObject"];
-
-		_childSyncedObjects = (synchronizedObjects _syncedObject);
-
-		if (_childSyncedObjects isEqualTo []) exitWith
-		{
-			_failed = true;
-			_infoArray pushBack [1, (format ["Synchronised object [%1: %2] has no child synchronised objects!", _syncedObject, (typeOf _syncedObject)])];
-		};
-
-		private
-		[
-			"_classnames"
-		];
-
-		_classnames = [];
-		{
-			_x params ["_object"];
-			_classnames pushBack (typeOf (vehicle _object));
-
-			// After we've gotten the classname we need to pull this object out of the array
-			_childSyncedObjects = _childSyncedObjects - [_object];
-
-			// If this is a vehicle we need to delete the crew
-			{
-				_x params ["_crew"];
-
-				if (_crew != _object) then
-				{
-					deleteVehicle _crew;
-				};
-			} forEach crew _object;
-
-			// Cleanup the object
-			deleteVehicle _object;
-
-		} forEach _childSyncedObjects;
-
-		switch (typeOf _syncedObject) do
-		{
-			case "SAEF_ModuleSpawnAreaConfigUnits":
-			{
-				_configArray pushBack [(format ["%1_units", _tag]), _classnames];
-			};
-			case "SAEF_ModuleSpawnAreaConfigLightVehicles":
-			{
-				_configArray pushBack [(format ["%1_lightvehicles", _tag]), _classnames];
-			};
-			case "SAEF_ModuleSpawnAreaConfigHeavyVehicles":
-			{
-				_configArray pushBack [(format ["%1_heavyvehicles", _tag]), _classnames];
-			};
-			case "SAEF_ModuleSpawnAreaConfigParaVehicles":
-			{
-				_configArray pushBack [(format ["%1_paravehicles", _tag]), _classnames];
-			};
-			default {};
-		};
-	} forEach _syncedObjects;
-
-	if (_failed) exitWith
-	{
-		_infoArray pushBack [1, (format ["Synchronised object processing failed!"])];
-	};
-
 	// Validation step
-	private
+	([_logic, _tag] call SAEF_AS_fnc_ConfigCoreValidation) params
 	[
+		"_newConfigArray",
 		"_valid",
-		"_newConfigArray"
+		"_updatedInfoArray"
 	];
 
-	_valid = true;
-	_newConfigArray = [["", []],["", []],["", []],["", []]];
+	_infoArray = _infoArray + _updatedInfoArray;
 
-	{
-		_x params
-		[
-			"_configName"
-			,"_classnames"
-		];
-
-		switch _configName do
-		{
-			case (format ["%1_units", _tag]):
-			{
-				{
-					_x params ["_classname"];
-
-					// If our classname is not a man, this needs to be pulled out
-					if (!(_classname isKindOf ["Man", configFile >> "CfgVehicles"])) then
-					{
-						_classnames = _classnames - [_classname];
-					};
-				} forEach _classnames;
-
-				if (_classnames isEqualTo []) then
-				{
-					_valid = false;
-					_infoArray pushBack [1, (format ["Unit classname validation removed all classnames!"])];
-				}
-				else
-				{
-					_newConfigArray set [0, [_configName, _classnames]];
-				};
-			};
-			case (format ["%1_lightvehicles", _tag]):
-			{
-				{
-					_x params ["_classname"];
-
-					// If our classname is not a vehicle, this needs to be pulled out
-					if (!(_classname isKindOf ["LandVehicle", configFile >> "CfgVehicles"])) then
-					{
-						_classnames = _classnames - [_classname];
-					};
-				} forEach _classnames;
-
-				if (_classnames isEqualTo []) then
-				{
-					_valid = false;
-					_infoArray pushBack [1, (format ["Light vehicle classname validation removed all classnames!"])];
-				}
-				else
-				{
-					_newConfigArray set [1, [_configName, _classnames]];
-				};
-			};
-			case (format ["%1_heavyvehicles", _tag]):
-			{
-				{
-					_x params ["_classname"];
-
-					// If our classname is not a vehicle, this needs to be pulled out
-					if (!(_classname isKindOf ["LandVehicle", configFile >> "CfgVehicles"])) then
-					{
-						_classnames = _classnames - [_classname];
-					};
-				} forEach _classnames;
-
-				if (_classnames isEqualTo []) then
-				{
-					_valid = false;
-					_infoArray pushBack [1, (format ["Heavy vehicle classname validation removed all classnames!"])];
-				}
-				else
-				{
-					_newConfigArray set [2, [_configName, _classnames]];
-				};
-			};
-			case (format ["%1_paravehicles", _tag]):
-			{
-				{
-					_x params ["_classname"];
-
-					// If our classname is not a plane or helicopter, this needs to be pulled out
-					if (!((_classname isKindOf ["Helicopter", configFile >> "CfgVehicles"]) || (_classname isKindOf ["Plane", configFile >> "CfgVehicles"]))) then
-					{
-						_classnames = _classnames - [_classname];
-					};
-				} forEach _classnames;
-
-				if (_classnames isEqualTo []) then
-				{
-					_valid = false;
-					_infoArray pushBack [1, (format ["Paradrop vehicle classname validation removed all classnames!"])];
-				}
-				else
-				{
-					_newConfigArray set [3, [_configName, _classnames]];
-				};
-			};
-			default {};
-		};
-
-		if (!_valid) exitWith {};
-	} forEach _configArray;
-
-	if (!_valid) exitWith
-	{
-		_infoArray pushBack [1, (format ["Validation for synchronised objects failed!"])];
-	};
+	if (!_valid) exitWith {};
 
 	// Validation complete, time for config setup
 	private
@@ -362,7 +167,7 @@ if (_activated) then
 	// Cleanup all the sync'd modules
 	{
 		deleteVehicle _x;
-	} forEach _syncedObjects;
+	} forEach (synchronizedObjects _logic);
 
 	// Setup complete
 	_infoArray pushBack [3, (format ["Setup Complete!"])];
