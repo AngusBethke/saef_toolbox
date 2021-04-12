@@ -36,10 +36,28 @@ else
 {
     _bldArr = nearestObjects [_pos, ["building"], _rad];
 	{
-		// If building has no viable positions or there is a player within 15 meters of the building then remove it from the list of buildings
-		if (((_x buildingPos 0) isEqualTo [0,0,0]) || !(([(getPos _x), 15] call RS_PLYR_fnc_GetClosestPlayer) isEqualTo [0,0,0])) then
+		_x params ["_building"];
+
+		// If building has no viable positions then remove it from the list of buildings
+		if ((_building buildingPos 0) isEqualTo [0,0,0]) then
 		{
-			_bldArr = _bldArr - [_x];
+			_bldArr = _bldArr - [_building];
+		}
+		else
+		{
+			// If the building is hidden then remove it from the list of buildings
+			if (isObjectHidden _building) then
+			{
+				_bldArr = _bldArr - [_building];
+			}
+			else
+			{
+				// If there is a player within 15 meters of the building then remove it from the list of buildings
+				if (!(([(getPos _building), 15] call RS_PLYR_fnc_GetClosestPlayer) isEqualTo [0,0,0])) then
+				{
+					_bldArr = _bldArr - [_building];
+				};
+			};
 		};
 	} forEach _bldArr;
 	_countBld = (count _bldArr);
