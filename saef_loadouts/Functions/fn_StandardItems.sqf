@@ -55,6 +55,11 @@ if (!_excludeGPS) then
 if (!_excludeRadio) then
 {
 	_unit linkItem "tf_anprc152";
+
+	if (isPlayer _unit) then
+	{
+		[_unit, "tf_anprc152"] spawn RS_LD_fnc_ReplaceMissingRadio;
+	};
 };
 
 // Set the speaker

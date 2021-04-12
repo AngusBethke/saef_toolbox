@@ -34,6 +34,7 @@ class CfgFunctions
 			class MedicalInfantry {};
 			class MedicalMedic {};
 			class RemoveExistingItems {};
+			class ReplaceMissingRadio {};
 			class StandardItems {};
 			class TryAddItems {};
 		};

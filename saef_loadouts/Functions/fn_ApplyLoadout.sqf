@@ -22,7 +22,7 @@ _scriptTag = "Loadout: ApplyLoadout";
 
 if (!canSuspend) exitWith
 {
-	[_scriptTag, 1, (format ["Function must be executed with suspension (i.e. 'spawn' instead of 'call')"])] call RS_fnc_LoggingHelper;
+	[_scriptTag, 1, (format ["Function must be executed with suspension using 'spawn' instead of 'call'"])] call RS_fnc_LoggingHelper;
 };
 
 params
@@ -36,8 +36,10 @@ params
 // Wait until the server is finished processing the radios
 if (isPlayer _unit) then
 {
-	// Remove Weapons Immediately
+	// Remove weapons and items immediately
 	removeAllWeapons _unit;
+	removeAllItems _unit;
+	removeAllAssignedItems _unit;
 
 	// Wait until radios have been registered
 	if (!_skipRadioRegistration) then
