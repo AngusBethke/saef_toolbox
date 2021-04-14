@@ -557,7 +557,7 @@ if (_activated && _active) then
 	_infoArray pushBack "Executed the Handler";
 
 	// Run the Handler
-	[] spawn SAEF_AS_fnc_Handler;
+	[] call SAEF_AS_fnc_Handler;
 }
 else
 {

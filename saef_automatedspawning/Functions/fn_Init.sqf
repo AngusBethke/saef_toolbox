@@ -126,7 +126,7 @@ if (!isServer) exitWith {};
 					if (_activated) then
 					{
 						["SAEF Automated Spawning Init", 3, (format ["Executing Function [%1] for Module [%2]", _function, _moduleClassName])] call RS_fnc_LoggingHelper;
-						[_module, [], _activated] spawn _code;
+						[_module, [], _activated] call _code;
 					};
 				};
 			};

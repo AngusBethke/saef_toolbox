@@ -5,7 +5,7 @@
 		Handles the distribution of each area spawner on mission load.
 
 	How to Call:
-		[] spawn SAEF_AS_fnc_Handler;
+		[] call SAEF_AS_fnc_Handler;
 */
 
 private
@@ -151,8 +151,6 @@ if (_areaTags isEqualTo []) exitWith
 
 			// Call our area function
 			_params call SAEF_AS_fnc_Area;
-
-			sleep 0.1;
 		}
 		else
 		{

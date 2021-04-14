@@ -433,8 +433,15 @@ if ((missionNamespace getVariable [_variable, true])) then
 
 	// Execute all our spawn handlers
 	{
+		private
+		[
+			"_params"
+		];
+
+		_params = _x;
+
 		// Add our spawn script to the spawner queue
-		["SAEF_SpawnerQueue", _x, "SAEF_AS_fnc_Spawner", _queueValidation] call RS_MQ_fnc_MessageEnqueue;
+		["SAEF_SpawnerQueue", _params, "SAEF_AS_fnc_Spawner", _queueValidation] call RS_MQ_fnc_MessageEnqueue;
 	} forEach _paramsList;
 }
 else
