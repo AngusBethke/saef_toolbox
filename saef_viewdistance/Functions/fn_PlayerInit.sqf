@@ -15,7 +15,7 @@ if (!hasInterface) exitWith {};
 ["PLAYER"] call SAEF_VD_fnc_ViewDistance;
 
 // Start up the height based view distance handler
-[(missionNamespace getVariable ["SAEF_ViewDistance_FixedCeiling", 150])] spawn SAEF_VD_fnc_HeightBasedViewDistance;
+[] spawn SAEF_VD_fnc_HeightBasedViewDistance;
 
 // Setup the respawn event handler to reset view distance
 player addEventHandler ["Respawn", {

@@ -12,11 +12,6 @@
 		] spawn SAEF_VD_fnc_HeightBasedViewDistance;
 */
 
-params
-[
-	["_fixedCeiling", 150]
-];
-
 player setVariable ["SAEF_HeightBasedViewDistance_Run", true, true];
 
 private
@@ -41,7 +36,7 @@ addMissionEventHandler ["EachFrame", {
 		_unit = player;
 		_uav = getConnectedUAV player;
 
-		if (_uav != objNull) then
+		if (!(isNull _uav)) then
 		{
 			private
 			[
@@ -79,6 +74,7 @@ addMissionEventHandler ["EachFrame", {
 			_srvViewDistance = (missionNamespace getVariable ["Aircraft_ObjectViewDistance", [5000, 50]]);
 			_srvViewDistance params ["_maxViewDistance", "_shdViewDistance"];
 			_minViewDistance = (missionNamespace getVariable ["Infantry_ViewDistance", 1200]);
+			_fixedCeiling = (missionNamespace getVariable ["SAEF_ViewDistance_FixedCeiling", 150]);
 		
 			// Default Declarations
 			player setVariable ["SAEF_HeightBasedViewDistance_ControlHeight", _height, true];
