@@ -78,6 +78,14 @@ if (_unitType == "INF") then
 			_unit setUnitPos (selectRandom ["UP", "MIDDLE"]);
 			_unit disableAI "PATH";
 			_unit setDir (random(360));
+		}
+		else
+		{
+			// Force the units to move a bit so they don't stand in a clump
+			if ((_type in ["PAT", "CA", "HK"]) && !_usePara) then
+			{
+				_unit doMove (_unit getRelPos [5, (random(360))]);
+			};
 		};
 	} forEach _faction;
 

@@ -142,9 +142,16 @@ if (missionNamespace getVariable [_persistenceVariable, true]) then
 	// Mark the vehicle for persistence deletion
 	if (_isVehicle) then
 	{
-		if ((vehicle (leader _group)) isKindOf _units) then
+		private
+		[
+			"_vehicle"
+		];
+
+		_vehicle = (vehicle (leader _group));
+
+		if (((typeOf _vehicle) == _units) && (_vehicle != (leader _group))) then
 		{
-			(vehicle (leader _group)) setVariable ["SAEF_Persistence_Cleanup_Whitelist", true, true];
+			_vehicle setVariable ["SAEF_Persistence_Cleanup_Whitelist", true, true];
 		};
 	};
 

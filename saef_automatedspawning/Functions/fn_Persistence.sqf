@@ -50,9 +50,28 @@ waitUntil {
 	(_closePlayer isEqualTo [0,0,0])
 };
 
+private
+[
+	"_groupCount"
+];
+
+_groupCount = 0;
+
 // Once the player is out of range we need to clean up the group
 {
+	private
+	[
+		"_group",
+		"_count"
+	];
+
 	_group = _x;
+	_count = (count (units _group));
+
+	if (_count > _groupCount) then
+	{
+		_groupCount = _count;
+	};
 	
 	// We don't need to do this if the group is null, or they are actively hunting
 	if ((_group != grpNull) && !(_group getVariable ["RS_DS_HunterKiller_Active", false])) then
@@ -76,8 +95,9 @@ waitUntil {
 } forEach _groups;
 
 // If our variable for running these spawns is still active, then we call the script again
-if (missionNamespace getVariable [_variable, false]) then
+if ((missionNamespace getVariable [_variable, false]) && (_groupCount > 0)) then
 {
+	_params set [([_script] call SAEF_AS_fnc_EvaluationParameter), _groupCount];
 	["SAEF_SpawnerQueue", _params, _script, _queueValidation] call RS_MQ_fnc_MessageEnqueue;
 };
 

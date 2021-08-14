@@ -136,17 +136,17 @@ if (_activated) then
 
 	_config = 
 	[
-		_blockPatrol 											// Block the Patrol Portion of the Area
-		,_blockGarrison 										// Block the Garrison Portion of the Area
-		,((_newConfigArray select 0) select 0) 					// Variable pointer to array of units for spawning
-		,_sideVariable 											// Variable pointer to side of units for spawning
-		,((_newConfigArray select 1) select 0)  					// Variable pointer to array of light vehicles for spawning
-		,((_newConfigArray select 2) select 0)  					// Variable pointer to array of heavy vehicles for spawning
-		,((_newConfigArray select 3) select 0) 					// Variable pointer to array of paradrop vehicles for spawning
-		,{true} 												// Optional: Code block for extra validation passed to GetClosestPlayer
-		,[] 													// Optional: Array of scripts run against the spawned group
-		,{true}													// Optional: Code block for extra validation passed to the Message Queue
-		,_defaultEnding											// Optional: Whether or not to include the default ending detector
+		_blockPatrol 																				// Block the Patrol Portion of the Area
+		,_blockGarrison 																			// Block the Garrison Portion of the Area
+		,((_newConfigArray select 0) select 0) 														// Variable pointer to array of units for spawning
+		,_sideVariable 																				// Variable pointer to side of units for spawning
+		,((_newConfigArray select 1) select 0)  													// Variable pointer to array of light vehicles for spawning
+		,((_newConfigArray select 2) select 0)  													// Variable pointer to array of heavy vehicles for spawning
+		,((_newConfigArray select 3) select 0) 														// Variable pointer to array of paradrop vehicles for spawning
+		,{ params ["_player"]; _condition = ((getPosATL _player) select 2) < 250; _condition } 		// Optional: Code block for extra validation passed to GetClosestPlayer
+		,[] 																						// Optional: Array of scripts run against the spawned group
+		,{true}																						// Optional: Code block for extra validation passed to the Message Queue
+		,_defaultEnding																				// Optional: Whether or not to include the default ending detector
 	];
 
 	missionNamespace setVariable [_tagConfig, _config, true];
