@@ -28,6 +28,7 @@ _closeDistance = 99999;
 			
 			if (_distance < _closeDistance) then
 			{
+				_closeDistance = _distance;
 				_closestObject = _object;
 			};
 		};

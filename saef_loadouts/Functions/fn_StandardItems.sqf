@@ -11,7 +11,9 @@
 			_excludeMap,		// (Optional) Whether or not to exclude the map
 			_excludeCompass,	// (Optional) Whether or not to exclude the compass
 			_excludeGPS,		// (Optional) Whether or not to exclude the gps
-			_excludeRadio		// (Optional) Whether or not to exclude the radio
+			_excludeRadio,		// (Optional) Whether or not to exclude the radio
+			_itemOverrides,		// (Optional) Override default items
+			_watchRadioHelper	// (Optional) Whether or not to use the watch radio helper
 		] call RS_LD_fnc_StandardItems;
 */
 
@@ -22,7 +24,19 @@ params
 	["_excludeMap", false],
 	["_excludeCompass", false],
 	["_excludeGPS", false],
-	["_excludeRadio", false]
+	["_excludeRadio", false],
+	["_itemOverrides", []],
+	["_watchRadioHelper", false]
+];
+
+// Default items
+_itemOverrides params 
+[
+	["_watch", "ItemWatch"],
+	["_map", "ItemMap"],
+	["_compass", "ItemCompass"],
+	["_gps", "ItemGPS"],
+	["_radio", "TFAR_anprc152"]
 ];
 
 // Add items to Uniform
@@ -34,31 +48,31 @@ params
 removeAllAssignedItems _unit;
 if (!_excludeWatch) then
 {
-	_unit linkItem "ItemWatch";
+	_unit linkItem _watch;
 };
 
 if (!_excludeMap) then
 {
-	_unit linkItem "ItemMap";
+	_unit linkItem _map;
 };
 
 if (!_excludeCompass) then
 {
-	_unit linkItem "ItemCompass";
+	_unit linkItem _compass;
 };
 
 if (!_excludeGPS) then
 {
-	_unit linkItem "ItemGPS";
+	_unit linkItem _gps;
 };
 
 if (!_excludeRadio) then
 {
-	_unit linkItem "tf_anprc152";
+	_unit linkItem _radio;
 
-	if (isPlayer _unit) then
+	if ((isPlayer _unit) && _watchRadioHelper) then
 	{
-		[_unit, "tf_anprc152"] spawn RS_LD_fnc_ReplaceMissingRadio;
+		[_unit, _radio] spawn RS_LD_fnc_ReplaceMissingRadio;
 	};
 };
 

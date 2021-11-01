@@ -1,6 +1,9 @@
 /*
 	fn_GetClosestPlayer.sqf
-	Description: Returns the Closest Player to a Position within 250m (default).
+
+	Description: 
+		Returns the closest player position within a given radius
+
 	How to Call: 
 		[
 			<position>, 
@@ -9,39 +12,23 @@
 		] call RS_PLYR_fnc_GetClosestPlayer;
 */
 
-params
-[
-	"_pos",
-	["_radius", 250],
-	["_playerValidation", {true}]
-];
-
 private
 [
 	"_closestPlayerPos",
-	"_distance"
+	"_closestPlayer"
 ];
 
 _closestPlayerPos = [0,0,0];
-_distance = _radius;
 
-// Looks for Nearby Players
+// Get the closest player
+_closestPlayer = _this call RS_PLYR_fnc_GetClosestPlayerObject;
+
+if (!(isNull _closestPlayer)) then
 {
-	// Confirm if we need to check this player
-	_check = [_x] call _playerValidation;
-	
-	if (_check) then
-	{
-		_newDistance = (_x distance _pos);
-		if (_newDistance < _distance) then
-		{
-			_closestPlayerPos = getPos _x;
-			_distance = _newDistance;
-		};
-	};
-} forEach (allPlayers - entities "HeadlessClient_F");
+	_closestPlayerPos = getPos _closestPlayer;
+};
 
-// Returns Closest Player Position Within Given Radius
+// Returns closest player position within given radius
 _closestPlayerPos
 
 /*

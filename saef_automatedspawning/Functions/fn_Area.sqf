@@ -199,7 +199,6 @@ if ((missionNamespace getVariable [_variable, true])) then
 		private
 		[
 			"_garrisonGroupCodeBlock",
-			"_minBaseActivationRange",
 			"_gParams"
 		];
 
@@ -208,10 +207,9 @@ if ((missionNamespace getVariable [_variable, true])) then
 			_x enableFatigue false;
 		};
 
-		_minBaseActivationRange = 150;
-		if (!((ceil(_baseActivationRange / 2)) < 150)) then
+		if (_baseActivationRange < 150) then
 		{
-			_minBaseActivationRange = (ceil(_baseActivationRange / 2));
+			_baseActivationRange = 150;
 		};
 
 		_gParams = 
@@ -223,7 +221,7 @@ if ((missionNamespace getVariable [_variable, true])) then
 			_baseAICount, 
 			_marker, 
 			_baseAreaSize, 
-			_minBaseActivationRange, 
+			_baseActivationRange, 
 			_garrisonGroupCodeBlock, 
 			true, 
 			_variable,

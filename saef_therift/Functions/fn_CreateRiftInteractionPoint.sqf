@@ -1,13 +1,30 @@
 /*
 	fn_CreateRiftInteractionPoint.sqf
-	Description: Creates position where a player can interact with the rift
-	[this, "CTRL"] call RS_Rift_fnc_CreateRiftInteractionPoint;
-	[this, "UCTRL", 1] call RS_Rift_fnc_CreateRiftInteractionPoint;
+
+	Description: 
+		Creates position where a player can interact with the rift
+
+	How to get objects for sites:
+		_array = [];
+
+		{
+			_array pushBack [typeOf _x, [(_x distance player), (player getRelDir _x)], (getDir _x) - (getDir player)]; 
+		} forEach (player nearObjects 10);
+
+		diag_log _array; 
+
+	How to Call:
+		[this, "CTRL"] call RS_Rift_fnc_CreateRiftInteractionPoint;
+		[this, "UCTRL", 1] call RS_Rift_fnc_CreateRiftInteractionPoint;
 */
 
-_startObject = _this select 0;
-_type = _this select 1;
-_way = _this select 2;
+params
+[
+	"_startObject",
+	"_type",
+	"_way"
+];
+
 _relDir = direction _startObject;
 
 switch toUpper(_type) do
@@ -101,7 +118,10 @@ switch toUpper(_type) do
 			
 		} forEach _objects;
 		
-		[[_camera, _camObjects, _focCamera], RS_Rift_fnc_CreateRiftInteractionCamera] remoteExecCall ["call", 0, true];
+		[_camera, _camObjects, _focCamera] remoteExecCall ["RS_Rift_fnc_CreateRiftInteractionCamera", 0, true];
+
+		// Register the point
+		[_startObject, toUpper(_type)] remoteExecCall ["RS_Rift_fnc_RegisterRiftInteractionPoint", 2, false];
 		
 		// Make it so that this cannot be created twice
 		_startObject setVariable ["RS_Rift_InteractionPointObject_Created", true, true];
@@ -142,6 +162,87 @@ switch toUpper(_type) do
 				[_obj] spawn RS_Rift_fnc_CreateRiftInteractionSounds;
 			};
 		} forEach _objects;
+
+		// Register the point
+		[_startObject, toUpper(_type)] remoteExecCall ["RS_Rift_fnc_RegisterRiftInteractionPoint", 2, false];
+		
+		// Make it so that this cannot be created twice
+		_startObject setVariable ["RS_Rift_InteractionPointObject_Created", true, true];
+	};
+	case "CPOINT":
+	{
+		_objects = 
+		[
+			["Land_Decal_ScorchMark_01_small_F", [0,0], 0, 1.5],
+			["PowerCable_01_Roll_F", [2.6624,84.4819], 270],
+			["PowerCable_01_Roll_F", [2.76606,200.125], 15],
+			["PowerCable_01_Roll_F", [2.5795,308.355], 120],
+			["Land_BatteryPack_01_closed_black_F", [2.53954,95.5261], 209.999],
+			["Land_BatteryPack_01_closed_black_F", [2.73694,210.872], 315.003],
+			["Land_BatteryPack_01_closed_black_F", [2.5836,319.822], 60.0015],
+			["SatelliteAntenna_01_Small_Black_F", [2.53324,75.931], 255.002],
+			["SatelliteAntenna_01_Small_Black_F", [2.63895,193.25], 15.0044],
+			["SatelliteAntenna_01_Small_Black_F", [2.47925,300.402], 120]
+		];
+
+		{
+			// Declare variables
+			_x params
+			[
+				"_object",
+				"_position",
+				"_rotation",
+				["_height", 0]
+			];
+			
+			// Get out relative position
+			_relPos = _startObject getRelPos [(_position select 0), (_position select 1)];
+			
+			// Set Height
+			_relPos = [(_relPos select 0), (_relPos select 1), ((_relPos select 2) + _height)];
+			
+			// Create our object at the relative position
+			_obj = createVehicle [_object, _relPos, [], 0, "CAN_COLLIDE"];
+
+			// Set height if start object is a decent height above the ground
+			if (((getPosATL _startObject) select 2) > 0.5) then
+			{
+				_obj setPosASL [((getPosASL _obj) select 0), ((getPosASL _obj) select 1), (((getPosASL _startObject) select 2) + _height)];
+			};
+			
+			// Set direction
+			_obj setDir (_relDir - _rotation);
+
+			// Disable simulation
+			_obj enableSimulationGlobal false;
+			
+			// Create the particle effect if this is a certain object type
+			if (_object == "Land_Decal_ScorchMark_01_small_F") then
+			{
+				[_obj] remoteExecCall ["RS_Rift_fnc_CreateRiftParticleEffect", 0, true];
+				[_obj] spawn RS_Rift_fnc_CreateRiftInteractionSounds;
+			};
+			
+			if (canSuspend) then
+			{
+				sleep 1;
+			};
+		} forEach _objects;
+
+		// Register the point
+		[_startObject, toUpper(_type)] remoteExecCall ["RS_Rift_fnc_RegisterRiftInteractionPoint", 2, false];
+		
+		// Make it so that this cannot be created twice
+		_startObject setVariable ["RS_Rift_InteractionPointObject_Created", true, true];
+	};
+	case "POINT":
+	{
+		// Create the particle effect
+		[_startObject] remoteExecCall ["RS_Rift_fnc_CreateRiftParticleEffect", 0, true];
+		[_startObject] spawn RS_Rift_fnc_CreateRiftInteractionSounds;
+
+		// Register the point
+		[_startObject, toUpper(_type)] remoteExecCall ["RS_Rift_fnc_RegisterRiftInteractionPoint", 2, false];
 		
 		// Make it so that this cannot be created twice
 		_startObject setVariable ["RS_Rift_InteractionPointObject_Created", true, true];

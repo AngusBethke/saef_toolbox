@@ -46,7 +46,7 @@ _action = ["Create_Rift_Point","Create Rift Interaction Point","",
 		
 		if (!(isNull _object)) then
 		{
-			[_object, "CTRL"] spawn RS_Rift_fnc_CreateRiftInteractionPoint;
+			[_object, "CPOINT"] spawn RS_Rift_fnc_CreateRiftInteractionPoint;
 		};
 	}, 
 	{

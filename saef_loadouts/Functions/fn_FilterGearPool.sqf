@@ -15,6 +15,12 @@ params
 	"_randomGearPool"
 ];
 
+// If this is this is not a player we can hand the whole object back
+if (!hasInterface) exitWith 
+{
+	_randomGearPool
+};
+
 // We need to filter the random gear pool by DLC we own
 {
 	_x params ["_item"];

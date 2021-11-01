@@ -4,7 +4,15 @@
 	[object] call RS_Rift_fnc_CreateRiftParticleEffect;
 */
 
-_object = _this select 0;
+params
+[
+	"_object"
+];
+
+private
+[
+	"_source"
+];
 
 _source = "#particlesource" createVehicle (position _object); 
 _source setParticleParams 
@@ -40,8 +48,17 @@ _source setParticleParams
 ];
 _source setDropInterval 0.1;
 
-//_source setParticleClass "Refract";
+private
+[
+	"_effects"
+];
 
 _effects = missionNamespace getVariable ["RS_Rift_ParticleEffectArray", []];
 _effects = _effects + [_source];
 missionNamespace setVariable ["RS_Rift_ParticleEffectArray", _effects];
+
+// Link the effect to an object
+_object setVariable ["RS_Rift_ParticleEffect_LinkedObject", _source, true];
+
+// Returns the particle source
+_source

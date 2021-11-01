@@ -27,6 +27,7 @@ class CfgFunctions
 			};
 			class ForcefulPardon {};
 			class GetClosestPlayer {};
+			class GetClosestPlayerObject {};
 			class GetMarkerNearPlayer {};
 			class TellServerPlayerMods {};
 			class TogglePlayerHud {};

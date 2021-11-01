@@ -37,6 +37,9 @@ class CfgFunctions
 			};
 			class ObjectHideHandler {};
 			class PostProcessEffectsHandler {}; 
+			class RegisterRiftControlObject {};
+			class RiftControlObjectTimeout {};
+			class RegisterRiftInteractionPoint {};
 			class RiftControlObject {};
 			class RiftDamageHandler {};
 			class RiftForcefulExit {};
