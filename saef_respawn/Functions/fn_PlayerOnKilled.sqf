@@ -36,11 +36,8 @@ if (!(missionNamespace getVariable ["RespawnEnabled", true])) then
 		((missionNamespace getVariable ["RespawnEnabled", true]) || (player getVariable ["SAEF_Player_ForceRespawnEnabled", false]))
 	};
 
-	// Reset forced variable if we have forced respawn
-	if ((player getVariable ["SAEF_Player_ForceRespawnEnabled", false])) then
-	{
-		player setVariable ["SAEF_Player_ForceRespawnEnabled", false, true];
-	};
+	// Reset forced variable
+	player setVariable ["SAEF_Player_ForceRespawnEnabled", nil, true];
 
 	// Set original respawn time
 	setPlayerRespawnTime _respawnTime;
