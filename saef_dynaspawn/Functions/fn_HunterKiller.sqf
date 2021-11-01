@@ -21,10 +21,12 @@ if (missionNamespace getVariable ["SAEF_DynaSpawn_ExtendedLogging", false]) then
 // Declarations
 private
 [
-	"_enemySide"
+	"_enemySide",
+	"_vehicles"
 ];
 
 _enemySide = side _groupHunt;
+_vehicles = [];
 
 {
 	_x enableStamina false;
@@ -37,6 +39,17 @@ if (_usePara) then
 		sleep 1;
 		((((leader _groupHunt) distance2D _secondPos) < 300) OR (({alive _x} count units _groupHunt) == 0))
 	};
+}
+else
+{
+	{
+		_x params ["_unit"];
+
+		if ((vehicle _unit) != _unit) then
+		{
+			_vehicles pushBackUnique (vehicle _unit);
+		};
+	} forEach (units _groupHunt);
 };
 
 // If the HunterKiller team died during insertion, exit the function
@@ -178,22 +191,39 @@ while {({alive _x} count units _groupHunt) > 0} do
 	};
 };
 
-// Clean-Up
-if (_limitReached) then
+// If none of the units are alive
+if (({alive _x} count units _groupHunt) == 0) then
 {
-	_count = 0;
-	
-	// Wait Until there are no players around so we can delete the Hunter Killers
-	waitUntil {
-		sleep 10;
-		_count = _count + 1;
-		(([0,0,0] isEqualTo ([getPos (leader _groupHunt), 1000] call RS_PLYR_fnc_GetClosestPlayer)) || (_count == 10))
+	// If this group had vehicles then we need to drop the fuel of those vehicles to 1%
+	{
+		_x params ["_vehicle"];
+
+		if (alive _vehicle) then
+		{
+			_vehicle setFuel 0.01;
+			_vehicle setVehicleAmmo 0.1;
+		};
+	} forEach _vehicles;
+}
+else
+{
+	// Clean-Up
+	if (_limitReached) then
+	{
+		_count = 0;
+		
+		// Wait Until there are no players around so we can delete the Hunter Killers
+		waitUntil {
+			sleep 10;
+			_count = _count + 1;
+			(([0,0,0] isEqualTo ([getPos (leader _groupHunt), 1000] call RS_PLYR_fnc_GetClosestPlayer)) || (_count == 10))
+		};
+		
+		// Delete the group
+		["DynaSpawn", 2, (format ["[HunterKiller] Found no Close Player within timed limit, deleting group %1", _groupHunt])] call RS_fnc_LoggingHelper;
+		
+		_deleteCode forEach units _groupHunt;
 	};
-	
-	// Delete the group
-	["DynaSpawn", 2, (format ["[HunterKiller] Found no Close Player within timed limit, deleting group %1", _groupHunt])] call RS_fnc_LoggingHelper;
-	
-	_deleteCode forEach units _groupHunt;
 };
 
 if (missionNamespace getVariable ["SAEF_DynaSpawn_ExtendedLogging", false]) then
