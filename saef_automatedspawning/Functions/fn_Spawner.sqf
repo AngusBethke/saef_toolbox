@@ -1,3 +1,27 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_Spawner
+	@file fn_Spawner.sqf
+	@summary Handles persistence for all spawner types. It uses recursion to call it's handed script if needed.
+
+	@param string _marker"						Marker where the area is created
+	@param string _type"						Type of spawn to complete
+	@param string _unitVar"					Variable pointer to stored unit array
+	@param string _sideVar"					Variable pointer to stored unit side
+	@param int _count"							Number of units to spawn
+	@param string _secondaryMarker"			Marker for secondary functions
+	@param int _area"							Size of the area we are dealing with
+	@param ?int _range"						Range for radius and persistence spawns
+	@param ?code _groupCode"					Code to run against the group
+	@param ?bool _radiusSpawn"					Whether or not to limit spawns by radius
+	@param ?string _persistenceVariable		Variable for persistence handling
+	@param ?code _playerValidation				Condition passed to GetClosestPlayer to evaluate players for inclusion
+	@param ?arry _customScripts				String scripts for execution against spawned groups
+	@param ?code _queueValidation				Condition passed to the Message Queue to evaluate message for processing
+
+	@todo Description says `spawn RS_AS...` when namespace is `SAEF_AS`
+**/
 /* 
 	fn_Spawner.sqf
 

@@ -1,3 +1,19 @@
+/**
+	@namespace RS_Radiation
+	@class Radiation
+	@method RS_Radiation_fnc_Handler
+	@file fn_Handler.sqf
+	@summary Handles the radiation
+
+	@param arry _markerList
+	@param int _size
+	@param unit _unit
+	@param string _variable
+
+	@usage ```[_markerList, _size, _unit, _variable] spawn RS_Radiation_fnc_Handler;```
+
+**/
+
 /*
 	fn_Handler.sqf
 	Description: Handles the radiation

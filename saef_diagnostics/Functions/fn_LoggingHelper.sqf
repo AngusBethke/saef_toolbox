@@ -1,3 +1,23 @@
+/**
+	@namespace RS_DIAG
+	@class Diagnostics
+	@method RS_fnc_loggingHelper
+	@file fn_loggingHelper.sqf
+	@summary Assists with logging
+
+	@param string _tag"			The leading tag of the message	
+	@param int _level"			The level we are logging at
+	@param string _message"		The message to log
+	@param ?bool _onServer"		Do we want to log this on the server as well?
+
+	@note Each log level includes all the levels below it, eg: 
+	@note log level VERBOSE will only display verbose messages.
+	@note log level ERROR will display verbose and error messages.
+	@note log level WARNING will display verbose, error, and warning messages.
+	@note log level INFO will display verbose, error, warning and info messages.
+	@note log log level DEBUG will display verbose, error, warning, info and debug messages.
+
+**/
 /*
 	fn_loggingHelper.sqf
 	Description: Assists with logging

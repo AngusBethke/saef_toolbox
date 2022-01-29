@@ -1,3 +1,17 @@
+/**
+	@namespace RS_MQ
+	@class MessageQueue
+	@method RS_MQ_fnc_CreateQueue
+	@file fn_CreateQueue.sqf
+	@summary Safe way to initialise queues
+	
+	@param string _queueName
+	@param string _target
+	@param bool _serverFallback
+	@param array _distributedQueueEvaluationFunctions
+
+**/
+
 /*
 	fn_CreateQueue.sqf
 	Description: Safe way to initialise queues

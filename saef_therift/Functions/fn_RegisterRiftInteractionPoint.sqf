@@ -1,3 +1,20 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_RegisterRiftInteractionPoint
+	@file fn_RegisterRiftInteractionPoint.sqf
+	@summary Registers the rift interaction point for later use
+
+	@param object _object
+	@param string _type
+
+	@usages ```	
+	How to call:
+		[_object, _type] call RS_Rift_fnc_RegisterRiftInteractionPoint;
+	``` @endusages
+
+**/
+
 /*
 	fn_RegisterRiftInteractionPoint.sqf
 

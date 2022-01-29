@@ -1,3 +1,19 @@
+/**
+	@namespace RS_LD
+	@class Loadouts
+	@method RS_LD_fnc_AddBalancedItems
+	@file fn_AddBalancedItems.sqf
+	@summary Takes the given items and tries to add them evenly into the inventory based on the given cap
+	
+	@param unit _unit The unit to apply the gear item to
+	@param string _type The type of container to add the gear items to
+	@param array _items The items to add
+	@param int _count The max amount that can be added
+
+	@usage ```[_unit, _type, _items, _count] call RS_LD_fnc_AddBalancedItems;```
+	
+**/
+
 /*
 	fn_AddBalancedItems.sqf
 

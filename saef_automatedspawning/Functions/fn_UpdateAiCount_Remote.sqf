@@ -1,3 +1,13 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_UpdateAiCount_Remote
+	@file fn_UpdateAiCount_Remote.sqf
+	@summary Returns the object for our current owner id (specifically for headless clients)
+
+	@param string _clientId Id of the executing client
+	@param int _count Number factor for count update
+**/
 /*
 	fn_UpdateAiCount_Remote.sqf
 

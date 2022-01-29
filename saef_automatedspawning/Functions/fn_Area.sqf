@@ -1,3 +1,26 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_Area
+	@file fn_Area.sqf
+	@summary This is the basic layout for area spawns, and handling information around those areas.
+
+	@param string _marker 			Marker where the area is created
+	@param string _initVariable  	Variable for area initialisation
+	@param string _variable  		Variable for marking area completion
+	@param bool _blockPatrol  		Whether or not to block patrols
+	@param bool _blockGarrison 	Whether or not to block garrisons
+	@param string _spawnUnits 		Variable pointer to stored unit array
+	@param string _spawnSide 		Variable pointer to stored unit side
+	@param string _lightVehicle 	Variable pointer to stored light vehicle array
+	@param string _heavyVehicle 	Variable pointer to stored heavy vehicle array
+	@param string _paraVehicle 	Variable pointer to stored para vehicle array
+	@param ?code _playerValidationCodeBlock 	(Optional) Condition passed to GetClosestPlayer to evaluate players for inclusion
+	@param ?array _customScripts 				(Optional) Array Of string scripts for execution against spawned groups
+	@param ?code _queueValidation 	(Optional) Condition passed to the Message Queue to evaluate message for processing
+	@param ?bool _includeDetector 	(Optional) Whether or not to include a trigger to disable this area
+**/
+
 /*
 	fn_Area.sqf
 

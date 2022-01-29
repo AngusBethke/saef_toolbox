@@ -1,3 +1,13 @@
+/**
+	@namespace RS
+	@class Respawn
+	@method RS_fnc_InitRespawnHandler
+	@file fn_InitRespawnHandler.sqf
+	@summary Initialises what we need initialised for the spectator
+
+
+**/
+
 /*
 	fn_InitRespawnHandler.sqf
 	Description: Initialises what we need initialised for the spectator

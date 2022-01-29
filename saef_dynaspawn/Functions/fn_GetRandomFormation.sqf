@@ -1,3 +1,13 @@
+/**
+	@namespace RS_DS
+	@class DynaSpawn
+	@method RS_DS_fnc_GetRandomFormation
+	@file fn_GetRandomFormation.sqf
+	@summary Returns a random formation from all available formations
+	
+	@return string _formation
+**/
+
 /*	
 	fn_GetRandomFormation.sqf
 	Author: Angus Bethke

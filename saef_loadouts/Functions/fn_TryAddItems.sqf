@@ -1,3 +1,16 @@
+/**
+	@namespace RS_LD
+	@class Loadouts
+	@method RS_LD_fnc_TryAddItems
+	@file fn_TryAddItems.sqf
+	@summary Will try add items to specified container, will log readable message if it fails
+	
+	@param unit _unit
+	@param string _type
+	@param array _itemArray
+	
+**/
+
 /*
 	fn_TryAddItems.sqf
 

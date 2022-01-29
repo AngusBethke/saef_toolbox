@@ -1,3 +1,15 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_Variable
+	@file fn_Variable.sqf
+	@summary Holds spawn of certain units until a variable is set.
+
+	@param array _params Parameters for function execution
+	@param string _script Script/Function to be re-queued
+	@param string _variable Variable to evaluate for when to re-queue the message
+	@param ?code _queueValidation Condition passed to the Message Queue to evaluate message for processing
+**/
 /*
 	fn_Variable.sqf
 	

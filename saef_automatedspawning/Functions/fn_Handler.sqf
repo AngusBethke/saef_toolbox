@@ -1,3 +1,10 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_Handler
+	@file fn_Handler.sqf
+	@summary Handles the distribution of each area spawner on mission load.
+**/
 /*
 	fn_Handler.sqf
 	

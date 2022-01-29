@@ -1,3 +1,13 @@
+/**
+	@namespace RS
+	@class Respawn
+	@method RS_fnc_RespawnDelayedStart
+	@file fn_RespawnDelayedStart.sqf
+	@summary Runs for the player on a delay, so that this doesn't initialise too soon.
+
+
+**/
+
 /*
 	fn_RespawnDelayedStart.sqf
 	Description: Runs for the player on a delay, so that this doesn't initialise too soon.

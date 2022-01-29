@@ -1,3 +1,18 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Client_Reset
+	@file fn_Client_Reset.sqf
+	@summary Handles the clientside portion of the invasion process
+	
+	@param object _plane
+
+	@todo param _plane but not included in usage call?
+
+	@usage ```[] call RS_INV_fnc_Client_Reset;```
+	
+**/
+
 /* 
 	fn_Client_Reset.sqf
 	

@@ -1,3 +1,15 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Client_AddDropAction
+	@file fn_Client_AddDropAction.sqf
+	@summary Adds the action to kick off the aircraft boarding process
+	
+	@param object _object
+
+	@usage ```[_object] call RS_INV_fnc_Client_AddDropAction;```
+	
+**/
 /*
 	fn_Client_AddDropAction.sqf
 	

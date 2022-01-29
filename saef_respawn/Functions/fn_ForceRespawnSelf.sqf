@@ -1,3 +1,14 @@
+/**
+	@namespace RS
+	@class Respawn
+	@method RS_fnc_ForceRespawnSelf
+	@file fn_ForceRespawnSelf.sqf
+	@summary Allows a privelaged user to force respawn themselves if necessary
+
+	@usage ```[] call RS_fnc_ForceRespawnSelf;```
+
+**/
+
 /*
 	fn_ForceRespawnSelf.sqf
 	

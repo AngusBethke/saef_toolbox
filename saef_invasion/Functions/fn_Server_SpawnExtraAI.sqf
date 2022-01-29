@@ -1,3 +1,16 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Server_SpawnExtraAI
+	@file fn_Server_SpawnExtraAI.sqf
+	@summary Spawns some extra AI to populate the planes (makes them feel less empty)
+	
+	@param object _plane
+
+	@usage ```[_plane] call RS_INV_fnc_Server_SpawnExtraAI;```
+	
+**/
+
 /* 
 	fn_Server_SpawnExtraAI.sqf
 

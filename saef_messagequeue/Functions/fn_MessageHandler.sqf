@@ -1,3 +1,17 @@
+/**
+	@namespace RS_MQ
+	@class MessageQueue
+	@method RS_MQ_fnc_MessageHandler
+	@file fn_MessageHandler.sqf
+	@summary Handles message execution
+
+	@param string _queueName
+	@param ?int _timeout
+
+	@usage ```[_queueName, _timeout] spawn RS_MQ_fnc_MessageHandler;```
+
+**/
+
 /*
 	fn_MessageHandler.sqf
 

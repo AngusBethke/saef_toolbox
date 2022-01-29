@@ -1,3 +1,17 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Server_PlaneLights
+	@file fn_Server_PlaneLights.sqf
+	@summary Sets the light of the plane based on given inputs
+	
+	@param object _plane
+	@param string _type
+
+	@usage ```[_plane, _type] call RS_INV_fnc_Server_PlaneLights;```
+	
+**/
+
 /* 
 	fn_Server_PlaneLights.sqf 
 	

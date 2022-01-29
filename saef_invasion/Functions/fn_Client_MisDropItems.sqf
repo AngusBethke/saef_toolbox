@@ -1,3 +1,16 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Client_MisDropItems
+	@file fn_Client_MisDropItems.sqf
+	@summary Removes a random important item from the player's inventory
+	
+	@param unit _unit
+
+	@usage ```[_unit] spawn RS_INV_fnc_Client_MisDropItems;```
+	
+**/
+
 /* 
 	fn_Client_MisDropItems.sqf 
 	

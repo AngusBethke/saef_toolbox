@@ -1,3 +1,15 @@
+/**
+	@namespace RS
+	@class Headless
+	@method RS_fnc_TransferOwnershipToHeadless
+	@file fn_TransferOwnershipToHeadless.sqf
+	@summary Transfers ownership of given objects to the Headless client if the Headless client is present
+	
+	@param array _arrayOfObjects List of units to transfer
+	
+	@note ```[unit_1] call RS_fnc_TransferOwnershipToHeadless;```
+**/
+
 /*
 	Name:			fn_TransferOwnershipToHeadless.sqf
 	Description:	Transfers ownership of given objects to the Headless client if the Headless client is present

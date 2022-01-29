@@ -1,3 +1,20 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_FlickerObject
+	@file fn_FlickerObject.sqf
+	@summary Flickers an object to visible or invisible
+	
+	@param object _object
+	@param string _type
+
+	@usages ```
+	[_object, "SHOW"] spawn RS_Rift_fnc_FlickerObject;
+	or... [[_object, "SHOW"], RS_Rift_fnc_FlickerObject] remoteExec ["spawn", 0, false];
+	```	@endusages
+**/
+
+
 /*
 	fn_FlickerObject.sqf
 	Description: Flickers an object to visible or invisible

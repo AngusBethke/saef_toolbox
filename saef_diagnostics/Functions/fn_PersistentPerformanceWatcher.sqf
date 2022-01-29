@@ -1,3 +1,15 @@
+/**
+	@namespace [?]
+	@class [?]
+	@method [?]
+	@file fn_PersistentPerformanceCheck.sqf
+	@summary A script that persitently logs server performance if it is below a certain threshold.
+
+	@param int _time
+	@param int _threshold
+
+	@note NOT under a namespace - and therefore is unusable[?]
+**/
 /*
 	fn_PersistentPerformanceWatcher.sqf
 	Description: A script that persitently logs server performance if it is below a certain threshold.

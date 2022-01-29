@@ -1,3 +1,12 @@
+/**
+	@namespace RS_ST
+	@class StatTrack
+	@method RS_ST_fnc_LogInfo
+	@file fn_LogInfo.sqf
+	@summary Formats and Logs all the relevant Stats
+
+**/
+
 /*
 	fn_LogInfo.sqf
 	Description: Formats and Logs all the relevant Stats

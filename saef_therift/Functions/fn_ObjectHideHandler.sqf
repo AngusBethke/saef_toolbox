@@ -1,3 +1,12 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_ObjectHideHandler
+	@file fn_ObjectHideHandler.sqf
+	@summary Handles hiding and showing of objects based on what state of the rift they're in.
+
+**/
+
 /*
 	fn_ObjectHideHandler.sqf
 	Description: Handles hiding and showing of objects based on what state of the rift they're in.

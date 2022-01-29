@@ -1,3 +1,15 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@method RS_CP_fnc_Init
+	@file fn_Init.sqf
+	@summary Launches Civilian Presence Modules
+    
+	@note Interesting discovery, it appears that module must run on all clients and server in order to work.
+	@note BIS must have planned this when building the modules (as I suspect they get loaded on all connected clients and the server when in module format)
+	@note I have no idea what the implication is on server performance with this running, hopeful that it isn't terrible.
+
+**/
 /*
 	fn_Init.sqf
 	Description: Launches Civilian Presence Modules

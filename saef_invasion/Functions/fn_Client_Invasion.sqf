@@ -1,3 +1,14 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Client_Invasion
+	@file fn_Client_Invasion.sqf
+	@summary Handles the clientside portion of the invasion process
+	
+	@usage ```] spawn RS_INV_fnc_Client_Invasion;```
+	
+**/
+
 /* 
 	fn_Client_Invasion.sqf
 	

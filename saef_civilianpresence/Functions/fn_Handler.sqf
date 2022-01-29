@@ -1,3 +1,17 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@method RS_CP_fnc_Handler
+	@file fn_Handler.sqf
+	@summary Handles creation of Civilian Presence Modules
+    
+	@param bool _debug 			(possibly int enum)
+	@param string _createdCode 	 
+	@param string _deletedCode 	 
+	@param bool _useAgents 		(possibly int enum)
+	@param bool _usePanicMode 	(possibly int enum)
+
+**/
 /*
 	fn_Handler.sqf
 	Description: Handles creation of Civilian Presence Modules

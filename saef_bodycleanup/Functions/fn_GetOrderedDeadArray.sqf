@@ -1,3 +1,14 @@
+/**
+	@namespace RS_BC
+	@class BodyCleanup
+	@method RS_BC_fnc_GetOrderedDeadArray
+	@file fn_GetOrderedDeadArray.sqf
+	@summary Returns an array of allDeadMen ordered by their distance from the player
+
+	@param int _closestDistance
+
+**/
+
 /*
 	fn_GetOrderedDeadArray.sqf
 	Description: Returns an array of allDeadMen ordered by their distance from the player

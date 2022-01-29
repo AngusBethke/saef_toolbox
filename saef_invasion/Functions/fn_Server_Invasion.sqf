@@ -1,3 +1,14 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Server_Invasion
+	@file fn_Server_Invasion.sqf
+	@summary Handles the spawning of the planes, and assigning units to those planes.
+	
+	@usage ```[] call RS_INV_fnc_Server_Invasion;```
+	
+**/
+
 /* 
 	fn_Server_Invasion.sqf
 	

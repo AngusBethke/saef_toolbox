@@ -1,3 +1,27 @@
+/**
+	@namespace SAEF_VEH
+	@class RearmAndRepair
+	@method SAEF_VEH_fnc_RnR_ActionRearm
+	@file fn_RnR_ActionRearm.sqf
+	@summary Adds action to refuel and rearm the given vehicle within 5m distance from given object
+
+	@param string _vehString
+	@param string _objString
+	@param string _vehType
+	@param array _additionalScripts
+
+	@usages ```
+	How to Call: 
+		[
+			_vehString,				// The vehicle string name
+			_objString,				// The repair object string name
+			_vehType,				// The type of vehicle
+			_additionalScripts		// (Optional) Any additional scripts
+		] call SAEF_VEH_fnc_RnR_ActionRearm;
+	``` @endusages
+
+**/
+
 /*
 	fn_RnR_ActionRearm.sqf
 

@@ -1,3 +1,21 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_CreateRiftInteractionSounds
+	@file fn_CreateRiftInteractionSounds.sqf
+	@summary Creates sounds for the rift interaction point
+
+	@param object _object
+	@param string _variable
+	@param any _soundPath
+	@param any _sound
+	@param any _songLength
+
+	@usages ```
+		[_object] spawn RS_Rift_fnc_CreateRiftInteractionSounds;		
+	```	@endusages
+**/
+
 /*
 	fn_CreateRiftInteractionSounds.sqf
 	Description: Creates sounds for the rift interaction point

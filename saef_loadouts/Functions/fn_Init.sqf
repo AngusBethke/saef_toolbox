@@ -1,3 +1,13 @@
+/**
+	@namespace RS_LD
+	@class Loadouts
+	@method RS_LD_fnc_Init
+	@file fn_Init.sqf
+	@summary Runs initialisation for the SAEF loadout toolset
+	
+	
+**/
+
 /*
 	fn_Init.sqf
 

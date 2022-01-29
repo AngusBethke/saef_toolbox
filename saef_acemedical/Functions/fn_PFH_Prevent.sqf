@@ -1,3 +1,12 @@
+/**
+	@namespace RS
+	@class PreventFullHeal
+	@method RS_fnc_PFH_Prevent
+	@file fn_PFH_Prevent.sqf
+	@summary  Prevents non-Medic players from fully healing themselves
+	@TODO: Check params and return
+**/
+
 /*
 	fn_PFH_Prevent.sqf
 	Description: Prevents non-Medic players from fully healing themselves

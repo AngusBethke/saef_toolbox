@@ -1,3 +1,12 @@
+/**
+	@namespace SAEF_VEH
+	@class RearmAndRepair
+	@method SAEF_VEH_fnc_RnR_Init
+	@file fn_RnR_Init.sqf
+	@summary Handles initialisation for the rearm and repair toolset
+
+**/
+
 /*
 	fn_RnR_Init.sqf
 

@@ -1,3 +1,20 @@
+/**
+	@namespace RS
+	@class Headless
+	@method RS_fnc_ExecScriptHandler
+	@file fn_ExecScriptHandler.sqf
+	@summary Accepts a script string and then does some validation to determine if a headless client is active, if the headless client is active, execute on the headless client, otherwise it is executed on the server.
+	
+	@param any _params Parameters for your function/script <array, string>
+	@param code _script The script/function that you would like to execute <string, function definition>
+	@param ?string _exec Third parameter if you would like to override the default "spawn" with "call" or similar
+	@param ?any _target  The exact client you want to target (useful if you have multiple headless client objects)
+	
+	@note ```[[], "Scripts\MissionSpawners\Spawn_Handler_Main.sqf"] call RS_fnc_ExecScriptHandler```;
+	@note ```[[_group, _area, _usePara, _secondPos], "DS_fnc_HunterKiller"] call RS_fnc_ExecScriptHandler```;
+	@note ```[[_secondPos, _group, _area], "DS_fnc_Garrison", "call"] call RS_fnc_ExecScriptHandler```;
+**/
+
 /*
 	fn_ExecScriptHandler.sqf
 	Description: Accepts a script string and then does some validation to determine if a headless client is active, if the headless client is active, execute on the headless client, otherwise it is executed on the server.

@@ -1,3 +1,20 @@
+/**
+	@namespace RS_PLYR
+	@class PlayerFunctions
+	@method RS_PLYR_fnc_GetMarkerNearPlayer
+	@file fn_GetMarkerNearPlayer.sqf
+	@summary Locates a marker within certain thresholds based on a given tag
+
+	@param string _markerTag
+	@param ?int _maxSearchDistance
+	@param ?int _playerDistanceThreshold
+
+	@return marker _marker
+
+	@usage ```[_markerTag, _maxSearchDistance, _playerDistanceThreshold] call RS_PLYR_fnc_GetMarkerNearPlayer;```
+
+**/
+
 /*
 	fn_GetMarkerNearPlayer.sqf
 

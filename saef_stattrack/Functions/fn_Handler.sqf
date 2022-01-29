@@ -1,3 +1,12 @@
+/**
+	@namespace RS_ST
+	@class StatTrack
+	@method RS_ST_fnc_Handler
+	@file fn_Handler.sqf
+	@summary Runs the StatTrack handler
+
+**/
+
 /*
 	fn_Handler.sqf
 	Description: Runs the StatTrack handler

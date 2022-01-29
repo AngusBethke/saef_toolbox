@@ -1,3 +1,16 @@
+/**
+	@namespace RS_INS
+	@class Insurgency
+	@method RS_INS_fnc_SwitchToInsurgent_Individual
+	@file fn_SwitchToInsurgent_Individual.sqf
+	@summary Spawns Insurgents within a given area
+	
+	@param unit _unit
+
+	@usage ```[_unit] spawn RS_fnc_Ins_SwitchToInsurgent_Individual;```
+	
+**/
+
 /*
 	fn_SwitchToInsurgent_Individual.sqf
 	Description: Will switch the specific unit to an insurgent if they meet the required conditions

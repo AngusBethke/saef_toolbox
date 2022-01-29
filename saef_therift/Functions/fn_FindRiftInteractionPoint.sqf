@@ -1,3 +1,24 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_FindRiftInteractionPoint
+	@file fn_FindRiftInteractionPoint.sqf
+	@summary Helper for location of rift interaction points based on audio cues
+
+	@param int _size
+	@param unit _unit
+	@param string _variable
+
+	@usages ```
+	How to Call:
+		[
+			_size,
+			_unit,
+			_variable
+		] spawn RS_Rift_fnc_FindRiftInteractionPoint;
+	```	@endusages
+**/
+
 /*
 	fn_FindRiftInteractionPoint.sqf
 	Description:

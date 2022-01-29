@@ -1,3 +1,9 @@
+/**
+	@namespace SAEF_AS
+	@class AS
+	@file XEH_preInit.sqf
+	@summary Adds the CBA settings for DynaSpawn
+**/
 /*
 	XEH_preInit.sqf
 

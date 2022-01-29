@@ -1,3 +1,29 @@
+/**
+	@namespace SAEF_VD
+	@class ViewDistance
+	@method SAEF_VD_fnc_Init
+	@file fn_Init.sqf
+	@summary Initialises the event handlers for the server
+
+	@param ?int _defaultServerVD The default view distance for the server
+	@param ?int _defaultPlayerVD The default view distance for the player
+	@param ?int _defaultAircraftVD The default view distance for the aircraft
+	@param ?int _defaultShadowVD The default shadow view distance for everyone
+	@param ?int _defaultFixedCeiling The capped ceiling for max view distance based on height
+
+	@usages ```
+	How to call: 
+		[
+			_defaultServerVD,		// (Optional) The default view distance for the server
+			_defaultPlayerVD,		// (Optional) The default view distance for the player
+			_defaultAircraftVD,		// (Optional) The default view distance for the aircraft
+			_defaultShadowVD,		// (Optional) The default shadow view distance for everyone
+			_defaultFixedCeiling	// (Optional) The capped ceiling for max view distance based on height
+		] call SAEF_VD_fnc_Init;
+	``` @endusages
+
+**/
+
 /*
 	fn_Init.sqf
 

@@ -1,3 +1,18 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_ModuleSpawnHunterKiller
+	@file fn_ModuleSpawnHunterKiller.sqf
+	@summary Handles module functionality for Hunter killer
+
+	@param object _logic
+	@param array _units
+	@param bool _activated
+	@param bool _fromQueue
+
+	@todo Empty script? Strange.
+**/
+
 /*
 	fn_ModuleSpawnHunterKiller.sqf
 

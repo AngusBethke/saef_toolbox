@@ -1,3 +1,15 @@
+/**
+	@namespace SAEF_Detection
+	@class Detection
+	@method SAEF_Detection_fnc_Burst
+	@file fn_Burst.sqf
+	@summary Handles burst detection - this occurs when a player fires their weapon
+	
+	@param unit _unit
+	
+	@note Original Author: Fritz
+	@note Modified by: Angus Bethke
+**/
 /*
 	fn_Burst.sqf
 	Description: Handles burst detection - this occurs when a player fires their weapon

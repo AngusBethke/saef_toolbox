@@ -1,3 +1,20 @@
+/**
+	@namespace RS_LD
+	@class Loadouts
+	@method RS_LD_fnc_ApplyLoadout
+	@file fn_ApplyLoadout.sqf
+	@summary Handles added complexity when applying the loadout so that the user doesn't need to
+	
+	@param unit _unit The unit to apply the loadout to
+	@param string _loadout The path to the loadout script
+	@param ?array _additionalParameters Array of additional parameters to add to the loadout script
+	@param ?bool  _skipRadioRegistration Whether or not to skip the radio registration
+
+	@usage ```[_unit, _loadout, _additionalParameters, _skipRadioRegistration] spawn RS_LD_fnc_ApplyLoadout```
+
+	
+**/
+
 /*
 	fn_ApplyLoadout.sqf
 

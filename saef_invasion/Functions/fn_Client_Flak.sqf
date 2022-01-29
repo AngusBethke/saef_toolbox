@@ -1,3 +1,16 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Client_Flak
+	@file fn_Client_Flak.sqf
+	@summary Handles the creation of clientside flak for the Jump
+	
+	@param unit _unit
+
+	@usage ```[_unit] spawn RS_INV_fnc_Client_Flak;```
+	
+**/
+
 /* 
 	fn_Client_Flak.sqf
 	

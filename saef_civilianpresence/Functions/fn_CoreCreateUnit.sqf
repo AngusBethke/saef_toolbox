@@ -1,3 +1,17 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@method RS_CP_fnc_CorecreateUnit
+	@file fn_CorecreateUnit.sqf
+	@summary Handles the creation of units for civilian presence
+
+	@param object _module
+	@param array _pos
+
+	@return unit Created unit
+
+**/
+
 #include "\A3\modules_F_Tacops\Ambient\CivilianPresence\defines.inc"
 
 /*

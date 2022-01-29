@@ -1,3 +1,16 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Server_WatchCargoNumber
+	@file fn_Server_WatchCargoNumber.sqf
+	@summary Watches the Cargo Number of the planes, if it exceeds x players, the plane is no longer allowed to carry players
+	
+	@param object _plane
+
+	@usage ```[_plane] spawn RS_INV_fnc_Server_WatchCargoNumber;```
+	
+**/
+
 /*
 	fn_Server_WatchCargoNumber.sqf
 	

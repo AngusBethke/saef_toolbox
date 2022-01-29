@@ -1,3 +1,22 @@
+/**
+	@namespace RS_PLYR
+	@class PlayerFunctions
+	@method RS_PLYR_fnc_GetClosestPlayer
+	@file fn_GetClosestPlayer.sqf
+	@summary Returns the closest player position within a given radius
+
+	@param position _position
+	@param ?int _rad
+	@param ?string _validation
+
+	@todo Params not listed but are required?
+
+	@return position _player Returns closest player position within given radius
+
+	@usage ```[_position, _rad, _validation] call RS_PLYR_fnc_GetClosestPlayer;```
+
+**/
+
 /*
 	fn_GetClosestPlayer.sqf
 

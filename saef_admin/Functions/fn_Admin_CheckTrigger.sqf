@@ -1,3 +1,12 @@
+/**
+	@namespace RS
+	@class Admin
+	@method RS_fnc_Admin_CheckTrigger
+	@file fn_Admin_CheckTrigger.sqf
+	@summary Evaluates triggers for mistakes
+	@param any _triggers
+**/
+
 /*
 	fn_Admin_CheckTrigger.sqf
 	Description: Evaluates triggers for mistakes

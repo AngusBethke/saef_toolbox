@@ -1,3 +1,17 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Server_PlaneCleanup
+	@file fn_Server_PlaneCleanup.sqf
+	@summary Cleans up the plane when it gets to the end position
+	
+	@param object _plane
+	@param position _position
+
+	@usage ```[_plane, _position] spawn RS_INV_fnc_Server_PlaneCleanup;```
+	
+**/
+
 /* 
 	fn_Server_PlaneCleanup.sqf 
 	

@@ -1,3 +1,15 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_ModuleSpawnArea
+	@file fn_ModuleSpawnArea.sqf
+	@summary Handles module functionality for spawn areas
+
+	@param object _logic
+	@param array _units
+	@param bool _activated
+	@param bool _fromQueue
+**/
 /*
 	fn_ModuleSpawnArea.sqf
 

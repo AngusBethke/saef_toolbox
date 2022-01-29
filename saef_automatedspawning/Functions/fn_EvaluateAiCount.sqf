@@ -1,3 +1,11 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_EvaluateAiCount
+	@file fn_EvaluateAiCount.sqf
+	@summary Returns the number of local AI on a given target object
+	@param object _target
+**/
 /*
 	fn_EvaluateAiCount.sqf
 

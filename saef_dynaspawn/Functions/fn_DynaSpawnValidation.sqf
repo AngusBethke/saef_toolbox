@@ -1,3 +1,21 @@
+/**
+	@namespace RS_DS
+	@class DynaSpawn
+	@method RS_DS_fnc_DynaSpawnValidation
+	@file fn_DynaSpawnValidation.sqf
+	@summary Handles validation of input variables for DynaSpawn	
+
+	@param array _spawnPos
+	@param array _secondPos
+	@param any _type
+	@param any _faction
+	@param side _facSide
+	@param any _areaOfOperation
+
+	@requires cba
+
+	@return array [true, [_spawnPos, _azi, _type, _secondPos, _faction, _unitType, _facSide, _areaOfOperation]]
+**/
 /*	
 	fn_DynaSpawnValidation.sqf
 	Author: Angus Bethke

@@ -1,3 +1,16 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_RiftForcefulExit
+	@file fn_RiftForcefulExit.sqf
+	@summary Handles forceful exit from the rift
+
+	@usages ```	
+	[] spawn RS_Rift_fnc_RiftForcefulExit;
+	``` @endusages
+
+**/
+
 /*
 	fn_RiftForcefulExit.sqf
 	Description: Handles forceful exit from the rift

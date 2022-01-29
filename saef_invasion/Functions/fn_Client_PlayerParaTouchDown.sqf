@@ -1,3 +1,17 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Client_PlayerParaTouchDown
+	@file fn_Client_PlayerParaTouchDown.sqf
+	@summary Handles the parachute landing
+	
+	@param unit _unit
+	@param object _para
+
+	@usage ```[_type, _para] spawn RS_INV_fnc_Client_PlayerParaTouchDown;```
+	
+**/
+
 /* 
 	fn_Client_PlayerParaTouchDown.sqf 
 	

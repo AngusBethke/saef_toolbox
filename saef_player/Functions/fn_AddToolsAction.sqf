@@ -1,3 +1,13 @@
+/**
+	@namespace RS_PLYR
+	@class PlayerFunctions
+	@method RS_PLYR_fnc_AddToolsAction
+	@file fn_AddToolsAction.sqf
+	@summary Adds the tools ace action to nest all saef tools under
+
+**/
+
+
 /*
 	fn_AddToolsAction.sqf
 	Description: Adds the tools ace action to nest all saef tools under

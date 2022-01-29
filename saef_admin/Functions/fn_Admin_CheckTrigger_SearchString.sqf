@@ -1,3 +1,14 @@
+/**
+	@namespace RS
+	@class Admin
+	@method RS_fnc_Admin_CheckTrigger_SearchString
+	@file fn_Admin_CheckTrigger_SearchString.sqf
+	@summary Evaluates triggers for mistakes
+	@param any _attribute
+	@param any _trim
+	@param any _strings
+**/
+
 /*
 	fn_Admin_CheckTrigger_SearchString.sqf
 	Description: Evaluates triggers for mistakes

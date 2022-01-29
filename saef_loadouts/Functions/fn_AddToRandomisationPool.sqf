@@ -1,3 +1,16 @@
+/**
+	@namespace RS_LD
+	@class Loadouts
+	@method RS_LD_fnc_AddToRandomisationPool
+	@file fn_AddToRandomisationPool.sqf
+	@summary Adds to the randomisation pool for the specified tag
+	
+	@param string _gearItem
+	@param string _randomisationTag
+
+	
+**/
+
 /*
 	fn_AddToRandomisationPool.sqf
 

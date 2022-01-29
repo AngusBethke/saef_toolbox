@@ -1,3 +1,16 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_RiftMarkerHandler
+	@file fn_RiftMarkerHandler.sqf
+	@summary Handles the showing/hiding of radiation zone markers
+
+	@usages ```	
+	[] spawn RS_Rift_fnc_RiftMarkerHandler;
+	``` @endusages
+
+**/
+
 /*
 	fn_RiftMarkerHandler.sqf
 	Description: Handles the showing/hiding of radiation zone markers

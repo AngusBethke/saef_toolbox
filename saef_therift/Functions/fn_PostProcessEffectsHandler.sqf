@@ -1,3 +1,15 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_PostProcessEffectsHandler
+	@file fn_PostProcessEffectsHandler.sqf
+	@summary Handles switching between rift post process effects and when inside and outside the rift.
+
+	@param unit _unit
+	@param string _rift
+
+**/
+
 /*
 	fn_PostProcessEffectsHandler.sqf
 	Description: Handles switching between rift post process effects and when inside and outside the rift.

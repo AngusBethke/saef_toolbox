@@ -1,3 +1,18 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@method RS_CP_fnc_CoreDeleteUnit
+	@file fn_CoreDeleteUnit.sqf
+	@summary Attempts to delete a given unit
+
+	@param object _module
+	@param object _unit
+
+    @return bool if object is ABLE to be deleted - NOT if the unit was deleted
+
+	@note Originally Developed by Bohemia interactive
+**/
+
 #include "\A3\modules_F_Tacops\Ambient\CivilianPresence\defines.inc"
 
 /*

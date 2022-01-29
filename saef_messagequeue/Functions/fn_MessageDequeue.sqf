@@ -1,3 +1,21 @@
+/**
+	@namespace RS_MQ
+	@class MessageQueue
+	@method RS_MQ_fnc_MessageDequeue
+	@file fn_MessageDequeue.sqf
+	@summary Removes a message from the given queue
+
+	@param string _messageId
+	@param array _params
+	@param string _script
+	@param string _queueName
+	@param any _validation
+
+	@todo _params not used
+	@todo _validation not used
+
+**/
+
 /*
 	fn_MessageDequeue.sqf
 	Description: Removes a message from the given queue

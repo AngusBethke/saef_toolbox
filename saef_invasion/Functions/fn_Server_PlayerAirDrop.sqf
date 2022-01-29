@@ -1,3 +1,17 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Server_PlayerAirDrop
+	@file fn_Server_PlayerAirDrop.sqf
+	@summary Handles the player air drop component of the para drop
+	
+	@param object _plane
+	@param string _position
+
+	@usage ```[_plane, _position] spawn RS_fnc_Server_PlayerAirDrop;```
+	
+**/
+
 /* 
 	fn_Server_PlayerAirDrop.sqf 
 	

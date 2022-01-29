@@ -1,3 +1,13 @@
+/**
+	@namespace RS
+	@class Respawn
+	@method RS_fnc_PlayerOnKilled
+	@file fn_PlayerOnKilled.sqf
+	@summary Runs on player death as per added event handler 
+
+
+**/
+
 /*
 	fn_PlayerOnKilled.sqf
 	Description: Runs on player death as per added event handler 

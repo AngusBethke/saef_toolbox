@@ -1,3 +1,14 @@
+/**
+	@namespace RS_Radiation
+	@class Radiation
+	@method RS_Radiation_fnc_MarkerAceAction
+	@file fn_MarkerAceAction.sqf
+	@summary Adds an ace interaction to show and hide the radiation markers
+
+	@usage ```[] call RS_Radiation_fnc_MarkerAceAction;```
+
+**/
+
 /*
 	fn_MarkerAceAction.sqf
 	Description: Adds an ace interaction to show and hide the radiation markers

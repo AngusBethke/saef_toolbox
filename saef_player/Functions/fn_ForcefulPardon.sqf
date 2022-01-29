@@ -1,3 +1,14 @@
+/**
+	@namespace RS_PLYR
+	@class PlayerFunctions
+	@method RS_PLYR_fnc_ForcefulPardon
+	@file fn_ForcefulPardon.sqf
+	@summary Alters default rating return value so that players do not need to be pardoned
+
+	@usage ```[] call RS_PLYR_fnc_ForcefulPardon;```
+
+**/
+
 /*
 	fn_ForcefulPardon.sqf
 	Description: Alters default rating return value so that players do not need to be pardoned

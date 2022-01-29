@@ -1,3 +1,16 @@
+/**
+	@namespace RS_BC
+	@class BodyCleanup
+	@method RS_BC_fnc_DeadBodyCleanUpPersitent
+	@file fn_DeadBodyCleanUpPersitent.sqf
+	@summary Cleans up dead bodies continuosly until switch off. Should prioritise dead bodies further away.
+
+	@param int _bodyLimit
+	@param int _checkInterval
+	@param int _instCleanDist
+
+	@note How to Stop: missionNamespace setVariable ["RS_DeadBodyCleanup", false, true];
+**/
 /*
 	fn_DeadBodyCleanUpPersitent.sqf
 	Description: Cleans up dead bodies continuosly until switch off. Should prioritise dead bodies further away.

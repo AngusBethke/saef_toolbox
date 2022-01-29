@@ -1,3 +1,17 @@
+/**
+	@namespace RS_Radiation
+	@class Radiation
+	@method RS_Radiation_fnc_GetGridInfo
+	@file fn_GetGridInfo.sqf
+	@summary Returns grids for mapping items
+
+	@param int _size
+	@param position _pos
+
+	@returns array [<array>_posGrid, <int>_gridSize]
+
+**/
+
 /*
 	fn_GetGridInfo.sqf
 	Description: Returns grids for mapping items

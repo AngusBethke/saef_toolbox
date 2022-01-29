@@ -1,3 +1,18 @@
+/**
+	@namespace RS_DS
+	@class DynaSpawn
+	@method RS_DS_fnc_ParaInsertion
+	@file fn_ParaInsertion.sqf
+	@summary This is a function built for deploying AI via Parachute Insertion
+	
+	@param vehicle _vehicle
+	@param position _spawnPos
+	@param number _azi
+	@param position _insertionPos
+	@param group _group
+	@param side _facSide
+**/
+
 /*	
 	fn_ParaInsertion.sqf
 	Author: Angus Bethke

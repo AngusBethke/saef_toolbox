@@ -1,5 +1,18 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@method RS_CP_fnc_SpawnPositionModule
+	@file fn_SpawnPresenceModule.sqf
+	@summary Handles creation of the Civilian Presence Spawn Point
+
+	@param array _pos
+	@param string _group
+
+	@returns logic 
+    
+**/
 /*
-	fn_SpawnPresenceModule.sqf
+	fn_SpawnPositionModule.sqf
 	Description: Handles creation of the Civilian Presence Spawn Point
 	Parameters:	
 		_pos	- position

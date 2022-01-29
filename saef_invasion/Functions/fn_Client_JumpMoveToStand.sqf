@@ -1,3 +1,17 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Client_JumpMoveToStand
+	@file fn_Client_JumpMoveToStand.sqf
+	@summary Stands the unit up in the plane
+	
+	@param object _plane
+	@param unit _unit
+
+	@usage ```[_plane, _unit] call RS_INV_fnc_Client_JumpMoveToStand;```
+	
+**/
+
 /*
 	fn_Client_JumpMoveToStand.sqf
 	

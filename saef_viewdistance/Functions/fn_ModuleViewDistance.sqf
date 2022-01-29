@@ -1,3 +1,17 @@
+/**
+	@namespace SAEF_VD
+	@class ViewDistance
+	@method SAEF_VD_fnc_ModuleSpawnAreaVehicle
+	@file fn_ModuleSpawnAreaVehicle.sqf
+	@summary Handles module functionality for spawn areas
+
+	@param ?object _logic
+	@param ?array _units
+	@param ?bool _activated
+
+
+**/
+
 /*
 	fn_ModuleSpawnAreaVehicle.sqf
 

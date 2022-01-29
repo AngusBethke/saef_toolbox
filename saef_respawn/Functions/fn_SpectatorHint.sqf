@@ -1,3 +1,14 @@
+/**
+	@namespace RS
+	@class Respawn
+	@method RS_fnc_SpectatorHint
+	@file fn_SpectatorHint.sqf
+	@summary Handles Hint Display for whether respawn is enabled or disabled.
+
+	@param string _type
+
+**/
+
 /*
 	Spectator_Hint.sqf
 	Description: Handles Hint Display for whether respawn is enabled or disabled.

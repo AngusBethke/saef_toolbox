@@ -1,3 +1,14 @@
+/**
+	@namespace SAEF_AI
+	@class AI
+	@method SAEF_AI_fnc_ModulePhysicalArtillery
+	@file fn_ModulePhysicalArtillery.sqf
+	@summary Handles module functionality for physical artillery
+	@param any _logic
+	@param array _units
+	@param bool _activated
+**/
+
 /*
 	fn_ModulePhysicalArtillery.sqf
 

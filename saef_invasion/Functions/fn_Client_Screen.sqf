@@ -1,3 +1,14 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Client_Screen
+	@file fn_Client_Screen.sqf
+	@summary Screen used to cover up player movement to aircraft
+	
+	@usage ```[] spawn RS_INV_fnc_Client_Screen;```
+	
+**/
+
 /* 
 	fn_Client_Screen.sqf 
 	

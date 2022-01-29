@@ -1,3 +1,15 @@
+/**
+	@namespace SAEF_VEH
+	@class RearmAndRepair
+	@method SAEF_VEH_fnc_RnR_Setup
+	@file fn_RnR_Setup.sqf
+	@summary Setups the Rearm and Repair functionality for a given vehicle
+
+	@param string _vehString
+	@param string _objString
+
+**/
+
 /*
 	fn_RnR_Setup.sqf
 

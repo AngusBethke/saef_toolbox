@@ -1,3 +1,19 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_GetNearestRiftInteractionPoint
+	@file fn_GetNearestRiftInteractionPoint.sqf
+	@summary Returns the closest rift interaction point to the player
+	
+	@param object _unit
+	@param ?bool _force
+
+	@usages ```
+	[_unit, _force] call RS_Rift_fnc_GetNearestRiftInteractionPoint;
+	```	@endusages
+**/
+
+
 /*
 	fn_GetNearestRiftInteractionPoint.sqf
 	Description:

@@ -1,3 +1,16 @@
+/**
+	@namespace RS_LD
+	@class Loadouts
+	@method RS_LD_fnc_GetItemManipulationCode
+	@file fn_GetItemManipulationCode.sqf
+	@summary Will grab the item manipulation code
+	
+	@param string _type
+
+	@return array [_error, _checkCode, _addCode]
+	
+**/
+
 /*
 	fn_GetItemManipulationCode.sqf
 

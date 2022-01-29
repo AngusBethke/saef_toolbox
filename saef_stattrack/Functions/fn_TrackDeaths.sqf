@@ -1,3 +1,13 @@
+/**
+	@namespace RS_ST
+	@class StatTrack
+	@method RS_ST_fnc_TrackDeaths
+	@file fn_TrackDeaths.sqf
+	@summary If a player is killed, increase the casualty counter
+
+**/
+
+
 /*
 	fn_TrackDeaths.sqf
 	Description: If a player is killed, increase the casualty counter

@@ -1,3 +1,15 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@method RS_CP_fnc_GetWhiteListedLocations
+	@file fn_GetWhiteListedLocations.sqf
+	@summary Gets all whitelisted locations
+    
+	@param any _whiteList
+
+	@return array
+
+**/
 /*
 	fn_GetWhiteListedLocations.sqf
 	Description: Gets all whitelisted locations

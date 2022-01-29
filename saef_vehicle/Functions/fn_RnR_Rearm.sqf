@@ -1,3 +1,17 @@
+/**
+	@namespace SAEF_VEH
+	@class RearmAndRepair
+	@method SAEF_VEH_fnc_fnc_RnR_Rearm
+	@file fn_RnR_Rearm.sqf
+	@summary Rearms the given vehicle
+
+	@param vehicle _vehicle
+	@param object _object
+	@param string _vehType
+	@param ?array _additionalScripts
+
+**/
+
 /*
 	fn_RnR_Rearm.sqf
 

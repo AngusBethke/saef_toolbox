@@ -1,3 +1,11 @@
+/**
+	@namespace RS
+	@class Admin
+	@method RS_fnc_Admin_CheckAdmin
+	@file fn_Admin_CheckAdmin.sqf
+	@summary Checks if the Player is an Admin. If so, marks them as an Admin.
+**/
+
 /*
 	fn_Admin_CheckAdmin.sqf
 	Description: Checks if the Player is an Admin. If so, marks them as an Admin.

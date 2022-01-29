@@ -1,3 +1,17 @@
+/**
+	@namespace RS_DS
+	@class DynaSpawn
+	@method RS_DS_fnc_DynaSpawn
+	@file fn_DynaSpawn.sqf
+	@summary This is a function built for making AI spawns as simple as possible, also handles basic waypoint creation with some added functionality.
+
+	@param group _group
+
+	@requires cba
+
+	@return group
+**/
+
 /*	
 	fn_DynaSpawn.sqf
 	Author: Angus Bethke

@@ -1,3 +1,11 @@
+/**
+	@namespace RS
+	@class Admin
+	@method RS_fnc_Admin_3denHelper
+	@file fn_Admin_3denHelper.sqf
+	@summary Is called onSave in the 3den editor this checks a number of basic settings and returns errors if there are any.
+**/
+
 /*
 	fn_Admin_3denHelper.sqf
 	Description: Is called onSave in the 3den editor this checks a number of basic settings and returns errors if there are any.

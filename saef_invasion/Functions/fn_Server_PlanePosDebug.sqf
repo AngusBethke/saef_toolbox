@@ -1,3 +1,21 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Server_PlanePosDebug
+	@file fn_Server_PlanePosDebug.sqf
+	@summary If the plane does something strange, reset its position
+	
+	@param object _plane
+	@param string _position
+	@param string _direction
+	@param string _cleanupPosition
+
+	@todo _cleanupPosition in params but not in call?
+
+	@usage ```[_plane, _position, _direction] spawn RS_INV_fnc_Server_PlanePosDebug;```
+	
+**/
+
 /* 
 	fn_Server_PlanePosDebug.sqf 
 	

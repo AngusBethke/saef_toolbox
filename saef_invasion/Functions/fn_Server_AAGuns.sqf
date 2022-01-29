@@ -1,3 +1,17 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Server_AAGuns
+	@file fn_Server_AAGuns.sqf
+	@summary Takes a list of given AA guns and sets them up to provide ambient fire
+	
+	@param array _gunArray
+	@param string _gunFireVariable
+
+	@usage ```[_gunArray, _gunFireVariable] spawn RS_INV_fnc_Server_AAGuns;```
+	
+**/
+
 /* 
 	fn_Server_AAGuns.sqf 
 	

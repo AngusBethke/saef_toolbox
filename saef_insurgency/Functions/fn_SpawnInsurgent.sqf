@@ -1,3 +1,20 @@
+/**
+	@namespace RS_INS
+	@class Insurgency
+	@method RS_INS_fnc_SpawnInsurgent
+	@file fn_SpawnInsurgent.sqf
+	@summary Spawns an Insurgent at given location
+	
+	@param position _loc
+	@param position _pos
+	@param int _rad
+	@param string _class
+	@param string _loadout
+
+	@usage ```[_loc, _pos, _rad, _class, _loadout] call RS_INS_fnc_SpawnInsurgent;```
+	
+**/
+
 /*
 	fn_SpawnInsurgent.sqf
 	Description: Spawns an Insurgent at given location

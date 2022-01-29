@@ -1,3 +1,15 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@method RS_CP_fnc_CoreDeactivation
+	@file fn_CoreDeactivation.sqf
+	@summary Disables the civilian presence handler
+
+	@param string _moduleString
+
+	@note Originally Developed by Bohemia interactive
+**/
+
 #include "\A3\modules_F_Tacops\Ambient\CivilianPresence\defines.inc"
 
 /*

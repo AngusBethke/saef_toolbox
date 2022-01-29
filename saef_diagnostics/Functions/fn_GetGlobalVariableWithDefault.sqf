@@ -1,3 +1,14 @@
+/**
+	@namespace RS_DIAG
+	@class Diagnostics
+	@method RS_DIAG_fnc_GetGlobalVariableWithDefault
+	@file fn_GetGlobalVariableWithDefault.sqf
+	@summary Takes a global variable and a default value and if the global variable is not set return the default
+
+	@param any _variable
+	@param any _default
+
+**/
 /*
 	fn_GetGlobalVariableWithDefault.sqf
 

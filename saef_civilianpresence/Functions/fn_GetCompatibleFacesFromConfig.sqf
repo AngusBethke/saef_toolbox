@@ -1,3 +1,16 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@method RS_CP_fnc_GetCompatibleFacesFromConfig
+	@file fn_GetCompatibleFacesFromConfig.sqf
+	@summary 
+    
+	@param any _unit
+	@param any _class
+
+	@return array
+
+**/
 /*
 	fn_GetCompatibleFacesFromConfig.sqf
 */

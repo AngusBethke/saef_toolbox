@@ -1,3 +1,11 @@
+/**
+	@namespace RS
+	@class PreventFullHeal
+	@method RS_fnc_PFH_Init
+	@file fn_PFH_Init.sqf
+	@summary  Adds event handlers to players for Full Heal Prevention
+**/
+
 /*
 	fn_PFH_Init.sqf
 	Description: Adds event handlers to players for Full Heal Prevention

@@ -1,3 +1,20 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@method RS_CP_fnc_SpawnSafePointModule
+	@file fn_SpawnSafePointModule.sqf
+	@summary Handles creation of the Civilian Presence Safe Point
+
+	
+	@param array _pos			position
+	@param int _capacity 		
+	@param bool _isTerminal 	(possibly int enum)
+	@param int _type 			1 Safe Spot, 2 Waypoint and Safe Spot, 3 Waypoint
+	@param bool _useBuiilding 	(possibly int enum)
+
+    @return logic
+**/
+
 #include "\A3\Modules_F_Tacops\Ambient\CivilianPresence\defines.inc"
 
 /*

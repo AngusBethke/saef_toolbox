@@ -1,3 +1,15 @@
+/**
+	@namespace RS_INS
+	@class Insurgency
+	@method RS_INS_fnc_AddWeapons
+	@file fn_AddWeapons.sqf
+	@summary Adds weapons to the backpacks of the civilian insurgents.
+	
+	@param unit _unit
+	
+	@usage ```[_unit] call RS_INS_fnc_AddWeapons;```
+**/
+
 /*
 	fn_AddWeapons.sqf
 	Description: Adds weapons to the backpacks of the civilian insurgents.

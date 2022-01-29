@@ -1,3 +1,16 @@
+/**
+	@namespace RS_DS
+	@class DynaSpawn
+	@method RS_DS_fnc_GetGarrisonPositions
+	@file fn_GetGarrisonPositions.sqf
+	@summary Returns an array of positions to garrison based on the given parameters
+
+	@param array _pos
+	@param int _rad
+	@param int _countGroup
+	
+	@return array _positions
+**/
 /*
 	fn_GetGarrisonPositions.sqf
 

@@ -1,3 +1,20 @@
+/**
+	@namespace RS_PLYR
+	@class PlayerFunctions
+	@method RS_PLYR_fnc_GetClosestPlayerObject
+	@file fn_GetClosestPlayerObject.sqf
+	@summary Returns the closest player object
+
+	@param position _position
+	@param ?int _radius
+	@param ?string _playerValidation
+
+	@return unit _player
+
+	@usage ```[_position, _radius, _playerValidation] call RS_PLYR_fnc_GetClosestPlayerObject;```
+
+**/
+
 /*
 	fn_GetClosestPlayerObject.sqf
 
