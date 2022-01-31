@@ -1,3 +1,14 @@
+/**
+	@namespace SAEF_VEH
+	@class RearmAndRepair
+	@method SAEF_VEH_fnc_ModuleRearmAndRepair
+	@file fn_ModuleRearmAndRepair.sqf
+	@summary Handles module functionality for rearming and repairing
+
+	@retuen bool always true
+
+**/
+
 /*
 	fn_ModuleRearmAndRepair.sqf
 

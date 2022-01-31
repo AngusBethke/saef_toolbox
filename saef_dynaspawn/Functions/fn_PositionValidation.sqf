@@ -1,3 +1,15 @@
+/**
+	@namespace RS_DS
+	@class DynaSpawn
+	@method RS_DS_fnc_PositionValidation
+	@file fn_PositionValidation.sqf
+	@summary Determines whether the variable passed is a Valid Marker or position
+	
+	@param any _var
+
+	@return array [_valid, _pos, _azi]
+**/
+
 /*
 	fn_PositionValidation.sqf
 	Author: Angus Bethke

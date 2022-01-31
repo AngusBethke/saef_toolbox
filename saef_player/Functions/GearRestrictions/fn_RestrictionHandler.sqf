@@ -1,3 +1,13 @@
+/**
+	@namespace [?]
+	@class [?]
+	@file fn_RestrictionHandler.sqf
+	@summary Runs through the conditions under which gear should be yanked from the player for restriction purposes.
+
+	@note Not included in any Namespaces so may not be callable?
+
+**/
+
 /*
 	Function Set: GearRestriction
 	fn_RestrictionHandler.sqf

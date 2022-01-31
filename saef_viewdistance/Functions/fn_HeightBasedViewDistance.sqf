@@ -1,3 +1,20 @@
+/**
+	@namespace SAEF_VD
+	@class ViewDistance
+	@method SAEF_VD_fnc_HeightBasedViewDistance
+	@file fn_HeightBasedViewDistance.sqf
+	@summary Monitors player height above Terrain and modifies their view distance accordingly, the higher you are, the higher your view distance. This is to help mitigate FPS impact when descending into a town, as an airborne vehicle.
+
+	@usages ```
+	How to call: 
+		[
+			_fixedCeiling		// (Optional) The height at which the view distance max will be reached
+		] spawn SAEF_VD_fnc_HeightBasedViewDistance;
+	``` @endusages
+
+**/
+
+
 /*
 	fn_HeightBasedViewDistance.sqf
 

@@ -1,3 +1,14 @@
+/**
+	@namespace RS
+	@class Admin
+	@method RS_fnc_Admin_MissionMakerHelper
+	@file fn_Admin_MissionMakerHelper.sqf
+	@summary Hints out a bunch of useful information to the mission maker to let them know if something is missing.
+	@param array _objects
+	@param array _markers
+	@param array _systems
+**/
+
 /*
 	fn_Admin_MissionMakerHelper.sqf
 	Description: Hints out a bunch of useful information to the mission maker to let them know if something is missing

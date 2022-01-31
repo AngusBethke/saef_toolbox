@@ -1,3 +1,21 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_CreateRiftInteractionTrigger
+	@file fn_CreateRiftInteractionTrigger.sqf
+	@summary Creates a trigger that allows entry or exit from the rift
+
+	@param object _object
+	@param any _control
+	@param any _type
+	@param any _script
+	@param any _trg
+
+	@usages ```
+		[object, _control] call RS_Rift_fnc_CreateRiftInteractionTrigger;	
+	```	@endusages
+**/
+
 /*
 	fn_CreateRiftInteractionTrigger.sqf
 	Description: Creates a trigger that allows entry or exit from the rift

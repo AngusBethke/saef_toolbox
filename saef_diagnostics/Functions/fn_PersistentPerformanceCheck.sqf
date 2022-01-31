@@ -1,3 +1,14 @@
+/**
+	@namespace RS_DIAG
+	@class Diagnostics
+	@method RS_DIAG_fnc_PersistentPerformanceCheck
+	@file fn_PersistentPerformanceCheck.sqf
+	@summary A script that persitently logs server performance, it displays AI unit numbers, player numbers, and server fps.
+
+	@param ?int _time Time in seconds for the persistent performance check to run
+
+**/
+
 /*
 	fn_PersistentPerformanceCheck.sqf
 

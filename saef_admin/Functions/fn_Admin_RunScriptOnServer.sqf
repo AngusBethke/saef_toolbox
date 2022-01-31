@@ -1,3 +1,13 @@
+/**
+	@namespace RS
+	@class Admin
+	@method RS_fnc_Admin_RunScriptOnServer
+	@file fn_Admin_RunScriptOnServer.sqf
+	@summary Takes script and parameters and executes it on the server
+	@param array _params
+	@param string _script
+**/
+
 /*
 	Name:			fn_Admin_RunScriptOnServer.sqf
 	Description:	Takes script and parameters and executes it on the server

@@ -1,3 +1,18 @@
+/**
+	@namespace RS_DS
+	@class DynaSpawn
+	@method RS_DS_fnc_TaskPatrol
+	@file fn_TaskPatrol.sqf
+	@summary Creates a patrol route for AI given a set of parameters
+	
+	@param group _group Given group
+	@param position _pos Starting Position
+	@param int _area Size of area
+	@param ?bool _allowWaterCreation Allow waypoints to be created in the water
+	
+
+**/
+
 /*
 	fn_TaskPatrol.sqf
 

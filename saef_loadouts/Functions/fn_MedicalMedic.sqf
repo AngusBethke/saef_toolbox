@@ -1,3 +1,17 @@
+/**
+	@namespace RS_LD
+	@class Loadouts
+	@method RS_LD_fnc_MedicalMedic
+	@file fn_MedicalMedic.sqf
+	@summary Adds the basic medical items for medics that we frequently use to the player's backpack
+	
+	@param unit _unit The unit we're applying the loadout to
+	@param ?bool _isFirstAid Whether or not this is just a first aid slot (and not a full medic)
+
+	@usage ```[_unit, _isFirstAid] call RS_LD_fnc_MedicalMedic;```
+	
+**/
+
 /*
 	fn_MedicalMedic.sqf
 

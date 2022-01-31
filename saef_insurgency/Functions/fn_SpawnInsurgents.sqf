@@ -1,3 +1,19 @@
+/**
+	@namespace RS_INS
+	@class Insurgency
+	@method RS_INS_fnc_SpawnInsurgents
+	@file fn_SpawnInsurgents.sqf
+	@summary Spawns Insurgents within a given area
+	
+	@param position _pos
+	@param int _rad
+	@param int _cnt
+	@param string _cls
+	@param string _ldt
+
+	@usage ```[_loc, _pos, _rad, _cnt, _cls, _ldt] call RS_INS_fnc_SpawnInsurgents;```
+	
+**/
 /*
 	fn_SpawnInsurgents.sqf
 	Description: Spawns Insurgents within a given area

@@ -1,3 +1,18 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Server_AAFire
+	@file fn_Server_AAFire.sqf
+	@summary Forces AA guns to fire/look into the Sky
+	
+	@param unit _unit
+	@param string _phaseVar
+	@param bool _doFire
+
+	@usage ```[_unit, _phaseVar, _doFire] spawn RS_INV_fnc_Server_AAFire;```
+	
+**/
+
 /* 
 	fn_Server_AAFire.sqf 
 	

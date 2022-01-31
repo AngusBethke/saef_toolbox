@@ -1,3 +1,17 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Client_RemoteParaPlane
+	@file fn_Client_RemoteParaPlane.sqf
+	@summary Remote execution handler for player interactions within the plane
+	
+	@param unit _unit
+	@param string _type
+
+	@usage ```[_type, _type] spawn RS_INV_fnc_Client_RemoteParaPlane;```
+	
+**/
+
 /* 
 	fn_Client_RemoteParaPlane.sqf 
 	

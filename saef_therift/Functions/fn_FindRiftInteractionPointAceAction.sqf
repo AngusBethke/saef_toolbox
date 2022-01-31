@@ -1,3 +1,15 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_FindRiftInteractionPointAceAction
+	@file fn_FindRiftInteractionPointAceAction.sqf
+	@summary Adds an ace interaction to enable the rift interaction point BIS_fnc_locationDescription
+	
+	@usages ```
+	[] call RS_Rift_fnc_FindRiftInteractionPointAceAction;
+	```	@endusages
+**/
+
 /*
 	fn_FindRiftInteractionPointAceAction.sqf
 	Description: Adds an ace interaction to enable the rift interaction point locator

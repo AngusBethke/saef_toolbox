@@ -1,3 +1,19 @@
+/**
+	@namespace RS_Radiation
+	@class Radiation
+	@method RS_Radiation_fnc_GetClosestMarker
+	@file fn_GetClosestMarker.sqf
+	@summary Returns the closest marker
+
+	@param array _markerList
+	@param int _size
+
+	@todo _size to in usage?
+
+	@usage ```[_markerList] call RS_Radiation_fnc_GetClosestMarker;```
+
+**/
+
 /*
 	fn_GetClosestMarker.sqf
 	Description: Returns the closest marker

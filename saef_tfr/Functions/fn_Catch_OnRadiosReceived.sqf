@@ -1,3 +1,13 @@
+/**
+	@namespace RS_TFR
+	@class TFR
+	@method RS_TFR_fnc_Catch_OnRadiosReceived
+	@file fn_Catch_OnRadiosReceived.sqf
+	@summary Registers a new TFAR event handler to catch when the radio assignment has finished (this is so that we can override the radios if needed)
+
+	@usage ```[] call RS_TFR_fnc_Catch_OnRadiosReceived;```
+**/
+
 /*
 	fn_Catch_OnRadiosReceived.sqf
 	

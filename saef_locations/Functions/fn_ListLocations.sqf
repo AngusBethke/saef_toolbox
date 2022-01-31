@@ -1,3 +1,13 @@
+/**
+	@namespace RS_LC
+	@class Locations
+	@method RS_LC_fnc_ListLocations
+	@file fn_ListLocations.sqf
+	@summary Returns a list of all town locations on map
+	
+	@returns array Array of Location Objects
+**/
+
 /*
 	fn_ListLocations.sqf
 	Description: Returns a list of all town locations on map

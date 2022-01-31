@@ -1,3 +1,18 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Server_AmbientAirDrop
+	@file fn_Server_AmbientAirDrop.sqf
+	@summary Creates the supplied number of planes that fly over the drop zone to drop empty parachutes.
+	@note This is an effort to create an ambient environment feeling of a larger airborne invasion.
+	
+	@param int _planeCount
+	@param string _phaseVar
+
+	@usage ```[_planeCount, _phaseVar] spawn RS_INV_fnc_Server_AmbientAirDrop;```
+	
+**/
+
 /* 
 	fn_Server_AmbientAirDrop.sqf
 	

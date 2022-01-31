@@ -1,3 +1,19 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_RiftControlObjectTimeout
+	@file fn_RiftControlObjectTimeout.sqf
+	@summary Handles control object timeout hints
+
+	@param int _delay
+
+	@usages ```	
+	How to call:
+		[_delay] spawn RS_Rift_fnc_RiftControlObjectTimeout;
+	``` @endusages
+
+**/
+
 /*
 	fn_RiftControlObjectTimeout.sqf
 

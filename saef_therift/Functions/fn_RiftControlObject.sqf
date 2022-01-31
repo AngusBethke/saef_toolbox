@@ -1,3 +1,20 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_RiftControlObject
+	@file fn_RiftControlObject.sqf
+	@summary Turns an object into a rift control object
+
+	@param string _objectString
+	@param ?int _delay
+
+	@usages ```	
+	How to call:
+		[_objectString, _delay] call RS_Rift_fnc_RiftControlObject;
+	``` @endusages
+
+**/
+
 /*
 	fn_RiftControlObject.sqf
 

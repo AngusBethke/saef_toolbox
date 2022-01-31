@@ -1,3 +1,12 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_Init
+	@file fn_Init.sqf
+	@summary Initialise
+
+**/
+
 /*
 	fn_Init.sqf
 	Description: Initialise

@@ -1,3 +1,13 @@
+/**
+	@namespace RS
+	@class PreventFullHeal
+	@method RS_fnc_PFH_ServerDamageDistribution
+	@file fn_PFH_ServerDamageDistribution.sqf
+	@summary Tells the server to call a client and prevent healing from occuring. The reason I am doing this is because client to client communication appears to be unreliable.
+	@param object _target
+	@param any _selectionName
+**/
+
 /*
 	fn_PFH_ServerDamageDistribution.sqf
 	Description: Tells the server to call a client and prevent healing from occuring.

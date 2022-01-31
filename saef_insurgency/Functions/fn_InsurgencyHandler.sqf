@@ -1,3 +1,18 @@
+/**
+	@namespace RS_INS
+	@class Insurgency
+	@method RS_INS_fnc_InsurgencyHandler
+	@file fn_InsurgencyHandler.sqf
+	@summary Controls creation of insurgency zones and preps unit spawners
+	
+	@param bool _enableIEDs
+	@param bool _enableChcs
+
+	@todo _enableChcs is not in use?
+
+	@usage ```[true, false] call RS_INS_fnc_InsurgencyHandler;```
+	
+**/
 /*
 	fn_InsurgencyHandler.sqf
 	Description: Controls creation of insurgency zones and preps unit spawners

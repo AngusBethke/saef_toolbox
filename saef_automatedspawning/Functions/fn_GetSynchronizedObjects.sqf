@@ -1,3 +1,12 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_GetSynchronizedObjects
+	@file fn_GetSynchronizedObjects.sqf
+	@summary Gets synchronised objects and takes into account the 3DEN editor
+	@param object _object The object
+**/
+
 /* 
 	fn_GetSynchronizedObjects.sqf
 

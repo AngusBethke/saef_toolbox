@@ -1,3 +1,10 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_ExportConfig
+	@file fn_ExportConfig.sqf
+	@summary Export the area config to clipboard
+**/
 /*
 	fn_ExportConfig.sqf
 

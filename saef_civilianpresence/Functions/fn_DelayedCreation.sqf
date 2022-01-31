@@ -1,3 +1,20 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@method RS_CP_fnc_DelayedCreation
+	@file fn_DelayedCreation.sqf
+	@summary Holds creation of the civ presence zone until players are near it
+
+	@param any _locationPos
+	@param any _debug
+	@param any _createdCode
+	@param any _deletedCode
+	@param any _useAgents
+	@param any _usePanicMode
+	@param any _whiteList
+	@param any _unitTypes
+    
+**/
 /*
 	fn_DelayedCreation.sqf
 

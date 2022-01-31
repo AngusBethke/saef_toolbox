@@ -1,3 +1,15 @@
+/**
+	@namespace RS_INS
+	@class Insurgency
+	@method RS_INS_fnc_PlaceIeds
+	@file fn_PlaceIeds.sqf
+	@summary Places Ieds on roads in a given radius.
+	
+	@param position _pos
+	@param radius _rad
+	
+**/
+
 /*
 	fn_PlaceIeds.sqf
 	Description: Places Ieds on roads in a given radius.

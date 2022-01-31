@@ -1,3 +1,14 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_UpdateAiCount
+	@file fn_UpdateAiCount.sqf
+	@summary Updates the staged AI count so that we don't accidentally offload all AI to one headless
+
+	@param object _target Target to update
+	@param int _updateCount Number of units to update
+	@param ?iboolnt _addition Whether to add or subtract the count
+**/
 /*
 	fn_UpdateAiCount.sqf
 

@@ -1,3 +1,17 @@
+/**
+	@namespace SAEF_AI
+	@class AI
+	@method SAEF_AI_fnc_PhysicalArtillery
+	@file fn_PhysicalArtillery.sqf
+	@summary Gets specified vehicles to fire at a given location with a specified amount of rounds
+
+	@param array _vehicles Vehicles that are firing at these positions
+	@param array _positions Positions being fired at
+	@param int _rounds Number of rounds fired per position
+	@param ?string _shellType (Optional) Type of shell to fire in the salvo
+	@param ?float _spread (Optional) The spread in meters for the artillery target
+**/
+
 /*
 	fn_PhysicalArtillery.sqf
 

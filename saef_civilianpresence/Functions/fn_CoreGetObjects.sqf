@@ -1,3 +1,18 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@method RS_CP_fnc_CoreGetobjects
+	@file fn_CoreGetobjects.sqf
+	@summary Returns linked objects
+
+	@param object _module
+	@param string _objectType
+
+    @return array Returns linked objects
+
+	@note Originally Developed by Bohemia interactive
+**/
+
 #include "\A3\modules_F_Tacops\Ambient\CivilianPresence\defines.inc"
 
 /*

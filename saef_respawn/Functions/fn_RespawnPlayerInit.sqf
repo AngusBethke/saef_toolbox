@@ -1,3 +1,12 @@
+/**
+	@namespace RS
+	@class Respawn
+	@method RS_fnc_RespawnPlayerInit
+	@file fn_RespawnPlayerHandler.sqf
+	@summary Adds player event handlers for respawn
+
+**/
+
 #include "\a3\ui_f\hpp\defineDIKCodes.inc"
 
 /*

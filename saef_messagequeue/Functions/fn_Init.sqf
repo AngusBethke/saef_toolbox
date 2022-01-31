@@ -1,3 +1,13 @@
+/**
+	@namespace RS_MQ
+	@class MessageQueue
+	@method RS_MQ_fnc_Init
+	@file fn_Init.sqf
+	@summary Initialises necessary functions for the Message Queue
+
+**/
+
+
 /*
 	fn_Init.sqf
 	Description: Initialises necessary functions for the Message Queue

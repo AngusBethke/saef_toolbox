@@ -1,3 +1,17 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@method RS_CP_fnc_GetPositionInfo
+	@file fn_GetPositionInfo.sqf
+	@summary Gets position information about the location
+    
+	@param any _pos
+	@param any _locations
+	@param any _supportedLocations
+
+	@return array
+
+**/
 /*
 	fn_GetPositionInfo.sqf
 	Description: Gets position information about the location

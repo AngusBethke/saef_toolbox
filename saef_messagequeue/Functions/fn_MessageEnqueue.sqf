@@ -1,3 +1,22 @@
+/**
+	@namespace RS_MQ
+	@class MessageQueue
+	@method RS_MQ_fnc_MessageEnqueue
+	@file fn_MessageEnqueue.sqf
+	@summary Adds a message to the given queue
+
+	@param string _queueName
+	@param arrau _params
+	@param string _script
+	@param ?bool _validation
+	@param ?object _target
+	@param ?int _evaluationParameterIndex
+	@param ?code _updateFunction
+
+	@usage ```[_queueName, _params, _script] call RS_MQ_fnc_MessageEnqueue;```
+
+**/
+
 /*
 	fn_MessageEnqueue.sqf
 

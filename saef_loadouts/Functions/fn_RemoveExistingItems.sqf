@@ -1,3 +1,16 @@
+/**
+	@namespace RS_LD
+	@class Loadouts
+	@method RS_LD_fnc_RemoveExistingItems
+	@file fn_RemoveExistingItems.sqf
+	@summary Will remove all existing items ahead of the rest of the loadout being applied
+	
+	@param unit _unit The unit we're applying the loadout to
+
+	@usage ```[_unit] call RS_LD_fnc_RemoveExistingItems;```
+	
+**/
+
 /*
 	fn_RemoveExistingItems.sqf
 

@@ -1,3 +1,17 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_ModuleSpawnAreaVehicle
+	@file fn_ModuleSpawnAreaVehicle.sqf
+	@summary Handles module functionality for spawn areas
+
+	@param object _logic
+	@param array _units
+	@param bool _activated
+	@param bool _fromQueue
+
+	@todo Empty script? Strange.
+**/
 /*
 	fn_ModuleSpawnAreaVehicle.sqf
 

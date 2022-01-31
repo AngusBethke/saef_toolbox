@@ -1,3 +1,16 @@
+/**
+	@namespace SAEF_VEH
+	@class RearmAndRepair
+	@method SAEF_VEH_fnc_RnR_AddToInitQueue
+	@file fn_RnR_AddToInitQueue.sqf
+	@summary Adds the given parameters to our queue variable for later initialisation
+
+	@param string _vehString
+	@param string _objString
+	@param string _vehType
+
+**/
+
 /*
 	fn_RnR_AddToInitQueue.sqf
 

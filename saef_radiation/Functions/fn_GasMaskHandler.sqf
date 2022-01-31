@@ -1,3 +1,16 @@
+/**
+	@namespace RS_Radiation
+	@class Radiation
+	@method RS_Radiation_fnc_GasMaskHandler
+	@file fn_GasMaskHandler.sqf
+	@summary Handles hiding and showing of the gasmask
+
+	@param unit _unit
+
+	@usage ```[_unit] spawn RS_Radiation_fnc_GasMaskHandler;```
+
+**/
+
 /*
 	fn_GasMaskHandler.sqf
 	Description: Handles hiding and showing of the gasmask

@@ -1,3 +1,14 @@
+/**
+	@namespace RS_INS
+	@class Insurgency
+	@method RS_INS_fnc_SwitchToInsurgent
+	@file fn_SwitchToInsurgent.sqf
+	@summary Will switch the all the units to an insurgent if they meet the required conditions
+	
+	@usage ```[] call RS_INS_fnc_SwitchToInsurgent;```
+	
+**/
+
 /*
 	fn_SwitchToInsurgent.sqf
 	Description: Will switch the all the units to an insurgent if they meet the required conditions

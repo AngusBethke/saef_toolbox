@@ -1,3 +1,15 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@method RS_CP_fnc_CoreHandleUnits
+	@file fn_CoreHandleUnits.sqf
+	@summary Monitor number of units and spawn / delete some as needed
+
+	@param object _module
+    
+	@note Originally Developed by Bohemia interactive
+**/
+
 #include "\A3\modules_F_Tacops\Ambient\CivilianPresence\defines.inc"
 
 /*

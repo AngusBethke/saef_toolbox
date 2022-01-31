@@ -1,3 +1,18 @@
+/**
+	@namespace SAEF_VEH
+	@class RearmAndRepair
+	@method SAEF_VEH_fnc_RnR_Respawn
+	@file fn_RnR_Respawn.sqf
+	@summary Respawns the Vehicle
+
+	@param string _vehString
+	@param object _object
+	@param string _vehType
+	@param ?array _additionalScripts
+
+**/
+
+
 /*
 	fn_RnR_Respawn.sqf
 

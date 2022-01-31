@@ -1,3 +1,16 @@
+/**
+	@namespace RS_ST
+	@class StatTrack
+	@method RS_ST_fnc_Incrementer
+	@file fn_Incrementer.sqf
+	@summary Adds given increment to given variable
+
+	@param string _variable
+	@param string _value
+	@param ?bool _pureValue
+
+**/
+
 /*
 	fn_Incrementer.sqf
 	Description: Adds given increment to given variable

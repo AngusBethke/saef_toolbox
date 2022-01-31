@@ -1,3 +1,19 @@
+/**
+	@namespace RS_Radiation
+	@class Radiation
+	@method RS_Radiation_fnc_ChemicalDetector
+	@file fn_ChemicalDetector.sqf
+	@summary Handles the chemical detector's display value
+
+	@param array _markerList
+	@param int _size
+	@param unit _unit
+	@param string _variable
+
+	@usage ```[_markerList, _size, _unit, _variable] spawn RS_Radiation_fnc_ChemicalDetector;```
+
+**/
+
 /*
 	fn_ChemicalDetector.sqf
 	Description: Handles the chemical detector's display value

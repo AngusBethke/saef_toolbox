@@ -1,3 +1,13 @@
+/**
+	@namespace SAEF_VD
+	@class ViewDistance
+	@method SAEF_VD_fnc_ViewDistance
+	@file fn_ViewDistance.sqf
+	@summary Handles View Distance and the settings for all connected clients and the server
+
+	@usage ```[] call SAEF_VD_fnc_ViewDistance;```
+**/
+
 /*
 	fn_ViewDistance.sqf
 

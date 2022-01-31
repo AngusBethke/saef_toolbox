@@ -1,3 +1,18 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Client_MoveIn
+	@file fn_Client_MoveIn.sqf
+	@summary Moves the unit into the plane
+	
+	@param string _type
+	@param unit _unit
+	@param array _scripts
+
+	@usage ```[_type, _unit, _scripts] call RS_INV_fnc_Client_MoveIn;```
+	
+**/
+
 /* 
 	fn_Client_MoveIn.sqf 
 	

@@ -1,3 +1,14 @@
+/**
+	@namespace RS_PLYR
+	@class PlayerFunctions
+	@method RS_PLYR_fnc_TogglePlayerHud
+	@file fn_TogglePlayerHud.sqf
+	@summary Adds ACE Action to Player to allow them to toggle their Hud
+
+	@usage ```[] call RS_PLYR_fnc_TogglePlayerHud;```
+
+**/
+
 /*
 	fn_TogglePlayerHud.sqf
 

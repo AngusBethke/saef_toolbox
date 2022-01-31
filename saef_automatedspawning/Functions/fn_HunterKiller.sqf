@@ -1,3 +1,23 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_HunterKiller
+	@file fn_HunterKiller.sqf
+	@summary Will create a Hunter Killer squad at the position specified based on the input parameters.
+
+	@param pos _position						Position array, the position to spawn the group
+	@param string _unitVar						Variable pointer to stored unit array
+	@param string _sideVar						Variable pointer to stored unit side
+	@param int _count							Number of units to spawn
+	@param int _area							Size of the area we are dealing with
+	@param ?code _groupCode						Code to run against the group
+	@param ?string _respawnVariable				Variable that handles whether or not this group should be continuosly respawned
+	@param ?string _paraVariable				Variable pointer to stored air vehicle array
+	@param ?int _respawnTime					How long it takes for the group to respawn
+	@param ?array _customScripts				String scripts for execution against spawned groups
+	@param ?code _queueValidation				Condition passed to the Message Queue to evaluate message for processing
+	@param ?string _customPositionTag			Tag to help determine the custom spawn position for the Hunter Killer group
+**/
 /* 
 	fn_HunterKiller.sqf
 

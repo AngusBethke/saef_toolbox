@@ -1,3 +1,19 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_RiftDamageHandler
+	@file fn_RiftDamageHandler.sqf
+	@summary Handles damage taken while in the rift
+
+	@param unit _unit
+
+	@usages ```	
+	[_unit] spawn RS_Rift_fnc_RiftDamageHandler;
+	``` @endusages
+
+**/
+
+
 /*
 	fn_RiftDamageHandler.sqf
 	Description: Handles damage taken while in the rift

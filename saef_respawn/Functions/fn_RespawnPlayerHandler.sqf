@@ -1,3 +1,14 @@
+/**
+	@namespace RS
+	@class Respawn
+	@method RS_fnc_RespawnPlayerHandler
+	@file fn_RespawnPlayerHandler.sqf
+	@summary Allows an admin user to forcefully respawn players
+
+	@param any _adminUtilsParent
+
+**/
+
 /*
 	fn_RespawnPlayerHandler.sqf
 

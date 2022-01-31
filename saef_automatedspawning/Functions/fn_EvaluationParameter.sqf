@@ -1,3 +1,11 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_EvaluationParameter
+	@file fn_EvaluationParameter.sqf
+	@summary Returns the index of the parameter we're interested in
+	@param object _function
+**/
 /*
 	fn_EvaluationParameter.sqf
 

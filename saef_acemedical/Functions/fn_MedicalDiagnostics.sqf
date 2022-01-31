@@ -1,3 +1,13 @@
+/**
+	@namespace RS
+	@class PreventFullHeal
+	@method RS_fnc_MedicalDiagnostics
+	@file fn_MedicalDiagnostics.sqf
+	@summary Allows medics to check if a player currently has any injuries that are not obvious
+	@param object _patient The patient to check
+	@return string The formatted string with all diagnostics
+**/
+
 // Gain access to variables
 #include "\z\ace\addons\medical_treatment\script_component.hpp"
 

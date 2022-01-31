@@ -1,3 +1,15 @@
+/**
+	@namespace RS_DS
+	@class DynaSpawn
+	@method RS_DS_fnc_Garrison
+	@file fn_Garrison.sqf
+	@summary Garrisons Units in Building Positions in a given radius
+
+	@param array _pos
+	@param int _rad
+	@param group _group
+	
+**/
 /* 
 	fn_Garrison.sqf
 	Author: Angus Bethke

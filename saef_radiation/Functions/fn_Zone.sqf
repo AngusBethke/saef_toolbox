@@ -1,3 +1,14 @@
+/**
+	@namespace RS_Radiation
+	@class Radiation
+	@method RS_Radiation_fnc_Zone
+	@file fn_Zone.sqf
+	@summary Handles the radiation zone
+
+	@usage ```[] call RS_Radiation_fnc_Zone;```
+
+**/
+
 /*
 	fn_Zone.sqf
 	Description: Handles the radiation zone

@@ -1,3 +1,13 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_ConfigCore3DENValidation
+	@file fn_ConfigCore3DENValidation.sqf
+	@summary Validates all the core modules
+
+	@TODO: check params / Return
+**/
+
 /* 
 	fn_ConfigCore3DENValidation.sqf
 

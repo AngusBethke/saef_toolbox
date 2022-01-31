@@ -1,3 +1,17 @@
+/**
+	@namespace RS_LD
+	@class Loadouts
+	@method RS_LD_fnc_FilterGearPool
+	@file fn_FilterGearPool.sqf
+	@summary Filters the gear pool based on DLC that the user owns
+	
+	@param array _randomGearPool Pool of gear to be filtered (array of classnames)
+
+	@usage ```[_randomGearPool] call RS_LD_fnc_FilterGearPool```
+
+	
+**/
+
 /*
 	fn_FilterGearPool.sqf
 

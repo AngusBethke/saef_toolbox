@@ -1,3 +1,15 @@
+/**
+	@namespace RS_LC
+	@class Locations
+	@method RS_LC_fnc_InBuilding
+	@file fn_InBuilding.sqf
+	@summary Returns a boolean value and the building based on whether or not a passed position is inside a building
+	
+	@param position _position
+	
+	@returns array [_inside, _building] 
+**/
+
 /*	
 	fn_InBuilding.sqf
 

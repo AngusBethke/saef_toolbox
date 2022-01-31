@@ -1,3 +1,17 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Server_AmbientAirDropPara
+	@file fn_Server_AmbientAirDropPara.sqf
+	@summary Spawns the parachutes for the Ambient Air Drop Process
+	
+	@param object _plane
+	@param position _position
+
+	@usage ```[_plane, _position] spawn RS_INV_fnc_Server_AmbientAirDropPara;```
+	
+**/
+
 /* 
 	fn_Server_AmbientAirDropPara.sqf 
 	

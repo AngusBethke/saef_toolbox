@@ -1,3 +1,16 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Client_MountPlayer
+	@file fn_Client_MountPlayer.sqf
+	@summary Handles the spawning of the plane, and assigning units to the plane.
+	
+	@param string _functionLockVariable
+
+	@usage ```This must be executed from inside of an action```
+	
+**/
+
 /* 
 	fn_Client_MountPlayer.sqf
 	

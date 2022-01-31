@@ -1,3 +1,12 @@
+/**
+	@namespace RS_ST
+	@class StatTrack
+	@method RS_ST_fnc_InitStatTrack
+	@file fn_InitStatTrack.sqf
+	@summary Sets up all the Variables required for StatTrack
+
+**/
+
 /*
 	fn_InitStatTrack.sqf
 	Description: Sets up all the Variables required for StatTrack

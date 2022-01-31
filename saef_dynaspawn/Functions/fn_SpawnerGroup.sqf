@@ -1,3 +1,25 @@
+/**
+	@namespace RS_DS
+	@class DynaSpawn
+	@method RS_DS_fnc_SpawnerGroup
+	@file fn_SpawnerGroup.sqf
+	@summary Handles the spawning of AI and waypoint creation for Dyna Spawn using the variables passed to it.
+	
+	@param position _spawnPos
+	@param side _facSide
+	@param any _faction
+	@param string _type
+	@param string _unitType
+	@param int _area
+	@param position _secondPos
+	@param any _remWeapAttach
+	@param number _azi
+	@param bool _usePara
+	@param any _paraSpawn
+	@param group _group
+
+**/
+
 /*	
 	fn_SpawnerGroup.sqf
 	Author: Angus Bethke

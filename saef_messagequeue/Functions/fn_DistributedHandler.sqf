@@ -1,3 +1,15 @@
+/**
+	@namespace RS_MQ
+	@class MessageQueue
+	@method RS_MQ_fnc_DistributedHandler
+	@file fn_DistributedHandler.sqf
+	@summary Handles message distribution for execution on multiple clients
+	
+	@param string _queueName
+	@param array _evaluationInformation
+
+**/
+
 /*
 	fn_DistributedHandler.sqf
 

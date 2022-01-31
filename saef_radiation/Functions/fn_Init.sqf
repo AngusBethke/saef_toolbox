@@ -1,3 +1,12 @@
+/**
+	@namespace RS_Radiation
+	@class Radiation
+	@method RS_Radiation_fnc_Init
+	@file fn_Init.sqf
+	@summary Initialise
+
+**/
+
 /*
 	fn_Init.sqf
 	Description: Initialise

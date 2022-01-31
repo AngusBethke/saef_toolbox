@@ -1,3 +1,13 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@method RS_CP_fnc_AddCustomLocations
+	@file fn_AddCustomLocations.sqf
+	@summary Creates any custom locations before Civilian Presence needs them
+
+	@param int _customLocationString
+
+**/
 /*
 	fn_AddCustomLocations.sqf
 	Description: Creates any custom locations before Civilian Presence needs them

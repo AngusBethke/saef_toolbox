@@ -1,3 +1,22 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_CreateRiftInteractionPoint
+	@file fn_CreateRiftInteractionPoint.sqf
+	@summary Creates position where a player can interact with the rift
+
+	@param object _startObject
+	@param string _type
+	@param any _way
+
+	@usages 
+		```
+		[this, "CTRL"] call RS_Rift_fnc_CreateRiftInteractionPoint;
+		[this, "UCTRL", 1] call RS_Rift_fnc_CreateRiftInteractionPoint;
+		```
+	@endusages
+**/
+
 /*
 	fn_CreateRiftInteractionPoint.sqf
 

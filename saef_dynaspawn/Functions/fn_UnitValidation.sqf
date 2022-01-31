@@ -1,3 +1,15 @@
+/**
+	@namespace RS_DS
+	@class DynaSpawn
+	@method RS_DS_fnc_UnitValidation
+	@file fn_UnitValidation.sqf
+	@summary Determines whether the variable passed is a Valid Group or Vehicle
+	
+	@param any _var
+	
+	@return array Array (Valid - Boolean, Type - String)
+**/
+
 /*
 	fn_UnitValidation.sqf
 	Author: Angus Bethke

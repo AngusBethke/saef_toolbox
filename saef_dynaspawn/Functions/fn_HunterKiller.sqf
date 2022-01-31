@@ -1,3 +1,16 @@
+/**
+	@namespace RS_DS
+	@class DynaSpawn
+	@method RS_DS_fnc_HunterKiller
+	@file fn_HunterKiller.sqf
+	@summary Uses a passed group and area of operation to create waypoints for AI that continously hunt the nearest player to them.
+	
+	@param group _groupHunt
+	@param any _areaOfOperation
+	@param bool _usePara
+	@param position _secondPos
+**/
+
 /*
 	fn_HunterKiller.sqf
 	Author: Angus Bethke

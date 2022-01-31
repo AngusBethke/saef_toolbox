@@ -1,3 +1,13 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_ConfigCoreValidation
+	@file fn_ConfigCoreValidation.sqf
+	@summary Validates the core module
+	@param any _logic
+	@param any _tag
+**/
+
 /* 
 	fn_ConfigCoreValidation.sqf
 

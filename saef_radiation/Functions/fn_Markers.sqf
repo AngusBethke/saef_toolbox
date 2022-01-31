@@ -1,3 +1,14 @@
+/**
+	@namespace RS_Radiation
+	@class Radiation
+	@method RS_Radiation_fnc_Markers
+	@file fn_Markers.sqf
+	@summary Handles the showing/hiding of radiation zone markers
+
+	@usage ```[] call RS_Radiation_fnc_Markers;```
+
+**/
+
 /*
 	fn_Markers.sqf
 	Description: Handles the showing/hiding of radiation zone markers

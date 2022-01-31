@@ -1,3 +1,20 @@
+/**
+	@namespace RS_LD
+	@class Loadouts
+	@method RS_LD_fnc_ReplaceMissingRadio
+	@file fn_ReplaceMissingRadio.sqf
+	@summary Watches the given units inventory for given (optional) amount of time, and if radio is replaced with a different radio, replaces that radio with the right one.
+	
+	@param unit _unit
+	@param string _radio
+	@param ?int _watchTime
+
+	@todo Params not in usage?
+
+	@usage ```[] spawn RS_LD_fnc_ReplaceMissingRadio.sqf;```
+	
+**/
+
 /*
 	fn_ReplaceMissingRadio.sqf
 

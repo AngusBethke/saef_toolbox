@@ -1,3 +1,17 @@
+/**
+	@namespace RS
+	@class Respawn
+	@method RS_fnc_RespawnInformation
+	@file fn_RespawnInformation.sqf
+	@summary Helper function to display information about the current respawn circumstances
+
+	@param ?bool _adminOverride
+	@param ?bool _skipAdminInfo
+
+	@usage ```[] call RS_fnc_RespawnInformation;```
+
+**/
+
 /*
 	fn_RespawnInformation.sqf
 

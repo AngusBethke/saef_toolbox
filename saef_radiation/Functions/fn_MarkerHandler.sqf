@@ -1,3 +1,18 @@
+/**
+	@namespace RS_Radiation
+	@class Radiation
+	@method RS_Radiation_fnc_MarkerHandler
+	@file fn_MarkerHandler.sqf
+	@summary Handles the showing/hiding of radiation zone markers
+
+	@param unit _unit
+	@param array _markerList
+	@param int _size
+
+	@usage ```[_unit, _markerList, _size] call RS_Radiation_fnc_MarkerHandler;```
+
+**/
+
 /*
 	fn_MarkerHandler.sqf
 	Description: Handles the showing/hiding of radiation zone markers

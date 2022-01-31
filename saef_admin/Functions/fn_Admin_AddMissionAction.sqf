@@ -1,3 +1,15 @@
+/**
+	@namespace RS
+	@class Admin
+	@method RS_fnc_Admin_AddMissionAction
+	@file fn_Admin_AddMissionAction.sqf
+	@summary Generic function that gives ability to add additional mission functions to our Admin Utilities Ace Interaction Menu
+	@param any _parameters
+	@param any _script
+	@param any _desc
+	@param any _server
+**/
+
 /*
 	Name:			fn_Admin_AddMissionAction.sqf
 	Description:	Generic function that gives ability to add additional mission functions to our Admin Utilities Ace Interaction Menu

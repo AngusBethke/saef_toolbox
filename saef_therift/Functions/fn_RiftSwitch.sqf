@@ -1,3 +1,12 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_RiftSwitch
+	@file fn_RiftSwitch.sqf
+	@summary Handles function execution when switching through the rift
+
+**/
+
 /*
 	fn_RiftSwitch.sqf
 	Description: Handles function execution when switching through the rift

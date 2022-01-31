@@ -1,3 +1,13 @@
+/**
+	@namespace RS
+	@class Respawn
+	@method RS_fnc_RespawnHints
+	@file fn_RespawnHints.sqf
+	@summary Lets the players know that respawn is enabled or disabled via hints
+
+
+**/
+
 /*
 	fn_RespawnHints.sqf
 	Description: Lets the players know that respawn is enabled or disabled via hints

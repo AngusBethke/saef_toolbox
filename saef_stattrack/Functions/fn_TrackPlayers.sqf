@@ -1,3 +1,12 @@
+/**
+	@namespace RS_ST
+	@class StatTrack
+	@method RS_ST_fnc_TrackPlayers
+	@file fn_TrackPlayers.sqf
+	@summary Log players who have joined the server, with their names and UID
+
+**/
+
 /*
 	fn_TrackPlayers.sqf
 	Description: Log players who have joined the server, with their names and UID

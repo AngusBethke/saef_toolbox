@@ -1,3 +1,23 @@
+/**
+	@namespace RS_LD
+	@class Loadouts
+	@method RS_LD_fnc_StandardItems
+	@file fn_StandardItems.sqf
+	@summary Adds the standard items that we commonly include in loadouts
+	
+	@param unit _unit The unit we're applying the loadout to
+	@param ?bool _excludeWatch Whether or not to exclude the watch
+	@param ?bool _excludeMap Whether or not to exclude the map
+	@param ?bool _excludeCompass Whether or not to exclude the compass
+	@param ?bool _excludeGPS Whether or not to exclude the gps
+	@param ?bool _excludeRadio Whether or not to exclude the radio
+	@param ?bool _itemOverrides Override default items
+	@param ?bool _watchRadioHelper Whether or not to use the watch radio helper
+
+	@usage ```[_unit, _excludeWatch, _excludeMap, _excludeCompass, _excludeGPS, _excludeRadio, _itemOverrides, _watchRadioHelper] call RS_LD_fnc_StandardItems;```
+	
+**/
+
 /*
 	fn_StandardItems.sqf
 

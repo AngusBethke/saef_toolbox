@@ -1,3 +1,13 @@
+/**
+	@namespace RS
+	@class Respawn
+	@method RS_fnc_ModuleRespawn
+	@file fn_ModuleRespawn.sqf
+	@summary Handles module functionality for physical artillery
+
+
+**/
+
 /*
 	fn_ModuleRespawn.sqf
 

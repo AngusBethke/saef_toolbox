@@ -1,3 +1,14 @@
+/**
+	@namespace RS_DS
+	@class DynaSpawn
+	@method RS_DS_fnc_GetClosePositionInBuilding
+	@file fn_GetClosePositionInBuilding.sqf
+	@summary Given a position returns the closest building position to that (if it's in a building)
+
+	@param array _position
+	
+	@return array _newPosition
+**/
 /*
 	fn_GetClosePositionInBuilding.sqf
 

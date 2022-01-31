@@ -1,3 +1,14 @@
+/**
+	@namespace SAEF_AB
+	@class AmbientVoices
+	@method SAEF_AB_fnc_Voices
+	@file fn_Voices.sqf
+	@summary Plays some custom voices from Menwar (Men of War: Assault Squad 2) in our WW2 Arma Missions
+
+	@param string _faction Any other entered string will result in the end of the script and an error message
+	@param int _time Any integer smaller than 30 will be defaulted to 30 seconds
+**/
+
 /*
 	fn_Voices.sqf
 	Author: Fritz

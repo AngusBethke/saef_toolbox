@@ -1,3 +1,13 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@method RS_CP_fnc_UnitTypeHandler
+	@file fn_UnitTypeHandler.sqf
+	@summary Updates the unit type continuosly so that they can be changed mid-mission if necessary
+	
+	@param unit _unit
+
+**/
 /*
 	fn_UnitTypeHandler.sqf
 	Description: Updates the unit type continuosly so that they can be changed mid-mission if necessary

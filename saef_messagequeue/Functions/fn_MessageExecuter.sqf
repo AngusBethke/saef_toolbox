@@ -1,3 +1,18 @@
+/**
+	@namespace RS_MQ
+	@class MessageQueue
+	@method RS_MQ_fnc_MessageExecuter
+	@file fn_MessageExecuter.sqf
+	@summary Executes all given messages
+
+	@param string _messageId
+	@param array _params
+	@param string _script
+	@param string _queueName
+	@param bool _validation
+
+**/
+
 /*
 	fn_MessageExecuter.sqf
 	Description: Executes all given messages

@@ -1,3 +1,16 @@
+/**
+	@namespace RS_Radiation
+	@class Radiation
+	@method RS_Radiation_fnc_GasMaskSound
+	@file fn_GasMaskSound.sqf
+	@summary Handles gasmask sounds
+
+	@param unit _unit
+
+	@usage ```[_unit] spawn RS_Radiation_fnc_GasMaskSound;```
+
+**/
+
 /*
 	fn_GasMaskSound.sqf
 	Description: Handles gasmask sounds

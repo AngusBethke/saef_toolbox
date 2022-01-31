@@ -1,3 +1,13 @@
+/**
+	@namespace RS_DS
+	@class DynaSpawn
+	@method RS_DS_fnc_DynamicGarrisonHandler
+	@file fn_DynamicGarrisonHandler.sqf
+	@summary Handles distribution of Dynamic Garrison to the group members
+
+	@param group _group
+
+**/
 /*
 	fn_DynamicGarrisonHandler.sqf
 

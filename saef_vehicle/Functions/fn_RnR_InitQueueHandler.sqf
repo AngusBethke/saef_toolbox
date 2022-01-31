@@ -1,3 +1,12 @@
+/**
+	@namespace SAEF_VEH
+	@class RearmAndRepair
+	@method SAEF_VEH_fnc_RnR_InitQueueHandler
+	@file fn_RnR_InitQueueHandler.sqf
+	@summary Handles the initialisation queue for this toolset
+
+**/
+
 /*
 	fn_RnR_InitQueueHandler.sqf
 

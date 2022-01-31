@@ -1,3 +1,12 @@
+/**
+	@namespace RS
+	@class Admin
+	@method RS_fnc_Admin_CreateRespawnPos
+	@file fn_Admin_CreateRespawnPos.sqf
+	@summary Adds Action to Player for Admin Utilities
+	@param any _unit
+**/
+
 /*
 	Name:			fn_Admin_CreateRespawnPos.sqf
 	Description:	Adds Action to Player for Admin Utilities

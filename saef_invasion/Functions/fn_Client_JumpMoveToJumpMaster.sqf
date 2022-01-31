@@ -1,3 +1,17 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Client_JumpMoveToJumpMaster
+	@file fn_Client_JumpMoveToJumpMaster.sqf
+	@summary Moves the unit to the jump master position in the plane
+	
+	@param object _plane
+	@param unit _unit
+
+	@usage ```[_plane, _unit] call RS_INV_fnc_Client_JumpMoveToJumpMaster;```
+	
+**/
+
 /*
 	fn_Client_JumpMoveToJumpMaster.sqf
 	

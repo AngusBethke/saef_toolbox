@@ -1,3 +1,12 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@file XEH_preInit.sqf
+	@summary Adds the CBA settings for Civilian Presence
+	
+	@param unit _unit
+
+**/
 /*
 	XEH_preInit.sqf
 

@@ -1,3 +1,17 @@
+/**
+	@namespace RS
+	@class Respawn
+	@method RS_fnc_Handler_WaveRespawn_PenaltyHandler
+	@file fn_Handler_WaveRespawn_PenaltyHandler.sqf
+	@summary Handles the wave respawn penalty functionality
+
+	@param ?int _waitTime The time between respawn waves
+	@param ?int _holdTime The time the respawn is held open for
+
+	@usage ```[_waitTime, _holdTime] call RS_fnc_Handler_WaveRespawn;```
+
+**/
+
 /*
 	fn_Handler_WaveRespawn_PenaltyHandler.sqf
 

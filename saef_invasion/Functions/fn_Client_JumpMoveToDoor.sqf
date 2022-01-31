@@ -1,3 +1,17 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Client_JumpMoveToDoor
+	@file fn_Client_JumpMoveToDoor.sqf
+	@summary Handles the clientside portion of the invasion process
+	
+	@param object _plane
+	@param unit _unit
+
+	@usage ```[_plane, _unit] call RS_INV_fnc_Client_JumpMoveToDoor;```
+	
+**/
+
 /*
 	fn_Client_JumpMoveToDoor.sqf
 	

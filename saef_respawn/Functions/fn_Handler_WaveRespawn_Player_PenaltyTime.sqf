@@ -1,3 +1,12 @@
+/**
+	@namespace RS
+	@class Respawn
+	@method RS_fnc_Handler_WaveRespawn_Player_PenaltyTime
+	@file fn_Handler_WaveRespawn_Player_PenaltyTime.sqf
+	@summary Handles the wave respawn player penalty
+
+**/
+
 /*
 	fn_Handler_WaveRespawn_Player_PenaltyTime.sqf
 

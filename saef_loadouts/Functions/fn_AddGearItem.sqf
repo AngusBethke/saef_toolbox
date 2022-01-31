@@ -1,3 +1,19 @@
+/**
+	@namespace RS_LD
+	@class Loadouts
+	@method RS_LD_fnc_AddGearItem
+	@file fn_AddGearItem.sqf
+	@summary Adds the given gear item to the unit with optional randomisation inclusion, will also filter out any unowned DLC
+	
+	@param unit _unit The unit to apply the gear item to
+	@param string _type The type of gear item
+	@param string _gearItem The classname of the item
+	@param ?string _randomisationTag The tag used to add to and source gear from the randomisation pool
+
+	@usage ```[_unit, _type, _items, _count] call RS_LD_fnc_AddBalancedItems;```
+	
+**/
+
 /*
 	fn_AddGearItem.sqf
 

@@ -1,3 +1,17 @@
+/**
+	@namespace RS_TFR
+	@class TFR
+	@method RS_TFR_fnc_JamTfrRadios
+	@file fn_JamTfrRadios.sqf
+	@summary Jams tfar radios if the player has them while in a specific rift state
+
+	@param unit _unit
+	@param string _vrbl
+
+	@usage ```[_unit, _vrbl] spawn RS_TFR_fnc_JamTfrRadios;```
+**/
+
+
 /*
 	fn_JamTfrRadios.sqf
 	Description: Jams tfar radios if the player has them while in a specific rift state

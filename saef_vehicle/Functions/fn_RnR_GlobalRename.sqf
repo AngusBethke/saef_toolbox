@@ -1,3 +1,16 @@
+/**
+	@namespace SAEF_VEH
+	@class RearmAndRepair
+	@method SAEF_VEH_fnc_RnR_GlobalRename
+	@file fn_RnR_GlobalRename.sqf
+	@summary Handles global renaming of vehicle
+
+	@param vehicle _vehicle
+	@param string _vehVarName
+	@param ?bool _isGlobal
+
+**/
+
 /*
 	fn_RnR_GlobalRename.sqf
 

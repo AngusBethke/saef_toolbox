@@ -1,3 +1,13 @@
+/**
+	@namespace RS_DS
+	@class DynaSpawn
+	@method RS_DS_fnc_DynamicGarrison
+	@file fn_DynamicGarrison.sqf
+	@summary Holds the units until players get close, at which point they break the garrison and chase down the players
+
+	@param unit _unit
+
+**/
 /*
 	fn_DynamicGarrison.sqf
 

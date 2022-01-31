@@ -1,3 +1,19 @@
+/**
+	@namespace RS_INV
+	@class Invasion
+	@method RS_INV_fnc_Server_SpawnPlane
+	@file fn_Server_SpawnPlane.sqf
+	@summary Spawns the plane we need to conduct the air drops
+	
+	@param position _strPos
+	@param position _endPos
+	@param position _drpPos
+	@param object _newPlane
+
+	@usage ```[_strPos, _endPos, _drpPos, _newPlane] call RS_INV_fnc_Server_SpawnPlane;```
+	
+**/
+
 /* 
 	fn_Server_SpawnPlane.sqf
 	

@@ -1,3 +1,18 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_CreateRiftInteractionCamera
+	@file fn_CreateRiftInteractionCamera.sqf
+	@summary Creates a camera and links screens to that camera
+
+	@param object _object
+	@param array _objects
+	@param object _focusObject
+	@param object _cam
+
+	@usage ```[_object, _objects, _focusObject] call RS_Rift_fnc_CreateRiftInteractionCamera;```
+**/
+
 /*
 	fn_CreateRiftInteractionCamera.sqf
 	Description: Creates a camera and links screens to that camera

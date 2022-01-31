@@ -1,3 +1,10 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_Init
+	@file fn_Init.sqf
+	@summary Handles initialisation for the Automated Spawning Toolset
+**/
 /*
 	fn_Init.sqf
 

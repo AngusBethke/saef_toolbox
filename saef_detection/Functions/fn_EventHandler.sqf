@@ -1,3 +1,20 @@
+/**
+	@namespace SAEF_Detection
+	@class Detection
+	@method SAEF_Detection_fnc_EventHandler
+	@file fn_Burst.sqf
+	@summary Initialises the Event Handler for Detection
+	
+	@param side _detSide The side(s) of those you want to detect you
+	@param ?bool _envIflc Whether or not the environment influences detection (optional)
+	@param ?int _standVar The standing radius of detection (optional)
+	@param ?int _crouchVar The crouching radius of detection (optional)
+	@param ?int _proneVar The proning radius of detection (optional)
+	@param ?code _condition Code Code that can be used to interrupt processing
+
+	@note Original Author: Fritz
+	@note Modified by: Angus Bethke
+**/
 /*
 	fn_EventHandler.sqf
 	Description: Initialises the Event Handler for Detection

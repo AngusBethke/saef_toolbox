@@ -1,3 +1,16 @@
+/**
+	@namespace RS_LD
+	@class Loadouts
+	@method RS_LD_fnc_MedicalInfantry
+	@file fn_MedicalInfantry.sqf
+	@summary Adds the basic medical items we frequently use to the player's uniform
+	
+	@param unit _unit The unit we're applying the loadout to
+
+	@usage ```[_unit] call RS_LD_fnc_MedicalInfantry;```
+	
+**/
+
 /*
 	fn_MedicalInfantry.sqf
 

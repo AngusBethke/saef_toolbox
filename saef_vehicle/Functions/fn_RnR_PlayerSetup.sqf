@@ -1,3 +1,16 @@
+/**
+	@namespace SAEF_VEH
+	@class RearmAndRepair
+	@method SAEF_VEH_fnc_RnR_PlayerSetup
+	@file fn_RnR_PlayerSetup.sqf
+	@summary Setups the Rearm and Repair functionality for a given vehicle for the player
+
+	@param string _vehString
+	@param string _objString
+
+**/
+
+
 /*
 	fn_RnR_PlayerSetup.sqf
 

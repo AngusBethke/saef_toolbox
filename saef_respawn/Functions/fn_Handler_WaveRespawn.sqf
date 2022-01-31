@@ -1,3 +1,43 @@
+/**
+	@namespace RS
+	@class Respawn
+	@method RS_fnc_Handler_WaveRespawn
+	@file fn_Handler_WaveRespawn.sqf
+	@summary Handles the wave respawn functionality, enables respawn after x players are dead or an absolute timeout is reached as well as takes into account certain penalty parameters
+
+	@param ?int _minTime The minimum time for respawn
+	@param ?int _maxTime The maximum time for respawn
+	@param ?int _holdTime The time the respawn is held open for
+	@param ?int _playerThresholdForRespawn The amount of players required to force the respawn
+	@param ?int _penaltyTime The base penalty time applied to players for dying
+	@param ?array _classSpecificPenalties An array with penalty indicators to multiply penalties for certain classes
+
+	@notes 
+	```
+	Class Specific Penalties:
+	 _classSpecificPenalties =
+		[
+			[
+				"B_medic_F",		// The class to apply the penalty to
+				0.5					// The penalty factor 1 = 100%, 0.5 = 50%, 2 = 200% etc
+			]
+		];```
+	@endnotes
+
+	@usage
+
+	How to Call:
+		[
+			_minTime,						// Optional: The minimum time for respawn
+			_maxTime,						// Optional: The maximum time for respawn
+			_holdTime,						// Optional: The time the respawn is held open for
+			_playerThresholdForRespawn,		// Optional: The amount of players required to force the respawn
+			_penaltyTime,					// Optional: The base penalty time applied to players for dying
+			_classSpecificPenalties			// Optional: An array with penalty indicators to multiply penalties for certain classes
+		] spawn RS_fnc_Handler_WaveRespawn;
+	@endusage
+**/
+
 /*
 	fn_Handler_WaveRespawn.sqf
 

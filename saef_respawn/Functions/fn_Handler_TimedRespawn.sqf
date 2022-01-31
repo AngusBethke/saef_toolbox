@@ -1,3 +1,17 @@
+/**
+	@namespace RS
+	@class Respawn
+	@method RS_fnc_Handler_TimedRespawn
+	@file fn_Handler_TimedRespawn.sqf
+	@summary Handles the timed respawn functionality (i.e. Enable the respawn every x seconds)
+
+	@param ?int _waitTime The time between respawn waves
+	@param ?int _holdTime The time the respawn is held open for
+
+	@usage ```[_waitTime, _holdTime] spawn RS_fnc_Handler_TimedRespawn;```
+
+**/
+
 /*
 	fn_Handler_TimedRespawn.sqf
 

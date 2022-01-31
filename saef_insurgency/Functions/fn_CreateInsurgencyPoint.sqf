@@ -1,3 +1,15 @@
+/**
+	@namespace RS_INS
+	@class Insurgency
+	@method RS_INS_fnc_CreateInsurgencyPoint
+	@file fn_CreateInsurgencyPoint.sqf
+	@summary Code Executed from inside the InsurgencyHandler Triggers
+	
+	@param location _loc
+	@param bool _enableIEDs
+	
+**/
+
 /*
 	fn_CreateInsurgencyPoint.sqf
 	Description: Code Executed from inside the InsurgencyHandler Triggers

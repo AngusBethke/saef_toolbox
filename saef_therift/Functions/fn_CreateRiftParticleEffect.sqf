@@ -1,3 +1,17 @@
+/**
+	@namespace RS_Rift
+	@class TheRift
+	@method RS_Rift_fnc_CreateRiftParticleEffect
+	@file fn_CreateRiftParticleEffect.sqf
+	@summary Creates a particle effect on a given position
+
+	@param object _object
+
+	@usages ```
+	[object] call RS_Rift_fnc_CreateRiftParticleEffect;
+	```	@endusages
+**/
+
 /*
 	fn_CreateRiftParticleEffect.sqf
 	Description: Creates a particle effect on a given position

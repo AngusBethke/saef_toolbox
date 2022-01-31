@@ -1,3 +1,13 @@
+/**
+	@namespace SAEF_VD
+	@class ViewDistance
+	@method SAEF_VD_fnc_PlayerInit
+	@file fn_PlayerInit.sqf
+	@summary Initialises the scripts for the player
+
+	@usage ```[] call SAEF_VD_fnc_PlayerInit;```
+**/
+
 /*
 	fn_PlayerInit.sqf
 

@@ -1,3 +1,22 @@
+/**
+	@namespace SAEF_AS
+	@class AutomatedSpawning
+	@method SAEF_AS_fnc_Persistence
+	@file fn_Persistence.sqf
+	@summary Handles distance based persistence for all spawner types. It uses recursion to call it's handed script if needed.
+
+	@param array _params					Parameters for function execution
+	@param array _groups						Groups for cleanup
+	@param string _script						Script/Function to be re-queued
+	@param string _variable					ariable to evaluate after checks complete to determine whether or not to re-queue the message
+	@param int _range						How far the players need to be from the area in order for persistence to activate
+	@param array _position					Position array to evaluate for distance from the area
+	@param ?code _playerValidation			Condition passed to GetClosestPlayer to evaluate players for inclusion
+	@param ?code _queueValidation				Condition passed to the Message Queue to evaluate message for processing
+
+	@todo Empty script? Strange.
+	@todo Description says `spawn RS_AS...` when namespace is `SAEF_AS`
+**/
 /* 
 	fn_Persistence.sqf
 

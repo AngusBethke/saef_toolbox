@@ -1,3 +1,14 @@
+/**
+	@namespace RS_DS
+	@class DynaSpawn
+	@method RS_DS_fnc_AddGroupToZeus
+	@file fn_AddGroupToZeus.sqf
+	@summary Adds given group to zeus, should be executed in server locality
+
+	@param group _group
+
+	@note should be executed in server locality
+**/
 /*
 	fn_AddGroupToZeus.sqf
 	Author: Angus Bethke

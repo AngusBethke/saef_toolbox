@@ -1,3 +1,11 @@
+/**
+	@namespace RS
+	@class Admin
+	@method RS_fnc_Admin_AddActions
+	@file fn_Admin_AddActions.sqf
+	@summary Adds Action to Player for Admin Utilities
+**/
+
 /*
 	Name:			fn_Admin_AddActions.sqf
 	Description:	Adds Action to Player for Admin Utilities

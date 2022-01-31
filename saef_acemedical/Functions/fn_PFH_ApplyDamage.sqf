@@ -1,3 +1,13 @@
+/**
+	@namespace RS
+	@class PreventFullHeal
+	@method RS_fnc_PFH_ApplyDamage
+	@file fn_PFH_ApplyDamage.sqf
+	@summary Re-applies damage... Barring some things: we stop bleeding if necessary and we don't re-apply pain
+	@param object _target The objec to apply damage
+	@param string _selectionName The part to re-apply damage
+**/
+
 // Gain access to variables
 #include "\z\ace\addons\medical\script_component.hpp"
 

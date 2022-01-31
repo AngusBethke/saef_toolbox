@@ -1,3 +1,15 @@
+/**
+	@namespace SAEF_Detection
+	@class Detection
+	@method SAEF_Detection_fnc_Init
+	@file fn_Init.sqf
+	@summary Initialises the Detection Function set (to avoid creating multiple event Handlers)
+
+	@todo Doesn't have any params? Possible error?
+
+	@note Original Author: Fritz
+	@note Modified by: Angus Bethke
+**/
 /*
 	fn_Init.sqf
 	Description: Initialises the Detection Function set (to avoid creating multiple event Handlers)

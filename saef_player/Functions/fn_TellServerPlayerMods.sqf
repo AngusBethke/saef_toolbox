@@ -1,3 +1,13 @@
+/**
+	@namespace RS_PLYR
+	@class PlayerFunctions
+	@method RS_PLYR_fnc_TellServerPlayerMods
+	@file fn_TellServerPlayerMods.sqf
+	@summary Gets a list of player mods and logs them on the server, for mod debug purposes.
+
+**/
+
+
 /*
 	fn_TellServerPlayerMods.sqf
 	Description: Gets a list of player mods and logs them on the server, for mod debug purposes.

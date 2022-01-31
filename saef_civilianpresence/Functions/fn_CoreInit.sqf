@@ -1,3 +1,15 @@
+/**
+	@namespace RS_CP
+	@class CivilianPresence
+	@method RS_CP_fnc_CoreInit
+	@file fn_CoreInit.sqf
+	@summary Handles the civilian Presence initialisation
+
+	@param string _moduleString
+	@param bool _activated
+    
+	@note Originally Developed by Bohemia interactive
+**/
 #include "\A3\modules_F_Tacops\Ambient\CivilianPresence\defines.inc"
 
 /*
