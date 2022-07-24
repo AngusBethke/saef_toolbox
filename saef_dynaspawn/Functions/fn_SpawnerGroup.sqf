@@ -78,8 +78,10 @@ if (_unitType == "INF") then
 	{
 		private
 		[
-			"_tempSpawnPos"
+			"_tempSpawnPos",
+			"_unit"
 		];
+
 		_tempSpawnPos = _spawnPos;
 
 		// If we have garrison positions available we're just gonna spawn them right there, less overhead
@@ -96,6 +98,9 @@ if (_unitType == "INF") then
 		};
 
 		_unit setSkill (selectRandom [0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75]);
+
+		// Ensure the AI aren't killed as they load in
+		[_unit] spawn RS_DS_fnc_SpawnProtection;
 
 		if (_type == "GAR") then
 		{
