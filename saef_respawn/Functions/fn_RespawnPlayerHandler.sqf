@@ -75,7 +75,7 @@ while {(missionNamespace getVariable ["SAEF_Respawn_RunPlayerHandler", false])} 
 						{
 							_unit = _x;
 						};
-					} forEach (allPlayers - (entities "HeadlessClient_F"));
+					} forEach ([true, true] call RS_PLYR_fnc_GetTruePlayers);
 
 					if (_unit == objNull) exitWith 
 					{
@@ -104,7 +104,7 @@ while {(missionNamespace getVariable ["SAEF_Respawn_RunPlayerHandler", false])} 
 						{
 							_unit = _x;
 						};
-					} forEach (allPlayers - (entities "HeadlessClient_F"));
+					} forEach ([true, true] call RS_PLYR_fnc_GetTruePlayers);
 
 					if (_unit == objNull) exitWith 
 					{
@@ -128,7 +128,7 @@ while {(missionNamespace getVariable ["SAEF_Respawn_RunPlayerHandler", false])} 
 			// Add the action to the Player
 			[player, 1, _actionParent, _action, true] call ace_interact_menu_fnc_addActionToObject;
 		};
-	} forEach (allPlayers - (entities "HeadlessClient_F"));
+	} forEach ([true, true] call RS_PLYR_fnc_GetTruePlayers);
 
 	player setVariable ["SAEF_ForceRespawn_Player_ActionAdded", _variable, true];
 

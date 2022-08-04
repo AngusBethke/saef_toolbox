@@ -128,7 +128,7 @@ while {(missionNamespace getVariable ["SAEF_Respawn_RunWaveRespawn", false])} do
 		{
 			_countWaitingPlayers = _countWaitingPlayers + 1;
 		};
-	} forEach (allPlayers - (entities "HeadlessClient_F"));
+	} forEach ([true, true] call RS_PLYR_fnc_GetTruePlayers);
 
 	// If we have players awaiting respawn
 	if (_countWaitingPlayers > 0) then

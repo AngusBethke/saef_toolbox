@@ -62,7 +62,7 @@ while {(missionNamespace getVariable ["SAEF_RnR_InitQueueHandler", false])} do
 
 					[_queueName, [_vehString, _objString], "SAEF_VEH_fnc_RnR_PlayerSetup"] remoteExecCall ["RS_MQ_fnc_MessageEnqueue", _player, false];
 				};
-			} forEach (allPlayers - (entities "HeadlessClient_F"));
+			} forEach ([true, true] call RS_PLYR_fnc_GetTruePlayers);
 		} forEach _initQueue;
 	};
 

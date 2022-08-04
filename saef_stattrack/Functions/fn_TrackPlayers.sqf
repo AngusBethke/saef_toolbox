@@ -94,7 +94,7 @@ while {missionNamespace getVariable ["ST_TrackPlayers", false]} do
 			["ST_TotalPlayerCount", 1, true] call RS_ST_fnc_Incrementer;
 		};
 		
-	} forEach (allPlayers - (entities "HeadlessClient_F"));
+	} forEach ([true, true] call RS_PLYR_fnc_GetTruePlayers);
 
 	private
 	[

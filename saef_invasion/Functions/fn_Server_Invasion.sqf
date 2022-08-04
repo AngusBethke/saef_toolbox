@@ -31,7 +31,7 @@ private
 ];
 
 // Cultivate player list
-_allPlayers = allPlayers - (entities "HeadlessClient_F");
+_allPlayers = [] call RS_PLYR_fnc_GetTruePlayers;
 _countSeats = (missionNamespace getVariable ["RS_INV_PlaneSeatCount", 4]);
 _countPlanes = ceil ((count _allPlayers) / _countSeats);
 

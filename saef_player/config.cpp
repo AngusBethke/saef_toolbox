@@ -29,6 +29,7 @@ class CfgFunctions
 			class GetClosestPlayer {};
 			class GetClosestPlayerObject {};
 			class GetMarkerNearPlayer {};
+			class GetTruePlayers {};
 			class TellServerPlayerMods {};
 			class TogglePlayerHud {};
 		};

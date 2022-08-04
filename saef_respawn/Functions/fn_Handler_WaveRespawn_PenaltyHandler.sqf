@@ -76,7 +76,7 @@ while {(missionNamespace getVariable ["SAEF_Respawn_RunWaveRespawn", false]) && 
 
 			[_unit, ["killed", { [] call RS_fnc_Handler_WaveRespawn_Player_PenaltyTime;	}]] remoteExecCall ["addEventHandler", _unit, false];
 		};
-	} forEach (allPlayers - (entities "HeadlessClient_F"));
+	} forEach ([true, true] call RS_PLYR_fnc_GetTruePlayers);
 
 	sleep 60;
 };

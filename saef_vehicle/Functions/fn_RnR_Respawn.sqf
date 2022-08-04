@@ -105,7 +105,7 @@ _checkVar = (format ["SAEF_RnR_Vehicle_%1_Checked", _vehString]);
 {
 	_x params ["_player"];
 	_player setVariable [_checkVar, false, true];
-} forEach (allPlayers - (entities "HeadlessClient_F"));
+} forEach ([true, true] call RS_PLYR_fnc_GetTruePlayers);
 
 hint format ["Vehicle: Respawn Complete..."];
 

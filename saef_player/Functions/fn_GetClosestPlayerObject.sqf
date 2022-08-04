@@ -71,7 +71,7 @@ _distance = _radius;
 			_distance = _newDistance;
 		};
 	};
-} forEach (allPlayers - (entities "HeadlessClient_F"));
+} forEach ([] call RS_PLYR_fnc_GetTruePlayers);
 
 // Returns Closest Player Position Within Given Radius
 _closestPlayer

@@ -57,7 +57,7 @@ if (_hint) then
 				_adminExists = true;
 			};
 		};
-	} forEach (allPlayers - (entities "HeadlessClient_F"));
+	} forEach ([true, true] call RS_PLYR_fnc_GetTruePlayers);
 
 	if (_adminExists) then
 	{
