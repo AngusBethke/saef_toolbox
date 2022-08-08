@@ -37,7 +37,7 @@ _type = _this select 1;
 if ((toUpper(_type) == "HIDE") 
 	&& ((player getVariable ["RS_Rift_CurrentRiftState", "OUTSIDE"]) == "INSIDE")) exitWith 
 {
-	diag_log format ["[RS_Rift_fnc_FlickerObject] [WARNING] Object %1 doesn't need to be hidden for this player because this player is inside the rift!", _object];
+	["RS_Rift_fnc_FlickerObject", 2, (format ["Object %1 doesn't need to be hidden for this player because this player is inside the rift!", _object])] call RS_fnc_LoggingHelper;
 };
 
 switch toUpper(_type) do

@@ -30,8 +30,7 @@ params
 
 private
 [
-	 "_selections"
-	,"_message"
+	"_selections"
 ];
 
 _selections = 
@@ -45,13 +44,7 @@ _selections =
 ];
 
 // Log load to server
-_message = format ["[RS] [Radiation] [INFO] Handler started with parameters: %1", [_size, _unit, _variable]];
-diag_log _message;
-
-if (!isServer) then
-{
-	_message remoteExecCall ["diag_log", 2, false]; 
-};
+["Radiation", 3, (format ["Handler started with parameters: %1", [_size, _unit, _variable]]), true] call RS_fnc_LoggingHelper;
 
 while { (_unit getVariable [_variable, false]) && (alive _unit) } do
 {
@@ -223,7 +216,7 @@ while { (_unit getVariable [_variable, false]) && (alive _unit) } do
 	sleep 5;
 };
 
-diag_log format ["[RS] [Radiation] [INFO] Handler stopped for variable: %1", _variable];
+["Radiation", 3, (format ["Handler stopped for variable: %1", _variable])] call RS_fnc_LoggingHelper;
 
 // Make sure if the unit dies and the variable is still active that we restart the handler
 waitUntil {
@@ -233,13 +226,13 @@ waitUntil {
 
 if (_unit != player) then
 {
-	diag_log format ["[RS] [Radiation] [INFO] Unit: %1 is not Player: %2", _unit, player];
+	["Radiation", 3, (format ["Unit: %1 is not Player: %2", _unit, player])] call RS_fnc_LoggingHelper;
 	_unit = player;
 };
 
 // Restart
 if (_unit getVariable [_variable, false]) then
 {
-	diag_log format ["[RS] [Radiation] [INFO] Handler restarting for variable: %1", _variable];
+	["Radiation", 3, (format ["Handler restarting for variable: %1", _variable])] call RS_fnc_LoggingHelper;
 	[_markerList, _size, _unit, _variable] spawn RS_Radiation_fnc_Handler;
 };

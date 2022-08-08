@@ -28,19 +28,8 @@ params
 	,"_variable"
 ];
 
-private
-[
-	 "_message"
-];
-
 // Log load to server
-_message = format ["[RS] [ChemicalDetector] [INFO] Handler started with parameters: %1", [_size, _unit, _variable]];
-diag_log _message;
-
-if (!isServer) then
-{
-	_message remoteExecCall ["diag_log", 2, false]; 
-};
+["ChemicalDetector", 3, (format ["Handler started with parameters: %1", [_size, _unit, _variable]]), true] call RS_fnc_LoggingHelper;
 
 while { (_unit getVariable [_variable, false]) && (alive _unit) } do
 {
@@ -104,13 +93,13 @@ waitUntil {
 
 if (_unit != player) then
 {
-	diag_log format ["[RS] [ChemicalDetector] [INFO] Unit: %1 is not Player: %2", _unit, player];
+	["ChemicalDetector", 3, (format ["Unit: %1 is not Player: %2", _unit, player])] call RS_fnc_LoggingHelper;
 	_unit = player;
 };
 
 // Restart
 if (_unit getVariable [_variable, false]) then
 {
-	diag_log format ["[RS] [ChemicalDetector] [INFO] Chemical Detector Handler restarting for variable: %1", _variable];
+	["ChemicalDetector", 3, (format ["Chemical Detector Handler restarting for variable: %1", _variable])] call RS_fnc_LoggingHelper;
 	[_markerList, _size, _unit, _variable] spawn RS_Radiation_fnc_ChemicalDetector;
 };

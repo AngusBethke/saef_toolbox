@@ -33,7 +33,7 @@ _cnt = missionNamespace getVariable ["RS_Insurgency_UnitCount", 10];
 _cls = missionNamespace getVariable ["RS_Insurgency_UnitClass", "C_man_1"];
 _ldt = missionNamespace getVariable ["RS_Insurgency_UnitLoadout", "Loadouts\Civilian\AfricanCivilian.sqf"];
 
-diag_log format ["[Ins_CreateInsurgencyPoint] [INFO] Starting wait for Player | Location: %1", (text _loc)];
+["Ins_CreateInsurgencyPoint", 3, (format ["Starting wait for Player | Location: %1", (text _loc)])] call RS_fnc_LoggingHelper;
 _j = 1;
 
 waitUntil {
@@ -44,7 +44,7 @@ waitUntil {
 	if (_j == 36) then
 	{
 		_j = 1;
-		diag_log format ["[Ins_CreateInsurgencyPoint] [INFO] Polling | Waiting for Player | Location: %1", (text _loc)];
+		["Ins_CreateInsurgencyPoint", 3, (format ["Polling | Waiting for Player | Location: %1", (text _loc)])] call RS_fnc_LoggingHelper;
 	};
 	_j = _j + 1;
 	
@@ -53,7 +53,7 @@ waitUntil {
 	!(_closePlayer isEqualTo [0,0,0])
 };
 
-diag_log format ["[Ins_CreateInsurgencyPoint] [INFO] Wait for Player Finished | Location: %1", (text _loc)];
+["Ins_CreateInsurgencyPoint", 3, (format ["Wait for Player Finished | Location: %1", (text _loc)])] call RS_fnc_LoggingHelper;
 
 if (_enableIEDs) then
 {

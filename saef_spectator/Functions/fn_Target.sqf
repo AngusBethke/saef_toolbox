@@ -65,13 +65,20 @@ if (toUpper(_type) == "GET") exitWith
 		// If this unit has been in a firefight in the last 30 seconds
 		if (!(_firedNear isEqualTo [])) then
 		{
-
 			if ((["Difference", [_firedNear]] call SAEF_SPTR_fnc_Time) <= (30 * timeMultiplier)) then
 			{
 				// If this is infantry, we're going to increase the weight they have in the randomisation
 				if ((vehicle _unit) == _unit) then
 				{
-					for "_i" from 0 to 4 do
+					// If this unit is within the proximity range of bad guys, then we want to increase their weight in the pool
+					if (["PROXIMITY_TO_ENEMY", [_unit]] call SAEF_SPTR_fnc_Target) then
+					{
+						for "_i" from 0 to 4 do
+						{
+							_useTargetPool pushBack _unit;
+						};
+					}
+					else
 					{
 						_useTargetPool pushBack _unit;
 					};
@@ -237,6 +244,59 @@ if (toUpper(_type) == "TRANSITION") exitWith
 			};
 		};
 	};
+};
+
+/*
+	------------------------
+	-- PROXIMITY_TO_ENEMY --
+	------------------------
+
+	Called by get target, checks unit's proximity to enemy
+*/
+if (toUpper(_type) == "PROXIMITY_TO_ENEMY") exitWith
+{
+	_params params
+	[
+		"_unit",
+		["_proximity", 690]
+	];
+
+	private
+	[
+		"_side",
+		"_sides",
+		"_enemySides"
+	];
+
+	_side = side _unit;
+	_sides = [WEST, EAST, INDEPENDENT];
+	_enemySides = [];
+
+	{
+		if ([_x, _side] call BIS_fnc_sideIsEnemy) then
+		{
+			_enemySides pushBack _x;
+		};
+	} forEach _sides;
+
+	private
+	[
+		"_enemyInProximity"
+	];
+
+	_enemyInProximity = false;
+	{
+		if ((_x distance _unit) <= _proximity) then
+		{
+			if ((side _x) in _enemySides) then
+			{
+				_enemyInProximity = true;
+			};
+		};
+	} forEach allUnits;
+
+	// Return whether or not an enemy is in proximity
+	_enemyInProximity
 };
 
 // Log warning if type is not recognised

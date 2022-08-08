@@ -40,8 +40,7 @@ params
 ];
 
 // Log load to server
-_message = format ["[RS] [FindRiftInteractionPoint] [INFO] Handler started with parameters: %1", [_size, _unit, _variable]];
-diag_log _message;
+["FindRiftInteractionPoint", 3, (format ["Handler started with parameters: %1", [_size, _unit, _variable]]), true] call RS_fnc_LoggingHelper;
 
 _rftMarkerList = [];
 
@@ -93,7 +92,7 @@ while { (_unit getVariable [_variable, false]) && (alive _unit) } do
 	sleep 5;
 };
 
-diag_log format ["[RS] [FindRiftInteractionPoint] [INFO] Handler stopped for variable: %1", _variable];
+["FindRiftInteractionPoint", 3, (format ["Handler stopped for variable: %1", _variable])] call RS_fnc_LoggingHelper;
 
 /*
 	END

@@ -25,11 +25,7 @@ params
 private
 [
 	"_errorStr",
-	"_respawnMarkers",
-	"_allMapMarkers",
-	"_missingResMarkers",
-	"_defResFound",
-	"_systemNames"
+	"_respawnMarkers"
 ];
 
 // Default Variables
@@ -63,6 +59,13 @@ _respawnMarkers = [];
 		};
 	};
 } forEach _objects;
+
+private
+[
+	"_allMapMarkers",
+	"_missingResMarkers",
+	"_defResFound"
+];
 
 // Get the names of our map Markers
 _allMapMarkers = [];
@@ -103,6 +106,19 @@ if (!_defResFound) then
 	};
 };
 
+private
+[
+	"_systemNames",
+	"_requiredHeadlessClients"
+];
+
+_requiredHeadlessClients =
+[
+	"HC1",
+	"HC2",
+	"HC3"
+];
+
 // Get all of our system names
 _systemNames = [];
 {
@@ -113,28 +129,78 @@ _systemNames = [];
 } forEach _systems;
 
 // Test if the Headless Client is present
-if (!("HC1" in _systemNames)) then
 {
-	_text = "The headless client module [HC1] is missing from your mission.";
+	if (!(_x in _systemNames)) then
+	{
+		_text = (format ["The headless client module [%1] is missing from your mission.", _x]);
+		["SAEF Toolbox Mission Maker Helper", 2, _text] call RS_fnc_LoggingHelper;
+		_errorStr = _errorStr + "<br/>[SAEF Toolbox Mission Maker Helper] " + _text;
+	};
+} foreach _requiredHeadlessClients;
+
+// Look for a Virtual Spectator
+private
+[
+	"_virtualSpectatorAttributes",
+	"_virtualSpectators"
+];
+
+_virtualSpectatorAttributes =
+[
+	["Allow3PPCamera", true],
+	["AllowAI", true],
+	["AllowFreeCamera", true],
+	["ShowFocusInfo", false],
+	["Allow3PPCamera", []]
+];
+
+_virtualSpectators = [];
+{
+	if (((_x get3DENAttribute "itemClass") select 0) == "VirtualSpectator_F") then
+	{
+		_virtualSpectators pushback _x;
+	};
+} forEach _systems;
+
+// If we can't find one, log it
+if (_virtualSpectators isEqualTo []) then
+{
+	_text = "The Virtual Spectator entity is missing from your mission.";
 	["SAEF Toolbox Mission Maker Helper", 2, _text] call RS_fnc_LoggingHelper;
 	_errorStr = _errorStr + "<br/>[SAEF Toolbox Mission Maker Helper] " + _text;
 };
 
-// Test if the Headless Client is present
-if (!("HC2" in _systemNames)) then
+// Ensure the virtual spectator has the right attributes
 {
-	_text = "The headless client module [HC2] is missing from your mission.";
-	["SAEF Toolbox Mission Maker Helper", 2, _text] call RS_fnc_LoggingHelper;
-	_errorStr = _errorStr + "<br/>[SAEF Toolbox Mission Maker Helper] " + _text;
-};
+	private
+	[
+		"_virtualSpectator"
+	];
 
-// Test if the Headless Client is present
-if (!("HC3" in _systemNames)) then
-{
-	_text = "The headless client module [HC3] is missing from your mission.";
-	["SAEF Toolbox Mission Maker Helper", 2, _text] call RS_fnc_LoggingHelper;
-	_errorStr = _errorStr + "<br/>[SAEF Toolbox Mission Maker Helper] " + _text;
-};
+	_virtualSpectator = _x;
+
+	{
+		_x params
+		[
+			"_virtualSpectatorAttribute",
+			"_virtualSpectatorExpectedValue"
+		];
+
+		(_virtualSpectator get3DENAttribute _virtualSpectatorAttribute) params ["_virtualSpectatorActualValue"];
+
+		if (!(_virtualSpectatorActualValue isEqualTo _virtualSpectatorExpectedValue)) then
+		{
+			_text = (format ["The Virtual Spectator attribute [%1] is currently [%2] but should be [%3]", _virtualSpectatorAttribute, _virtualSpectatorActualValue, _virtualSpectatorExpectedValue]);
+			["SAEF Toolbox Mission Maker Helper", 2, _text] call RS_fnc_LoggingHelper;
+			_errorStr = _errorStr + "<br/>[SAEF Toolbox Mission Maker Helper] " + _text;
+		};
+	} forEach _virtualSpectatorAttributes;
+} forEach _virtualSpectators;
+
+private
+[
+	"_zeusFound"
+];
 
 // Look for a Zeus Module
 _zeusFound = false;

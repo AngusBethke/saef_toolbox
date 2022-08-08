@@ -54,7 +54,7 @@ _sounds =
 	_unit setVariable [_hitPoint, 0, true];
 } forEach _selections;
 
-diag_log format ["[RS] [RiftDamageHandler] [INFO] Handler started for unit: %1", _unit];
+["RiftDamageHandler", 3, (format ["Handler started for unit: %1", _unit])] call RS_fnc_LoggingHelper;
 
 while { (_unit getVariable ["RS_Rift_CurrentRiftState", "OUTSIDE"] == "INSIDE") && (alive _unit) } do
 {
@@ -75,4 +75,4 @@ while { (_unit getVariable ["RS_Rift_CurrentRiftState", "OUTSIDE"] == "INSIDE") 
 	sleep 6;
 };
 
-diag_log format ["[RS] [RiftDamageHandler] [INFO] Handler stopped for unit: %1", _unit];
+["RiftDamageHandler", 3, (format ["Handler stopped for unit: %1", _unit])] call RS_fnc_LoggingHelper;

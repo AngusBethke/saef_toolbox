@@ -26,6 +26,9 @@ if (toUpper(_type) == "SPECTATOR") exitWith
 	// Mark that this player (spectator entity) should run the main loop
 	player setVariable ["SAEF_Spectator_Run", true, true];
 
+	// Specific settings for the spectator object
+	["SPECTATOR_ENTITY_ADJUSTMENTS"] call SAEF_SPTR_fnc_Handler;
+
 	["SAEF_SPTR_fnc_Handler", 0, "Initialising the spectator handler..."] call RS_fnc_LoggingHelper;
 
 	// Get rid of the UI
@@ -43,7 +46,7 @@ if (toUpper(_type) == "SPECTATOR") exitWith
 		(["GetCamera"] call SPEC) cameraEffect ["Terminate", "BACK"];
 	};
 
-	// Main loop picks a new target to look at every 60 seconds
+	// Main loop picks a new target to look at every x seconds
 	while {(player getVariable ["SAEF_Spectator_Run", false])} do
 	{
 		(["Get"] call SAEF_SPTR_fnc_Target) params
@@ -60,6 +63,7 @@ if (toUpper(_type) == "SPECTATOR") exitWith
 			if (_currentTarget != _target) then
 			{
 				["Transition", [_currentTarget, _target]] spawn SAEF_SPTR_fnc_Target;
+				player attachTo [_target, [0,0,5]];
 			};
 		};
 		
@@ -78,6 +82,7 @@ if (toUpper(_type) == "SPECTATOR") exitWith
 			if (!(alive _target) || !(alive (vehicle _target)) || (_target getVariable ["ACE_isUnconscious", false])) then
 			{
 				_i = _delay;
+				sleep 3;
 			};
 
 			if (!(missionNamespace getVariable ["SAEF_SPTR_InterruptInProgress", false])) then
@@ -105,6 +110,59 @@ if (toUpper(_type) == "SPECTATOR") exitWith
 	};
 
 	["SAEF_SPTR_fnc_Handler", 0, "Ending the spectator handler..."] call RS_fnc_LoggingHelper;
+};
+
+/*
+	----------------------------------
+	-- SPECTATOR_ENTITY_ADJUSTMENTS --
+	----------------------------------
+
+	Gets the preferred view mode
+*/
+if (toUpper(_type) == "SPECTATOR_ENTITY_ADJUSTMENTS") exitWith
+{
+	// Ensure that this spectator is no-longer an ace player
+	ACE_player = objNull;
+
+	// Set necessary variables for this spectator
+	missionNamespace setVariable ["saef_spectator_isSet", player];
+
+	// Apply changes to this spectator object
+	player allowDamage false;
+	player enableSimulationGlobal false;
+	player enableFatigue false;
+	player enableStamina false;
+	hideObjectGlobal player;
+
+	// Register this camera as the saef spectator
+	_result = ["saef_spectator", {!isNull (missionNamespace getVariable ["saef_spectator_isSet", objNull])}] call CBA_fnc_registerFeatureCamera;
+
+	if (!_result) then
+	{
+		["SAEF_SPTR_fnc_Handler", 2, "Unable to register the [saef_spectator] camera with the CBA_fnc_registerFeatureCamera"] call RS_fnc_LoggingHelper;
+	};
+};
+
+/*
+	-------------------------
+	-- DEBUG_LOG_VARIABLES --
+	-------------------------
+
+	Logs all variables with given key
+*/
+if (toUpper(_type) == "DEBUG_LOG_VARIABLES") exitWith
+{
+	_params params
+	[
+		"_variableKey"
+	];
+
+	{
+		if ([_variableKey, _x] call BIS_fnc_inString) then
+		{
+			["SAEF_SPTR_fnc_Handler", 0, (format ["%1 variable: [%2, %3]", _variableKey, _x, (player getVariable _x)])] call RS_fnc_LoggingHelper;
+		};
+	} forEach (allVariables player);
 };
 
 /*

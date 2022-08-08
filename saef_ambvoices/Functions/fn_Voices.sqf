@@ -37,7 +37,7 @@ _faction = toLower(_faction);
 /* Fix time (Smallest amount of time between each voice play) */
 if (_time < 30) then
 {
-	diag_log format ["[SAEF_AB_fnc_Voices] [WARNING] Time Provided (%1) is too short, changing it to 30 seconds", _time];
+	["SAEF_AB_fnc_Voices", 2, (format ["Time Provided (%1) is too short, changing it to 30 seconds", _time])] call RS_fnc_LoggingHelper;
 	_time = 30;
 };
 
@@ -123,7 +123,7 @@ switch (_faction) do
 /* Will Exit the Script if this condition is met, in the case that an incorrect faction is entered */
 if (_default) exitWith
 {
-	diag_log format ["[SAEF_AB_fnc_Voices] [ERROR] Faction Provided (%1) does not Exist", _faction];
+	["SAEF_AB_fnc_Voices", 1, (format ["Faction Provided (%1) does not Exist", _faction])] call RS_fnc_LoggingHelper;
 };
 
 /* Changed from a For Loop to While to make it Last as long as we need, also provided a control to terminate the script if necessary */

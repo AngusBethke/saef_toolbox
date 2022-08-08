@@ -56,11 +56,9 @@ if (_usePara) then
 else
 {
 	{
-		_x params ["_unit"];
-
-		if ((vehicle _unit) != _unit) then
+		if ((vehicle _x) != _x) then
 		{
-			_vehicles pushBackUnique (vehicle _unit);
+			_vehicles pushBackUnique (vehicle _x);
 		};
 	} forEach (units _groupHunt);
 };
@@ -127,14 +125,12 @@ _validCode =
 
 _deleteCode =
 {
-	_x params ["_unit"];
-
-	if ((vehicle _unit) != _unit) then
+	if ((vehicle _x) != _x) then
 	{
-		deleteVehicle (vehicle _unit);
+		deleteVehicle (vehicle _x);
 	};
 
-	deleteVehicle _unit;
+	deleteVehicle _x;
 };
 
 // Get the nearestPlayer within 4000m (our max search distance)
@@ -209,12 +205,10 @@ if (({alive _x} count units _groupHunt) == 0) then
 {
 	// If this group had vehicles then we need to drop the fuel of those vehicles to 1%
 	{
-		_x params ["_vehicle"];
-
-		if (alive _vehicle) then
+		if (alive _x) then
 		{
-			_vehicle setFuel 0.01;
-			_vehicle setVehicleAmmo 0.1;
+			_x setFuel 0.01;
+			_x setVehicleAmmo 0.1;
 		};
 	} forEach _vehicles;
 }

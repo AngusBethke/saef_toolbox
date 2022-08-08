@@ -30,7 +30,7 @@
 			_array pushBack [typeOf _x, [(_x distance player), (player getRelDir _x)], (getDir _x) - (getDir player)]; 
 		} forEach (player nearObjects 10);
 
-		diag_log _array; 
+		["CreateRiftInteractionPoint", 0, (format ["%1", _array])] call RS_fnc_LoggingHelper;
 
 	How to Call:
 		[this, "CTRL"] call RS_Rift_fnc_CreateRiftInteractionPoint;
@@ -268,6 +268,6 @@ switch toUpper(_type) do
 	};
 	default
 	{
-		diag_log format ["[RS Rift] [CreateRiftInteractionPoint] [ERROR] Unrecognised rift interaction point type %1", _type];
+		["CreateRiftInteractionPoint", 1, (format ["Unrecognised rift interaction point type %1", _type])] call RS_fnc_LoggingHelper;
 	};
 };

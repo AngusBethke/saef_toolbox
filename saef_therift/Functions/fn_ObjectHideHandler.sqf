@@ -122,7 +122,7 @@ switch _rift do
 	};
 	default
 	{
-		diag_log format ["[RS Rift] [WARNING] Rift type %1 Not Recognised", _rift];
+		["RS Rift", 2, (format ["Rift type %1 Not Recognised", _rift])] call RS_fnc_LoggingHelper;
 	};
 };
 

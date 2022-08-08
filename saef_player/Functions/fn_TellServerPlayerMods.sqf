@@ -18,5 +18,4 @@ _allMods = configSourceModList (configFile >> "CfgPatches");
 _allMods sort true;
 
 _name = name player;
-_modString = format ["[RS] [INFO] [MODS] Player: %1 | Loaded Mods: %2", _name, _allMods];
-[_modString] remoteExecCall ["diag_log", 2, false];
+["TellServerPlayerMods", 0, (format ["Player: %1 | Loaded Mods: %2", _name, _allMods]), true] call RS_fnc_LoggingHelper;

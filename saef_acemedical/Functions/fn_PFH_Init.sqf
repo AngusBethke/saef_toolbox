@@ -14,6 +14,6 @@
 
 if !(hasInterface) exitWith {};
 
-diag_log format ["[RS] [ACE] [Prevent Full Heal] Attaching Event Handler to Player ..."];
+["Prevent Full Heal", 0, "Attaching Event Handler to Player ..."] call RS_fnc_LoggingHelper;
 
 ["ace_treatmentSucceded", { _this call RS_fnc_PFH_Prevent; }] call CBA_fnc_addEventHandler;

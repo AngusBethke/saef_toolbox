@@ -41,15 +41,15 @@ private
 ];
 
 _params = _this;
-_players = (allPlayers - (entities "HeadlessClient_F") - (entities "VirtualSpectator_F"));
+_players = (allPlayers - (entities "HeadlessClient_F"));
 _truePlayers = [];
 
 _validationCode = {
 	params
 	[
 		"_unit",
-		"_includeDead",
-		"_includeUnconcious"
+		["_includeDead", false],
+		["_includeUnconcious", false]
 	];
 
 	private
@@ -80,17 +80,20 @@ _validationCode = {
 };
 
 {
-	private
-	[
-		"_tParams"
-	];
-
-	_tParams = [_x] + _params;
-
-	// If unit passes validation, return them
-	if (_tParams call _validationCode) then
+	if (!((typeOf _x) == "VirtualSpectator_F")) then
 	{
-		_truePlayers pushBack _x;
+		private
+		[
+			"_tParams"
+		];
+
+		_tParams = [_x] + _params;
+
+		// If unit passes validation, return them
+		if (_tParams call _validationCode) then
+		{
+			_truePlayers pushBack _x;
+		};
 	};
 } forEach _players;
 

@@ -50,16 +50,16 @@ switch (_side) do
 if ((markerPos _marker) isEqualTo [0,0,0]) then
 {
 	createMarker [_marker, (getPos _unit)];
-	_msg = format ["[ADMIN UTILITIES] [INFO] Creating Respawn Marker (%1) at given position %2", _marker, (getPos _unit)];
+	_msg = format ["Creating Respawn Marker (%1) at given position %2", _marker, (getPos _unit)];
 }
 else
 {
-	_msg = format ["[ADMIN UTILITIES] [INFO] Respawn Marker (%1) Already Exists", _marker];
+	_msg = format ["Respawn Marker (%1) Already Exists", _marker];
 };
 
 // Display and Log Message
-hint _msg;
-diag_log _msg;
+hint (format ["[ADMIN UTILITIES] %1", _msg]);
+["ADMIN UTILITIES", 0, _msg] call RS_fnc_LoggingHelper;
 
 missionNamespace setVariable ["Admin_RespawnMarkerExists", true, true];
 

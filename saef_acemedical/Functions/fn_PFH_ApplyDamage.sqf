@@ -46,12 +46,19 @@ _openWounds = _target getVariable QGVAR(openWounds);
 
 if (_debug) then
 {
-	diag_log format [("[Prevent Full Heal] [INFO] Re-apply damage for %1" 
+	private
+	[
+		"_debugText"
+	];
+
+	_debugText = format [("Re-apply damage for %1" 
 						+ " | Is the target in pain? %2" 
 						+ " | Is the target bleeding? %3"
 						+ " | What is the Pain Level? %4"
 						+ " | Are there open wounds? %5"), 
 						_target, _hasPain, _isBleeding, _pain, _openWounds];
+
+	["Prevent Full Heal", 3, _debugText] call RS_fnc_LoggingHelper;
 };
 
 // Re-apply the Damage

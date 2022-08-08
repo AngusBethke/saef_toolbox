@@ -83,13 +83,7 @@ _markerList = [];
 [] call RS_Radiation_fnc_MarkerAceAction;
 
 // Log load to server
-_message = format ["[RS] [MarkerHandler] [INFO] Handler started with parameters: %1", [_unit, "RS_RadiationZone_Run_RadiationMarkerHandler"]];
-diag_log _message;
-
-if (!isServer) then
-{
-	_message remoteExecCall ["diag_log", 2, false]; 
-};
+["MarkerHandler", 3, (format ["Handler started with parameters: %1", [_unit, "RS_RadiationZone_Run_RadiationMarkerHandler"]]), true] call RS_fnc_LoggingHelper;
 
 // Loop Controller for the Markers
 _control = !(_unit getVariable ["RS_RadiationZone_ShowMarkers", false]);

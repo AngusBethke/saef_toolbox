@@ -25,7 +25,7 @@ if (toUpper(_type) == "INTERRUPT_ACTION") exitWith
 		"_action"
 	];
 
-	_action = ["SAEF_SPTR_InterruptAction", "Spectator - Watch me!", "", 
+	_action = ["SAEF_SPTR_InterruptAction", "Witness Me!", "saef_spectator\Images\CamCorder_co.paa", 
 		{
 			params ["_target", "_player", "_params"];
 

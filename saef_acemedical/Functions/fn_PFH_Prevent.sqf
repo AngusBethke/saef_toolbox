@@ -51,7 +51,7 @@ if (missionNamespace getVariable "PFH_RunFullHealPrevention") then
 			
 			if (_debug) then
 			{
-				diag_log format ["[Prevent Full Heal] [INFO] Preventing full heal for %1", _target];
+				["Prevent Full Heal", 3, (format ["Preventing full heal for %1", _target])] call RS_fnc_LoggingHelper;
 			};
 		};
 	};

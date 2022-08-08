@@ -86,7 +86,7 @@ if (isNull _plane) exitWith
 	missionNamespace setVariable [_functionLockVariable, false, true];
 };
 
-diag_log format ["Invasion Function: %1 Assigned Plane %2", player, _plane];
+["Invasion", 3, (format ["%1 Assigned Plane %2", player, _plane])] call RS_fnc_LoggingHelper;
 
 if (_isActive) then
 {

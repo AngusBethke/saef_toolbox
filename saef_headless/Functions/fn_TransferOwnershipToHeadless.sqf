@@ -41,7 +41,7 @@ if (_headlessPresent) then
 			
 			if !(_transfered) then
 			{
-				diag_log format ["[RS] [TransferOwnershipToHeadless] [ERROR] Failed to transfer object %1 to the Headless client", _object];
+				["TransferOwnershipToHeadless", 1, (format ["Failed to transfer object %1 to the Headless client", _object])] call RS_fnc_LoggingHelper;
 			};
 		};
 	} forEach _objects;
