@@ -80,7 +80,7 @@ _validationCode = {
 };
 
 {
-	if (!((typeOf _x) == "VirtualSpectator_F")) then
+	if ((toLower (typeOf _x)) != "virtualspectator_f") then
 	{
 		private
 		[

@@ -76,5 +76,24 @@ if (toUpper(_type) == "DIFFERENCE") exitWith
 	_differenceInSeconds
 };
 
+/*
+	-----------------
+	-- IS_DARK_OUT --
+	-----------------
+
+	Determines whether or not it is dark outside (whether or not flashlights and nvgs will be used)
+*/
+if (toUpper(_type) == "IS_DARK_OUT") exitWith
+{
+	(date call BIS_fnc_sunriseSunsetTime) params
+	[
+		"_sunriseTime",
+		"_sunsetTime"
+	];
+
+	// Returns true if after sunset or before sunrise
+	((dayTime > _sunsetTime) || (dayTime < _sunriseTime))
+};
+
 // Log warning if type is not recognised
 ["SAEF_SPTR_fnc_Time", 2, (format ["Unrecognised type [%1], nothing is being executed!", _type])] call RS_fnc_LoggingHelper;

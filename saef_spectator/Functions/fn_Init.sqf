@@ -12,6 +12,7 @@ if (isServer) then
 	// View settings
 	["SETSWITCHDELAY", [30]] call SAEF_SPTR_fnc_View;
 	["SETVIEWMODE", ["MODE_FPS"]] call SAEF_SPTR_fnc_View;
+	["SET_NVG_BRIGHTNESS", [1, 0.5]] call SAEF_SPTR_fnc_View;
 };
 
 [] spawn SAEF_SPTR_fnc_EventHandler;

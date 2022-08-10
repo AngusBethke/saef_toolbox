@@ -151,7 +151,7 @@ _virtualSpectatorAttributes =
 	["AllowAI", true],
 	["AllowFreeCamera", true],
 	["ShowFocusInfo", false],
-	["Allow3PPCamera", []]
+	["WhitelistedSides", []]
 ];
 
 _virtualSpectators = [];

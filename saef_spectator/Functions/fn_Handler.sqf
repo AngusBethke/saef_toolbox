@@ -62,7 +62,7 @@ if (toUpper(_type) == "SPECTATOR") exitWith
 
 			if (_currentTarget != _target) then
 			{
-				["Transition", [_currentTarget, _target]] spawn SAEF_SPTR_fnc_Target;
+				["Transition", [_target]] spawn SAEF_SPTR_fnc_Target;
 				player attachTo [_target, [0,0,5]];
 			};
 		};
@@ -71,10 +71,15 @@ if (toUpper(_type) == "SPECTATOR") exitWith
 		private
 		[
 			"_delay",
+			"_sleepTime",
+			"_currentVehicle",
 			"_i"
 		];
 
-		_delay = (["GETSWITCHDELAY"] call SAEF_SPTR_fnc_View);
+		_sleepTime = 0.25;
+		_delay = ((["GETSWITCHDELAY"] call SAEF_SPTR_fnc_View) / _sleepTime);
+		_currentVehicle = (vehicle _target);
+
 		_i = 1;
 		while {_i <= _delay} do
 		{
@@ -83,6 +88,13 @@ if (toUpper(_type) == "SPECTATOR") exitWith
 			{
 				_i = _delay;
 				sleep 3;
+			};
+
+			// If the target's vehicle changes we should shift perspective
+			if (_currentVehicle != (vehicle _target)) then
+			{
+				["Transition", [_target]] spawn SAEF_SPTR_fnc_Target;
+				_currentVehicle = (vehicle _target);
 			};
 
 			if (!(missionNamespace getVariable ["SAEF_SPTR_InterruptInProgress", false])) then
@@ -101,7 +113,7 @@ if (toUpper(_type) == "SPECTATOR") exitWith
 			};
 
 			// Manage the delay
-			sleep 1;
+			sleep _sleepTime;
 			_i = _i + 1;
 		};
 

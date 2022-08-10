@@ -3,53 +3,58 @@
 
 	Description:
 		Handles the main direction component for the AI director, this is scoped on a "per area" basis
-
-	Player Conditions:
-		VeryGood
-		Good
-		Neutral
-		Bad
-		VeryBad
-
-	Ammo Statuses:
-		Green
-		Yellow
-		Orange
-		Red
-		Black
 */
 
 params
 [
-	"_areaTag"
+	"_type",
+	["_params", []]
 ];
 
-private
-[
-	"_runDirectorVar"
-];
+/*
+	------------
+	-- HANDLE --
+	------------
 
-_runDirectorVar = (format ["SAEF_Run_Director_%1", _areaTag]);
-missionNamespace setVariable [_runDirectorVar, true, true];
-
-while {(missionNamespace getVariable [_runDirectorVar, false])} do
+	Handles the AI Director
+*/
+if (toUpper(_type) == "HANDLE") exitWith
 {
-	// Get player conditions
-	([] call SAEF_AID_fnc_GetPlayerConditions) params
+	_params params
 	[
-		"_livePlayers",
-		"_generalCondition",
-		"_ammoStatus"
+		"_areaTag"
 	];
 
-	
+	private
+	[
+		"_runDirectorVar"
+	];
 
-	// Re-evaluate every 30 seconds
-	sleep 30;
+	_runDirectorVar = (format ["SAEF_Run_Director_%1", _areaTag]);
+	missionNamespace setVariable [_runDirectorVar, true, true];
+
+	while {(missionNamespace getVariable [_runDirectorVar, false])} do
+	{
+		// Get player conditions
+		(["GetConditions"] call SAEF_AID_fnc_Player) params
+		[
+			"_livePlayers",
+			"_generalCondition",
+			"_ammoStatus"
+		];
+
+		
+
+		// Re-evaluate every 30 seconds
+		sleep 30;
+	};
+
+	// Get player groups
+	private
+	[
+		""
+	];
 };
 
-// Get player groups
-private
-[
-	""
-];
+// Log warning if type is not recognised
+["SAEF_AID_fnc_Director", 2, (format ["Unrecognised type [%1], nothing is being executed!", _type])] call RS_fnc_LoggingHelper;

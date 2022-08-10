@@ -25,7 +25,7 @@ if (hasInterface) then
 	if (!(player getVariable ["SAEF_SPTR_EH_Action_Added", false])) then
 	{
 		player setVariable ["SAEF_SPTR_EH_Action_Added", true, true];
-		["INTERRUPT_ACTION"] call SAEF_SPTR_fnc_Action;
+		["INIT"] call SAEF_SPTR_fnc_Action;
 	};
 };
 
