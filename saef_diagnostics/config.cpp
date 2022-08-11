@@ -39,4 +39,13 @@ class CfgFunctions
 			class GetGlobalVariableWithDefault {};
 		};
 	};
+	
+	class SAEF_LOG
+	{
+		class Helpers
+		{
+			file = "saef_diagnostics\Functions";
+			class JsonLogger {};
+		};
+	};
 };

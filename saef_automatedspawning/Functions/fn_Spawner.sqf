@@ -63,6 +63,7 @@ params
 	,["_playerValidation", {true}]
 	,["_customScripts", []]
 	,["_queueValidation", {true}]
+	,["_useAiDirector", true]
 ];
 
 private
@@ -133,6 +134,12 @@ if (missionNamespace getVariable [_persistenceVariable, true]) then
 		sleep 60;
 
 		["SAEF_SpawnerQueue", _this, "RS_AS_fnc_Spawner", _queueValidation] call RS_MQ_fnc_MessageEnqueue;
+	};
+
+	// If set, AI Director will take control of the number of AI to spawn
+	if (_useAiDirector) then
+	{
+		_count = ["GetAiCountForArea", [_marker, _type, _count]] call SAEF_AID_fnc_Difficulty;
 	};
 
 	// Units that will be spawned using DynaSpawn

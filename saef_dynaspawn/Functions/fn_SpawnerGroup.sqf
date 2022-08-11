@@ -143,12 +143,6 @@ if (_unitType == "VEH") then
 	// Remove Thermal for Spawned Vehicles to Make them 'not-so terminator-ish'
 	_vehicle disableTIEquipment true;
 	_vehicle disableNVGEquipment true;
-	
-	if (_usePara) then
-	{
-		["DynaSpawn", 2, (format ["[SpawnerGroup] Parachute Insertion may not be used with unit type [%1]!", _unitType])] call RS_fnc_LoggingHelper;
-		_usePara = false;
-	};
 };
 
 // Checks the task type and assigns them accordingly
