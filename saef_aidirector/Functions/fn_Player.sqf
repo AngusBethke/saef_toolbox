@@ -564,6 +564,78 @@ if (toUpper(_type) == "PLAYERGROUPSSECONDPASS") exitWith
 
 /*
 	----------------------------
+	-- TRY THIS --
+	----------------------------
+
+	Does the second array pass for sorting player groups
+*/
+if (toUpper(_type) == "PLAYERGROUPSSECONDPASS") exitWith
+{
+	_params params
+	[
+		"_separateUnits",
+		"_unitKeys",
+		"_players"
+	];
+
+	for "_i" from 1 to (count _players) then
+	{
+		{
+			private
+			[
+				"_units"
+			];
+
+			_units = _x;
+
+			{
+				private
+				[
+					"_unit"
+				];
+
+				_unit = _x;
+
+				{
+					private
+					[
+						"_xString"
+					];
+
+					_xString = (format ["%1", _x]);
+
+					if (_unit != _xString) then
+					{
+						// Fetch the actual object
+						private
+						[
+							"_unitObject",
+							"_xObject"
+						];
+
+						_unitObject = ["GetItemFromDictionary", [_unit, _unitKeys]] call SAEF_AID_fnc_Player;
+						_xObject = ["GetItemFromDictionary", [_xString, _unitKeys]] call SAEF_AID_fnc_Player;
+
+						// Evaluate distance
+						if ((_unitObject distance _xObject) <= 69) then
+						{
+							_units pushBackUnique _xString;
+						};
+					};
+				} forEach _players;
+			} forEach _units;
+
+			_units sort true;
+			_separateUnits set [_forEachIndex, (_units arrayIntersect _units)];
+		} forEach _separateUnits;
+	};
+	
+	// Return the pass units
+	[_separateUnits]
+};
+
+/*
+	----------------------------
 	-- PLAYERGROUPSTHIRDPASS --
 	----------------------------
 
