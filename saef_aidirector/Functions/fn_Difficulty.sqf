@@ -11,12 +11,14 @@ params
 	["_params", []]
 ];
 
-// Set the available difficulty levels
+// Set the script tag and available difficulty levels
 private
 [
+	"_scriptTag",
 	"_difficultyLevels"
 ];
 
+_scriptTag = "SAEF AID Difficulty";
 _difficultyLevels = ["EASY", "NORMAL", "HARD", "INSANE"]; 
 
 /*
@@ -28,35 +30,56 @@ _difficultyLevels = ["EASY", "NORMAL", "HARD", "INSANE"];
 */
 if (toUpper(_type) == "GET") exitWith
 {
+	// We clamp the difficulty by player number first
+	(["ClampDifficultyByPlayerNumber", [((missionNamespace getVariable ["SAEF_AID_Difficulty", "NORMAL"])), (["GetCountWithDifficulty", [(missionNamespace getVariable ["SAEF_AID_Difficulty", "NORMAL"])]] call SAEF_AID_fnc_Difficulty)]] call SAEF_AID_fnc_Difficulty)
+		params 
+		[
+			"_difficulty",
+			"_difficultyCount"
+		];
+
+	// Clamped difficulty can still be overridden by max and min
 	private
 	[
-		"_difficulty"
-	];
-
-	_difficulty = (missionNamespace getVariable ["SAEF_AID_Difficulty", "NORMAL"]);
-
-	private
-	[
-		"_maxDifficulty"
+		"_maxDifficulty",
+		"_minDifficulty"
 	];
 
 	_maxDifficulty = ["GetMaxDifficulty"] call SAEF_AID_fnc_Difficulty;
+	_minDifficulty = ["GetMinDifficulty"] call SAEF_AID_fnc_Difficulty;
 
-	if (_maxDifficulty != "") then
+	if ((_maxDifficulty != "") || (_minDifficulty != "")) then
 	{
-		private
-		[
-			"_difficultyCount",
-			"_maxDifficultyCount"
-		];
-
-		_difficultyCount = ["GetCountWithDifficulty", [_difficulty]] call SAEF_AID_fnc_Difficulty;
-		_maxDifficultyCount = ["GetCountWithDifficulty", [_maxDifficulty]] call SAEF_AID_fnc_Difficulty;
-
-		if (_difficultyCount > _maxDifficultyCount) then
+		if (_maxDifficulty != "") then
 		{
-			["SAEF_AID_fnc_Difficulty", 0, (format ["[GET] Difficulty [%1] is higher than max difficulty [%2], returning the max...", _difficulty, _maxDifficulty])] call RS_fnc_LoggingHelper;
-			_difficulty = _maxDifficulty;
+			private
+			[
+				"_maxDifficultyCount"
+			];
+
+			_maxDifficultyCount = ["GetCountWithDifficulty", [_maxDifficulty]] call SAEF_AID_fnc_Difficulty;
+
+			if (_difficultyCount > _maxDifficultyCount) then
+			{
+				["SAEF_AID_fnc_Difficulty", 0, (format ["[GET] Difficulty [%1] is higher than max difficulty [%2], returning the max...", _difficulty, _maxDifficulty])] call RS_fnc_LoggingHelper;
+				_difficulty = _maxDifficulty;
+			};
+		};
+
+		if (_minDifficulty != "") then
+		{
+			private
+			[
+				"_minDifficultyCount"
+			];
+
+			_minDifficultyCount = ["GetCountWithDifficulty", [_minDifficulty]] call SAEF_AID_fnc_Difficulty;
+
+			if (_difficultyCount < _minDifficultyCount) then
+			{
+				["SAEF_AID_fnc_Difficulty", 0, (format ["[GET] Difficulty [%1] is lower than min difficulty [%2], returning the min...", _difficulty, _minDifficulty])] call RS_fnc_LoggingHelper;
+				_difficulty = _minDifficulty;
+			};
 		};
 	};
 	
@@ -75,6 +98,19 @@ if (toUpper(_type) == "GETMAXDIFFICULTY") exitWith
 {
 	// Return the max difficulty
 	(missionNamespace getVariable ["SAEF_AID_MaxDifficulty", ""])
+};
+
+/*
+	----------------------
+	-- GETMINDIFFICULTY --
+	----------------------
+
+	Gets the min difficulty
+*/
+if (toUpper(_type) == "GETMINDIFFICULTY") exitWith
+{
+	// Return the min difficulty
+	(missionNamespace getVariable ["SAEF_AID_MinDifficulty", ""])
 };
 
 /*
@@ -141,7 +177,73 @@ if (toUpper(_type) == "GETCOUNTWITHDIFFICULTY") exitWith
 if (toUpper(_type) == "GETAMMOSETUP") exitWith
 {
 	// Return the ammo setup
-	(missionNamespace getVariable ["SAEF_AID_AmmoSetup", [180, 45, 2]])
+	(missionNamespace getVariable ["SAEF_AID_AmmoSetup", [180, 45, 1]])
+};
+
+/*
+	-----------------------------------
+	-- CLAMPDIFFICULTYBYPLAYERNUMBER --
+	-----------------------------------
+
+	Clamps the difficulty by player number
+*/
+if (toUpper(_type) == "CLAMPDIFFICULTYBYPLAYERNUMBER") exitWith
+{
+	_params params
+	[
+		["_difficulty", "Normal"],
+		["_difficultyCount", 2]
+	];
+
+	private
+	[
+		"_players",
+		"_clamped"
+	];
+
+	_players = ([true, true] call RS_PLYR_fnc_GetTruePlayers);
+	_clamped = false;
+
+	// Clamp max difficulty to hard if there are less than or equal to 12 but more than 8 players
+	if (((count _players) <= 12) && ((count _players) > 8)) then
+	{
+		if (_difficultyCount > 3) then
+		{
+			_difficultyCount = 3;
+			_difficulty = (_difficultyLevels select (_difficultyCount - 1));
+			_clamped = true;
+		};
+	};
+
+	// Clamp max difficulty to normal if there are less than or equal to 8 but more than 4 players
+	if (((count _players) <= 8) && ((count _players) > 4)) then
+	{
+		if (_difficultyCount > 2) then
+		{
+			_difficultyCount = 2;
+			_difficulty = (_difficultyLevels select (_difficultyCount - 1));
+			_clamped = true;
+		};
+	};
+
+	// Clamp max difficulty to easy if there are less than or equal to 8 but more than 4 players
+	if ((count _players) <= 4) then
+	{
+		if (_difficultyCount > 1) then
+		{
+			_difficultyCount = 1;
+			_difficulty = (_difficultyLevels select (_difficultyCount - 1));
+			_clamped = true;
+		};
+	};
+
+	if (_clamped) then
+	{
+		["SAEF_AID_fnc_Difficulty", 0, (format ["[CLAMPDIFFICULTYBYPLAYERNUMBER] Clamping difficulty to [%1] in order to match the number of players [%2]...", _difficulty, (count _players)])] call RS_fnc_LoggingHelper;
+	};
+
+	// Default is to return the given difficulty and count
+	[_difficulty, _difficultyCount]
 };
 
 /*
@@ -165,6 +267,8 @@ if (toUpper(_type) == "SET") exitWith
 		["SAEF_AID_fnc_Difficulty", 1, (format ["[SET] Unrecognised difficulty [%1], value cannot be set!", _difficulty])] call RS_fnc_LoggingHelper;
 	};
 
+	[_scriptTag, 0, (format ["Setting the difficulty: [%1]", _difficulty])] call RS_fnc_LoggingHelper;
+
 	missionNamespace setVariable ["SAEF_AID_Difficulty", _difficulty, true];
 };
 
@@ -179,7 +283,7 @@ if (toUpper(_type) == "SETMAXDIFFICULTY") exitWith
 {
 	_params params
 	[
-		["_difficulty", "Normal"]
+		["_difficulty", "Insane"]
 	];
 
 	_difficulty = toUpper(_difficulty);
@@ -190,6 +294,30 @@ if (toUpper(_type) == "SETMAXDIFFICULTY") exitWith
 	};
 
 	missionNamespace setVariable ["SAEF_AID_MaxDifficulty", _difficulty, true];
+};
+
+/*
+	----------------------
+	-- SETMINDIFFICULTY --
+	----------------------
+
+	Sets the min difficulty
+*/
+if (toUpper(_type) == "SETMINDIFFICULTY") exitWith
+{
+	_params params
+	[
+		["_difficulty", "Easy"]
+	];
+
+	_difficulty = toUpper(_difficulty);
+
+	if (!(_difficulty in _difficultyLevels)) exitWith
+	{
+		["SAEF_AID_fnc_Difficulty", 1, (format ["[SETMINDIFFICULTY] Unrecognised difficulty [%1], value cannot be set!", _difficulty])] call RS_fnc_LoggingHelper;
+	};
+
+	missionNamespace setVariable ["SAEF_AID_MinDifficulty", _difficulty, true];
 };
 
 /*
@@ -213,6 +341,11 @@ if (toUpper(_type) == "SETBYRECOMMENDED") exitWith
 		"_hardCount",
 		"_insaneCount"
 	];
+
+	_easyCount = 0;
+	_normalCount = 0;
+	_hardCount = 0;
+	_insaneCount = 0;
 
 	{
 		switch toUpper(_x) do
@@ -299,10 +432,10 @@ if (toUpper(_type) == "SETAMMOSETUP") exitWith
 */
 if (toUpper(_type) == "GETAICOUNTFORAREA") exitWith
 {
-	params
+	_params params
 	[
 		"_marker",
-		"_type",
+		"_areaType",
 		"_count"
 	];
 
@@ -317,7 +450,7 @@ if (toUpper(_type) == "GETAICOUNTFORAREA") exitWith
 	_tempCount = 0;
 	_areaSize = ["DetermineAreaSize", [_marker]] call SAEF_AID_fnc_Difficulty;
 
-	if (toUpper(_type) == "GAR") then
+	if (toUpper(_areaType) == "GAR") then
 	{
 		_clampByPositions = true;
 	};
@@ -338,6 +471,9 @@ if (toUpper(_type) == "GETAICOUNTFORAREA") exitWith
 	{
 		_count = _tempCount;
 	};
+
+	// Return the count
+	_count
 };
 
 /*
@@ -433,26 +569,109 @@ if (toUpper(_type) == "GETNUMBEROFGROUPSTOSPAWN") exitWith
 {
 	_params params
 	[
-		"_areaSize"
+		"_areaSize",
+		"_marker"
 	];
 
-	// Check if players have anti-tank equipment for destruction of heavy vehicles
+	private
+	[
+		"_groupNumber",
+		"_countPerGroup",
+		"_lightVehicleNumber",
+		"_heavyVehicleNumber",
+		"_hasAntiTank"
+	];
 
+	_groupNumber = 0;
+	_countPerGroup = (["GetAiCount", [(markerPos _marker), _areaSize]] call SAEF_AID_fnc_Difficulty);
+	_lightVehicleNumber = 0;
+	_heavyVehicleNumber = 0;
+
+	// Clamp group size to 12
+	if (_countPerGroup > 12) then
+	{
+		_countPerGroup = 12;
+	};
+
+	// Check if players have anti-tank equipment for destruction of heavy vehicles
+	(["GetPlayerLauncherType", [(markerPos _marker)]] call SAEF_AID_fnc_Player) params
+	[
+		"_hasAntiAir",
+		"_hasAntiTank"
+	];
+
+	// Get the current difficulty
+	(["GetCount"] call SAEF_AID_fnc_Difficulty) params
+	[
+		"_difficulty",
+		"_difficultyCount"
+	];
+
+	// Determine the number of items to spawn based on the area size
 	switch toUpper(_areaSize) do
 	{
 		case "LRG": {
+			if (_difficultyCount >= 3) then
+			{
+				if (_hasAntiTank) then
+				{
+					_heavyVehicleNumber = 1;
+				};
+			};
 
+			if (_difficultyCount >= 2) then
+			{
+				_lightVehicleNumber = 2;
+			};
+			
+			_groupNumber = _difficultyCount;
 		};
 
 		case "MED": {
+			if (_difficultyCount >= 4) then
+			{
+				if (_hasAntiTank) then
+				{
+					_heavyVehicleNumber = 1;
+				};
+			};
 
+			if (_difficultyCount >= 3) then
+			{
+				_lightVehicleNumber = 1;
+			};
+
+			if (_difficultyCount >= 2) then
+			{
+				_lightVehicleNumber = 1;
+			};
+
+			_groupNumber = ceil (_difficultyCount / 2);
 		};
 
 		// Default is small
 		default {
+			if (_difficultyCount >= 4) then
+			{
+				_lightVehicleNumber = 1;
+			};
 
+			if (_difficultyCount >= 2) then
+			{
+				_lightVehicleNumber = 1;
+			};
+
+			_groupNumber = 1;
 		};
 	};
+
+	// Return our parameters
+	[
+		_groupNumber,
+		_countPerGroup,
+		_lightVehicleNumber,
+		_heavyVehicleNumber
+	]
 };
 
 /*
@@ -516,7 +735,7 @@ if (toUpper(_type) == "GETAICOUNTMINMAX") exitWith
 	_params params
 	[
 		"_position",
-		["_radius", 50]
+		["_radius", 50],
 		["_min", 0],
 		["_max", 0],
 		["_clampByPositions", false]
@@ -536,7 +755,7 @@ if (toUpper(_type) == "GETAICOUNTMINMAX") exitWith
 
 		// Return Zero
 		0
-	}
+	};
 
 	// Determine the ai count
 	private
@@ -565,7 +784,13 @@ if (toUpper(_type) == "GETAICOUNTMINMAX") exitWith
 			_difference = (_newMax - _min);
 
 			// Determine count base on player status factor
-			_count = (_min + round (_difference * (["GetPlayerStatusFactor", [_position]] call SAEF_AID_fnc_Player)));
+			(["GetGroupStatusFactorAtPos", [_position]] call SAEF_AID_fnc_Player) params
+			[
+				"_statusFactor",
+				["_jsonResult", ""]
+			];
+
+			_count = (_min + round (_difference * _statusFactor));
 
 			// Clamp count based on min and max
 			if (_count > _newMax) then
@@ -590,7 +815,13 @@ if (toUpper(_type) == "GETAICOUNTMINMAX") exitWith
 			_difference = (_max - _newMin);
 
 			// Determine count base on player status factor
-			_count = (_newMin + round (_difference * (["GetPlayerStatusFactor", [_position]] call SAEF_AID_fnc_Player)));
+			(["GetGroupStatusFactorAtPos", [_position]] call SAEF_AID_fnc_Player) params
+			[
+				"_statusFactor",
+				["_jsonResult", ""]
+			];
+
+			_count = (_newMin + round (_difference * _statusFactor));
 
 			// Clamp count based on min and max
 			if (_count > _max) then

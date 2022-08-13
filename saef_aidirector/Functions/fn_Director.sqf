@@ -11,6 +11,14 @@ params
 	["_params", []]
 ];
 
+// Set the script tag
+private
+[
+	"_scriptTag"
+];
+
+_scriptTag = "SAEF AID Director";
+
 /*
 	------------
 	-- HANDLE --
@@ -27,11 +35,20 @@ if (toUpper(_type) == "HANDLE") exitWith
 		// Get overall status factor
 		private
 		[
-			"_statusFactor",
 			"_recDifficulty"
 		];
 
-		_statusFactor = (["GetOverallStatusFactor", [true]] call SAEF_AID_fnc_Player);
+		(["GetOverallStatusFactor", [true]] call SAEF_AID_fnc_Player) params
+		[
+			"_statusFactor",
+			["_jsonResult", ""]
+		];
+
+		if (_jsonResult != "") then
+		{
+			["Log", ["SAEF AI Director | Current Status", _jsonResult]] call SAEF_LOG_fnc_JsonLogger;
+		};
+
 		_recDifficulty = "Easy";
 
 		// Suggest the recommended difficulty
@@ -90,4 +107,4 @@ if (toUpper(_type) == "HANDLE") exitWith
 };
 
 // Log warning if type is not recognised
-["SAEF_AID_fnc_Director", 2, (format ["Unrecognised type [%1], nothing is being executed!", _type])] call RS_fnc_LoggingHelper;
+[_scriptTag, 2, (format ["Unrecognised type [%1], nothing is being executed!", _type])] call RS_fnc_LoggingHelper;

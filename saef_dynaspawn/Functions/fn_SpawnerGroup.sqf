@@ -134,9 +134,14 @@ if (_unitType == "VEH") then
 	_script = [_spawnPos, _azi, _faction, _group] spawn bis_fnc_spawnvehicle;
 	
 	waitUntil {
-		sleep 1;
+		sleep 0.1;
 		((scriptDone _script) || (isNull _script))
 	};
+
+	{
+		// Ensure the AI aren't killed as they load in
+		[_x] spawn RS_DS_fnc_SpawnProtection;
+	} forEach (units _group);
 	
 	_vehicle = vehicle (leader _group);
 	
@@ -149,7 +154,7 @@ if (_unitType == "VEH") then
 if (_type == "PAT") then
 {
 	// Creates Waypoint for Patrolling a Position
-	[_group, _spawnPos, _area] call RS_DS_fnc_TaskPatrol;
+	["StartPatrol", [_group, _spawnPos, _area]] call RS_DS_fnc_TaskPatrolV2;
 	_group setSpeedMode "LIMITED";
 	_group setBehaviour "SAFE";
 	_group setFormation ([] call RS_DS_fnc_GetRandomFormation);

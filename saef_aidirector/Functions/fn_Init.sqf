@@ -12,4 +12,4 @@ if (!isServer) exitWith {};
 ["SET", [(["GET"] call SAEF_AID_fnc_Difficulty)]] call SAEF_AID_fnc_Difficulty;
 
 // Initialise the director handler
-["HANDLE"] call SAEF_AID_fnc_Director;
+["HANDLE"] spawn SAEF_AID_fnc_Director;

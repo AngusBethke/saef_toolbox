@@ -55,6 +55,7 @@ params
 	,["_customScripts", []]
 	,["_queueValidation", {true}]
 	,["_customPositionTag", ""]
+	,["_secondPos", []]
 ];
 
 private
@@ -194,12 +195,20 @@ if ((count _units) == 1) then
 private
 [
 	"_group",
-	"_script"
+	"_script",
+	"_params"
 ];
 
-// Spawns the Group
 _group = createGroup [_side, true];
-_script = [_position, "HK", _units, _side, _area, _position, false, _paraSpawn, _group] spawn RS_DS_fnc_DynaSpawn;
+_params = [_position, "HK", _units, _side, _area, _position, false, _paraSpawn, _group];
+
+if (!(_secondPos isEqualTo [])) then
+{
+	_params = [_position, "HK", _units, _side, _area, _secondPos, false, _paraSpawn, _group];
+};
+
+// Spawns the Group
+_script = _params spawn RS_DS_fnc_DynaSpawn;
 	
 waitUntil {
 	sleep 0.1;

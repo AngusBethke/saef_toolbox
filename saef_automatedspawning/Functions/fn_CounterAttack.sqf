@@ -20,8 +20,12 @@ private
 [
 	"_areaTags",
 	"_areaTag",
-	"_areaConfigVar"
+	"_areaConfigVar",
+	"_areaUnderAttackVar"
 ];
+
+_areaUnderAttackVar = (format["Area_%1_UnderAttack", _marker]);
+missionNamespace setVariable [_areaUnderAttackVar, true, true];
 
 _areaTags = (missionNamespace getVariable ["SAEF_AreaMarkerTags", []]);
 _areaTag = "";
@@ -77,7 +81,7 @@ _activeAreas = [];
 
 // Find active areas
 {
-	if (([toUpper(_tag), toUpper(_x)] call BIS_fnc_InString) && (_marker != _x)) then
+	if (([toUpper(_areaTag), toUpper(_x)] call BIS_fnc_InString) && (_marker != _x)) then
 	{
 		private
 		[
@@ -93,7 +97,7 @@ _activeAreas = [];
 				_activeAreas pushBack _x;
 			};
 		};
-	}
+	};
 } forEach allMapMarkers;
 
 if (!(_activeAreas isEqualTo [])) exitWith
@@ -118,7 +122,7 @@ if (!(_activeAreas isEqualTo [])) exitWith
 			// Determine parameters for setting up the spawns
 			_areaSize = ["DetermineAreaSize", [_x]] call SAEF_AID_fnc_Difficulty;
 
-			(["GetNumberOfGroupsToSpawn", [_areaSize]] call SAEF_AID_fnc_Difficulty) params
+			(["GetNumberOfGroupsToSpawn", [_areaSize, _marker]] call SAEF_AID_fnc_Difficulty) params
 			[
 				"_groupNumber",
 				"_countPerGroup",
@@ -140,7 +144,9 @@ if (!(_activeAreas isEqualTo [])) exitWith
 			// Ensure paradrop only occurs if allowed
 			private
 			[
-				"_dynamicSpawnPosition"
+				"_dynamicSpawnPosition",
+				"_spawnPositions",
+				"_vehicleSpawnCode"
 			];
 
 			_dynamicSpawnPosition = _marker;
@@ -148,6 +154,18 @@ if (!(_activeAreas isEqualTo [])) exitWith
 			{
 				_paraVehicles = "";
 				_dynamicSpawnPosition = _x;
+			};
+
+			// Get safe spawn positions
+			_spawnPositions = [];
+			
+			if (_dynamicSpawnPosition == _x) then
+			{
+				_spawnPositions = ["GetSafeSpawnPositions", [(markerPos _dynamicSpawnPosition), 250, (markerPos _marker)]] call SAEF_AS_fnc_Vehicle;
+			}
+			else
+			{
+				_spawnPositions = ["GetSafeSpawnPositions", [(markerPos _marker), 250, (markerPos _marker)]] call SAEF_AS_fnc_Vehicle;
 			};
 
 			// Spawn counter attack groups
@@ -158,40 +176,53 @@ if (!(_activeAreas isEqualTo [])) exitWith
 					"_hkParams"
 				];
 
-				_hkParams = 
-				[
-					_dynamicSpawnPosition
-					,_units
-					,_side
-					,_countPerGroup
-					,4000
-					,_groupCode
-					,""
-					,_paraVehicles
-					,120
-					,_groupScripts
-					,_queueValidation
-				];
-				
+				_hkParams = [];
+				if (!(_spawnPositions isEqualTo [])) then
+				{
+					private
+					[
+						"_spawnPosition"
+					];
+
+					_spawnPosition = (selectRandom _spawnPositions);
+					_spawnPositions = _spawnPositions - [_spawnPosition];
+
+					_hkParams = 
+					[
+						[0,0,0]
+						,_units
+						,_side
+						,_countPerGroup
+						,4000
+						,_groupCode
+						,""
+						,_paraVehicles
+						,120
+						,_groupScripts
+						,_queueValidation
+						,_spawnPosition
+					];
+				}
+				else
+				{
+					_hkParams = 
+					[
+						[0,0,0]
+						,_units
+						,_side
+						,_countPerGroup
+						,4000
+						,_groupCode
+						,""
+						,_paraVehicles
+						,120
+						,_groupScripts
+						,_queueValidation
+						,_dynamicSpawnPosition
+					];
+				};
+
 				["SAEF_SpawnerQueue", _hkParams, "SAEF_AS_fnc_HunterKiller", _queueValidation] call RS_MQ_fnc_MessageEnqueue;
-			};
-
-			private
-			[
-				"_spawnPositions",
-				"_vehicleSpawnCode"
-			];
-
-			// Get safe spawn positions for a vehicle
-			_spawnPositions = [];
-			
-			if (_dynamicSpawnPosition == _x) then
-			{
-				_spawnPositions = ["GetSafeSpawnPosition", [(markerPos _dynamicSpawnPosition), 250, (markerPos _marker)]] call SAEF_AS_fnc_Vehicle;
-			}
-			else
-			{
-				_spawnPositions = ["GetSafeSpawnPosition", [(markerPos _marker), 250, (markerPos _marker)]] call SAEF_AS_fnc_Vehicle;
 			};
 
 			_vehicleSpawnCode = {
@@ -219,7 +250,7 @@ if (!(_activeAreas isEqualTo [])) exitWith
 
 					_hkParams = 
 					[
-						_spawnPosition
+						[0,0,0]
 						,_lightVehicles
 						,_side
 						,1
@@ -230,6 +261,7 @@ if (!(_activeAreas isEqualTo [])) exitWith
 						,120
 						,_groupScripts
 						,_queueValidation
+						,_spawnPosition
 					];
 					
 					["SAEF_SpawnerQueue", _hkParams, "SAEF_AS_fnc_HunterKiller", _queueValidation] call RS_MQ_fnc_MessageEnqueue;

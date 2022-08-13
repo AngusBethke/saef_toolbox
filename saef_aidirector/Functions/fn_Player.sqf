@@ -25,6 +25,14 @@ params
 	["_params", []]
 ];
 
+// Set the script tag
+private
+[
+	"_scriptTag"
+];
+
+_scriptTag = "SAEF AID Player";
+
 /*
 	----------------------------
 	-- GETOVERALLSTATUSFACTOR --
@@ -50,21 +58,52 @@ if (toUpper(_type) == "GETOVERALLSTATUSFACTOR") exitWith
 	_playerGroups = (["GetAllPlayerGroups"] call SAEF_AID_fnc_Player);
 	_statusFactor = 0;
 
+	private
+	[
+		"_jsonResultArray"
+	];
+
+	_jsonResultArray = [];
+
 	{
-		_statusFactor = _statusFactor + (["GetGroupStatusFactor", [_x, true]] call SAEF_AID_fnc_Player);
+		(["GetGroupStatusFactor", [_x, true]] call SAEF_AID_fnc_Player) params
+		[
+			"_tStatusFactor",
+			["_tJsonResult", ""]
+		];
+
+		_statusFactor = _statusFactor + _tStatusFactor;
+
+		if (!(_tJsonResult isEqualTo [])) then
+		{
+			_jsonResultArray pushBack _tJsonResult;
+		};
 	} forEach _playerGroups;
 
 	// Divide status factor by number of groups
 	_statusFactor = (_statusFactor / (count _playerGroups));
 
+	private
+	[
+		"_jsonResult"
+	];
+
 	// Log the status using the JSON logger
+	_jsonResult = "";
 	if (_logStatus) then
 	{
-		["LogItem", ["OverallStatusFactor", _statusFactor]] call SAEF_LOG_fnc_JsonLogger;
+		_jsonResult = [
+			"BuildItems", 
+			[
+				["OverallStatusFactor", _statusFactor], 
+				["CurrentDifficulty", (["Get"] call SAEF_AID_fnc_Difficulty)], 
+				["GroupStatusFactors", _jsonResultArray, true]
+			]
+		] call SAEF_LOG_fnc_JsonLogger;
 	};
 
 	// Return the status factor
-	_statusFactor
+	[_statusFactor, _jsonResult]
 };
 
 /*
@@ -78,11 +117,12 @@ if (toUpper(_type) == "GETGROUPSTATUSFACTORATPOS") exitWith
 {
 	_params params
 	[
-		"_position"
+		"_position",
+		["_logStatus", false]
 	];
 
 	// Return the status factor
-	(["GetGroupStatusFactor", [(["GetPlayerGroup", [_position]] call SAEF_AID_fnc_Player)]] call SAEF_AID_fnc_Player)
+	(["GetGroupStatusFactor", [(["GetPlayerGroup", [_position]] call SAEF_AID_fnc_Player), _logStatus]] call SAEF_AID_fnc_Player)
 };
 
 /*
@@ -104,7 +144,8 @@ if (toUpper(_type) == "GETGROUPSTATUSFACTOR") exitWith
 	[
 		"_condition",
 		"_liveState",
-		"_ammoState"
+		"_ammoState",
+		["_tJsonResult", ""]
 	];
 
 	private
@@ -121,13 +162,20 @@ if (toUpper(_type) == "GETGROUPSTATUSFACTOR") exitWith
 		"_units"
 	];
 
+	private
+	[
+		"_jsonResult"
+	];
+
+	// Log the conditions
+	_jsonResult = "";
 	if (_logStatus) then
 	{
-		["LogItems", [["GroupId", _groupId], ["GroupSize", (count _units)], ["GroupStatusFactor", _statusFactor]]] call SAEF_LOG_fnc_JsonLogger;
+		_jsonResult = ["BuildItems", [["GroupId", _groupId], ["Size", (count _units)], ["StatusFactor", _statusFactor], ["Condition", _tJsonResult, true]]] call SAEF_LOG_fnc_JsonLogger;
 	};
 
 	// Return the status factor
-	_statusFactor
+	[_statusFactor, _jsonResult]
 };
 
 /*
@@ -180,14 +228,20 @@ if (toUpper(_type) == "GETCONDITIONS") exitWith
 	_liveState = (_liveState / (count _units));
 	_ammoState = (_ammoState / (count _units));
 
+	private
+	[
+		"_jsonResult"
+	];
+
 	// Log the conditions
+	_jsonResult = "";
 	if (_logStatus) then
 	{
-		["LogItems", [["GroupId", _groupId], ["GroupSize", (count _units)], ["GroupCondition", _condition], ["GroupLiveState", _liveState], ["GroupAmmoState", _ammoState]]] call SAEF_LOG_fnc_JsonLogger;
+		_jsonResult = ["BuildItems", [["GeneralCondition", _condition], ["LiveState", _liveState], ["AmmoState", _ammoState]]] call SAEF_LOG_fnc_JsonLogger;
 	};
 
 	// Return our altered conditions
-	[_condition, _liveState, _ammoState]
+	[_condition, _liveState, _ammoState, _jsonResult]
 };
 
 /*
@@ -218,31 +272,39 @@ if (toUpper(_type) == "GETCONDITION") exitWith
 	// If the unit is alive
 	if (alive _unit) then
 	{
-		// Check if this unit is unconscious - will be zero if they're unconscious
-		if (!(_unit getVariable ["ACE_isUnconscious", false])) then
+		if (_unit in ([true, true] call RS_PLYR_fnc_GetTruePlayers)) then
 		{
-			// Raise to good condition
-			_condition = 1;
-
-			// Incrementally lower status based on open wounds
-			private
-			[
-				"_openWounds"
-			];
-
-			_openWounds = _unit getVariable ["ace_medical_openWounds", []];
-
+			// Check if this unit is unconscious - will be zero if they're unconscious
+			if (!(_unit getVariable ["ACE_isUnconscious", false])) then
 			{
-				_condition = _condition - 0.05;
-			} forEach _openWounds;
+				// Raise to good condition
+				_condition = 1;
 
-			// Condition cannot be worse than 0.05 if the unit is still conscious
-			if (_condition < 0.05) then
-			{
-				_condition - 0.05;
+				// Incrementally lower status based on open wounds
+				private
+				[
+					"_openWounds"
+				];
+
+				_openWounds = _unit getVariable ["ace_medical_openWounds", []];
+
+				{
+					_condition = _condition - 0.05;
+				} forEach _openWounds;
+
+				// Condition cannot be worse than 0.05 if the unit is still conscious
+				if (_condition < 0.05) then
+				{
+					_condition - 0.05;
+				};
 			};
+		}
+		else
+		{
+			// If this is AI, then we check their general damage
+			_condition = 1 - (damage _unit);
 		};
-			
+		
 		// If this player is alive, easy set
 		_liveState = 1;
 
@@ -268,48 +330,12 @@ if (toUpper(_type) == "CHECKPLAYERAMMO") exitWith
 		"_unit"
 	];
 
-	// Get unit loadout
-	(getUnitLoadout _unit) params
+	(["GetWeaponsAndAmmo", [_unit]] call SAEF_AID_fnc_Player) params 
 	[
-		"_weapon",
-		"_launcher",
-		"_pistol",
-		"_uniform",
-		"_vest",
-		"_backpack",
-		"_helmet",
-		"_goggles"
+		"_currentWeapon",
+		"_currentLauncher",
+		"_currentPistol"
 	];
-
-	private
-	[
-		"_totalAmmoCount"
-	];
-
-	_totalAmmoCount = 0;
-
-	// Evaluate unit weapons
-	{
-		private
-		[
-			"_weapon"
-		];
-
-		_weapon = _x;
-
-		{
-			_x params
-			[
-				"_magazine",
-				"_ammoCount"
-			];
-
-			if (_magazine in ([_weapon] call BIS_fnc_compatibleMagazines)) then
-			{
-				_totalAmmoCount = _totalAmmoCount + _ammoCount;
-			};
-		} forEach _magazines;
-	} forEach _weapons;
 
 	(["GetAmmoSetup"] call SAEF_AID_fnc_Difficulty) params
 	[
@@ -318,24 +344,349 @@ if (toUpper(_type) == "CHECKPLAYERAMMO") exitWith
 		"_launcherWeaponAmmo"
 	];
 
+	// Get the ammo factor for each weapon
 	private
 	[
+		"_primaryWeaponAmmoFactor",
+		"_secondaryWeaponAmmoFactor",
+		"_launcherWeaponAmmoFactor",
 		"_ammoFactor"
 	];
 
-	if (_totalAmmoCount != 0) then
-	{
-		_ammoFactor = _totalAmmoCount / (_primaryWeaponAmmo + _secondaryWeaponAmmo + _launcherWeaponAmmo);
-	};
+	_primaryWeaponAmmoFactor = ["GetWeaponAmmoFactor", [_currentWeapon, _primaryWeaponAmmo]] call SAEF_AID_fnc_Player;
+	_secondaryWeaponAmmoFactor = ["GetWeaponAmmoFactor", [_currentPistol, _secondaryWeaponAmmo]] call SAEF_AID_fnc_Player;
+	_launcherWeaponAmmoFactor = ["GetWeaponAmmoFactor", [_currentLauncher, _launcherWeaponAmmo]] call SAEF_AID_fnc_Player;
 
-	// Clamp the factor to 1
-	if (_ammoFactor > 1) then
-	{
-		_ammoFactor = 1;
-	};
+	_ammoFactor = ((_primaryWeaponAmmoFactor + _secondaryWeaponAmmoFactor + _launcherWeaponAmmoFactor) / 3);
 
 	// Return our ammo factor
 	_ammoFactor
+};
+
+/*
+	-------------------------
+	-- GETWEAPONAMMOFACTOR --
+	-------------------------
+
+	Gets the weapons ammo factor
+*/
+if (toUpper(_type) == "GETWEAPONAMMOFACTOR") exitWith
+{
+	_params params
+	[
+		"_currentWeapon",
+		"_weaponAmmo"
+	];
+
+	// If we don't have this weapon, the ammo factor is automatically 1
+	if (_currentWeapon isEqualTo []) exitWith
+	{
+		1
+	};
+
+	_currentWeapon params
+	[
+		"_weaponClassName",
+		"_weaponCurrentAmmo"
+	];
+
+	private
+	[
+		"_weaponAmmoFactor"
+	];
+
+	[_scriptTag, 4, (format ["[GETWEAPONAMMOFACTOR] Weapon [%1], current ammo [%2], recommended ammo [%3]", _weaponClassName, _weaponCurrentAmmo, _weaponAmmo])] call RS_fnc_LoggingHelper;
+
+	_weaponAmmoFactor = (_weaponCurrentAmmo / _weaponAmmo);
+
+	if (_weaponAmmoFactor > 1) then
+	{
+		_weaponAmmoFactor = 1;
+	};
+
+	// Return the weapon ammo factor
+	_weaponAmmoFactor
+};
+
+/*
+	-----------------------
+	-- GETWEAPONSANDAMMO --
+	-----------------------
+
+	Gets the players weapons and ammo
+*/
+if (toUpper(_type) == "GETWEAPONSANDAMMO") exitWith
+{
+	_params params
+	[
+		"_unit"
+	];
+
+	// Get unit loadout
+	(getUnitLoadout _unit) params
+	[
+		["_weapon", []],
+		["_launcher", []],
+		["_pistol", []],
+		["_uniform", []],
+		["_vest", []],
+		["_backpack", []],
+		["_helmet", ""],
+		["_goggles", ""],
+		["_binoculars", []],
+		["_linkedItems", []]
+	];
+
+	private
+	[
+		"_currentWeapon",
+		"_currentLauncher",
+		"_currentPistol"
+	];
+
+	_currentWeapon = ["GetWeaponSetup", [_weapon]] call SAEF_AID_fnc_Player;
+	_currentLauncher = ["GetWeaponSetup", [_launcher]] call SAEF_AID_fnc_Player;
+	_currentPistol = ["GetWeaponSetup", [_pistol]] call SAEF_AID_fnc_Player;
+
+	
+	if (!(_currentWeapon isEqualTo [])) then
+	{
+		_currentWeapon = (["GetAmmoFromContainer", [_uniform, _currentWeapon]] call SAEF_AID_fnc_Player);
+		_currentWeapon = (["GetAmmoFromContainer", [_vest, _currentWeapon]] call SAEF_AID_fnc_Player);
+		_currentWeapon = (["GetAmmoFromContainer", [_backpack, _currentWeapon]] call SAEF_AID_fnc_Player);
+	};
+	
+	if (!(_currentLauncher isEqualTo [])) then
+	{
+		_currentLauncher = (["GetAmmoFromContainer", [_uniform, _currentLauncher]] call SAEF_AID_fnc_Player);
+		_currentLauncher = (["GetAmmoFromContainer", [_vest, _currentLauncher]] call SAEF_AID_fnc_Player);
+		_currentLauncher = (["GetAmmoFromContainer", [_backpack, _currentLauncher]] call SAEF_AID_fnc_Player);
+	};
+	
+	if (!(_currentPistol isEqualTo [])) then
+	{
+		_currentPistol = (["GetAmmoFromContainer", [_uniform, _currentPistol]] call SAEF_AID_fnc_Player);
+		_currentPistol = (["GetAmmoFromContainer", [_vest, _currentPistol]] call SAEF_AID_fnc_Player);
+		_currentPistol = (["GetAmmoFromContainer", [_backpack, _currentPistol]] call SAEF_AID_fnc_Player);
+	};
+
+	// Return our weapons and their ammo
+	[
+		_currentWeapon,
+		_currentLauncher,
+		_currentPistol
+	]
+};
+
+/*
+	--------------------
+	-- GETWEAPONSETUP --
+	--------------------
+
+	Gets the weapon setup from given weapon
+*/
+if (toUpper(_type) == "GETWEAPONSETUP") exitWith
+{
+	_params params
+	[
+		"_weapon"
+	];
+
+	if (_weapon isEqualTo []) exitWith 
+	{
+		[]
+	};
+
+	private
+	[
+		"_weaponParams",
+		"_magazineParams",
+		"_currentWeapon"
+	];
+
+	_weaponParams =
+	[
+		"_weaponClassName",
+		"_weaponMuzzleAttachment",
+		"_weaponSideAttachment",
+		"_weaponOpticAttachment",
+		"_weaponMagazinePrimary",
+		"_weaponMagazineSecondary",
+		"_weaponBipodAttachment"
+	];
+
+	_magazineParams = 
+	[
+		"_magazineClassName",
+		"_magazineAmmoCount"
+	];
+
+	_currentWeapon = [];
+
+	_weapon params _weaponParams;
+
+	// Add the classname to the weapon
+	_currentWeapon pushBack _weaponClassName;
+
+	// Add the ammo count to the weapon
+	if (!(_weaponMagazinePrimary isEqualTo [])) then
+	{
+		_weaponMagazinePrimary params _magazineParams;
+		_currentWeapon pushBack _magazineAmmoCount;
+		_currentWeapon pushBack [_magazineClassName];
+	}
+	else
+	{
+		_currentWeapon pushBack 0;
+	};
+
+	// Return the weapon
+	_currentWeapon
+};
+
+/*
+	---------------------------
+	-- GETPLAYERLAUNCHERTYPE --
+	---------------------------
+
+	Determines whether a group of players has a specific launcher type
+*/
+if (toUpper(_type) == "GETPLAYERLAUNCHERTYPE") exitWith
+{
+	_params params
+	[
+		"_position"
+	];
+
+	(["GetPlayerGroup", [_position]] call SAEF_AID_fnc_Player) params
+	[
+		"_groupId",
+		"_units"
+	];
+
+	private
+	[
+		"_hasAntiAir",
+		"_hasAntiTank"
+	];
+
+	_hasAntiAir = false;
+	_hasAntiTank = false;
+
+	{
+		private
+		[
+			"_unit"
+		];
+
+		_unit = _x;
+
+		(["GetWeaponsAndAmmo", [_unit]] call SAEF_AID_fnc_Player) params 
+		[
+			"_currentWeapon",
+			"_currentLauncher",
+			"_currentPistol"
+		];
+
+		if (!(_currentLauncher isEqualTo [])) then
+		{
+			_currentLauncher params
+			[
+				"_weaponClassname",
+				"_weaponAmmo",
+				"_weaponMagazines"
+			];
+
+			{
+				if (_x isKindOf ["CA_LauncherMagazine", configFile >> "CfgMagazines"]) exitWith
+				{
+					if (_x isKindOf ["Titan_AA", configFile >> "CfgMagazines"]) then
+					{
+						_hasAntiAir = true;
+					}
+					else
+					{
+						_hasAntiTank = true;
+					};
+				};
+			} forEach _weaponMagazines;
+		};
+	} forEach _units;
+
+	// Return launcher status
+	[
+		_hasAntiAir,
+		_hasAntiTank
+	]
+};
+
+/*
+	--------------------------
+	-- GETAMMOFROMCONTAINER --
+	--------------------------
+
+	Gets the ammo for a weapon from the container
+*/
+if (toUpper(_type) == "GETAMMOFROMCONTAINER") exitWith
+{
+	_params params
+	[
+		"_container",
+		"_weapon"
+	];
+
+	_weapon params
+	[
+		"_weaponClassName",
+		"_weaponCurrentAmmo",
+		["_weaponMagazines", []]
+	];
+
+	if (_container isEqualTo []) exitWith 
+	{
+		[_weaponClassName, _weaponCurrentAmmo, _weaponMagazines]
+	};
+
+	private
+	[
+		"_containerItemParams"
+	];
+
+	_containerItemParams = 
+	[
+		"_containerItemClassName",
+		"_containerItemCount",
+		["_containerItemAmmoCount", 0]
+	];
+
+	_container params
+	[
+		"_containerClassName",
+		"_containerItems"
+	];
+
+	{
+		_x params _containerItemParams;
+
+		if (_containerItemAmmoCount > 0) then
+		{
+			private
+			[
+				"_compatibleMagazines"
+			];
+
+			_compatibleMagazines = ([_weaponClassName] call BIS_fnc_compatibleMagazines);
+
+			if (toLower(_containerItemClassName) in _compatibleMagazines) then
+			{
+				_weaponCurrentAmmo = _weaponCurrentAmmo + (_containerItemCount * _containerItemAmmoCount);
+				_weaponMagazines pushBackUnique toLower(_containerItemClassName);
+			};
+		};
+	} forEach _containerItems;
+
+	// Return weapon
+	[_weaponClassName, _weaponCurrentAmmo, _weaponMagazines]
 };
 
 /*
@@ -380,7 +731,7 @@ if (toUpper(_type) == "GETPLAYERGROUP") exitWith
 			if (_distance < _closestDistance) then
 			{
 				_closestDistance = _distance;
-				_selectedGroup = _units;
+				_selectedGroup = [_groupId, _units];
 			};
 		} forEach _units;
 	} forEach _playerGroups;
@@ -431,14 +782,8 @@ if (toUpper(_type) == "GETALLPLAYERGROUPS") exitWith
 		"_secondPassSeparateUnits"
 	];
 
-	// Third pass array joining
-	(["PlayerGroupsThirdPass", [_secondPassSeparateUnits]] call SAEF_AID_fnc_Player) params
-	[
-		"_thirdPassSeparateUnits"
-	];
-
 	// Get the player groups after array passes
-	(["GetPlayerGroupsWithPasses", [_thirdPassSeparateUnits, _unitKeys]] call SAEF_AID_fnc_Player) params
+	(["GetPlayerGroupsWithPasses", [_secondPassSeparateUnits, _unitKeys]] call SAEF_AID_fnc_Player) params
 	[
 		"_playerGroups"
 	];
@@ -478,7 +823,7 @@ if (toUpper(_type) == "PLAYERGROUPSFIRSTPASS") exitWith
 
 		_unit = _x;
 
-		_separateUnits pushBackUnique [(format ["%1", _unit])];
+		_separateUnits pushBackUnique (format ["%1", _unit]);
 		_unitKeys pushBackUnique [(format ["%1", _unit]), _unit];
 	} forEach _players;
 
@@ -503,193 +848,98 @@ if (toUpper(_type) == "PLAYERGROUPSSECONDPASS") exitWith
 
 	private
 	[
-		"_passUnits"
+		"_secondPassSeparateUnits"
 	];
 
-	_passUnits = [];
+	_secondPassSeparateUnits = [];
 
+	while {!(_separateUnits isEqualTo [])} do
 	{
 		private
 		[
-			"_units"
+			"_groupOfUnits"
 		];
 
-		_units = [];
+		_groupOfUnits = ["PlayerGroupsSecondPass_UOW", [[(_separateUnits select 0)], _separateUnits, _unitKeys]] call SAEF_AID_fnc_Player;
+		_separateUnits = _separateUnits - _groupOfUnits;
 
-		{
-			private
-			[
-				"_unit"
-			];
-
-			_unit = _x;
-			_units pushBackUnique _unit;
-
-			{
-				private
-				[
-					"_xString"
-				];
-
-				_xString = (format ["%1", _x]);
-
-				if (_unit != _xString) then
-				{
-					// Fetch the actual object
-					private
-					[
-						"_unitObject",
-						"_xObject"
-					];
-
-					_unitObject = ["GetItemFromDictionary", [_unit, _unitKeys]] call SAEF_AID_fnc_Player;
-					_xObject = ["GetItemFromDictionary", [_xString, _unitKeys]] call SAEF_AID_fnc_Player;
-
-					// Evaluate distance
-					if ((_unitObject distance _xObject) <= 69) then
-					{
-						_units pushBackUnique _xString;
-					};
-				};
-			} forEach _players;
-		} forEach _x;
-
-		_units sort true;
-		_passUnits pushBackUnique (_units arrayIntersect _units);
-	} forEach _separateUnits;
-
-	// Return the pass units
-	[_passUnits]
-};
-
-/*
-	----------------------------
-	-- TRY THIS --
-	----------------------------
-
-	Does the second array pass for sorting player groups
-*/
-if (toUpper(_type) == "PLAYERGROUPSSECONDPASS") exitWith
-{
-	_params params
-	[
-		"_separateUnits",
-		"_unitKeys",
-		"_players"
-	];
-
-	for "_i" from 1 to (count _players) then
-	{
-		{
-			private
-			[
-				"_units"
-			];
-
-			_units = _x;
-
-			{
-				private
-				[
-					"_unit"
-				];
-
-				_unit = _x;
-
-				{
-					private
-					[
-						"_xString"
-					];
-
-					_xString = (format ["%1", _x]);
-
-					if (_unit != _xString) then
-					{
-						// Fetch the actual object
-						private
-						[
-							"_unitObject",
-							"_xObject"
-						];
-
-						_unitObject = ["GetItemFromDictionary", [_unit, _unitKeys]] call SAEF_AID_fnc_Player;
-						_xObject = ["GetItemFromDictionary", [_xString, _unitKeys]] call SAEF_AID_fnc_Player;
-
-						// Evaluate distance
-						if ((_unitObject distance _xObject) <= 69) then
-						{
-							_units pushBackUnique _xString;
-						};
-					};
-				} forEach _players;
-			} forEach _units;
-
-			_units sort true;
-			_separateUnits set [_forEachIndex, (_units arrayIntersect _units)];
-		} forEach _separateUnits;
+		_groupOfUnits sort true;
+		_secondPassSeparateUnits pushBack _groupOfUnits;
 	};
-	
-	// Return the pass units
-	[_separateUnits]
+
+	// Return the units
+	[_secondPassSeparateUnits]
 };
 
 /*
-	----------------------------
-	-- PLAYERGROUPSTHIRDPASS --
-	----------------------------
+	--------------------------------
+	-- PLAYERGROUPSSECONDPASS_UOW --
+	--------------------------------
 
-	Does the third array pass for sorting player groups
+	Conducts the recursive unit of work for the second pass
 */
-if (toUpper(_type) == "PLAYERGROUPSTHIRDPASS") exitWith
+if (toUpper(_type) == "PLAYERGROUPSSECONDPASS_UOW") exitWith
 {
 	_params params
 	[
-		"_secondPassSeparateUnits"
+		"_groupOfUnits",
+		"_players",
+		"_unitKeys"
 	];
 
 	private
 	[
-		"_passUnits"
+		"_controlGroup"
 	];
 
-	_passUnits = [];
+	_controlGroup = _groupOfUnits;
 
 	{
+		// Setup player object
 		private
 		[
-			"_units",
-			"_newUnits"
+			"_player",
+			"_playerObject"
 		];
 
-		_units = _x;
-		_newUnits = _units;
+		_player = _x;
+		_playerObject = ["GetItemFromDictionary", [_player, _unitKeys]] call SAEF_AID_fnc_Player;
+
+		// Alter the given players to ensure we don't test against duplicates
+		_players = _players - _groupOfUnits;
 
 		{
 			private
 			[
-				"_subUnits"
+				"_tempPlayer"
 			];
 
-			_subUnits = _x;
+			_tempPlayer = _x;
 
-			if (!(_units isEqualTo _subUnits)) then
+			// Fetch the actual object
+			private
+			[
+				"_tempPlayerObject"
+			];
+
+			_tempPlayerObject = ["GetItemFromDictionary", [_tempPlayer, _unitKeys]] call SAEF_AID_fnc_Player;
+
+			// Evaluate distance
+			if ((_tempPlayerObject distance _playerObject) <= 69) then
 			{
-				{
-					if (_x in _subUnits) then
-					{
-						_newUnits = _newUnits + _subUnits;
-					};
-				} forEach _units;
+				_groupOfUnits pushBackUnique _tempPlayer;
 			};
-		} forEach _secondPassSeparateUnits;
+		} forEach _players;
+	} forEach _groupOfUnits;
 
-		_newUnits sort true;
-		_passUnits pushBackUnique (_newUnits arrayIntersect _newUnits);
-	} forEach _secondPassSeparateUnits;
+	// Recursive call
+	if (!(_groupOfUnits isEqualTo _controlGroup)) then
+	{	
+		_groupOfUnits = ["PlayerGroupsSecondPass_UOW", [_groupOfUnits, _players, _unitKeys]] call SAEF_AID_fnc_Player;
+	};
 
-	// Return the pass units
-	[_passUnits]
+	// Return the group of units
+	_groupOfUnits
 };
 
 /*
@@ -703,7 +953,7 @@ if (toUpper(_type) == "GETPLAYERGROUPSWITHPASSES") exitWith
 {
 	_params params
 	[
-		"_thirdPassSeparateUnits",
+		"_secondPassSeparateUnits",
 		"_unitKeys"
 	];
 
@@ -712,7 +962,7 @@ if (toUpper(_type) == "GETPLAYERGROUPSWITHPASSES") exitWith
 		"_groupUnits"
 	];
 
-	_groupUnits = (_thirdPassSeparateUnits arrayIntersect _thirdPassSeparateUnits);
+	_groupUnits = (_secondPassSeparateUnits arrayIntersect _secondPassSeparateUnits);
 
 	// Turn them into the groups
 	private
@@ -786,4 +1036,4 @@ if (toUpper(_type) == "GETITEMFROMDICTIONARY") exitWith
 };
 
 // Log warning if type is not recognised
-["SAEF_AID_fnc_Player", 2, (format ["Unrecognised type [%1], nothing is being executed!", _type])] call RS_fnc_LoggingHelper;
+[_scriptTag, 2, (format ["Unrecognised type [%1], nothing is being executed!", _type])] call RS_fnc_LoggingHelper;

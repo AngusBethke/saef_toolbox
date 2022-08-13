@@ -186,6 +186,9 @@ if (missionNamespace getVariable [_persistenceVariable, true]) then
 		};
 	};
 
+	// Ensure linked area is set so we can track this group
+	_group setVariable ["SAEF_AS_Linked_Area", _marker, true];
+
 	// Group Specific Settings
 	_groupCode forEach units _group;
 

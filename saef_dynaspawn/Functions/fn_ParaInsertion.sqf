@@ -137,6 +137,7 @@ _vGroup = (_vehArray select 2);
 // Helo Height Fix
 _veh flyInHeight 300;
 {
+	[_x] spawn RS_DS_fnc_SpawnProtection;
 	_x flyInHeight 300;
 } forEach units _vGroup;
 
@@ -298,24 +299,27 @@ else
 		moveOut _x;
 
 		// Ensure the unit gets their backpack back once they are on the ground
-		[_x, _backpack] spawn
+		if (_backpack != "") then
 		{
-			params
-			[
-				"_unit",
-				"_backpack"
-			];
-
-			sleep 10;
-
-			waitUntil {
-				sleep 1;
-				(((vehicle _unit) == _unit) || (!alive _unit))
-			};
-
-			if (alive _unit) then
+			[_x, _backpack] spawn
 			{
-				_unit addBackpack _backpack;
+				params
+				[
+					"_unit",
+					"_backpack"
+				];
+
+				sleep 10;
+
+				waitUntil {
+					sleep 1;
+					(((vehicle _unit) == _unit) || (!alive _unit))
+				};
+
+				if (alive _unit) then
+				{
+					_unit addBackpack _backpack;
+				};
 			};
 		};
 		
