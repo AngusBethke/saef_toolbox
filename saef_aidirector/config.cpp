@@ -28,6 +28,7 @@ class CfgFunctions
 			class Difficulty {};
 			class Director {};
 			class Player {};
+			class Track {};
 		};
 	};
 };

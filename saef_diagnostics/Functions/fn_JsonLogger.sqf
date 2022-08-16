@@ -165,7 +165,7 @@ if (toUpper(_type) == "CREATEJSONITEM") exitWith
 */
 if (toUpper(_type) == "FORMAT") exitWith
 {
-	if (typeName _params != "ARRAY") exitWith 
+	if ((typeName _params) != "ARRAY") exitWith 
 	{
 		_params
 	};
@@ -178,7 +178,7 @@ if (toUpper(_type) == "FORMAT") exitWith
 	_items = [];
 	
 	{
-		_items pushBack (text _x);
+		_items pushBack (text (format ["%1", _x]));
 	} forEach _params;
 
 	// Return the json array

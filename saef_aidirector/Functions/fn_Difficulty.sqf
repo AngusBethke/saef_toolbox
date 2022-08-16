@@ -61,7 +61,7 @@ if (toUpper(_type) == "GET") exitWith
 
 			if (_difficultyCount > _maxDifficultyCount) then
 			{
-				["SAEF_AID_fnc_Difficulty", 0, (format ["[GET] Difficulty [%1] is higher than max difficulty [%2], returning the max...", _difficulty, _maxDifficulty])] call RS_fnc_LoggingHelper;
+				["SAEF_AID_fnc_Difficulty", 3, (format ["[GET] Difficulty [%1] is higher than max difficulty [%2], returning the max...", _difficulty, _maxDifficulty])] call RS_fnc_LoggingHelper;
 				_difficulty = _maxDifficulty;
 			};
 		};
@@ -77,7 +77,7 @@ if (toUpper(_type) == "GET") exitWith
 
 			if (_difficultyCount < _minDifficultyCount) then
 			{
-				["SAEF_AID_fnc_Difficulty", 0, (format ["[GET] Difficulty [%1] is lower than min difficulty [%2], returning the min...", _difficulty, _minDifficulty])] call RS_fnc_LoggingHelper;
+				["SAEF_AID_fnc_Difficulty", 3, (format ["[GET] Difficulty [%1] is lower than min difficulty [%2], returning the min...", _difficulty, _minDifficulty])] call RS_fnc_LoggingHelper;
 				_difficulty = _minDifficulty;
 			};
 		};
@@ -239,7 +239,7 @@ if (toUpper(_type) == "CLAMPDIFFICULTYBYPLAYERNUMBER") exitWith
 
 	if (_clamped) then
 	{
-		["SAEF_AID_fnc_Difficulty", 0, (format ["[CLAMPDIFFICULTYBYPLAYERNUMBER] Clamping difficulty to [%1] in order to match the number of players [%2]...", _difficulty, (count _players)])] call RS_fnc_LoggingHelper;
+		["SAEF_AID_fnc_Difficulty", 3, (format ["[CLAMPDIFFICULTYBYPLAYERNUMBER] Clamping difficulty to [%1] in order to match the number of players [%2]...", _difficulty, (count _players)])] call RS_fnc_LoggingHelper;
 	};
 
 	// Default is to return the given difficulty and count
@@ -267,7 +267,7 @@ if (toUpper(_type) == "SET") exitWith
 		["SAEF_AID_fnc_Difficulty", 1, (format ["[SET] Unrecognised difficulty [%1], value cannot be set!", _difficulty])] call RS_fnc_LoggingHelper;
 	};
 
-	[_scriptTag, 0, (format ["Setting the difficulty: [%1]", _difficulty])] call RS_fnc_LoggingHelper;
+	[_scriptTag, 3, (format ["Setting the difficulty: [%1]", _difficulty])] call RS_fnc_LoggingHelper;
 
 	missionNamespace setVariable ["SAEF_AID_Difficulty", _difficulty, true];
 };
@@ -462,7 +462,7 @@ if (toUpper(_type) == "GETAICOUNTFORAREA") exitWith
 	];
 
 	// Need to ensure that we're not re-populating attacked areas
-	if (_count > _min) then
+	if (_count >= _min) then
 	{
 		_tempCount = (["GetAiCount", [(markerPos _marker), _areaSize, _clampByPositions]] call SAEF_AID_fnc_Difficulty);
 	};
@@ -492,19 +492,17 @@ if (toUpper(_type) == "GETAICOUNT") exitWith
 		["_clampByPositions", false]
 	];
 
-	(["GetAreaMinMax", [_areaSize]] call SAEF_AID_fnc_Difficulty) params
+	// Set the radius
+	private
 	[
+		"_radius",
 		"_min",
 		"_max"
 	];
 
-	// Set the radius
-	private
-	[
-		"_radius"
-	];
-
 	_radius = 0;
+	_min = 0;
+	_max = 0;
 
 	switch toUpper(_areaSize) do
 	{
@@ -513,10 +511,19 @@ if (toUpper(_type) == "GETAICOUNT") exitWith
 			[
 				["_tBaseAICount", 4],
 				["_tBaseAreaSize", 40],
-				["_tBaseActivationRange", 500]
+				["_tBaseActivationRange", 500],
+				["_tBaseAICountMinMax", [2, 4]]
+			];
+
+			_tBaseAICountMinMax params
+			[
+				"_tMin",
+				"_tMax"
 			];
 			
 			_radius = _tBaseAreaSize;
+			_min = _tMin;
+			_max = _tMax;
 		};
 
 		case "MED": {
@@ -524,10 +531,19 @@ if (toUpper(_type) == "GETAICOUNT") exitWith
 			[
 				["_tBaseAICount", 8],
 				["_tBaseAreaSize", 50],
-				["_tBaseActivationRange", 500]
+				["_tBaseActivationRange", 500],
+				["_tBaseAICountMinMax", [4, 12]]
+			];
+
+			_tBaseAICountMinMax params
+			[
+				"_tMin",
+				"_tMax"
 			];
 			
 			_radius = _tBaseAreaSize;
+			_min = _tMin;
+			_max = _tMax;
 		};
 
 		case "LRG": {
@@ -535,10 +551,19 @@ if (toUpper(_type) == "GETAICOUNT") exitWith
 			[
 				["_tBaseAICount", 12],
 				["_tBaseAreaSize", 60],
-				["_tBaseActivationRange", 500]
+				["_tBaseActivationRange", 500],
+				["_tBaseAICountMinMax", [12, 20]]
+			];
+
+			_tBaseAICountMinMax params
+			[
+				"_tMin",
+				"_tMax"
 			];
 			
 			_radius = _tBaseAreaSize;
+			_min = _tMin;
+			_max = _tMax;
 		};
 
 		default {
@@ -700,18 +725,60 @@ if (toUpper(_type) == "GETAREAMINMAX") exitWith
 	switch toUpper(_areaSize) do
 	{
 		case "SML": {
-			_min = 2;
-			_max = 4;
+			(missionNamespace getVariable ["SAEF_AreaSpawner_Small_Params", []]) params
+			[
+				["_tBaseAICount", 4],
+				["_tBaseAreaSize", 40],
+				["_tBaseActivationRange", 500],
+				["_tBaseAICountMinMax", [2, 4]]
+			];
+
+			_tBaseAICountMinMax params
+			[
+				"_tMin",
+				"_tMax"
+			];
+			
+			_min = _tMin;
+			_max = _tMax;
 		};
 
 		case "MED": {
-			_min = 4;
-			_max = 12;
+			(missionNamespace getVariable ["SAEF_AreaSpawner_Medium_Params", []]) params
+			[
+				["_tBaseAICount", 8],
+				["_tBaseAreaSize", 50],
+				["_tBaseActivationRange", 500],
+				["_tBaseAICountMinMax", [4, 12]]
+			];
+
+			_tBaseAICountMinMax params
+			[
+				"_tMin",
+				"_tMax"
+			];
+			
+			_min = _tMin;
+			_max = _tMax;
 		};
 
 		case "LRG": {
-			_min = 12;
-			_max = 20;
+			(missionNamespace getVariable ["SAEF_AreaSpawner_Large_Params", []]) params
+			[
+				["_tBaseAICount", 12],
+				["_tBaseAreaSize", 60],
+				["_tBaseActivationRange", 500],
+				["_tBaseAICountMinMax", [12, 20]]
+			];
+
+			_tBaseAICountMinMax params
+			[
+				"_tMin",
+				"_tMax"
+			];
+			
+			_min = _tMin;
+			_max = _tMax;
 		};
 
 		default {
@@ -859,6 +926,7 @@ if (toUpper(_type) == "GETAICOUNTMINMAX") exitWith
 		if (_count > (count _positions)) then
 		{
 			_count = (count _positions);
+			["SAEF_AID_fnc_Difficulty", 2, (format ["[GETAICOUNTMINMAX] Clamping number of AI to fit available building positions: %1", [_position, _radius, _count]])] call RS_fnc_LoggingHelper;
 		};
 	};
 

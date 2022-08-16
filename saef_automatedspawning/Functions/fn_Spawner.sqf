@@ -154,6 +154,35 @@ if (missionNamespace getVariable [_persistenceVariable, true]) then
 	{
 		_units = (_units select 0);
 		_isVehicle = true;
+	}
+	else
+	{
+		if (_useAiDirector) then
+		{
+			private
+			[
+				"_areaSize",
+				"_varSpawn"
+			];
+
+			_areaSize = ["DetermineAreaSize", [_marker]] call SAEF_AID_fnc_Difficulty;
+			_varSpawn = "";
+
+			if (toUpper(_type) == "PAT") then
+			{
+				_varSpawn = (format ["PatrolInfantry_%1", _areaSize]);
+			};
+
+			if (toUpper(_type) == "GAR") then
+			{
+				_varSpawn = (format ["GarrisonInfantry_%1", _areaSize]);
+			};
+
+			if (_varSpawn != "") then
+			{
+				["SAEF_AID_ProcessQueue", ["Add", [_varSpawn, (count _units)]], "SAEF_AID_fnc_Track"] call RS_MQ_fnc_MessageEnqueue;
+			};
+		};
 	};
 
 	// Spawns the Group

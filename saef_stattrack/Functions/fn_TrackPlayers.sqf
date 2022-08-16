@@ -52,7 +52,7 @@ _playerHandlerId = addMissionEventHandler ["PlayerConnected",
 		
 		// Add Player Name to the Array of Joined Players
 		_jsonAttendee = ["BuildItems", [["ArmaName", _name], ["ArmaUID", _uid]]] call SAEF_LOG_fnc_JsonLogger;
-		["ST_MissionAttendees", _jsonAttendee] call RS_ST_fnc_Incrementer;
+		["ST_MissionAttendees", (text _jsonAttendee)] call RS_ST_fnc_Incrementer;
 	};
 }];
 
@@ -88,7 +88,7 @@ while {missionNamespace getVariable ["ST_TrackPlayers", false]} do
 		if (!(_name in _playerArray)) then
 		{
 			// Add Player Name to the Array of Joined Players
-			["ST_MissionAttendees", _jsonAttendee] call RS_ST_fnc_Incrementer;
+			["ST_MissionAttendees", (text _jsonAttendee)] call RS_ST_fnc_Incrementer;
 		};
 		
 		if (!(_uid in _uidArray) && !(_name in _playerArray)) then

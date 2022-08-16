@@ -30,6 +30,9 @@ if (toUpper(_type) == "HANDLE") exitWith
 {
 	missionNamespace setVariable ["SAEF_AID_RunDirector", true, true];
 
+	// Sets the min max on start for tracking
+	["SetAreaMinMax", [["SML", "MED", "LRG"]]] call SAEF_AID_fnc_Director;
+
 	while {(missionNamespace getVariable ["SAEF_AID_RunDirector", false])} do
 	{
 		// Get overall status factor
@@ -103,6 +106,83 @@ if (toUpper(_type) == "HANDLE") exitWith
 
 		// Re-evaluate every 15 seconds
 		sleep 15;
+	};
+};
+
+/*
+	-------------------
+	-- SETAREAMINMAX --
+	-------------------
+
+	Sets the area min/max variables on start
+*/
+if (toUpper(_type) == "SETAREAMINMAX") exitWith
+{
+	_params params
+	[
+		"_areaTypes"
+	];
+
+	{
+		["SetMinMax", [_x]] call SAEF_AID_fnc_Director;
+	} forEach _areaTypes;
+};
+
+/*
+	---------------
+	-- SETMINMAX --
+	---------------
+
+	Sets min/max variable on start
+*/
+if (toUpper(_type) == "SETMINMAX") exitWith
+{
+	_params params
+	[
+		"_areaSize"
+	];
+
+	switch toUpper(_areaSize) do
+	{
+		case "SML": {
+			(missionNamespace getVariable ["SAEF_AreaSpawner_Small_Params", []]) params
+			[
+				["_tBaseAICount", 4],
+				["_tBaseAreaSize", 40],
+				["_tBaseActivationRange", 500],
+				["_tBaseAICountMinMax", [2, 4]]
+			];
+			
+			["SAEF_AID_ProcessQueue", ["Set", [(format ["AreaMinMax_%1", _areaSize]), _tBaseAICountMinMax]], "SAEF_AID_fnc_Track"] call RS_MQ_fnc_MessageEnqueue;
+		};
+
+		case "MED": {
+			(missionNamespace getVariable ["SAEF_AreaSpawner_Medium_Params", []]) params
+			[
+				["_tBaseAICount", 8],
+				["_tBaseAreaSize", 50],
+				["_tBaseActivationRange", 500],
+				["_tBaseAICountMinMax", [4, 12]]
+			];
+
+			["SAEF_AID_ProcessQueue", ["Set", [(format ["AreaMinMax_%1", _areaSize]), _tBaseAICountMinMax]], "SAEF_AID_fnc_Track"] call RS_MQ_fnc_MessageEnqueue;
+		};
+
+		case "LRG": {
+			(missionNamespace getVariable ["SAEF_AreaSpawner_Large_Params", []]) params
+			[
+				["_tBaseAICount", 12],
+				["_tBaseAreaSize", 60],
+				["_tBaseActivationRange", 500],
+				["_tBaseAICountMinMax", [12, 20]]
+			];
+
+			["SAEF_AID_ProcessQueue", ["Set", [(format ["AreaMinMax_%1", _areaSize]), _tBaseAICountMinMax]], "SAEF_AID_fnc_Track"] call RS_MQ_fnc_MessageEnqueue;
+		};
+
+		default {
+			[_scriptTag, 1, (format ["[SETMINMAX] Unrecognised area size [%1], value cannot be set!", _areaSize])] call RS_fnc_LoggingHelper;
+		};
 	};
 };
 

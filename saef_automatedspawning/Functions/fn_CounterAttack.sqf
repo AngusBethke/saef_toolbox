@@ -92,7 +92,14 @@ _activeAreas = [];
 		
 		if (missionNamespace getVariable [_activeVariable, false]) then
 		{
-			if (((markerPos _x) distance (markerPos _marker)) <= _counterAttackDistance) then
+			private
+			[
+				"_distance"
+			];
+
+			_distance = ((markerPos _x) distance (markerPos _marker));
+
+			if ((_distance <= _counterAttackDistance) && (_distance >= 500)) then
 			{
 				_activeAreas pushBack _x;
 			};
@@ -102,6 +109,23 @@ _activeAreas = [];
 
 if (!(_activeAreas isEqualTo [])) exitWith
 {
+	// Get safe spawn positions
+	private
+	[
+		"_spawnPositions"
+	];
+
+	_spawnPositions = [];
+
+	if (_areaAllowedParadrop) then
+	{
+		_spawnPositions = ["GetSafeSpawnPositions", [(markerPos _marker), 250, (markerPos _marker)]] call SAEF_AS_fnc_Vehicle;
+	}
+	else
+	{
+		_paraVehicles = "";
+	};
+
 	// Get current difficulty
 	(["GetCount"] call SAEF_AID_fnc_Difficulty) params
 	[
@@ -111,6 +135,13 @@ if (!(_activeAreas isEqualTo [])) exitWith
 
 	// Based on current difficulty create the reinforcements
 	{
+		private
+		[
+			"_timeDelay"
+		];
+
+		_timeDelay = ceil (((markerPos _x) distance (markerPos _marker)) / 10);
+
 		// Ensure we don't utilise all of the areas
 		if (_forEachIndex < _difficultyCount) then
 		{
@@ -130,6 +161,10 @@ if (!(_activeAreas isEqualTo [])) exitWith
 				"_heavyVehicleNumber"
 			];
 
+			["SAEF_AID_ProcessQueue", ["Add", [(format ["CounterAttackInfantry_%1", _areaSize]), (_countPerGroup * _groupNumber)]], "SAEF_AID_fnc_Track"] call RS_MQ_fnc_MessageEnqueue;
+			["SAEF_AID_ProcessQueue", ["Add", [(format ["CounterAttackLightVehicles_%1", _areaSize]), _lightVehicleNumber]], "SAEF_AID_fnc_Track"] call RS_MQ_fnc_MessageEnqueue;
+			["SAEF_AID_ProcessQueue", ["Add", [(format ["CounterAttackHeavyVehicles_%1", _areaSize]), _heavyVehicleNumber]], "SAEF_AID_fnc_Track"] call RS_MQ_fnc_MessageEnqueue;
+
 			// Setup group code
 			private
 			[
@@ -144,28 +179,13 @@ if (!(_activeAreas isEqualTo [])) exitWith
 			// Ensure paradrop only occurs if allowed
 			private
 			[
-				"_dynamicSpawnPosition",
-				"_spawnPositions",
 				"_vehicleSpawnCode"
 			];
-
-			_dynamicSpawnPosition = _marker;
+			
+			// Get safe spawn positions
 			if (!_areaAllowedParadrop) then
 			{
-				_paraVehicles = "";
-				_dynamicSpawnPosition = _x;
-			};
-
-			// Get safe spawn positions
-			_spawnPositions = [];
-			
-			if (_dynamicSpawnPosition == _x) then
-			{
-				_spawnPositions = ["GetSafeSpawnPositions", [(markerPos _dynamicSpawnPosition), 250, (markerPos _marker)]] call SAEF_AS_fnc_Vehicle;
-			}
-			else
-			{
-				_spawnPositions = ["GetSafeSpawnPositions", [(markerPos _marker), 250, (markerPos _marker)]] call SAEF_AS_fnc_Vehicle;
+				_spawnPositions = ["GetSafeSpawnPositions", [(markerPos _x), 250, (markerPos _marker)]] call SAEF_AS_fnc_Vehicle;
 			};
 
 			// Spawn counter attack groups
@@ -176,7 +196,22 @@ if (!(_activeAreas isEqualTo [])) exitWith
 					"_hkParams"
 				];
 
-				_hkParams = [];
+				_hkParams = 
+				[
+					[0,0,0]
+					,_units
+					,_side
+					,_countPerGroup
+					,4000
+					,_groupCode
+					,""
+					,_paraVehicles
+					,120
+					,_groupScripts
+					,_queueValidation
+					,""
+				];
+
 				if (!(_spawnPositions isEqualTo [])) then
 				{
 					private
@@ -187,42 +222,26 @@ if (!(_activeAreas isEqualTo [])) exitWith
 					_spawnPosition = (selectRandom _spawnPositions);
 					_spawnPositions = _spawnPositions - [_spawnPosition];
 
-					_hkParams = 
-					[
-						[0,0,0]
-						,_units
-						,_side
-						,_countPerGroup
-						,4000
-						,_groupCode
-						,""
-						,_paraVehicles
-						,120
-						,_groupScripts
-						,_queueValidation
-						,_spawnPosition
-					];
+					_hkParams = _hkParams + [_spawnPosition];
 				}
 				else
 				{
-					_hkParams = 
-					[
-						[0,0,0]
-						,_units
-						,_side
-						,_countPerGroup
-						,4000
-						,_groupCode
-						,""
-						,_paraVehicles
-						,120
-						,_groupScripts
-						,_queueValidation
-						,_dynamicSpawnPosition
-					];
+					_hkParams = _hkParams + [_x];
 				};
 
-				["SAEF_SpawnerQueue", _hkParams, "SAEF_AS_fnc_HunterKiller", _queueValidation] call RS_MQ_fnc_MessageEnqueue;
+				// Ensure counter attack only occurs after specified time delay
+				[_timeDelay, _hkParams, _queueValidation] spawn {
+					params
+					[
+						"_timeDelay",
+						"_hkParams",
+						"_queueValidation"
+					];
+
+					sleep _timeDelay;
+
+					["SAEF_SpawnerQueue", _hkParams, "SAEF_AS_fnc_HunterKiller", _queueValidation] call RS_MQ_fnc_MessageEnqueue;
+				};
 			};
 
 			_vehicleSpawnCode = {
@@ -234,7 +253,8 @@ if (!(_activeAreas isEqualTo [])) exitWith
 					"_groupCode",
 					"_paraVehicles",
 					"_groupScripts",
-					"_queueValidation"
+					"_queueValidation",
+					"_timeDelay"
 				];
 
 				if (!(_spawnPositions isEqualTo [])) then
@@ -248,23 +268,56 @@ if (!(_activeAreas isEqualTo [])) exitWith
 					_spawnPosition = (selectRandom _spawnPositions);
 					_spawnPositions = _spawnPositions - [_spawnPosition];
 
-					_hkParams = 
-					[
-						[0,0,0]
-						,_lightVehicles
-						,_side
-						,1
-						,4000
-						,_groupCode
-						,""
-						,_paraVehicles
-						,120
-						,_groupScripts
-						,_queueValidation
-						,_spawnPosition
-					];
+					// Ensure we correctly spawn vehicles for counter attack
+					_hkParams = [];
+					if (_paraVehicles != "") then
+					{
+						_hkParams = [
+							[0,0,0]
+							,_vehiclesToSpawn
+							,_side
+							,1
+							,4000
+							,_groupCode
+							,""
+							,_paraVehicles
+							,120
+							,_groupScripts
+							,_queueValidation
+							,""
+							,_spawnPosition
+						];
+					}
+					else
+					{
+						_hkParams = [
+							_spawnPosition
+							,_vehiclesToSpawn
+							,_side
+							,1
+							,4000
+							,_groupCode
+							,""
+							,_paraVehicles
+							,120
+							,_groupScripts
+							,_queueValidation
+						];
+					};
 					
-					["SAEF_SpawnerQueue", _hkParams, "SAEF_AS_fnc_HunterKiller", _queueValidation] call RS_MQ_fnc_MessageEnqueue;
+					// Ensure counter attack only occurs after specified time delay
+					[_timeDelay, _hkParams, _queueValidation] spawn {
+						params
+						[
+							"_timeDelay",
+							"_hkParams",
+							"_queueValidation"
+						];
+
+						sleep _timeDelay;
+
+						["SAEF_SpawnerQueue", _hkParams, "SAEF_AS_fnc_HunterKiller", _queueValidation] call RS_MQ_fnc_MessageEnqueue;
+					};
 				}
 				else
 				{
@@ -278,13 +331,13 @@ if (!(_activeAreas isEqualTo [])) exitWith
 			// Spawn counter attack light vehicles
 			for "_i" from 1 to _lightVehicleNumber do
 			{
-				_spawnPositions = [_spawnPositions, _lightVehicles, _side, _groupCode, _paraVehicles, _groupScripts, _queueValidation] call _vehicleSpawnCode;
+				_spawnPositions = [_spawnPositions, _lightVehicles, _side, _groupCode, _paraVehicles, _groupScripts, _queueValidation, _timeDelay] call _vehicleSpawnCode;
 			};
 
 			// Spawn counter attack heavy vehicles
 			for "_i" from 1 to _heavyVehicleNumber do
 			{
-				_spawnPositions = [_spawnPositions, _heavyVehicles, _side, _groupCode, _paraVehicles, _groupScripts, _queueValidation] call _vehicleSpawnCode;
+				_spawnPositions = [_spawnPositions, _heavyVehicles, _side, _groupCode, _paraVehicles, _groupScripts, _queueValidation, _timeDelay] call _vehicleSpawnCode;
 			};
 		};
 	} forEach _activeAreas;

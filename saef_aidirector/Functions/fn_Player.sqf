@@ -97,7 +97,8 @@ if (toUpper(_type) == "GETOVERALLSTATUSFACTOR") exitWith
 			[
 				["OverallStatusFactor", _statusFactor], 
 				["CurrentDifficulty", (["Get"] call SAEF_AID_fnc_Difficulty)], 
-				["GroupStatusFactors", _jsonResultArray, true]
+				["GroupStatusFactors", _jsonResultArray, true],
+				["CreatedAI", (["GetAllWithTypeSeparationJson", [[["SML", "SmallArea"], ["MED", "MediumArea"], ["LRG", "LargeArea"]]]] call SAEF_AID_fnc_Track), true]
 			]
 		] call SAEF_LOG_fnc_JsonLogger;
 	};

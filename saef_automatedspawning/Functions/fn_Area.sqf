@@ -88,7 +88,8 @@ if (["LRG", _marker] call BIS_fnc_InString) then
 	[
 		["_tBaseAICount", 12],
 		["_tBaseAreaSize", 60],
-		["_tBaseActivationRange", 500]
+		["_tBaseActivationRange", 500],
+		["_tBaseAICountMinMax", [12, 20]]
 	];
 
 	_baseAICount = _tBaseAICount;
@@ -114,7 +115,8 @@ if (["MED", _marker] call BIS_fnc_InString) then
 	[
 		["_tBaseAICount", 6],
 		["_tBaseAreaSize", 50],
-		["_tBaseActivationRange", 500]
+		["_tBaseActivationRange", 500],
+		["_tBaseAICountMinMax", [4, 12]]
 	];
 
 	_baseAICount = _tBaseAICount;
@@ -140,7 +142,8 @@ if (["SML", _marker] call BIS_fnc_InString) then
 	[
 		["_tBaseAICount", 4],
 		["_tBaseAreaSize", 40],
-		["_tBaseActivationRange", 500]
+		["_tBaseActivationRange", 500],
+		["_tBaseAICountMinMax", [2, 4]]
 	];
 
 	_baseAICount = _tBaseAICount;
@@ -201,6 +204,9 @@ if (_heavyVehicle == "") exitWith
 
 if ((missionNamespace getVariable [_variable, true])) then
 {
+	// Set our tracking variable
+	["SAEF_AID_ProcessQueue", ["Add", [(format ["AreaCount_%1", (["DetermineAreaSize", [_marker]] call SAEF_AID_fnc_Difficulty)]), 1]], "SAEF_AID_fnc_Track"] call RS_MQ_fnc_MessageEnqueue;
+
 	// Set our initialised variable
 	missionNamespace setVariable [_initVariable, true, true];
 
@@ -473,7 +479,7 @@ if ((missionNamespace getVariable [_variable, true])) then
 		_trigger setTriggerInterval 5;
 
 		// Build the onActivation statement
-		_onActStatement = (format ["if (!isServer) exitWith{}; ['SAEF_SpawnerQueue', ['%1'], 'SAEF_AS_fnc_CounterAttack'] call RS_MQ_fnc_MessageEnqueue;", _marker]);
+		_onActStatement = (format ["if (!isServer) exitWith{}; ['%1'] call SAEF_AS_fnc_CounterAttack;", _marker]);
 
 		// Set up the trigger
 		_trigger setTriggerStatements ["this", _onActStatement, ""];

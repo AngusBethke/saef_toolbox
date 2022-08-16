@@ -114,10 +114,10 @@ if (toUpper(_type) == "HANDLEPATROL") exitWith
 
 	_marker = _group getVariable ["SAEF_AS_Linked_Area", ""];
 
-	[_scriptTag, 0, (format ["[HANDLEPATROL] Handling patrol for group [%1]...", _group])] call RS_fnc_LoggingHelper;
-
 	// If no linked area is set, we don't need to manage this
 	if (_marker == "") exitWith {};
+
+	[_scriptTag, 3, (format ["[HANDLEPATROL] Handling patrol for group [%1]...", _group])] call RS_fnc_LoggingHelper;
 
 	private
 	[
@@ -134,10 +134,13 @@ if (toUpper(_type) == "HANDLEPATROL") exitWith
 	// If there are any units left alive, they should become Hunter Killers
 	if (({alive _x} count (units _group)) > 0) then
 	{
+		[_scriptTag, 3, (format ["[HANDLEPATROL] Starting hunter killer for group [%1]...", _group])] call RS_fnc_LoggingHelper;
+
 		// Remove waypoints
+		for "_i" from 0 to ((count (waypoints _group)) - 1) do
 		{
-			deleteWaypoint _x;
-		} forEach (waypoints _group);
+			deleteWaypoint [_group, _i];
+		};
 
 		[_group, 4000, false, []] spawn RS_DS_fnc_HunterKiller;
 	};

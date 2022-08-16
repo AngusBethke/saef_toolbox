@@ -201,8 +201,7 @@ if (toUpper(_type) == "GEAR") exitWith
 
 	private
 	[
-		"_item",
-		"_itemToSpawn"
+		
 	];
 
 	hint (format ["Unpacking %1", _gearName]);
@@ -212,8 +211,29 @@ if (toUpper(_type) == "GEAR") exitWith
 	playSound3D [(["Bag3D"] call SAEF_LRRP_fnc_Sounds), player, false, (getPosASL player), 5, 1, 100];
 
 	sleep 1;
+	
+	private
+	[
+		"_item",
+		"_itemToSpawn"
+	];
 
-	_item = "groundweaponholder" createVehicle (getpos player);
+	_item = objNull;
+
+	{
+		if ((_x getVariable ["SAEF_LRRP_Owner", objNull]) == player) exitWith
+		{
+			_item = _x;
+		};
+	} forEach (nearestObjects [player, ["groundweaponholder"], 5]);
+
+	if (isNull _item) then
+	{
+		_item = "groundweaponholder" createVehicle (getpos player);
+		_item setPos (player modelToWorld [0,1,0]);
+
+		_item setVariable ["SAEF_LRRP_Owner", player, true];
+	};
 
 	{
 		_x params
@@ -262,8 +282,6 @@ if (toUpper(_type) == "GEAR") exitWith
 			["SAEF_LRRP_fnc_Gear", 2, (format ["[GEAR] Cannot determine type for [%1], nothing will be spawned!", _itemClassname])] call RS_fnc_LoggingHelper;
 		};
 	} forEach _gearItems;
-
-	_item setPos (player modelToWorld [0,1,0]);
 };
 
 /*
