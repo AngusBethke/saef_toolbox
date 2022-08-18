@@ -144,7 +144,7 @@ if (toUpper(_type) == "SPECTATOR_ENTITY_ADJUSTMENTS") exitWith
 	player enableSimulationGlobal false;
 	player enableFatigue false;
 	player enableStamina false;
-	hideObjectGlobal player;
+	[player, true] remoteExec ["hideObjectGlobal", 2, true];
 
 	// Register this camera as the saef spectator
 	_result = ["saef_spectator", {!isNull (missionNamespace getVariable ["saef_spectator_isSet", objNull])}] call CBA_fnc_registerFeatureCamera;
