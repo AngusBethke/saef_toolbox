@@ -141,6 +141,8 @@ if (_areaTags isEqualTo []) exitWith
 				,[] 								// Optional: Array of scripts run against the spawned group
 				,{true}								// Optional: Code block for extra validation passed to the Message Queue
 				,true								// Optional: Whether or not to include the default ending detector
+				,true								// Optional: Whether or not to use the AI director
+				,[]									// Optional: AI Director Parameters
 			]
 		*/
 

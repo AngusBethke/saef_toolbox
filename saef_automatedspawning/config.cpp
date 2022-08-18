@@ -39,6 +39,7 @@ class CfgFunctions
 			class Area {};
 			class ConfigCore3DENValidation {};
 			class ConfigCoreValidation {};
+			class CounterAttack {};
 			class CuratorHint {};
 			class EvaluateAiCount {};
 			class EvaluationParameter {};
@@ -62,6 +63,7 @@ class CfgFunctions
 			class UpdateAiCount_Remote {};
 			class UpdateAiCount {};
 			class Variable {};
+			class Vehicle {};
 		};
 	};
 };

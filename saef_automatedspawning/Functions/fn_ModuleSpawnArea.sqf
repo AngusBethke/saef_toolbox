@@ -383,6 +383,8 @@ if (_activated && _active) then
 			,["_tCustomScripts", []]
 			,["_tQueueValidation", {true}]
 			,["_tIncludeDetector", true]
+			,["_tUseAiDirector", true]
+			,["_tAiDirectorParams", []]
 		];
 
 		// Do the overrides if necessary
@@ -434,7 +436,9 @@ if (_activated && _active) then
 			_tPlayerValidationCodeBlock,
 			_tCustomScripts,
 			_tQueueValidation,
-			_tIncludeDetector
+			_tIncludeDetector,
+			_tUseAiDirector,
+			_tAiDirectorParams
 		];
 
 		_infoArray pushBack (format ["Override is using params: %1", (_overrideSettings - [_tPlayerValidationCodeBlock, _tCustomScripts, _tQueueValidation])]);
@@ -492,6 +496,8 @@ if (_activated && _active) then
 				,["_tCustomScripts", []]
 				,["_tQueueValidation", {true}]
 				,["_tIncludeDetector", true]
+				,["_tUseAiDirector", true]
+				,["_tAiDirectorParams", true]
 			];
 
 			_newConfigSettings = 
@@ -506,7 +512,9 @@ if (_activated && _active) then
 				_tPlayerValidationCodeBlock,
 				_tCustomScripts,
 				_tQueueValidation,
-				_tIncludeDetector
+				_tIncludeDetector, 
+				_tUseAiDirector,
+				_tAiDirectorParams
 			];
 
 			_infoArray pushBack (format ["New tag is using config: %1", (_newConfigSettings - [_tPlayerValidationCodeBlock, _tCustomScripts, _tQueueValidation])]);

@@ -36,8 +36,8 @@ _playerHandlerId = addMissionEventHandler ["PlayerConnected",
 		_playerNew = false;
 	};
 	
-	// Make sure the connected client isn't the headless client
-	if (["headlessclient", _name] call BIS_fnc_InString) then
+	// Make sure the connected client isn't the headless client or the virtual spectator
+	if ((["headlessclient", _name] call BIS_fnc_InString) || (["waypoint machine", _name] call BIS_fnc_InString)) then
 	{
 		_playerNew = false;
 	};
@@ -51,7 +51,8 @@ _playerHandlerId = addMissionEventHandler ["PlayerConnected",
 		["ST_TotalPlayerCount", 1, true] call RS_ST_fnc_Incrementer;
 		
 		// Add Player Name to the Array of Joined Players
-		["ST_MissionAttendees", _name] call RS_ST_fnc_Incrementer;
+		_jsonAttendee = ["BuildItems", [["ArmaName", _name], ["ArmaUID", _uid]]] call SAEF_LOG_fnc_JsonLogger;
+		["ST_MissionAttendees", (text _jsonAttendee)] call RS_ST_fnc_Incrementer;
 	};
 }];
 
@@ -65,6 +66,7 @@ while {missionNamespace getVariable ["ST_TrackPlayers", false]} do
 			"_player",
 			"_uid",
 			"_name",
+			"_jsonAttendee",
 			"_uidArray",
 			"_playerArray"
 		];
@@ -72,6 +74,7 @@ while {missionNamespace getVariable ["ST_TrackPlayers", false]} do
 		_player = _x;
 		_uid = getPlayerUID _player;
 		_name = name _player;
+		_jsonAttendee = ["BuildItems", [["ArmaName", _name], ["ArmaUID", _uid]]] call SAEF_LOG_fnc_JsonLogger;
 
 		_uidArray = missionNamespace getVariable "ST_TrackUIDs";
 		_playerArray = missionNamespace getVariable "ST_MissionAttendees";
@@ -85,7 +88,7 @@ while {missionNamespace getVariable ["ST_TrackPlayers", false]} do
 		if (!(_name in _playerArray)) then
 		{
 			// Add Player Name to the Array of Joined Players
-			["ST_MissionAttendees", _name] call RS_ST_fnc_Incrementer;
+			["ST_MissionAttendees", (text _jsonAttendee)] call RS_ST_fnc_Incrementer;
 		};
 		
 		if (!(_uid in _uidArray) && !(_name in _playerArray)) then

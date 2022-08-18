@@ -29,6 +29,7 @@ class CfgFunctions
 			file = "saef_ai\Functions";
 			class ModulePhysicalArtillery {};
 			class PhysicalArtillery {};
+			class MarkerTracking {};
 		};
 	};
 };

@@ -137,6 +137,7 @@ _vGroup = (_vehArray select 2);
 // Helo Height Fix
 _veh flyInHeight 300;
 {
+	[_x] spawn RS_DS_fnc_SpawnProtection;
 	_x flyInHeight 300;
 } forEach units _vGroup;
 
@@ -168,14 +169,20 @@ sleep 0.1;
 private
 [
 	"_seats",
-	"_units"
+	"_units",
+	"_vehicles"
 ];
 
 // Validate Available Seats
 _seats = count (fullCrew [_veh, "cargo", true]);
 _units = count (units _group);
+_vehicles = [];
 
-if (_seats < _units) exitWith
+{
+	_vehicles pushBackUnique (vehicle _x);
+} forEach (units _group);
+
+if ((_seats < _units) && ((count _vehicles) > 1)) exitWith
 {
 	// Cleanup the Vehicle
 	{
@@ -192,11 +199,25 @@ if (_seats < _units) exitWith
 	};
 };
 
-// Move the Group into the Helo
+// If there is only one vehicle
+if ((count _vehicles) == 1) then
 {
-	_x assignAsCargo _veh;
-	_x moveInCargo _veh;
-} forEach units _group;
+	private
+	[
+		"_cargoItem"
+	];
+
+	_cargoItem = (_vehicles select 0);
+	_cargoItem attachTo [_veh, [0,0,-10]];
+}	
+else
+{
+	// Move the Group into the Helo
+	{
+		_x assignAsCargo _veh;
+		_x moveInCargo _veh;
+	} forEach units _group;
+};
 
 // Wait Until the Vehicle is by the spawn pos
 waitUntil {
@@ -215,19 +236,97 @@ if (({alive _x} count units _vGroup) == 0) exitWith
 	};
 };
 
-// Deploy the Paratroopers
+// If there is only one vehicle
+if ((count _vehicles) == 1) then
 {
-	// Give Paratrooper Parachute
-	removeBackpack _x;
-	_x addBackpack "ACE_NonSteerableParachute";
-	
-	// Exit from Vehicle
-	unassignVehicle _x;  
-	moveOut _x;
-	
-	// Wait for Next
-	sleep 0.5;
-} forEach units _group;
+	private
+	[
+		"_cargoItem"
+	];
+
+	_cargoItem = (_vehicles select 0);
+
+	// Drop item from plane
+	detach _cargoItem;
+
+	sleep 3;
+
+	// Deploy parachute and attach item
+	_para = createVehicle ["B_Parachute_02_F", (getPos _cargoItem), [], 0, ""];
+	_cargoItem attachTo [_para, [0,0,0]];
+
+	// Detach vehicle when parachute is near the ground or it's been longer than 4 minutes
+	[_cargoItem, _para] spawn {
+		params
+		[
+			"_cargoItem",
+			"_para"
+		];
+
+		private
+		[
+			"_control"
+		];
+
+		_control = 0;
+		waitUntil {
+			sleep 0.1;
+			_control = _control + 1;
+			((((position _cargoItem) select 2) < 0.6) || (isNil "_para") || (_control >= 2400))
+		};
+
+		detach _cargoItem;
+	};
+}	
+else
+{
+	// Deploy the Paratroopers
+	{
+		// Store the units backpack
+		private
+		[
+			"_backpack"
+		];
+
+		_backpack = backpack _x;  
+
+		// Give paratrooper parachute
+		removeBackpack _x;
+		_x addBackpack "ACE_NonSteerableParachute";
+		
+		// Exit from vehicle
+		unassignVehicle _x;  
+		moveOut _x;
+
+		// Ensure the unit gets their backpack back once they are on the ground
+		if (_backpack != "") then
+		{
+			[_x, _backpack] spawn
+			{
+				params
+				[
+					"_unit",
+					"_backpack"
+				];
+
+				sleep 10;
+
+				waitUntil {
+					sleep 1;
+					(((vehicle _unit) == _unit) || (!alive _unit))
+				};
+
+				if (alive _unit) then
+				{
+					_unit addBackpack _backpack;
+				};
+			};
+		};
+		
+		// Wait for next unit
+		sleep 0.5;
+	} forEach units _group;
+};
 
 // Wait Until the Vehicle is back by it's start position (or it's longer than 3 minutes)
 _count = 0;

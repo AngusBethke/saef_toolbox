@@ -36,6 +36,7 @@ class CfgFunctions
 			class SpawnerGroup {};
 			class SpawnProtection {};
 			class TaskPatrol {};
+			class TaskPatrolV2 {};
 			class UnitValidation {};
 		};
 	};

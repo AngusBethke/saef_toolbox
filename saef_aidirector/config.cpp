@@ -21,9 +21,14 @@ class CfgFunctions
 		class AiDirector
 		{
 			file = "saef_aidirector\Functions";
+			class Init 
+			{
+				postInit = 1;
+			};
 			class Difficulty {};
 			class Director {};
 			class Player {};
+			class Track {};
 		};
 	};
 };

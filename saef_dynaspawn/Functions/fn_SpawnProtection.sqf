@@ -22,7 +22,17 @@ if ((isDamageAllowed _unit) && (isNull _closestPlayer)) then
 {
 	_unit allowDamage false;
 
+	if ((vehicle _unit) != _unit) then
+	{
+		(vehicle _unit) allowDamage false;
+	};
+
 	sleep 10;
 
 	_unit allowDamage true;
+
+	if ((vehicle _unit) != _unit) then
+	{
+		(vehicle _unit) allowDamage true;
+	};
 };

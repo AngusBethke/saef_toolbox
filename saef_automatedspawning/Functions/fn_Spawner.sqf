@@ -63,6 +63,7 @@ params
 	,["_playerValidation", {true}]
 	,["_customScripts", []]
 	,["_queueValidation", {true}]
+	,["_useAiDirector", true]
 ];
 
 private
@@ -135,6 +136,12 @@ if (missionNamespace getVariable [_persistenceVariable, true]) then
 		["SAEF_SpawnerQueue", _this, "RS_AS_fnc_Spawner", _queueValidation] call RS_MQ_fnc_MessageEnqueue;
 	};
 
+	// If set, AI Director will take control of the number of AI to spawn
+	if (_useAiDirector) then
+	{
+		_count = ["GetAiCountForArea", [_marker, _type, _count]] call SAEF_AID_fnc_Difficulty;
+	};
+
 	// Units that will be spawned using DynaSpawn
 	for "_i" from 0 to (_count - 1) do
 	{
@@ -147,6 +154,35 @@ if (missionNamespace getVariable [_persistenceVariable, true]) then
 	{
 		_units = (_units select 0);
 		_isVehicle = true;
+	}
+	else
+	{
+		if (_useAiDirector) then
+		{
+			private
+			[
+				"_areaSize",
+				"_varSpawn"
+			];
+
+			_areaSize = ["DetermineAreaSize", [_marker]] call SAEF_AID_fnc_Difficulty;
+			_varSpawn = "";
+
+			if (toUpper(_type) == "PAT") then
+			{
+				_varSpawn = (format ["PatrolInfantry_%1", _areaSize]);
+			};
+
+			if (toUpper(_type) == "GAR") then
+			{
+				_varSpawn = (format ["GarrisonInfantry_%1", _areaSize]);
+			};
+
+			if (_varSpawn != "") then
+			{
+				["SAEF_AID_ProcessQueue", ["Add", [_varSpawn, (count _units)]], "SAEF_AID_fnc_Track"] call RS_MQ_fnc_MessageEnqueue;
+			};
+		};
 	};
 
 	// Spawns the Group
@@ -178,6 +214,9 @@ if (missionNamespace getVariable [_persistenceVariable, true]) then
 			_vehicle setVariable ["SAEF_Persistence_Cleanup_Whitelist", true, true];
 		};
 	};
+
+	// Ensure linked area is set so we can track this group
+	_group setVariable ["SAEF_AS_Linked_Area", _marker, true];
 
 	// Group Specific Settings
 	_groupCode forEach units _group;

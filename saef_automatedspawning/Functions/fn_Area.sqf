@@ -42,6 +42,7 @@
 			,"_customScripts"					// (Optional) Array: Of string scripts for execution against spawned groups
 			,"_queueValidation"					// (Optional) Code Block: Condition passed to the Message Queue to evaluate message for processing
 			,"_includeDetector"					// (Optional) Boolean: Whether or not to include a trigger to disable this area
+			,"_useAiDirector"					// (Optional) Boolean: Whether or not to use the AI director
 		] call SAEF_AS_fnc_Area;
 */
 
@@ -61,6 +62,7 @@ params
 	,["_customScripts", []]
 	,["_queueValidation", {true}]
 	,["_includeDetector", true]
+	,["_useAiDirector", true]
 ];
 
 private
@@ -86,7 +88,8 @@ if (["LRG", _marker] call BIS_fnc_InString) then
 	[
 		["_tBaseAICount", 12],
 		["_tBaseAreaSize", 60],
-		["_tBaseActivationRange", 500]
+		["_tBaseActivationRange", 500],
+		["_tBaseAICountMinMax", [12, 20]]
 	];
 
 	_baseAICount = _tBaseAICount;
@@ -112,7 +115,8 @@ if (["MED", _marker] call BIS_fnc_InString) then
 	[
 		["_tBaseAICount", 6],
 		["_tBaseAreaSize", 50],
-		["_tBaseActivationRange", 500]
+		["_tBaseActivationRange", 500],
+		["_tBaseAICountMinMax", [4, 12]]
 	];
 
 	_baseAICount = _tBaseAICount;
@@ -138,7 +142,8 @@ if (["SML", _marker] call BIS_fnc_InString) then
 	[
 		["_tBaseAICount", 4],
 		["_tBaseAreaSize", 40],
-		["_tBaseActivationRange", 500]
+		["_tBaseActivationRange", 500],
+		["_tBaseAICountMinMax", [2, 4]]
 	];
 
 	_baseAICount = _tBaseAICount;
@@ -199,6 +204,9 @@ if (_heavyVehicle == "") exitWith
 
 if ((missionNamespace getVariable [_variable, true])) then
 {
+	// Set our tracking variable
+	["SAEF_AID_ProcessQueue", ["Add", [(format ["AreaCount_%1", (["DetermineAreaSize", [_marker]] call SAEF_AID_fnc_Difficulty)]), 1]], "SAEF_AID_fnc_Track"] call RS_MQ_fnc_MessageEnqueue;
+
 	// Set our initialised variable
 	missionNamespace setVariable [_initVariable, true, true];
 
@@ -250,7 +258,8 @@ if ((missionNamespace getVariable [_variable, true])) then
 			_variable,
 			_playerValidationCodeBlock,
 			_customScripts,
-			_queueValidation
+			_queueValidation,
+			_useAiDirector
 		];
 
 		// Add our garrison to the parameter list
@@ -311,7 +320,8 @@ if ((missionNamespace getVariable [_variable, true])) then
 				_variable,
 				_playerValidationCodeBlock,
 				_customScripts,
-				_queueValidation
+				_queueValidation,
+				_useAiDirector
 			];
 			
 			_paramsList pushBack _pParams;
@@ -370,7 +380,8 @@ if ((missionNamespace getVariable [_variable, true])) then
 			_variable,
 			_playerValidationCodeBlock,
 			_customScripts,
-			_queueValidation
+			_queueValidation,
+			_useAiDirector
 		];
 		
 		_paramsList pushBack _vParams;
@@ -397,7 +408,8 @@ if ((missionNamespace getVariable [_variable, true])) then
 			_variable,
 			_playerValidationCodeBlock,
 			_customScripts,
-			_queueValidation
+			_queueValidation,
+			_useAiDirector
 		];
 		
 		_paramsList pushBack _vParams;
@@ -447,6 +459,30 @@ if ((missionNamespace getVariable [_variable, true])) then
 		_trigger setTriggerStatements [_condition, _onActStatement, ""];
 
 		[_scriptTag, 3, (format["Created trigger at marker [%1] using spawn side [%2]...", _marker, _strSpawnSide])] call RS_fnc_LoggingHelper;
+	};
+
+	// If we're using the AI Director it will manage counter attacks on this area
+	if (_useAiDirector) then
+	{
+		private
+		[
+			"_trigger",
+			"_strSpawnSide",
+			"_onActStatement"
+		];
+
+		_strSpawnSide = (toUpper(format ["%1", (missionNamespace getVariable [_spawnSide, EAST])]));
+
+		_trigger = createTrigger ["EmptyDetector", (markerPos _marker)];
+		_trigger setTriggerArea [_baseAreaSize, _baseAreaSize, 0, false, 150];
+		_trigger setTriggerActivation ["ANYPLAYER", (format ["%1 D", _strSpawnSide]), false];
+		_trigger setTriggerInterval 5;
+
+		// Build the onActivation statement
+		_onActStatement = (format ["if (!isServer) exitWith{}; ['%1'] call SAEF_AS_fnc_CounterAttack;", _marker]);
+
+		// Set up the trigger
+		_trigger setTriggerStatements ["this", _onActStatement, ""];
 	};
 	/* ----- End of Trigger Section ----- */
 

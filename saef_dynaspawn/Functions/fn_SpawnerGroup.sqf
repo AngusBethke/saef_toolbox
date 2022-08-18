@@ -134,28 +134,27 @@ if (_unitType == "VEH") then
 	_script = [_spawnPos, _azi, _faction, _group] spawn bis_fnc_spawnvehicle;
 	
 	waitUntil {
-		sleep 1;
+		sleep 0.1;
 		((scriptDone _script) || (isNull _script))
 	};
+
+	{
+		// Ensure the AI aren't killed as they load in
+		[_x] spawn RS_DS_fnc_SpawnProtection;
+	} forEach (units _group);
 	
 	_vehicle = vehicle (leader _group);
 	
 	// Remove Thermal for Spawned Vehicles to Make them 'not-so terminator-ish'
 	_vehicle disableTIEquipment true;
 	_vehicle disableNVGEquipment true;
-	
-	if (_usePara) then
-	{
-		["DynaSpawn", 2, (format ["[SpawnerGroup] Parachute Insertion may not be used with unit type [%1]!", _unitType])] call RS_fnc_LoggingHelper;
-		_usePara = false;
-	};
 };
 
 // Checks the task type and assigns them accordingly
 if (_type == "PAT") then
 {
 	// Creates Waypoint for Patrolling a Position
-	[_group, _spawnPos, _area] call RS_DS_fnc_TaskPatrol;
+	["StartPatrol", [_group, _spawnPos, _area]] call RS_DS_fnc_TaskPatrolV2;
 	_group setSpeedMode "LIMITED";
 	_group setBehaviour "SAFE";
 	_group setFormation ([] call RS_DS_fnc_GetRandomFormation);
