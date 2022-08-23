@@ -61,7 +61,7 @@ if (toUpper(_type) == "CREATE") exitWith
 		"_spawnParams"
 	];
 
-	_groupCodeBlock = (call compile (format ["{ ['Handle', [_x, %1, '%2']] call SAEF_AC_fnc_AntiAir; }", _vehicle, _runVariable]));
+	_groupCodeBlock = (call compile (format ["{ ['Handle', [_x, %1, '%2']] spawn SAEF_AC_fnc_AntiAir; }", _vehicle, _runVariable]));
 
 	_spawnParams = 
 	[
@@ -88,6 +88,11 @@ if (toUpper(_type) == "CREATE") exitWith
 */
 if (toUpper(_type) == "HANDLE") exitWith
 {
+	if (!canSuspend) exitWith
+	{
+		_this spawn SAEF_AC_fnc_AntiAir;
+	};
+
 	_params params
 	[
 		"_unit",
@@ -98,6 +103,18 @@ if (toUpper(_type) == "HANDLE") exitWith
 	// Move the unit into the gunner
 	_unit moveInGunner _vehicle;
 	_unit action ["getInGunner", _vehicle];
+
+	private
+	[
+		"_control"
+	];
+
+	_control = 0;
+	waitUntil {
+		sleep 1;
+		_control = _control + 1;
+		(((vehicle _unit) == _vehicle) || (_control == 100))
+	};
 
 	// Handle the process
 	missionNamespace setVariable [_runVariable, true, true];

@@ -63,7 +63,7 @@ if (toUpper(_type) == "CREATE") exitWith
 		"_spawnParams"
 	];
 
-	_groupCodeBlock = (call compile (format ["{ ['Handle', [_x, %1, '%2']] call SAEF_AC_fnc_Artillery; }", _vehicle, _runVariable]));
+	_groupCodeBlock = (call compile (format ["{ ['Handle', [_x, %1, '%2']] spawn SAEF_AC_fnc_Artillery; }", _vehicle, _runVariable]));
 
 	_spawnParams = 
 	[
@@ -90,6 +90,11 @@ if (toUpper(_type) == "CREATE") exitWith
 */
 if (toUpper(_type) == "HANDLE") exitWith
 {
+	if (!canSuspend) exitWith
+	{
+		_this spawn SAEF_AC_fnc_Artillery;
+	};
+
 	_params params
 	[
 		"_unit",
@@ -101,7 +106,19 @@ if (toUpper(_type) == "HANDLE") exitWith
 	_unit moveInGunner _vehicle;
 	_unit action ["getInGunner", _vehicle];
 
-	["PersistentAmbientStrikes", [[_vehicle], _runVariable]] call SAEF_AC_fnc_Artillery;
+	private
+	[
+		"_control"
+	];
+
+	_control = 0;
+	waitUntil {
+		sleep 1;
+		_control = _control + 1;
+		(((vehicle _unit) == _vehicle) || (_control == 100))
+	};
+
+	["PersistentAmbientStrikes", [[_vehicle], _runVariable]] spawn SAEF_AC_fnc_Artillery;
 };
 
 /*
@@ -112,10 +129,15 @@ if (toUpper(_type) == "HANDLE") exitWith
 	Calls a persistent safe ambient strikes on players
 
 	Example call:
-		["PersistentAmbientStrikes", [[arty_1, arty_2], "Arty_Position_2"]] call SAEF_AC_fnc_Artillery;
+		["PersistentAmbientStrikes", [[arty_1, arty_2], "Arty_Position_2"]] spawn SAEF_AC_fnc_Artillery;
 */
 if (toUpper(_type) == "PERSISTENTAMBIENTSTRIKES") exitWith
 {
+	if (!canSuspend) exitWith
+	{
+		_this spawn SAEF_AC_fnc_Artillery;
+	};
+	
 	_params params
 	[
 		"_guns",
