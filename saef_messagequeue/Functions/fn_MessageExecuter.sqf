@@ -26,6 +26,7 @@ params
 	,"_script"
 	,"_queueName"
 	,"_validation"
+	,["_validationRequeueDelay", 60]
 ];
 
 private

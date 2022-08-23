@@ -34,6 +34,15 @@ class CfgFunctions
 			class TogglePlayerHud {};
 		};
 	};
+
+	class SAEF_PLYR
+	{
+		class PlayerFunctions
+		{
+			file = "saef_player\Functions";
+			class PlayerInTrigger {};
+		};
+	};
 };
 
 class Extended_PreInit_EventHandlers {

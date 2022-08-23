@@ -64,6 +64,7 @@ params
 	,["_customScripts", []]
 	,["_queueValidation", {true}]
 	,["_useAiDirector", true]
+	,["_respawnParams", []]
 ];
 
 private
@@ -94,7 +95,7 @@ if (_radiusSpawn) exitWith
 };
 
 // If our variable for running these spawns is still active
-if (missionNamespace getVariable [_persistenceVariable, true]) then
+if ((missionNamespace getVariable [_persistenceVariable, true]) || (_persistenceVariable == "")) then
 {
 	private
 	[
@@ -239,6 +240,25 @@ if (missionNamespace getVariable [_persistenceVariable, true]) then
 		[_params, [_group], "SAEF_AS_fnc_Spawner", _persistenceVariable, _range, (markerPos _secondaryMarker), _playerValidation, _queueValidation] spawn SAEF_AS_fnc_Persistence;
 
 		[_scriptTag, 3, (format["<OUT> [%1] | Persisting...", _marker])] call RS_fnc_LoggingHelper;
+	};
+
+	// Respawn the group if the variable is still set
+	if (!(_respawnParams isEqualTo [])) exitWith
+	{
+		_respawnParams params
+		[
+			"_respawnVariable",
+			"_respawnTime"
+		];
+
+		// Set up our Variable
+		missionNamespace setVariable [_respawnVariable, true, true];
+
+		[_scriptTag, 0, (format["Persisting squad with variable [%1], toggle to false to end persistence.", _respawnVariable])] call RS_fnc_LoggingHelper;
+		
+		[_this, _group, "SAEF_AS_fnc_Spawner", _respawnVariable, _respawnTime, _queueValidation] spawn SAEF_AS_fnc_Recursive;
+
+		[_scriptTag, 3, "<OUT> | Recursing..."] call RS_fnc_LoggingHelper;
 	};
 }
 else

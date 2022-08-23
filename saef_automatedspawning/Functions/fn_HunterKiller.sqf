@@ -56,6 +56,7 @@ params
 	,["_queueValidation", {true}]
 	,["_customPositionTag", ""]
 	,["_secondPos", []]
+	,["_paraStartPosVariable", ""]
 ];
 
 private
@@ -142,12 +143,20 @@ if (_customPositionError) exitWith
 private
 [
 	"_paraSpawn",
+	"_paraStartPos",
 	"_paraError"
 ];
 
 // Setup the para spawn parameters if any
 _paraSpawn = [];
 _paraError = false;
+_paraStartPos = []; 
+
+if (_paraStartPosVariable != "") then
+{
+	_paraStartPos = missionNamespace getVariable [_paraStartPosVariable, []];
+};
+
 if (_paraVariable != "") then
 {
 	private
@@ -159,7 +168,7 @@ if (_paraVariable != "") then
 
 	if (!(_paraArray isEqualTo [])) then
 	{
-		_paraSpawn = [(selectRandom _paraArray), [], 0];
+		_paraSpawn = [(selectRandom _paraArray), _paraStartPos, 0];
 	}
 	else
 	{

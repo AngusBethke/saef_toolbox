@@ -14,7 +14,7 @@ if (hasInterface) then
 	player setVariable ["SAEF_LRRP_HasInitialised", true, true];
 	["Init"] call SAEF_LRRP_fnc_Tent;
 	["Init"] call SAEF_LRRP_fnc_CommandTent;
-	["INIT"] call SAEF_LRRP_fnc_Gear;
+	["Init"] call SAEF_LRRP_fnc_Gear;
 };
 
 // Headless clients and players should be booted
@@ -52,4 +52,4 @@ missionNamespace setVariable ["SAEF_LRRP_CommandTent", (missionNamespace getVari
 missionNamespace setVariable ["SAEF_LRRP_CommandTent_Marker", (missionNamespace getVariable ["SAEF_LRRP_CommandTent_Marker", "respawn"]), true];
 
 // Execute the load
-["INIT"] call SAEF_LRRP_fnc_Persistence;
+["Init"] call SAEF_LRRP_fnc_Persistence;

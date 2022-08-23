@@ -61,7 +61,8 @@ _areaTag = "";
 	["_queueValidation", {true}],
 	["_defaultDetector", true],
 	["_useAiDirector", true],
-	["_aiDirectorParams", []]
+	["_aiDirectorParams", []],
+	["_paraStartPosVariable", ""]
 ];
 
 // Load the AI Director params
@@ -222,11 +223,11 @@ if (!(_activeAreas isEqualTo [])) exitWith
 					_spawnPosition = (selectRandom _spawnPositions);
 					_spawnPositions = _spawnPositions - [_spawnPosition];
 
-					_hkParams = _hkParams + [_spawnPosition];
+					_hkParams = _hkParams + [_spawnPosition, _paraStartPosVariable];
 				}
 				else
 				{
-					_hkParams = _hkParams + [_x];
+					_hkParams = _hkParams + [_x, _paraStartPosVariable];
 				};
 
 				// Ensure counter attack only occurs after specified time delay
@@ -286,6 +287,7 @@ if (!(_activeAreas isEqualTo [])) exitWith
 							,_queueValidation
 							,""
 							,_spawnPosition
+							,_paraStartPosVariable
 						];
 					}
 					else

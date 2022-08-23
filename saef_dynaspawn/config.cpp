@@ -34,9 +34,9 @@ class CfgFunctions
 			class ParaInsertion {};
 			class PositionValidation {};
 			class SpawnerGroup {};
-			class SpawnProtection {};
 			class TaskPatrol {};
 			class TaskPatrolV2 {};
+			class UnitHelper {};
 			class UnitValidation {};
 		};
 	};

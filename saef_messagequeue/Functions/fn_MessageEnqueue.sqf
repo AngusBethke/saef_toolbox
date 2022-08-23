@@ -43,6 +43,7 @@ params
 	,["_target", objNull]
 	,["_evaluationParameterIndex", 0]
 	,["_updateFunction", {}]
+	,["_validationRequeueDelay", 60]
 ];
 
 // Need to update via our update function to correctly distribute
@@ -66,11 +67,12 @@ _logName = "RS Message Enqueue";
 _messageCount = _messageCount + 1;
 _messages pushback
 [
-	_messageCount			// Unique message id
-	,_params				// Params for the script
-	,_script				// The script to execute
-	,_queueName				// The name of the queue that this message is being added to
-	,_validation			// Optional: The custom validation code block that can be used to ignore processing until a condition is met
+	_messageCount				// Unique message id
+	,_params					// Params for the script
+	,_script					// The script to execute
+	,_queueName					// The name of the queue that this message is being added to
+	,_validation				// Optional: The custom validation code block that can be used to ignore processing until a condition is met
+	,_validationRequeueDelay	// Optional: The requeue delay for validation failure (in case we'd prefer not to check it again only in 60 seconds)
 ];
 
 missionNamespace setVariable [_queueName, _messages, true];

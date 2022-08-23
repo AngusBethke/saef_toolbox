@@ -28,7 +28,8 @@ params
 	"_azi",
 	"_insertionPos",
 	"_group",
-	"_facSide"
+	"_facSide",
+	"_originalSpawnPos"
 ];
 
 if (missionNamespace getVariable ["SAEF_DynaSpawn_ExtendedLogging", false]) then
@@ -109,6 +110,11 @@ if (_spawnPos isEqualTo []) then
 	{
 		["DynaSpawn", 4, (format ["[ParaInsertion] Position: %1, Direction: %2", _spawnPos, _azi])] call RS_fnc_LoggingHelper;
 	};
+}
+else
+{
+	// Move the spawn pos around a tad if there is one specified
+	_spawnPos = _spawnPos getPos [(random 360), (random 100)];
 };
 
 // On the slim chance it can't find a safe space to spawn the Helo, exit with an Error
@@ -137,7 +143,7 @@ _vGroup = (_vehArray select 2);
 // Helo Height Fix
 _veh flyInHeight 300;
 {
-	[_x] spawn RS_DS_fnc_SpawnProtection;
+	["SpawnProtection", [_x]] spawn RS_DS_fnc_UnitHelper;
 	_x flyInHeight 300;
 } forEach units _vGroup;
 

@@ -47,9 +47,10 @@ if ((typeName _var) isEqualTo "ARRAY") then
 else
 {
 	if ((_var isKindOf ["LandVehicle", configFile >> "CfgVehicles"]) 
-		OR (_var isKindOf ["Helicopter", configFile >> "CfgVehicles"])
-		OR (_var isKindOf ["Plane", configFile >> "CfgVehicles"])
-		OR (_var isKindOf ["Boat", configFile >> "CfgVehicles"])) then
+		|| (_var isKindOf ["Helicopter", configFile >> "CfgVehicles"])
+		|| (_var isKindOf ["Plane", configFile >> "CfgVehicles"])
+		|| (_var isKindOf ["Boat", configFile >> "CfgVehicles"])
+		|| (_var isKindOf ["Man", configFile >> "CfgVehicles"])) then
 	{
 		_type = "VEH";
 		_valid = true;

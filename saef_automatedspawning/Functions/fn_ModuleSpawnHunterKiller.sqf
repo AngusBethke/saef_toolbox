@@ -220,6 +220,7 @@ if (_activated && _active) then
 		,"_customScripts"
 		,"_queueValidation"
 		,"_customPositionTag"
+		,"_customParaStartPoint"
 	];
 
 	_position = (getPos _logic);
@@ -303,11 +304,14 @@ if (_activated && _active) then
 			,"_lightVehicle"
 		];
 
-		// If this is a vehicle we should not do the paradrop spawn
-		if (!_paraVehicle || (_heavyVehicle || _lightVehicle)) exitWith
-		{
-			""
-		};
+		// NOTE - Vehicles can be paradropped now
+		/*
+			// If this is a vehicle we should not do the paradrop spawn
+			if (!_paraVehicle || (_heavyVehicle || _lightVehicle)) exitWith
+			{
+				""
+			};
+		*/
 
 		_tParaVehicle
 	};
@@ -321,6 +325,8 @@ if (_activated && _active) then
 	{
 		_customPositionTag = (format ["%1_hk", _tag]);
 	};
+
+	_customParaStartPoint = (format ["%1_parastart", _tag]);
 	
 	_infoArray pushBack (format ["Executed Hunter Killer with the following parameters: %1", ([_position, _unitVar, _sideVar, _count, _area, "_groupCode <Ommitted>", _respawnVariable, _paraVariable, _respawnTime, "_customScripts <Ommitted>", "_queueValidation <Ommitted>", _customPositionTag])]);
 
@@ -339,6 +345,8 @@ if (_activated && _active) then
 		,_customScripts
 		,_queueValidation
 		,_customPositionTag
+		,_position
+		,_customParaStartPoint
 	];
 	
 	["SAEF_SpawnerQueue", _params, "SAEF_AS_fnc_HunterKiller", _queueValidation] call RS_MQ_fnc_MessageEnqueue;

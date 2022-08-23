@@ -562,7 +562,10 @@ if (toUpper(_type) == "GETPLAYERLAUNCHERTYPE") exitWith
 	(["GetPlayerGroup", [_position]] call SAEF_AID_fnc_Player) params
 	[
 		"_groupId",
-		"_units"
+		"_units",
+		"_groupLength",
+		"_groupCenter",
+		"_averageDirection"
 	];
 
 	private
@@ -718,7 +721,10 @@ if (toUpper(_type) == "GETPLAYERGROUP") exitWith
 		_x params
 		[
 			"_groupId",
-			"_units"
+			"_units",
+			"_groupLength",
+			"_groupCenter",
+			"_averageDirection"
 		];
 
 		{
@@ -732,7 +738,7 @@ if (toUpper(_type) == "GETPLAYERGROUP") exitWith
 			if (_distance < _closestDistance) then
 			{
 				_closestDistance = _distance;
-				_selectedGroup = [_groupId, _units];
+				_selectedGroup = [_groupId, _units, _groupLength, _groupCenter, _averageDirection];
 			};
 		} forEach _units;
 	} forEach _playerGroups;
@@ -990,7 +996,116 @@ if (toUpper(_type) == "GETPLAYERGROUPSWITHPASSES") exitWith
 			_objects pushBackUnique (["GetItemFromDictionary", [_x, _unitKeys]] call SAEF_AID_fnc_Player);
 		} forEach _x;
 
-		_playerGroups pushBack [(_foreachIndex + 1), _objects];
+		private
+		[
+			"_highestDistance",
+			"_highestX",
+			"_highestY",
+			"_highestZ",
+			"_lowestX",
+			"_lowestY",
+			"_lowestZ",
+			"_totalDirection"
+		];
+
+		_highestDistance = 0;
+		_highestX = 0;
+		_highestY = 0;
+		_highestZ = 0;
+
+		_lowestX = 99999999999;
+		_lowestY = 99999999999;
+		_lowestZ = 99999999999;
+
+		_totalDirection = 0;
+
+		{
+			private
+			[
+				"_outerObject"
+			];
+
+			_outerObject = _x;
+			(getPos _outerObject) params
+			[
+				"_objectX",
+				"_objectY",
+				"_objectZ"
+			];
+
+			_totalDirection = _totalDirection + (getDir _outerObject);
+
+			if (_objectX > _highestX) then
+			{
+				_highestX = _objectX;
+			};
+
+			if (_objectY > _highestY) then
+			{
+				_highestY = _objectY;
+			};
+
+			if (_objectZ > _highestZ) then
+			{
+				_highestZ = _objectZ;
+			};
+
+			if (_objectX < _lowestX) then
+			{
+				_lowestX = _objectX;
+			};
+
+			if (_objectY < _lowestY) then
+			{
+				_lowestY = _objectY;
+			};
+
+			if (_objectZ < _lowestZ) then
+			{
+				_lowestZ = _objectZ;
+			};
+
+			{
+				private
+				[
+					"_innerObject"
+				];
+
+				_innerObject = _x;
+
+				if (_outerObject != _innerObject) then
+				{
+					private
+					[
+						"_objectDistance"
+					];
+
+					_objectDistance = (_outerObject distance _innerObject);
+
+					if (_objectDistance > _highestDistance) then
+					{
+						_highestDistance = _objectDistance;
+					};
+				};
+			} forEach _objects;
+		} forEach _objects;
+
+		private
+		[
+			"_groupCenter",
+			"_averageDirection"
+		];
+
+		_groupCenter = 
+		[
+			(_lowestX + ((_highestX - _lowestX) / 2)),
+			(_lowestY + ((_highestY - _lowestY) / 2)),
+			(_lowestZ + ((_highestZ - _lowestZ) / 2))
+		];
+
+		_averageDirection = (_totalDirection / (count _objects));
+
+		_playerGroups pushBack [(_foreachIndex + 1), _objects, _highestDistance, _groupCenter, _averageDirection];
 	} forEach _groupUnits;
 
 	// Return the player groups

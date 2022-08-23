@@ -100,7 +100,7 @@ if (_unitType == "INF") then
 		_unit setSkill (selectRandom [0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75]);
 
 		// Ensure the AI aren't killed as they load in
-		[_unit] spawn RS_DS_fnc_SpawnProtection;
+		["SpawnProtection", [_unit]] spawn RS_DS_fnc_UnitHelper;
 
 		if (_type == "GAR") then
 		{
@@ -113,7 +113,7 @@ if (_unitType == "INF") then
 			// Force the units to move a bit so they don't stand in a clump
 			if ((_type in ["PAT", "CA", "HK"]) && !_usePara) then
 			{
-				_unit doMove (_unit getRelPos [5, (random(360))]);
+				["EnsureUnitMoves", [_unit]] spawn RS_DS_fnc_UnitHelper;
 			};
 		};
 	} forEach _faction;
@@ -140,7 +140,7 @@ if (_unitType == "VEH") then
 
 	{
 		// Ensure the AI aren't killed as they load in
-		[_x] spawn RS_DS_fnc_SpawnProtection;
+		["SpawnProtection", [_x]] spawn RS_DS_fnc_UnitHelper;
 	} forEach (units _group);
 	
 	_vehicle = vehicle (leader _group);
@@ -204,7 +204,7 @@ if (_type == "GAR") then
 // Paratrooper Spawn Section
 if (_usePara) then
 {
-	_paraSpawn = _paraSpawn + [_secondPos, _group, _facSide];
+	_paraSpawn = _paraSpawn + [_secondPos, _group, _facSide, _spawnPos];
 	_paraSpawn spawn RS_DS_fnc_ParaInsertion;
 };
 

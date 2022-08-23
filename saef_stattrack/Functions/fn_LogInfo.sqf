@@ -26,7 +26,7 @@ _info = format ["Total Player Count: %1 || Total Player Casualties: %2 || Total 
 					(missionNamespace getVariable "ST_Casualties"),
 					(missionNamespace getVariable "ST_KillCount"),
 					(missionNamespace getVariable "ST_FriendlyFire"),
-					(missionNamespace getVariable "ST_MissionAttendees"),
+					(text (missionNamespace getVariable "ST_MissionAttendees")),
 					(missionNamespace getVariable "ST_CivKillCount")];
 
 // Log StatTrack info to the .rpt

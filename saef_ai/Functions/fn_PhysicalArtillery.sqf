@@ -24,7 +24,8 @@
 			_positions, 		// Positions being fired at
 			_rounds,			// Number of rounds fired per position
 			_shellType,			// (Optional) Type of shell to fire in the salvo
-			_spread				// (Optional) The spread in meters for the artillery target
+			_spread,			// (Optional) The spread in meters for the artillery target
+			_rearm				// (Optional) Whether or not to rearm the vehicles after rounds are complete
 		] spawn SAEF_AI_fnc_PhysicalArtillery;
 */
 
@@ -34,7 +35,8 @@ params
 	"_positions",
 	"_rounds",
 	["_shellType", "explosive"],
-	["_spread", 0]
+	["_spread", 0],
+	["_rearm", false]
 ];
 
 private
@@ -44,7 +46,12 @@ private
 _scriptTag = "SAEF_AI_fnc_PhysicalArtillery";
 
 {
-	_x params ["_vehicle"];
+	private
+	[
+		"_vehicle"
+	];
+
+	_vehicle = _x;
 
 	{
 		private
@@ -118,6 +125,20 @@ _scriptTag = "SAEF_AI_fnc_PhysicalArtillery";
 
 		_groupLeader = (leader ((crew _vehicle) select 0));
 
+		// Rearm the vehicle before firing
+		if (_rearm) then
+		{
+			// Check locality for the order
+			if (local _groupLeader) then
+			{
+				_vehicle setVehicleAmmo 1;
+			}
+			else
+			{
+				[_vehicle, 1] remoteExecCall ["setVehicleAmmo", (owner _groupLeader), false];
+			};
+		};
+
 		// Fire the gun
 		[_scriptTag, 4, (format["Vehicle [%1] firing at position %2 with ammo [%3], round count [%4] and spread [%5] ...", _vehicle, _position, _ammo, _rounds, _spread])] call RS_fnc_LoggingHelper;
 
@@ -157,5 +178,4 @@ _scriptTag = "SAEF_AI_fnc_PhysicalArtillery";
 		};
 		
 	} forEach _positions;
-
 } forEach _vehicles;
