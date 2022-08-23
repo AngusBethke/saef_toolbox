@@ -19,15 +19,69 @@ private
 _scriptTag = "SAEF Ambient Combat - Armor";
 
 /*
-	----------
-	-- INIT --
-	----------
+	------------
+	-- CREATE --
+	------------
 
-	Handles initialisation of the function set
+	Creates the unit and runs the anti-air function
 */
-if (toUpper(_type) == "INIT") exitWith
+if (toUpper(_type) == "CREATE") exitWith
 {
-	[_scriptTag, 2, (format ["[%1] Method not yet implemeneted!", _type])] call RS_fnc_LoggingHelper;
+	_params params
+	[
+		"_marker",
+		"_secondaryMarker",
+		"_areaTag",
+		"_runVariable"
+	];
+
+	(["GetConfigByTagOrMarker", [_areaTag]] call SAEF_AC_fnc_Helpers) params
+	[
+		"_blockPatrol",
+		"_blockGarrison",
+		"_units",
+		"_side",
+		"_lightVehicles",
+		"_heavyVehicles",
+		"_paraVehicles",
+		"_playerValidation",
+		"_groupScripts",
+		"_queueValidation",
+		"_defaultDetector",
+		"_useAiDirector",
+		"_aiDirectorParams",
+		"_paraStartPosVariable"
+	];
+	
+	private
+	[
+		"_spawnParams"
+	];
+
+	_spawnParams = 
+	[
+		_marker, 
+		"CA", 
+		_heavyVehicles, 
+		_side, 
+		1, 
+		_secondaryMarker, 
+		50, 
+		50, 
+		{},
+		false,
+		"",
+		{true},
+		[],
+		{true},
+		true,
+		[
+			_runVariable,
+			120
+		]
+	];
+
+	["SAEF_SpawnerQueue", _spawnParams, "SAEF_AS_fnc_Spawner"] call RS_MQ_fnc_MessageEnqueue;
 };
 
 // Log warning if type is not recognised

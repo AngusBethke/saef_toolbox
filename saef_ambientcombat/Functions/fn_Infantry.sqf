@@ -24,15 +24,13 @@ _scriptTag = "SAEF Ambient Combat - Infantry";
 	------------
 
 	Creates the unit and runs the anti-air function
-
-	["Create", ["usa_area_counterattack_spawn_1", "usa_area_counterattack_marker_1", "usa_area", "saef_ac_usa_area_run_persistant_infantry_1"]] call SAEF_AC_fnc_Infantry;
 */
 if (toUpper(_type) == "CREATE") exitWith
 {
 	_params params
 	[
 		"_marker",
-		"_secondaryMarker"
+		"_secondaryMarker",
 		"_areaTag",
 		"_runVariable"
 	];
@@ -61,7 +59,9 @@ if (toUpper(_type) == "CREATE") exitWith
 		"_spawnParams"
 	];
 
-	_groupCodeBlock = (call compile (format ["{ ['Handle', [_x, %1, '%2']] call SAEF_AC_fnc_AntiAir; }", _vehicle, _runVariable]));
+	_groupCodeBlock = {
+		_x enableFatigue false;
+	};
 
 	_spawnParams = 
 	[
@@ -71,8 +71,8 @@ if (toUpper(_type) == "CREATE") exitWith
 		_side, 
 		12, 
 		_secondaryMarker, 
-		0, 
-		0, 
+		50, 
+		50, 
 		_groupCodeBlock,
 		false,
 		"",

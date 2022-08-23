@@ -612,10 +612,16 @@ if (toUpper(_type) == "GETNUMBEROFGROUPSTOSPAWN") exitWith
 	_lightVehicleNumber = 0;
 	_heavyVehicleNumber = 0;
 
-	// Clamp group size to 12
+	// Clamp group size max to 12
 	if (_countPerGroup > 12) then
 	{
 		_countPerGroup = 12;
+	};
+
+	// Clamp group size min to 4
+	if (_countPerGroup < 4) then
+	{
+		_countPerGroup = 4;
 	};
 
 	// Check if players have anti-tank equipment for destruction of heavy vehicles

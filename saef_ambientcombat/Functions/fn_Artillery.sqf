@@ -73,8 +73,8 @@ if (toUpper(_type) == "CREATE") exitWith
 		_side, 
 		1, 
 		_marker, 
-		0, 
-		0, 
+		50, 
+		50, 
 		_groupCodeBlock
 	];
 
