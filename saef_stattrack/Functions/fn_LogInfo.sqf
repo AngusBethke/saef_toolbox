@@ -13,12 +13,22 @@
 	Author: Angus Bethke (a.k.a. Rabid Squirrel)
 */
 
-_type = "Default";
+params
+[
+	["_type", "Default"]
+];
 
-if (!isNil{_this select 0}) then
+private
+[
+	"_formattedAttendees",
+	"_info"
+];
+
+_formattedAttendees = [];
+
 {
-	_type = _this select 0;
-};
+	_formattedAttendees pushBack (text _x);
+} forEach (missionNamespace getVariable ["ST_MissionAttendees", []]);
 
 // Format the Text with all the Information from StatTrack
 _info = format ["Total Player Count: %1 || Total Player Casualties: %2 || Total Enemies Killed: %3 || Friendly Fire Incidents: %4 || Mission Attendees: %5 || Civilian Casualties (by Player): %6", 
@@ -26,7 +36,7 @@ _info = format ["Total Player Count: %1 || Total Player Casualties: %2 || Total 
 					(missionNamespace getVariable "ST_Casualties"),
 					(missionNamespace getVariable "ST_KillCount"),
 					(missionNamespace getVariable "ST_FriendlyFire"),
-					(text (missionNamespace getVariable "ST_MissionAttendees")),
+					(_formattedAttendees),
 					(missionNamespace getVariable "ST_CivKillCount")];
 
 // Log StatTrack info to the .rpt
