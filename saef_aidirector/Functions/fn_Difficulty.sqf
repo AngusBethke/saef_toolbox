@@ -577,7 +577,7 @@ if (toUpper(_type) == "GETAICOUNT") exitWith
 		"_count"
 	];
 
-	_count = ["GetAiCountMinMax", [_position, _radius, _min, _max, _clampByPositions]] call SAEF_AID_fnc_Difficulty;
+	_count = ["GetAiCountMinMax", [_position, _min, _max, [_clampByPositions, _radius]]] call SAEF_AID_fnc_Difficulty;
 
 	// Return the count
 	_count
@@ -808,10 +808,9 @@ if (toUpper(_type) == "GETAICOUNTMINMAX") exitWith
 	_params params
 	[
 		"_position",
-		["_radius", 50],
 		["_min", 0],
 		["_max", 0],
-		["_clampByPositions", false]
+		["_clampSettings", []]
 	];
 
 	if ((_min == 0) || (_max == 0)) exitWith
@@ -887,7 +886,7 @@ if (toUpper(_type) == "GETAICOUNTMINMAX") exitWith
 			_newMin = (_min + ceil ((_max - _min) / 2));
 			_difference = (_max - _newMin);
 
-			// Determine count base on player status factor
+			// Determine count based on player status factor
 			(["GetGroupStatusFactorAtPos", [_position]] call SAEF_AID_fnc_Player) params
 			[
 				"_statusFactor",
@@ -919,20 +918,29 @@ if (toUpper(_type) == "GETAICOUNTMINMAX") exitWith
 		};
 	};
 
-	if (_clampByPositions) then
+	if (!(_clampSettings isEqualTo [])) then
 	{
-		// Clamp the count based on number of building positions available
-		private
+		_clampSettings params
 		[
-			"_positions"
+			["_clampByPositions", false],
+			["_radius", 50]
 		];
-
-		_positions = ["GetUniqueBuildingPositions", [_position, _radius, _count]] call SAEF_AID_fnc_Difficulty;
-
-		if (_count > (count _positions)) then
+		
+		if (_clampByPositions) then
 		{
-			_count = (count _positions);
-			["SAEF_AID_fnc_Difficulty", 2, (format ["[GETAICOUNTMINMAX] Clamping number of AI to fit available building positions: %1", [_position, _radius, _count]])] call RS_fnc_LoggingHelper;
+			// Clamp the count based on number of building positions available
+			private
+			[
+				"_positions"
+			];
+
+			_positions = ["GetUniqueBuildingPositions", [_position, _radius, _count]] call SAEF_AID_fnc_Difficulty;
+
+			if (_count > (count _positions)) then
+			{
+				_count = (count _positions);
+				["SAEF_AID_fnc_Difficulty", 2, (format ["[GETAICOUNTMINMAX] Clamping number of AI to fit available building positions: %1", [_position, _radius, _count]])] call RS_fnc_LoggingHelper;
+			};
 		};
 	};
 

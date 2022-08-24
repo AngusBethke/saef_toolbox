@@ -76,8 +76,8 @@ while {missionNamespace getVariable ["ST_TrackPlayers", false]} do
 		_name = name _player;
 		_jsonAttendee = ["BuildItems", [["ArmaName", _name], ["ArmaUID", _uid]]] call SAEF_LOG_fnc_JsonLogger;
 
-		_uidArray = missionNamespace getVariable "ST_TrackUIDs";
-		_playerArray = missionNamespace getVariable "ST_MissionAttendees";
+		_uidArray = missionNamespace getVariable ["ST_TrackUIDs", []];
+		_playerArray = missionNamespace getVariable ["ST_MissionAttendees", []];
 
 		if (!(_uid in _uidArray)) then
 		{
@@ -85,13 +85,13 @@ while {missionNamespace getVariable ["ST_TrackPlayers", false]} do
 			["ST_TrackUIDs", _uid] call RS_ST_fnc_Incrementer;
 		};
 
-		if (!(_name in _playerArray)) then
+		if (!(_jsonAttendee in _playerArray)) then
 		{
 			// Add Player Name to the Array of Joined Players
 			["ST_MissionAttendees", _jsonAttendee] call RS_ST_fnc_Incrementer;
 		};
 		
-		if (!(_uid in _uidArray) && !(_name in _playerArray)) then
+		if (!(_uid in _uidArray) && !(_jsonAttendee in _playerArray)) then
 		{
 			// Increase the Total Player Count
 			["ST_TotalPlayerCount", 1, true] call RS_ST_fnc_Incrementer;
