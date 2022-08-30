@@ -479,7 +479,7 @@ if ((missionNamespace getVariable [_variable, true])) then
 		_trigger setTriggerInterval 5;
 
 		// Build the onActivation statement
-		_onActStatement = (format ["if (!isServer) exitWith{}; ['%1'] call SAEF_AS_fnc_CounterAttack;", _marker]);
+		_onActStatement = (format ["if (!isServer) exitWith{}; ['Create', ['%1']] call SAEF_AS_fnc_CounterAttack;", _marker]);
 
 		// Set up the trigger
 		_trigger setTriggerStatements ["this", _onActStatement, ""];

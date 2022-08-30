@@ -646,16 +646,16 @@ if (toUpper(_type) == "GETNUMBEROFGROUPSTOSPAWN") exitWith
 			{
 				if (_hasAntiTank) then
 				{
-					_heavyVehicleNumber = 1;
+					_heavyVehicleNumber = _heavyVehicleNumber + 1;
 				};
 			};
 
 			if (_difficultyCount >= 2) then
 			{
-				_lightVehicleNumber = 2;
+				_lightVehicleNumber = _lightVehicleNumber + 2;
 			};
 			
-			_groupNumber = _difficultyCount;
+			_groupNumber = ceil (_difficultyCount * (0.45 + (random 0.3)));
 		};
 
 		case "MED": {
@@ -663,33 +663,33 @@ if (toUpper(_type) == "GETNUMBEROFGROUPSTOSPAWN") exitWith
 			{
 				if (_hasAntiTank) then
 				{
-					_heavyVehicleNumber = 1;
+					_heavyVehicleNumber = _heavyVehicleNumber + 1;
 				};
 			};
 
 			if (_difficultyCount >= 3) then
 			{
-				_lightVehicleNumber = 1;
+				_lightVehicleNumber = _lightVehicleNumber + 1;
 			};
 
 			if (_difficultyCount >= 2) then
 			{
-				_lightVehicleNumber = 1;
+				_lightVehicleNumber = _lightVehicleNumber + 1;
 			};
 
-			_groupNumber = ceil (_difficultyCount / 2);
+			_groupNumber = ceil (_difficultyCount * (0.2 + (random 0.3)));
 		};
 
 		// Default is small
 		default {
 			if (_difficultyCount >= 4) then
 			{
-				_lightVehicleNumber = 1;
+				_lightVehicleNumber = _lightVehicleNumber + 1;
 			};
 
 			if (_difficultyCount >= 2) then
 			{
-				_lightVehicleNumber = 1;
+				_lightVehicleNumber = _lightVehicleNumber + 1;
 			};
 
 			_groupNumber = 1;

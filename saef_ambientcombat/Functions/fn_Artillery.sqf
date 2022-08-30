@@ -200,10 +200,12 @@ if (toUpper(_type) == "AMBIENTSTRIKE") exitWith
 	[
 		"_positionCount",
 		"_roundCount",
-		"_safePositions"
+		"_safePositions",
+		"_distance"
 	];
 
-	_safePositions = ["GetSafePlacesAroundPlayers", [350]] call SAEF_AC_fnc_Helpers;
+	_distance = (100 + random(50));
+	_safePositions = ["GetSafePlacesAroundPlayers", [_distance]] call SAEF_AC_fnc_Helpers;
 	_positionCount = 0;
 	_roundCount = 0;
 
