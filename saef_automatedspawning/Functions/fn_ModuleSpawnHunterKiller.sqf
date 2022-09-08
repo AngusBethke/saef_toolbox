@@ -304,14 +304,11 @@ if (_activated && _active) then
 			,"_lightVehicle"
 		];
 
-		// NOTE - Vehicles can be paradropped now
-		/*
-			// If this is a vehicle we should not do the paradrop spawn
-			if (!_paraVehicle || (_heavyVehicle || _lightVehicle)) exitWith
-			{
-				""
-			};
-		*/
+		// We only paradrop if the setting is selected
+		if (!_paraVehicle) exitWith
+		{
+			""
+		};
 
 		_tParaVehicle
 	};
