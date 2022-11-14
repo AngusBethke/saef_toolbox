@@ -25,7 +25,8 @@
 		[
 			_markerTag,					// Tag of the marker
 			_maxSearchDistance,			// Max distance to search for the marker
-			_playerDistanceThreshold	// How close the marker can be to the players
+			_playerDistanceThreshold,	// How close the marker can be to the players
+			_useMarkerFilter			// Whether or not to use the filter mechanism
 		] call RS_PLYR_fnc_GetMarkerNearPlayer;
 */
 
@@ -34,6 +35,7 @@ params
 	"_markerTag"
 	,["_maxSearchDistance", 1000]
 	,["_playerDistanceThreshold", 250]
+	,["_useMarkerFilter", false]
 ];
 
 private
@@ -102,8 +104,64 @@ if (_spawnMarkers isEqualTo []) exitWith
 	""
 };
 
+// If we use the marker filter
+if (_useMarkerFilter) then
+{
+	private
+	[
+		"_filteredMarkers"
+	];
+
+	_filteredMarkers = [];
+
+	// Check all the markers to see if any are currently locked
+	{
+		private
+		[
+			"_markerVariable"
+		];
+
+		_markerVariable = (format ["SAEF_PLYR_MarkerLocked_%1", _x]);
+
+		if (!(missionNamespace getVariable [_markerVariable, false])) then
+		{
+			_filteredMarkers pushBack _x;
+		};
+	} forEach _spawnMarkers;
+
+	// If any aren't locked, use them
+	if (!(_filteredMarkers isEqualTo [])) then
+	{
+		_spawnMarkers = _filteredMarkers;
+	};
+};
+
 // If we have some markers after all the tests, then grab a random one
 _marker = selectRandom _spawnMarkers;
+
+// Ensure that we lock the markers, then release the lock after 30 seconds
+if (_useMarkerFilter) then
+{
+	private
+	[
+		"_markerVariable"
+	];
+
+	_markerVariable = (format ["SAEF_PLYR_MarkerLocked_%1", _marker]);
+
+	missionNamespace setVariable [_markerVariable, true, true];
+
+	[_markerVariable] spawn {
+		params
+		[
+			"_markerVariable"
+		];
+
+		sleep 30;
+
+		missionNamespace setVariable [_markerVariable, nil, true];
+	};
+};
 
 // Return the Marker
 _marker

@@ -41,6 +41,7 @@ class CfgFunctions
 			class ConfigCoreValidation {};
 			class CounterAttack {};
 			class CuratorHint {};
+			class DynamicAttack {};
 			class EvaluateAiCount {};
 			class EvaluationParameter {};
 			class ExportConfig {};

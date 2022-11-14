@@ -57,6 +57,7 @@ params
 	,["_customPositionTag", ""]
 	,["_secondPos", []]
 	,["_paraStartPosVariable", ""]
+	,["_aiDirectorParams", []]
 ];
 
 private
@@ -114,7 +115,7 @@ if (_customPositionTag != "") then
 		"_marker"
 	];
 
-	_marker = [_customPositionTag, 2000] call RS_PLYR_fnc_GetMarkerNearPlayer;
+	_marker = [_customPositionTag, 2000, 250, true] call RS_PLYR_fnc_GetMarkerNearPlayer;
 
 	// If we've found a marker then we need to adjust the position to use the custom position instead
 	if (_marker != "") then
@@ -189,53 +190,91 @@ if (_paraError) exitWith
 	["SAEF_SpawnerQueue", _this, "SAEF_AS_fnc_HunterKiller", _queueValidation] call RS_MQ_fnc_MessageEnqueue;
 };
 
-// Units that will be spawned using DynaSpawn
-for "_i" from 0 to (_count - 1) do
+// If set, the AI Director will take control of the number of AI to spawn
+_aiDirectorParams params
+[
+	["_useAiDirector", false],
+	["_aidAreaSize", "MED"],
+	["_aidIsHeavyVehicle", false]
+];
+
+if (_useAiDirector) then
 {
-	_units = _units + [selectRandom _unitArr];
+	private
+	[
+		"_usePos"
+	];
+
+	_usePos = [(_position select 0), (_position select 1), 0];
+
+	// If incoming count is one, then this is a vehicle
+	if (_count == 1) then
+	{
+		_count = ["GetVehicleCount", [_usePos, _aidAreaSize, _aidIsHeavyVehicle]] call SAEF_AID_fnc_Difficulty;
+	}
+	else
+	{
+		_count = ["GetAiCount", [_usePos, _aidAreaSize]] call SAEF_AID_fnc_Difficulty;
+	};
 };
 
-// If there is only one unit we need to yank this out of the array
-if ((count _units) == 1) then
-{
-	_units = (_units select 0);
-};
-
+// Create the group
 private
 [
-	"_group",
-	"_script",
-	"_params"
+	"_group"
 ];
 
 _group = createGroup [_side, true];
-_params = [_position, "HK", _units, _side, _area, _position, false, _paraSpawn, _group];
 
-if (!(_secondPos isEqualTo [])) then
+// Execute the spawn if the count is greater than zero
+if (_count > 0) then
 {
-	_params = [_position, "HK", _units, _side, _area, _secondPos, false, _paraSpawn, _group];
+	// Units that will be spawned using DynaSpawn
+	for "_i" from 0 to (_count - 1) do
+	{
+		_units = _units + [selectRandom _unitArr];
+	};
+
+	// If there is only one unit we need to yank this out of the array
+	if ((count _units) == 1) then
+	{
+		_units = (_units select 0);
+	};
+
+	private
+	[
+		"_script",
+		"_params"
+	];
+
+	_params = [_position, "HK", _units, _side, _area, _position, false, _paraSpawn, _group];
+
+	if (!(_secondPos isEqualTo [])) then
+	{
+		_params = [_position, "HK", _units, _side, _area, _secondPos, false, _paraSpawn, _group];
+	};
+
+	// Spawns the Group
+	_script = _params spawn RS_DS_fnc_DynaSpawn;
+		
+	waitUntil {
+		sleep 0.1;
+		
+		// Check if the script is finished or if it is null
+		((scriptDone _script) || (isNull _script))
+	};
+
+	// AI Re-balance
+	[clientOwner, _count] remoteExecCall ["SAEF_AS_fnc_UpdateAiCount_Remote", 2, false];
+
+	// Group Specific Settings
+	_groupCode forEach units _group;
+
+	// Run custom scripts against the group
+	{
+		[_group] execVM _x;
+	} forEach _customScripts;
 };
-
-// Spawns the Group
-_script = _params spawn RS_DS_fnc_DynaSpawn;
-	
-waitUntil {
-	sleep 0.1;
-	
-	// Check if the script is finished or if it is null
-	((scriptDone _script) || (isNull _script))
-};
-
-// AI Re-balance
-[clientOwner, _count] remoteExecCall ["SAEF_AS_fnc_UpdateAiCount_Remote", 2, false];
-
-// Group Specific Settings
-_groupCode forEach units _group;
-
-// Run custom scripts against the group
-{
-	[_group] execVM _x;
-} forEach _customScripts;
 
 // Respawn the group if the variable is still set
 if (_respawnVariable != "") exitWith

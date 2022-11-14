@@ -64,7 +64,7 @@ if (toUpper(_type) == "CREATE") exitWith
 	};
 
 	// If condition of creation doesn't immediately clear, then we need to get this into the queue 
-	if (!(_this call _conditionOfCreation)) then
+	if (!(_this call _conditionOfCreation)) exitWith
 	{
 		["SAEF_TSK_ProcessQueue", [_type, _params, _taskId], "SAEF_TSK_fnc_Handle", _conditionOfCreation, objNull, 0, {}, 10] call RS_MQ_fnc_MessageEnqueue;
 	};

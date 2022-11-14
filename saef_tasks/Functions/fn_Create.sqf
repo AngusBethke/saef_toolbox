@@ -134,5 +134,56 @@ if (toUpper(_type) == "DESTROY") exitWith
 	["Create", [_owner, [_description, (format ["Destroy - %1", _title]), _marker], (markerPos _marker), "destroy", _conditionOfCompletion, _state, _completionCodeBlocks, _conditionOfCreation], _taskId] call SAEF_TSK_fnc_Handle;
 };
 
+/*
+	------------
+	-- DEFEND --
+	------------
+
+	Creates a task to defend some area
+*/
+if (toUpper(_type) == "DEFEND") exitWith
+{
+	_params params
+	[
+		"_owner",
+		"_description",
+		"_title",
+		"_marker",
+		"_trigger",
+		["_state", "CREATED"],
+		["_completionCodeBlocks", []],
+		["_conditionOfCreation", {true}],
+		["_taskId", ""]
+	];
+
+	// Setup the condition of completion
+	private
+	[
+		"_conditionOfCompletion"
+	];
+
+	_conditionOfCompletion = 
+	[
+		[_trigger],
+		{
+			params
+			[
+				"_taskId",
+				"_trigger"
+			];
+
+			// Ensure condition of completion returns the correct states
+			[
+				(triggerActivated _trigger),
+				missionNamespace getVariable [(format ["%1_failed", _taskId]), false],
+				missionNamespace getVariable [(format ["%1_cancelled", _taskId]), false]
+			]
+		}
+	];
+
+	// Create the task
+	["Create", [_owner, [_description, (format ["Defend - %1", _title]), _marker], (markerPos _marker), "defend", _conditionOfCompletion, _state, _completionCodeBlocks, _conditionOfCreation], _taskId] call SAEF_TSK_fnc_Handle;
+};
+
 // Log warning if type is not recognised
 [_scriptTag, 2, (format ["Unrecognised type [%1], nothing is being executed!", _type])] call RS_fnc_LoggingHelper;

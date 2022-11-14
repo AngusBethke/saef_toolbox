@@ -160,6 +160,10 @@ if (_activated && _active) then
 		,["_tPlayerValidationCodeBlock", {true}]
 		,["_tCustomScripts", []]
 		,["_tQueueValidation", {true}]
+		,["_defaultDetector", true]
+		,["_useAiDirector", true]
+		,["_aiDirectorParams", []]
+		,["_paraStartPosVariable", ""]
 	];
 
 	// Validation step
@@ -342,7 +346,7 @@ if (_activated && _active) then
 		,_customScripts
 		,_queueValidation
 		,_customPositionTag
-		,_position
+		,[]
 		,_customParaStartPoint
 	];
 	

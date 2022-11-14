@@ -584,6 +584,98 @@ if (toUpper(_type) == "GETAICOUNT") exitWith
 };
 
 /*
+	---------------------
+	-- GETVEHICLECOUNT --
+	---------------------
+
+	Determines the number of vehicles to spawn given current position
+*/
+if (toUpper(_type) == "GETVEHICLECOUNT") exitWith
+{
+	_params params
+	[
+		"_position",
+		"_areaSize",
+		["_isHeavyVehicle", false]
+	];
+
+	private
+	[
+		"_countToSpawn"
+	];
+
+	_countToSpawn = 0;
+
+	// Check if players have anti-tank equipment for destruction of heavy vehicles
+	(["GetPlayerLauncherType", [_position]] call SAEF_AID_fnc_Player) params
+	[
+		"_hasAntiAir",
+		"_hasAntiTank"
+	];
+
+	// Get the current difficulty
+	(["GetCount"] call SAEF_AID_fnc_Difficulty) params
+	[
+		"_difficulty",
+		"_difficultyCount"
+	];
+
+	// Determine the number of items to spawn based on the area size
+	switch toUpper(_areaSize) do
+	{
+		case "LRG": {
+			if (_difficultyCount >= 3) then
+			{
+				if (_hasAntiTank && _isHeavyVehicle) then
+				{
+					_countToSpawn = 1;
+				};
+			};
+
+			if (_difficultyCount >= 2) then
+			{
+				if (!_isHeavyVehicle) then
+				{
+					_countToSpawn = 1;
+				};
+			};
+		};
+
+		case "MED": {
+			if (_difficultyCount >= 4) then
+			{
+				if (_hasAntiTank && _isHeavyVehicle) then
+				{
+					_countToSpawn = 1;
+				};
+			};
+
+			if (_difficultyCount >= 2) then
+			{
+				if (!_isHeavyVehicle) then
+				{
+					_countToSpawn = 1;
+				};
+			};
+		};
+
+		// Default is small
+		default {
+			if (_difficultyCount >= 2) then
+			{
+				if (!_isHeavyVehicle) then
+				{
+					_countToSpawn = 1;
+				};
+			};
+		};
+	};
+
+	// Return our count to spawn
+	_countToSpawn
+};
+
+/*
 	------------------------------
 	-- GETNUMBEROFGROUPSTOSPAWN --
 	------------------------------
