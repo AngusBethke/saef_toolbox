@@ -89,7 +89,7 @@ if (_radiusSpawn) exitWith
 
 	_params = _this;
 	_params set [9, false];
-	[_params, "SAEF_AS_fnc_Spawner", _range, (markerPos _secondaryMarker), _playerValidation, _queueValidation] spawn SAEF_AS_fnc_Radius;
+	[_params, "SAEF_AS_fnc_Spawner", _range, (markerPos [_secondaryMarker, true]), _playerValidation, _queueValidation] spawn SAEF_AS_fnc_Radius;
 
 	[_scriptTag, 3, (format["<OUT> [%1]", _marker])] call RS_fnc_LoggingHelper;
 };
@@ -237,7 +237,7 @@ if ((missionNamespace getVariable [_persistenceVariable, true]) || (_persistence
 		
 		_params = _this;
 		_params set [9, true];
-		[_params, [_group], "SAEF_AS_fnc_Spawner", _persistenceVariable, _range, (markerPos _secondaryMarker), _playerValidation, _queueValidation] spawn SAEF_AS_fnc_Persistence;
+		[_params, [_group], "SAEF_AS_fnc_Spawner", _persistenceVariable, _range, (markerPos [_secondaryMarker, true]), _playerValidation, _queueValidation] spawn SAEF_AS_fnc_Persistence;
 
 		[_scriptTag, 3, (format["<OUT> [%1] | Persisting...", _marker])] call RS_fnc_LoggingHelper;
 	};

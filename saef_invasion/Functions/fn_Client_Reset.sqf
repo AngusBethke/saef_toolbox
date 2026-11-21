@@ -70,7 +70,7 @@ _respawnMarker = "";
 } forEach _respawnMarkers;
 
 // Move the player to their respawn marker
-player setPos (markerPos _respawnMarker);
+player setPos (markerPos [_respawnMarker, true]);
 hint "[RS Invasion] Something has gone wrong! Please attempt the drop again...";
 
 /*

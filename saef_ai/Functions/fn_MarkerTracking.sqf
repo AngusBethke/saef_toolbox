@@ -433,9 +433,9 @@ if (toUpper(_type) == "HANDLEMARKER") exitWith
 		"_indeInside"
 	];
 
-	_eastInside = _allEastUnits inAreaArray [(markerPos _marker), -50, -50, (markerDir _marker), false];
-	_westInside = _allWestUnits inAreaArray [(markerPos _marker), -50, -50, (markerDir _marker), false];
-	_indeInside = _allIndeUnits inAreaArray [(markerPos _marker), -50, -50, (markerDir _marker), false];
+	_eastInside = _allEastUnits inAreaArray [(markerPos [_marker, true]), -50, -50, (markerDir _marker), false];
+	_westInside = _allWestUnits inAreaArray [(markerPos [_marker, true]), -50, -50, (markerDir _marker), false];
+	_indeInside = _allIndeUnits inAreaArray [(markerPos [_marker, true]), -50, -50, (markerDir _marker), false];
 
 	// We're going to preserve the marker state if there is nothing inside of this
 	if ((_eastInside isEqualTo []) && (_westInside isEqualTo []) && (_indeInside isEqualTo [])) exitWith {};

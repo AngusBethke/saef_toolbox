@@ -121,7 +121,7 @@ if (toUpper(_type) == "CREATE") exitWith
 					"_distance"
 				];
 
-				_distance = ((markerPos _x) distance (markerPos _marker));
+				_distance = ((markerPos [_x, true]) distance (markerPos [_marker, true]));
 
 				if ((_distance <= _counterAttackDistance) && (_distance >= 500)) then
 				{
@@ -143,7 +143,7 @@ if (toUpper(_type) == "CREATE") exitWith
 
 		if (_areaAllowedParadrop) then
 		{
-			_spawnPositions = ["GetSafeSpawnPositions", [(markerPos _marker), 250, (markerPos _marker)]] call SAEF_AS_fnc_Vehicle;
+			_spawnPositions = ["GetSafeSpawnPositions", [(markerPos [_marker, true]), 250, (markerPos [_marker, true])]] call SAEF_AS_fnc_Vehicle;
 		}
 		else
 		{
@@ -164,7 +164,7 @@ if (toUpper(_type) == "CREATE") exitWith
 			];
 
 			// Setup the time delay
-			_timeDelay = ceil (((markerPos _x) distance (markerPos _marker)) / 10);
+			_timeDelay = ceil (((markerPos [_x, true]) distance (markerPos [_marker, true])) / 10);
 
 			// Ensure we don't utilise all of the areas
 			if (_forEachIndex < _difficultyCount) then
@@ -277,7 +277,7 @@ if (toUpper(_type) == "EXECUTE") exitWith
 	// Ensure paradrop only occurs if allowed - get safe spawn positions
 	if (!_areaAllowedParadrop) then
 	{
-		_spawnPositions = ["GetSafeSpawnPositions", [(markerPos _thisArea), 250, (markerPos _marker)]] call SAEF_AS_fnc_Vehicle;
+		_spawnPositions = ["GetSafeSpawnPositions", [(markerPos [_thisArea, true]), 250, (markerPos [_marker, true])]] call SAEF_AS_fnc_Vehicle;
 	};
 
 	// Spawn counter attack groups

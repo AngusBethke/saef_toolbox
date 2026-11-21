@@ -45,7 +45,8 @@ if (toUpper(_type) == "CREATE") exitWith
 		["_conditionOfCompletion", []],
 		["_state", "CREATED"],
 		["_completionCodeBlocks", []],
-		["_conditionOfCreation", {true}]
+		["_conditionOfCreation", {true}],
+		["_creationCodeBlocks", []]
 	];
 
 	// Decorate incoming variables
@@ -67,6 +68,20 @@ if (toUpper(_type) == "CREATE") exitWith
 	if (!(_this call _conditionOfCreation)) exitWith
 	{
 		["SAEF_TSK_ProcessQueue", [_type, _params, _taskId], "SAEF_TSK_fnc_Handle", _conditionOfCreation, objNull, 0, {}, 10] call RS_MQ_fnc_MessageEnqueue;
+	};
+
+	// Execute any code that needs to be executed when the task is created
+	if (!(_creationCodeBlocks isEqualTo [])) then
+	{
+		_creationCodeBlocks params
+		[
+			"_creationCodeBlocksParams",
+			"_creationCodeBlocksChunks"
+		];
+
+		{
+			_creationCodeBlocksParams call _x;
+		} forEach _creationCodeBlocksChunks;
 	};
 
 	// By default the condition of completion of this task will be a check against the missionNamespace variable id of this task

@@ -38,26 +38,33 @@ switch toUpper(_type) do
 {
 	case "SERVER" :
 	{
+		private
+		[
+			"_terrainVD"
+		];
+
+		_terrainVD = (missionNamespace getVariable ["SAEF_ViewDistance_TerrainDistanceOverride", _defaultServerVD]);
+
 		// Set the View Distance
-		setViewDistance _defaultServerVD;
+		setViewDistance _terrainVD;
 		setObjectViewDistance [_defaultServerVD, _defaultShadowVD];
 		
 		// Set the variables for Server View Distance
-		missionNamespace setVariable ["Server_ViewDistance", _defaultServerVD, true];
+		missionNamespace setVariable ["Server_ViewDistance", _terrainVD, true];
 		missionNamespace setVariable ["Server_ObjectViewDistance", [_defaultServerVD, _defaultShadowVD], true];
 		
 		// Set the variables for Player View Distance
-		missionNamespace setVariable ["Infantry_ViewDistance", _defaultPlayerVD, true];
+		missionNamespace setVariable ["Infantry_ViewDistance", _terrainVD, true];
 		missionNamespace setVariable ["Infantry_ObjectViewDistance", [_defaultPlayerVD, _defaultShadowVD], true];
 		
 		// Set the variables for Aircraft View Distance
-		missionNamespace setVariable ["Aircraft_ViewDistance", _defaultAircraftVD, true];
+		missionNamespace setVariable ["Aircraft_ViewDistance", _terrainVD, true];
 		missionNamespace setVariable ["Aircraft_ObjectViewDistance", [_defaultAircraftVD, _defaultShadowVD], true];
 
 		// Set the fixed ceiling variable
 		missionNamespace setVariable ["SAEF_ViewDistance_FixedCeiling", _defaultFixedCeiling, true];
 		
-		[_scriptTag, 0, (format ["Set View Distance to: %1", _defaultServerVD])] call RS_fnc_LoggingHelper;
+		[_scriptTag, 0, (format ["Set View Distance to: %1", _terrainVD])] call RS_fnc_LoggingHelper;
 		[_scriptTag, 0, (format ["Set Object View Distance to: %1", [_defaultServerVD, _defaultShadowVD]])] call RS_fnc_LoggingHelper;
 	};
 	case "PLAYER" :

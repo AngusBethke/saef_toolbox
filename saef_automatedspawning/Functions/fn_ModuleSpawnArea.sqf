@@ -79,7 +79,8 @@ if (_activated && _active) then
 {
 	private
 	[
-		"_size"
+		"_positionCode"
+		,"_size"
 		,"_blockPatrol"
 		,"_blockGarrison"
 		,"_spawnSide"
@@ -100,6 +101,30 @@ if (_activated && _active) then
 		,"_dynamicOverrides"
 		,"_markerConfig"
 	];
+
+	_positionCode = {
+		params
+		[
+			"_object"
+		];
+
+		private
+		[
+			"_position",
+			"_positionToSpawn"
+		];
+
+		_position = (getPosASL _object);
+
+		if (surfaceIsWater [(_position select 0), (_position select 1)]) exitWith
+		{
+			// Return our position above sea level
+			_position
+		};
+
+		// Return our position above terrain level
+		(getPosATL _object)
+	};
 
 	// Load our variables from the module
 	_size = _logic getVariable ["Size", "SML"]; 
@@ -209,6 +234,7 @@ if (_activated && _active) then
 	_marker = createMarker [_markerName, (getPos _logic)];
 	_marker setMarkerDir (getDir _logic);
 	_marker setMarkerType "Empty";
+	_marker setMarkerPos ([_logic] call _positionCode);
 	_infoArray pushBack (format ["Created Marker: %1", _markerName]);
 
 	// Check Logic Objects that are nearby or sync'd
@@ -254,6 +280,7 @@ if (_activated && _active) then
 				_tMarker = createMarker [_tMarkerName, (getPos _syncedObject)];
 				_tMarker setMarkerType "Empty";
 				_tMarker setMarkerDir (getDir _syncedObject);
+				_tMarker setMarkerPos ([_syncedObject] call _positionCode);
 				_infoArray pushBack (format ["Created Marker: %1", _tMarkerName]);
 			}
 			else
@@ -271,6 +298,7 @@ if (_activated && _active) then
 					_tMarker = createMarker [_tMarkerName, (getPos _syncedObject)];
 					_tMarker setMarkerType "Empty";
 					_tMarker setMarkerDir (getDir _syncedObject);
+					_tMarker setMarkerPos ([_syncedObject] call _positionCode);
 					_infoArray pushBack (format ["Created Marker: %1", _tMarkerName]);
 				}
 				else

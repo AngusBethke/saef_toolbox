@@ -464,7 +464,7 @@ if (toUpper(_type) == "GETAICOUNTFORAREA") exitWith
 	// Need to ensure that we're not re-populating attacked areas
 	if (_count >= _min) then
 	{
-		_tempCount = (["GetAiCount", [(markerPos _marker), _areaSize, _clampByPositions]] call SAEF_AID_fnc_Difficulty);
+		_tempCount = (["GetAiCount", [(markerPos [_marker, true]), _areaSize, _clampByPositions]] call SAEF_AID_fnc_Difficulty);
 	};
 
 	if (_tempCount != 0) then
@@ -700,7 +700,7 @@ if (toUpper(_type) == "GETNUMBEROFGROUPSTOSPAWN") exitWith
 	];
 
 	_groupNumber = 0;
-	_countPerGroup = (["GetAiCount", [(markerPos _marker), _areaSize]] call SAEF_AID_fnc_Difficulty);
+	_countPerGroup = (["GetAiCount", [(markerPos [_marker, true]), _areaSize]] call SAEF_AID_fnc_Difficulty);
 	_lightVehicleNumber = 0;
 	_heavyVehicleNumber = 0;
 
@@ -717,7 +717,7 @@ if (toUpper(_type) == "GETNUMBEROFGROUPSTOSPAWN") exitWith
 	};
 
 	// Check if players have anti-tank equipment for destruction of heavy vehicles
-	(["GetPlayerLauncherType", [(markerPos _marker)]] call SAEF_AID_fnc_Player) params
+	(["GetPlayerLauncherType", [(markerPos [_marker, true])]] call SAEF_AID_fnc_Player) params
 	[
 		"_hasAntiAir",
 		"_hasAntiTank"

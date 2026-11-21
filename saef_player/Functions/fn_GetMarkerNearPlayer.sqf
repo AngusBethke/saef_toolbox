@@ -70,7 +70,7 @@ if (_hkMarkers isEqualTo []) exitWith
 _possibleSpawnMarkers = [];
 
 {
-	_closePlayer = [(markerPos _x), _maxSearchDistance] call RS_PLYR_fnc_GetClosestPlayer;
+	_closePlayer = [(markerPos [_x, true]), _maxSearchDistance] call RS_PLYR_fnc_GetClosestPlayer;
 	if !(_closePlayer isEqualTo [0,0,0]) then
 	{
 		_possibleSpawnMarkers = _possibleSpawnMarkers + [_x];
@@ -89,7 +89,7 @@ if (_possibleSpawnMarkers isEqualTo []) exitWith
 _spawnMarkers = [];
 
 {
-	_closePlayer = [(markerPos _x), _playerDistanceThreshold] call RS_PLYR_fnc_GetClosestPlayer;
+	_closePlayer = [(markerPos [_x, true]), _playerDistanceThreshold] call RS_PLYR_fnc_GetClosestPlayer;
 	if (_closePlayer isEqualTo [0,0,0]) then
 	{
 		_spawnMarkers = _spawnMarkers + [_x];

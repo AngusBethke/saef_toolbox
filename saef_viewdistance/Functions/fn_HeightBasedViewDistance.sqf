@@ -90,7 +90,7 @@ addMissionEventHandler ["EachFrame", {
 			// Get some variables
 			_srvViewDistance = (missionNamespace getVariable ["Aircraft_ObjectViewDistance", [5000, 50]]);
 			_srvViewDistance params ["_maxViewDistance", "_shdViewDistance"];
-			_minViewDistance = (missionNamespace getVariable ["Infantry_ViewDistance", 1200]);
+			(missionNamespace getVariable ["Infantry_ObjectViewDistance", 1200]) params ["_minViewDistance"];
 			_fixedCeiling = (missionNamespace getVariable ["SAEF_ViewDistance_FixedCeiling", 150]);
 		
 			// Default Declarations
@@ -122,7 +122,7 @@ addMissionEventHandler ["EachFrame", {
 			// We only want to adjust this if something needs to change
 			if (viewDistance != _viewDistance) then
 			{
-				setViewDistance _viewDistance;
+				setViewDistance (missionNamespace getVariable ["SAEF_ViewDistance_TerrainDistanceOverride", _viewDistance]);
 				setObjectViewDistance [_viewDistance, _shdViewDistance];
 			};
 		};

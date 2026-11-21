@@ -429,7 +429,7 @@ if ((missionNamespace getVariable [_variable, true])) then
 
 		_strSpawnSide = (toUpper(format ["%1", (missionNamespace getVariable [_spawnSide, EAST])]));
 
-		_trigger = createTrigger ["EmptyDetector", (markerPos _marker)];
+		_trigger = createTrigger ["EmptyDetector", (markerPos [_marker, true])];
 		_trigger setTriggerArea [_baseAreaSize, _baseAreaSize, 0, false];
 		_trigger setTriggerActivation [_strSpawnSide, "NOT PRESENT", true];
 		_trigger setTriggerInterval 5;
@@ -473,7 +473,7 @@ if ((missionNamespace getVariable [_variable, true])) then
 
 		_strSpawnSide = (toUpper(format ["%1", (missionNamespace getVariable [_spawnSide, EAST])]));
 
-		_trigger = createTrigger ["EmptyDetector", (markerPos _marker)];
+		_trigger = createTrigger ["EmptyDetector", (markerPos [_marker, true])];
 		_trigger setTriggerArea [_baseAreaSize, _baseAreaSize, 0, false, 150];
 		_trigger setTriggerActivation ["ANYPLAYER", (format ["%1 D", _strSpawnSide]), false];
 		_trigger setTriggerInterval 5;

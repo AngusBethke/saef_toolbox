@@ -32,6 +32,14 @@ params
 	"_originalSpawnPos"
 ];
 
+(missionNamespace getVariable ["SAEF_DynaSpawn_ParaInsertion_Overrides", []]) params
+[
+	["_saef_DSPI_Override_VehicleSpeed", "NORMAL"],
+	["_saef_DSPI_Override_VehicleDropSpeed", "NORMAL"],
+	["_saef_DSPI_Override_VehicleHeight", 300],
+	["_saef_DSPI_Override_VehicleBehaviour", "AWARE"]
+];
+
 if (missionNamespace getVariable ["SAEF_DynaSpawn_ExtendedLogging", false]) then
 {
 	["DynaSpawn", 4, (format ["[ParaInsertion] <IN> | Parameters: %1", _this])] call RS_fnc_LoggingHelper;
@@ -130,21 +138,30 @@ if (_spawnPos isEqualTo []) exitWith
 
 private
 [
-	"_vehArray",
-	"_veh",
-	"_vGroup"
+	"_vehicleCode"
 ];
 
 // Create the Vehicle
-_vehArray = [_spawnPos, _azi, _vehicle, _facSide] call bis_fnc_spawnvehicle;
-_veh = (_vehArray select 0);
-_vGroup = (_vehArray select 2);
+([_spawnPos, _azi, _vehicle, _facSide] call bis_fnc_spawnvehicle) params
+[
+	"_veh",
+	"_crew",
+	"_vGroup"
+];
+
+_vehicleCode = missionNamespace getVariable ["SAEF_DynaSpawn_ParaInsertion_VehicleCode", {}];
+[_veh] call _vehicleCode;
 
 // Helo Height Fix
-_veh flyInHeight 300;
+_veh flyInHeight _saef_DSPI_Override_VehicleHeight;
+_vGroup setBehaviour _saef_DSPI_Override_VehicleBehaviour;
+_vGroup allowFleeing 0;
+
 {
 	["SpawnProtection", [_x]] spawn RS_DS_fnc_UnitHelper;
-	_x flyInHeight 300;
+	_x flyInHeight _saef_DSPI_Override_VehicleHeight;
+	_x setBehaviour _saef_DSPI_Override_VehicleBehaviour;
+	_x allowFleeing 0;
 } forEach units _vGroup;
 
 // Add units to Zeus
@@ -156,19 +173,25 @@ if (missionNamespace getVariable ["SAEF_DynaSpawn_AddToZeus", false]) then
 private
 [
 	"_wp1",
-	"_wp2"
+	"_wp2",
+	"_wp3"
 ];
 
 // Create Waypoints
-_wp1 = _vGroup addWaypoint [_insertionPos, 0];
-_wp1 setWaypointSpeed "NORMAL";
+_wp1 = _vGroup addWaypoint [(_veh getRelPos [((_veh distance2D _insertionPos) / 2), (_veh getRelDir _insertionPos)]), 0];
+_wp1 setWaypointSpeed _saef_DSPI_Override_VehicleSpeed;
 _wp1 setWaypointType "MOVE";
-_wp1 setWaypointBehaviour "AWARE";
+_wp1 setWaypointBehaviour _saef_DSPI_Override_VehicleBehaviour;
 
-_wp2 = _vGroup addWaypoint [_spawnPos, 1];
-_wp2 setWaypointSpeed "NORMAL";
+_wp2 = _vGroup addWaypoint [_insertionPos, 1];
+_wp2 setWaypointSpeed _saef_DSPI_Override_VehicleDropSpeed;
 _wp2 setWaypointType "MOVE";
-_wp2 setWaypointBehaviour "AWARE";
+_wp2 setWaypointBehaviour _saef_DSPI_Override_VehicleBehaviour;
+
+_wp3 = _vGroup addWaypoint [_spawnPos, 2];
+_wp3 setWaypointSpeed _saef_DSPI_Override_VehicleSpeed;
+_wp3 setWaypointType "MOVE";
+_wp3 setWaypointBehaviour _saef_DSPI_Override_VehicleBehaviour;
 
 sleep 0.1;
 
@@ -180,7 +203,21 @@ private
 ];
 
 // Validate Available Seats
-_seats = count (fullCrew [_veh, "cargo", true]);
+_seats = 
+{ 
+	_x params
+	[
+		"_unit",
+		"_role",
+		"_cargoIndex",
+		"_turretPath",
+		"_personTurret",
+		"_assignedUnit",
+		"_positionName"
+	];
+
+	(isNull _unit)
+} count (fullCrew [_veh, "", true]);
 _units = count (units _group);
 _vehicles = [];
 
@@ -288,46 +325,73 @@ else
 {
 	// Deploy the Paratroopers
 	{
-		// Store the units backpack
-		private
+		(_x getVariable ["SAEF_DynaSpawn_ParaInsertion_Overrides", []]) params
 		[
-			"_backpack"
+			["_canUseParachute", true]
 		];
 
-		_backpack = backpack _x;  
-
-		// Give paratrooper parachute
-		removeBackpack _x;
-		_x addBackpack "ACE_NonSteerableParachute";
-		
-		// Exit from vehicle
-		unassignVehicle _x;  
-		moveOut _x;
-
-		// Ensure the unit gets their backpack back once they are on the ground
-		if (_backpack != "") then
+		if (_canUseParachute) then
 		{
-			[_x, _backpack] spawn
+			// Store the units backpack
+			private
+			[
+				"_backpack"
+			];
+
+			_backpack = backpack _x;  
+
+			// Ensure the unit gets their backpack back once they are on the ground
+			if (_backpack != "") then
+			{
+				[_x, _backpack] spawn
+				{
+					params
+					[
+						"_unit",
+						"_backpack"
+					];
+
+					sleep 10;
+
+					waitUntil {
+						sleep 1;
+						(((vehicle _unit) == _unit) || (!alive _unit))
+					};
+
+					if (alive _unit) then
+					{
+						_unit addBackpack _backpack;
+					};
+				};
+			};
+
+			// Give paratrooper parachute
+			removeBackpack _x;
+			_x addBackpack "ACE_NonSteerableParachute";
+		}
+		else
+		{
+			[_x] spawn
 			{
 				params
 				[
-					"_unit",
-					"_backpack"
+					"_unit"
 				];
 
-				sleep 10;
+				_unit allowDamage false;
 
 				waitUntil {
 					sleep 1;
-					(((vehicle _unit) == _unit) || (!alive _unit))
+					(((vehicle _unit) == _unit) && (((getPosATL _unit) select 2) < 0.5))
 				};
 
-				if (alive _unit) then
-				{
-					_unit addBackpack _backpack;
-				};
+				_unit allowDamage true;
 			};
 		};
+			
+		// Exit from vehicle
+		unassignVehicle _x;  
+		moveOut _x;
 		
 		// Wait for next unit
 		sleep 0.5;

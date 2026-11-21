@@ -41,7 +41,7 @@ if ((typeName _var) isEqualTo "STRING") then
 	}
 	else
 	{
-		_pos = markerPos _var;
+		_pos = markerPos [_var, true];
 		_azi = markerDir _var;
 	};
 }

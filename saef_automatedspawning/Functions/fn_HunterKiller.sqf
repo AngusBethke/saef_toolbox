@@ -120,7 +120,7 @@ if (_customPositionTag != "") then
 	// If we've found a marker then we need to adjust the position to use the custom position instead
 	if (_marker != "") then
 	{
-		_position = (markerPos _marker);
+		_position = (markerPos [_marker, true]);
 		_position pushBack (markerDir _marker);
 	}
 	else
