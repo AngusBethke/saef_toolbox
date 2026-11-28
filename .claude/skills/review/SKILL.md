@@ -84,6 +84,10 @@ The toolbox is published on the Workshop and old missions call it.
 - New components add a `config.cpp` with `CfgPatches` and correct `requiredAddons` (`saef toolbox`
   packs every component folder that has a `config.cpp`).
 - Headers are filled in (`@summary`, `@param`) so `saef_toolbox.json` stays useful.
+- New toolbox code uses the `_type` method pattern (clean-code). When an old single-purpose function
+  is folded into a class, the old function name stays as a deprecated alias that calls the new
+  method, until no mission in `missions/` uses it.
+- State lives in `SAEF_<TAG>_*` `missionNamespace` variables behind the class's `Get`/`Set` methods.
 
 ### 6. Tests
 

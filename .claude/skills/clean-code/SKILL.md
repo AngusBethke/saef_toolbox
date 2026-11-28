@@ -58,9 +58,44 @@ code can be read and enhanced by a mission maker other than its original author.
 ## Functions rules
 
 - Small. Do one thing. Prefer fewer arguments.
-- No hidden side effects: a function's name says what state it changes.
-- Don't use flag arguments to select behaviour. Split into separate functions (or a clear
-  `"Mode"` first parameter, the pattern the toolbox already uses, such as `["Activate", ...]`).
+- No hidden side effects: a function's name (or method name, below) says what state it changes.
+- Don't use boolean flag arguments to select behaviour. Use a separate method instead.
+
+## Toolbox functions are "classes" with methods
+
+New and refactored toolbox code follows the pattern in `saef_aidirector`: one `fn_<Class>.sqf` per
+concept, called as `["<Method>", [<args>]] call SAEF_<TAG>_fnc_<Class>`.
+
+```sqf
+params ["_type", ["_params", []]];
+
+private _scriptTag = "SAEF AID Player";
+
+/*
+	-- GETGROUPSTATUSFACTOR --
+	What the method does, what it returns.
+*/
+if (toUpper _type == "GETGROUPSTATUSFACTOR") exitWith
+{
+	_params params ["_group", ["_logStatus", false]];
+	...
+};
+
+[_scriptTag, 2, format ["Unrecognised type [%1], nothing is being executed!", _type]] call RS_fnc_LoggingHelper;
+```
+
+- Each method is one `if (toUpper _type == "METHOD") exitWith { ... };` block with its own
+  `_params params [...]` and a header comment; the method name is PascalCase at the call site.
+- Methods call each other through the function (`["Get"] call SAEF_AID_fnc_Difficulty`), and helper
+  methods live in the same file as the methods that use them.
+- The file ends by logging an unrecognised `_type`, so a typo shows in the RPT instead of doing
+  nothing.
+- State is not held by the function. Keep it in `missionNamespace` variables named
+  `SAEF_<TAG>_<Name>`, read and written through `Get`/`Set` methods of the owning class so no other
+  code touches the variable directly. Broadcast (`true`) only when other machines read it.
+- Keep a class to one concept. When a file grows past a handful of unrelated methods, split it.
+- Existing published functions keep working while they are converted (see review, toolbox API
+  compatibility).
 
 ## Comments rules
 

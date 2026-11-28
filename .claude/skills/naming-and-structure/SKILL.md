@@ -53,7 +53,9 @@ Names inside code (variables, params) follow the clean-code skill.
 
 - One component per system: `saef_<system>/` (lower case, no separators), with `config.cpp`
   declaring `CfgPatches` class `SAEF_TOOLBOX_<SYSTEM>` and its `CfgFunctions`.
-- Functions live in `saef_<system>/Functions/fn_<Name>.sqf`. Scripts that must be run by path (for
+- Functions live in `saef_<system>/Functions/fn_<Name>.sqf`. New code groups methods into a class
+  file called with a `_type` method name (`["GetAll"] call SAEF_AID_fnc_Track`; see clean-code), so
+  `<Name>` is the concept (`Player`, `Track`, `Difficulty`), not a verb. Scripts that must be run by path (for
   example admin actions that `execVM` a path) live in `saef_<system>/Scripts/<Name>.sqf` and are
   referenced as `\saef_<system>\Scripts\<Name>.sqf`.
 - Function tags: new components use `SAEF_<SHORT>` (`SAEF_ENV`, `SAEF_VEH`, `SAEF_AS`); older ones
