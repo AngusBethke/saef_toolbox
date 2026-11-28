@@ -29,4 +29,15 @@ class CfgFunctions
 			class Handle {};
 		};
 	};
+
+	// Compatibility: the SAEF Mission Framework's former mission-side copy of these helpers
+	class SAEF_TSK_CUS
+	{
+		class Tasks
+		{
+			file = "saef_tasks\Functions";
+			class Create { file = "saef_tasks\Functions\fn_CUS_Create.sqf"; };
+			class Handle { file = "saef_tasks\Functions\fn_CUS_Handle.sqf"; };
+		};
+	};
 };

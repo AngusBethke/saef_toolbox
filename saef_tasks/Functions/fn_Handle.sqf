@@ -25,7 +25,7 @@ private
 ];
 
 _scriptTag = "SAEF Tasks - Handle";
-_taskStates = ["CREATED", "ASSIGNED", "AUTOASSIGNED", "SUCCEEDED", "FAILED", "CANCELLED"];
+_taskStates = ["CREATED", "ASSIGNED", "AUTOASSIGNED", "SUCCEEDED", "FAILED", "CANCELED"];
 
 /*
 	------------
@@ -217,7 +217,7 @@ if (toUpper(_type) == "HANDLECOMPLETION") exitWith
 
 	if (_cancelled) exitWith
 	{
-		[_taskId, "CANCELLED"] call BIS_fnc_taskSetState;
+		[_taskId, "CANCELED"] call BIS_fnc_taskSetState;
 		["ExecuteCompletion", ([(format ["%1_cancelled", _taskId])] + _cancelledCodeBlockAndParams), _taskId] call SAEF_TSK_fnc_Handle;
 	};
 };
