@@ -21,6 +21,7 @@ class CfgFunctions
 		class Loadouts
 		{
 			file = "saef_loadouts\Functions";
+			class GroupLoadout {};
 			class AddBalancedItems {};
 			class AddGearItem {};
 			class AddToRandomisationPool {};

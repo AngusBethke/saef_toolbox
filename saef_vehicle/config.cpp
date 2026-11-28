@@ -26,6 +26,9 @@ class CfgFunctions
 		class RearmAndRepair
 		{
 			file = "saef_vehicle\Functions";
+			class InsertExtract {};
+			class SpawnDriverAI {};
+			class WaitForPlayersInVehicle {};
 			class ModuleRearmAndRepair {};
 			class RnR_ActionRearm {};
 			class RnR_ActionRespawn {};

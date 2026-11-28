@@ -29,6 +29,8 @@ class CfgFunctions
 		class Respawn
 		{
 			file = "saef_respawn\Functions";
+			class RespawnCustomLocations {};
+			class RespawnPoints {};
 			class ForceRespawnSelf {};
 			class Handler_TimedRespawn {};
 			class Handler_WaveRespawn_PenaltyHandler {};
