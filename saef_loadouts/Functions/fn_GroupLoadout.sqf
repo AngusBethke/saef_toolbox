@@ -1,6 +1,5 @@
 /*
 	Moved to saef_toolbox from the SAEF Mission Framework (Scripts\AI\GroupLoadout.sqf).
-	The framework keeps Scripts\AI\GroupLoadout.sqf as a wrapper that forwards to RS_LD_fnc_GroupLoadout.
 */
 
 /*
@@ -10,7 +9,7 @@
 		Distributes loadout to a group
 
 	How to Call:
-		[_group] execVM "Scripts\AI\GroupLoadout.sqf";
+		[_group] spawn RS_LD_fnc_GroupLoadout;
 */
 
 params

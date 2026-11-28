@@ -1,6 +1,5 @@
 /*
 	Moved to saef_toolbox from the SAEF Mission Framework (Scripts\Player\Respawn.sqf).
-	The framework keeps Scripts\Player\Respawn.sqf as a wrapper that forwards to RS_fnc_RespawnCustomLocations.
 */
 
 /*
@@ -9,7 +8,7 @@
 	Description:
 		Custom respawn scripts should be executed here
 
-	[player] execVM "Scripts\Player\Respawn.sqf";
+	[player] spawn RS_fnc_RespawnCustomLocations;
 */
 
 params

@@ -1,6 +1,5 @@
 /*
 	Moved to saef_toolbox from the SAEF Mission Framework (Scripts\Vehicle\InsertExtract_ion.sqf).
-	The framework keeps Scripts\Vehicle\InsertExtract_ion.sqf as a wrapper that forwards to SAEF_VEH_fnc_InsertExtract.
 */
 
 /*
@@ -10,8 +9,8 @@
 		Scripted Helicopter Extraction
 	
 	How to Call: 
-		["marker_1", pos_1] execVM "Scripts\Vehicle\InsertExtract_ion.sqf";
-		["marker_1", pos_1, "RHS_MELB_MH6M", "INSERT"] execVM "Scripts\Vehicle\InsertExtract_ion.sqf";
+		["marker_1", pos_1] spawn SAEF_VEH_fnc_InsertExtract;
+		["marker_1", pos_1, "RHS_MELB_MH6M", "INSERT"] spawn SAEF_VEH_fnc_InsertExtract;
 */
 
 params

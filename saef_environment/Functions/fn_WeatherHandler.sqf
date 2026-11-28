@@ -1,13 +1,12 @@
 /*
 	Moved to saef_toolbox from the SAEF Mission Framework (Scripts\Utility\Weather.sqf).
-	The framework keeps Scripts\Utility\Weather.sqf as a wrapper that forwards to SAEF_ENV_fnc_WeatherHandler.
 */
 
 /*
 	Weather.sqf
 	Version: 0.1
 
-	[] execVM "Scripts\Utility\Weather.sqf";
+	[] spawn SAEF_ENV_fnc_WeatherHandler;
 */
 
 if !(isServer) exitWith {};

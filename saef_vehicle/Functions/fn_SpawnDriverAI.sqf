@@ -1,6 +1,5 @@
 /*
 	Moved to saef_toolbox from the SAEF Mission Framework (Scripts\Vehicle\SpawnDriverAI.sqf).
-	The framework keeps Scripts\Vehicle\SpawnDriverAI.sqf as a wrapper that forwards to SAEF_VEH_fnc_SpawnDriverAI.
 */
 
 /*
@@ -10,8 +9,8 @@
 		Creates AI driver for specified vehicle
 
 	How to call:
-		["AddAction", "B_Helo_F", "B_crew_F", true] execVM "Scripts\Vehicle\SpawnDriverAI.sqf";
-		["AddDriver", (vehicle player), _crewType, _execLoadout] execVM "Scripts\Vehicle\SpawnDriverAI.sqf";
+		["AddAction", "B_Helo_F", "B_crew_F", true] spawn SAEF_VEH_fnc_SpawnDriverAI;
+		["AddDriver", (vehicle player), _crewType, _execLoadout] spawn SAEF_VEH_fnc_SpawnDriverAI;
 */
 
 params
@@ -35,7 +34,7 @@ if (toUpper(_type) == "ADDACTION") exitWith
 			_params params ["_vehicle", "_crewType", "_execLoadout"];
 
 			// Execute the script
-			["AddDriver", (vehicle player), _crewType, _execLoadout] execVM "Scripts\Vehicle\SpawnDriverAI.sqf";
+			["AddDriver", (vehicle player), _crewType, _execLoadout] spawn SAEF_VEH_fnc_SpawnDriverAI;
 		}, 
 		{
 			params ["_target", "_player", "_params"];

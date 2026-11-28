@@ -1,6 +1,5 @@
 /*
 	Moved to saef_toolbox from the SAEF Mission Framework (Scripts\Player\InVehicle.sqf).
-	The framework keeps Scripts\Player\InVehicle.sqf as a wrapper that forwards to SAEF_VEH_fnc_WaitForPlayersInVehicle.
 */
 
 /*

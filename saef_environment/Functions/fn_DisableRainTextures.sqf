@@ -1,6 +1,5 @@
 /*
 	Moved to saef_toolbox from the SAEF Mission Framework (Scripts\Utility\TurnOffRainTextures.sqf).
-	The framework keeps Scripts\Utility\TurnOffRainTextures.sqf as a wrapper that forwards to SAEF_ENV_fnc_DisableRainTextures.
 */
 
 /*
@@ -10,7 +9,7 @@
 		Turn off all the rain textures
 
 	How to call:
-		[] execVM "Scripts\Utility\TurnOffRainTextures.sqf";
+		[] spawn SAEF_ENV_fnc_DisableRainTextures;
 */
 
 // Delay until the handler is finished declaring variables

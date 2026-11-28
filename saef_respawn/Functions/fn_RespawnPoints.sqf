@@ -1,6 +1,5 @@
 /*
 	Moved to saef_toolbox from the SAEF Mission Framework (Scripts\Player\RespawnPoints.sqf).
-	The framework keeps Scripts\Player\RespawnPoints.sqf as a wrapper that forwards to RS_fnc_RespawnPoints.
 */
 
 /*
@@ -10,8 +9,8 @@
 		Handles usage of the respawn points
 
 	Usage:
-		["Activate", ["redeploy_point_1"]] execVM "Scripts\Player\RespawnPoints.sqf";
-		["AceAction", ["redeploy_action_object_1", "redeploy_point"]] execVM "Scripts\Player\RespawnPoints.sqf";
+		["Activate", ["redeploy_point_1"]] spawn RS_fnc_RespawnPoints;
+		["AceAction", ["redeploy_action_object_1", "redeploy_point"]] spawn RS_fnc_RespawnPoints;
 */
 
 params
